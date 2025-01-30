@@ -30,16 +30,16 @@
 
   <div class="flex justify-between items-center mb-6">
     <h1 class="text-2xl font-bold">Anggota</h1>
+  </div>
 
-    <div class="">
-      <button
-        type="button"
-        class="bg-green-800 text-white py-2 px-4 rounded-md flex items-center"
-      >
-        <i data-lucide="plus" class="mr-2"></i>
-        Tambah Anggota
-      </button>
-    </div>
+  <div class="mb-6 flex justify-end">
+    <button
+      type="button"
+      class="bg-green-800 text-white py-2 px-4 rounded-md flex items-center"
+    >
+      <i data-lucide="plus" class="mr-2"></i>
+      Tambah Anggota
+    </button>
   </div>
 
   <div>

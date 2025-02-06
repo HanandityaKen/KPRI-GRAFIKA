@@ -1,6 +1,6 @@
 @extends('admin.layout.main')
 
-@section('title', 'Tambah Angggota')
+@section('title', 'Tambah Pengurus')
 
 @section('content')
       
@@ -24,7 +24,7 @@
             <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
             </svg>
-            <a href="{{ route('admin.anggota.index') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2">Anggota</a>
+            <a href="{{ route('admin.pengurus.index') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2">Pengurus</a>
           </div>
         </li>
         <li>
@@ -32,19 +32,29 @@
             <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
             </svg>
-            <a href="{{ route('admin.anggota.create') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2">Tambah Anggota</a>
+            <a href="{{ route('admin.pengurus.create') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2">Tambah Pengurus</a>
           </div>
         </li>
       </ol>
     </nav>
   </div>
 
+  {{-- @if ($errors->any())
+      <div class="w-full p-4 mb-4 text-red-700 bg-red-100 border border-red-400 rounded-lg">
+          <ul>
+              @foreach ($errors->all() as $error)
+                  <li>{{ $error }}</li>
+              @endforeach
+          </ul>
+      </div>
+  @endif --}}
+
   <div class="flex justify-between items-center mb-6">
-    <h1 class="text-xl font-bold">Tambah Anggota</h1>
+    <h1 class="text-xl font-bold">Tambah Pengurus</h1>
   </div>
 
   <!-- Form Tambah Anggota -->
-  <form action="{{ route('admin.anggota.store') }}" method="POST">
+  <form action="{{ route('admin.pengurus.store') }}" method="POST">
     @csrf
     <div class="mb-3">
       <label class="block mb-1 text-sm font-medium text-gray-900">Nama</label>
@@ -52,22 +62,27 @@
     </div>
     <div class="mb-4">
       <label class="block mb-1 text-sm font-medium text-gray-900">Posisi</label>
-      <select disabled id="posisi" name="posisi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
-        <option selected value="anggota">Anggota</option>
+      <select disabled  name="posisi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
+        <option selected value="pengurus">Pengurus</option>
       </select>
-      <input type="hidden" name="posisi" value="anggota">
+      <input type="hidden" name="posisi" value="pengurus">
     </div>
-    {{-- <div class="mb-4 hidden" id="jabatan-container">
+    <div class="mb-4">
       <label class="block mb-1 text-sm font-medium text-gray-900">Jabatan</label>
-      <select name="jabatan" class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2">
-        <option value="" disabled selected>Pilih Jabatan</option>
-        <option value="sekretaris">Sekretaris</option>
-        <option value="bendahara">Bendahara</option>
+      <select name="jabatan" class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
+        <option value="" disabled {{ old('jabatan') ? '' : 'selected' }}>Pilih Jabatan</option>
+        <option value="pengawas" {{ old('jabatan') == 'pengawas' ? 'selected' : '' }}>Pengawas</option>
+        <option value="bendahara" {{ old('jabatan') == 'bendahara' ? 'selected' : '' }} {{ $jumlahBendahara >= 2 ? 'disabled' : ''}}>
+          Bendahara 
+        </option>
       </select>
-    </div> --}}
+      @if ($jumlahBendahara >= 2)
+        <p class="text-red-500 text-xs mt-1">* Jumlah bendahara sudah 2 orang</p>
+      @endif
+    </div>
     <div class="mb-4">
       <label class="block mb-1 text-sm font-medium text-gray-900">Nomor Telepon</label>
-      <input type="text" id="telepon" name="telepon" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" inputmode="numeric" pattern="[0-9]*" value="{{ old('telepon') }}" placeholder="Masukan No. Telepon" required/>
+      <input type="text" id="telepon" name="telepon" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" value="{{ old('telepon') }}" placeholder="Masukan No. Telepon" inputmode="numeric" pattern="[0-9]*" required/>
       @error('telepon')
         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
       @enderror
@@ -104,16 +119,4 @@
       });
     });
   </script>
-{{-- <script>
-  document.getElementById('posisi').addEventListener('change', function () {
-    var posisi = this.value;
-    var jabatanContainer = document.getElementById('jabatan-container');
-
-    if (posisi === 'pengurus') {
-      jabatanContainer.classList.remove('hidden'); 
-    } else {
-      jabatanContainer.classList.add('hidden');    
-    }
-  });
-</script> --}}
 @endpush

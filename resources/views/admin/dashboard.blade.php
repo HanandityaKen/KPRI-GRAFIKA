@@ -1,5 +1,7 @@
 @extends('admin.layout.main')
 
+@section('title', 'Dashboard')
+
 @section('content')
 <div>
   <hr class="my-8 border-t-[2px] border-green-800 opacity-20" />
@@ -98,12 +100,12 @@
               </th>
               <th>
                   <span class="flex items-center">
-                      Email
+                      Telepon
                   </span>
               </th>
               <th>
                   <span class="flex items-center">
-                      Telepon
+                      Email
                   </span>
               </th>
               <th>
@@ -114,56 +116,32 @@
           </tr>
       </thead>
       <tbody>
+        @forelse ($users as $index => $user) 
           <tr>
-              <td class="font-medium text-gray-900 whitespace-nowrap">1</td>
-              <td>Sugeng Sumirah, SPd</td>
-              <td>sumiran@gmail.com</td>
-              <td>08342734234</td>
+              <td class="font-medium text-gray-900 whitespace-nowrap">{{$index + 1}}</td>
+              <td>{{$user->nama}}</td>
+              <td>{{$user->telepon}}</td>
+              <td>{{$user->email}}</td>
               <td>
-                <a href="">
+                <a href="{{ route('admin.anggota.edit', $user->id) }}">
                     <button class="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 ml-2">
-                      <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
-                      </svg>                      
+                      Edit
                     </button>
                 </a>
                 <button 
-                    class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2">
-                    <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
-                    </svg>                    
+                    class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
+                    onclick="confirmDelete({{ $user->id }})">
+                      Hapus                  
                 </button>
-                <form id="" action="" method="POST" style="display: none;">
+                <form id="delete-form-{{ $user->id }}" action="{{ route('admin.anggota.destroy', $user->id) }}" method="POST" style="display: none;">
                     @csrf
                     @method('DELETE')
                 </form>
               </td>
           </tr>
-          <tr>
-              <td class="font-medium text-gray-900 whitespace-nowrap">2</td>
-              <td>MSFT</td>
-              <td>$340.54</td>
-              <td>$2.56T</td>
-              <td>
-                <a href="">
-                    <button class="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 ml-2">
-                      <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/>
-                      </svg>                      
-                    </button>
-                </a>
-                <button 
-                    class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2">
-                    <svg class="w-6 h-6 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
-                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
-                    </svg>                    
-                </button>
-                <form id="" action="" method="POST" style="display: none;">
-                    @csrf
-                    @method('DELETE')
-                </form>
-              </td>
-          </tr>
+          @empty
+                        
+          @endforelse
         </tbody>
     </table>
   </div>

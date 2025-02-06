@@ -8,25 +8,30 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
-class AnggotaController extends Controller
+class PengurusController extends Controller
 {
     public function index()
     {
-        $users = Anggota::where('posisi', 'anggota')->get(); 
+        $users = Anggota::where('posisi', 'pengurus')->get(); 
 
-        return view('admin.anggota.index-anggota', compact('users'));
+        return view('admin.pengurus.index-pengurus', compact('users'));
     }
 
     public function create()
     {
-        return view('admin.anggota.create-anggota');
+        $jumlahBendahara = Anggota::where('jabatan', 'bendahara')->count();
+
+        return view('admin.pengurus.create-pengurus', compact('jumlahBendahara'));
     }
 
     public function store(Request $request)
     {
+        // dd($request->all());
+
         $request->validate([
             'nama'      => 'required|string',
-            'posisi'      => 'required|in:anggota',
+            'posisi'      => 'required|in:pengurus',
+            'jabatan'      => 'required|in:pengawas,bendahara',
             'telepon'   => 'required|numeric|regex:/^08[0-9]{8,11}$/',
             'email'   => 'required|email',
             'password'   => 'required|string|min:8',
@@ -39,25 +44,30 @@ class AnggotaController extends Controller
         Anggota::create([
             'nama' => $request->nama,
             'posisi' => $request->posisi,
+            'jabatan' => $request->jabatan,
             'telepon' => $request->telepon,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        return redirect()->route('admin.anggota.index')->with('success', 'Berhasil Menambahkan Anggota');
+        return redirect()->route('admin.pengurus.index')->with('success', 'Berhasil Menambahkan Pengurus');
     }
 
     public function edit(string $id)
     {
         $user = Anggota::findOrFail($id);
-        return view('admin.anggota.edit-anggota', compact('user'));
+
+        $jumlahBendahara = Anggota::where('jabatan', 'bendahara')->count();
+
+        return view('admin.pengurus.edit-pengurus', compact('user', 'jumlahBendahara'));
     }
 
     public function update(Request $request, string $id)
     {
         $request->validate([
             'nama'      => 'required|string',
-            'posisi'      => 'required|in:anggota',
+            'posisi'      => 'required|in:pengurus',
+            'jabatan'      => 'required|in:pengawas,bendahara',
             'telepon'   => 'required|numeric|regex:/^08[0-9]{8,11}$/',
             'email'   => 'required|email',
             'password'   => 'nullable|string|min:8',
@@ -71,6 +81,7 @@ class AnggotaController extends Controller
 
         $user->nama = $request->input('nama');
         $user->posisi = $request->input('posisi');
+        $user->jabatan = $request->input('jabatan');
         $user->telepon = $request->input('telepon');
         $user->email = $request->input('email');
         if ($request->password) {
@@ -79,15 +90,17 @@ class AnggotaController extends Controller
 
         $user->save();
 
-        return redirect()->route('admin.anggota.index')->with('success', 'Berhasil Mengubah Anggota');
+        return redirect()->route('admin.pengurus.index')->with('success', 'Berhasil Mengubah Pengurus');
     }
 
     public function destroy(string $id)
     {
         $user = Anggota::findOrFail($id);
-    
+
         $user->delete();
 
-        return redirect()->route('admin.anggota.index')->with('success', 'Berhasil Menghapus Anggota');
+        return redirect()->route('admin.pengurus.index')->with('success', 'Berhasil Menghapus Pengurus');
     }
+
+
 }

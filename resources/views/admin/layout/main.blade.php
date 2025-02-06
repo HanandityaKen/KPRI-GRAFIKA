@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KPRI Grafika - </title>
+  {{-- <title>KPRI Grafika - </title> --}}
+  <title>KPRI Grafika - @yield('title', 'KPRI Grafika')</title>
   <link rel="icon" type="image/png" href="{{ asset('storage/assets/logo_kpri.png') }}">
   @vite('resources/css/app.css')
   <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
@@ -67,7 +68,7 @@
   @include('admin.layout.sidebar')
 
   {{-- Main Content --}}
-  <div class="flex-1 overflow-y-auto">
+  <div class="">
 
     {{-- Header --}}
     @include('admin.layout.header')
@@ -77,15 +78,14 @@
     </main>
   </div>
 
-  {{-- <script src="../assets/js/toggle-sidebar.js"></script>
-  <script src="../assets/js/dropdown.js"></script> --}}
   <script>
     lucide.createIcons();
   </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/flowbite@3.0.0/dist/flowbite.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdn.jsdelivr.net/npm/simple-datatables@9.0.3"></script>
 
   @stack('scripts')
-
 </body>
 </html>

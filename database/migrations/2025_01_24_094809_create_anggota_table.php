@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nama');
             $table->string('telepon');
             $table->string('email');
-            $table->text('foto_profile');
+            $table->text('foto_profile')->nullable();
             $table->string('password');
             $table->timestamps();
         });

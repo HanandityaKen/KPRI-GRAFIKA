@@ -22,21 +22,25 @@
       </a>
 
       <!-- Dropdown Menu -->
-      <div id="userDropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg z-10">
+      <div id="userDropdownMenu" class="hidden absolute right-0 top-full mt-2 w-48 bg-white border rounded-lg shadow-lg z-10">
         <ul class="py-1">
           <li>
-            <a href="dashboard-user.html" class="block px-4 py-2 hover:bg-gray-100">Dashboard</a>
+            <a href="beranda.html" class="block px-4 py-2 hover:bg-gray-100 text-xs">Pengguna</a>
           </li>
           <li>
-            <a href="profile.html" class="block px-4 py-2 hover:bg-gray-100">Profile</a>
+              <a href="dashboard-pengurus.html" class="block px-4 py-2 hover:bg-gray-100 text-xs">Pengurus</a>
+            </li>
+          <li>
+            <a href="profile.html" class="block px-4 py-2 hover:bg-gray-100 text-xs">Profile</a>
           </li>
           <li>
-            <a href="/index.html" class="block px-4 py-2 hover:bg-gray-100">Logout</a>
+            <a href="/index.html" class="block px-4 py-2 hover:bg-gray-100 text-xs">Logout</a>
           </li>
         </ul>
       </div>
     </div>
   </div>
+
   <script>
     document.getElementById("userDropdownToggle").addEventListener("click", function (e) {
       e.preventDefault();

@@ -14,6 +14,8 @@ class Anggota extends Model
         'email',
         'telepon',
         'foto_profile',
+        'posisi',
+        'jabatan',
         'password',
     ];
 

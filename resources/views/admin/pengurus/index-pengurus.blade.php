@@ -1,6 +1,6 @@
 @extends('admin.layout.main')
 
-@section('title', 'Anggota')
+@section('title', 'Pengurus')
     
 @section('content')
     
@@ -24,7 +24,7 @@
             <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
             </svg>
-            <a href="{{ route('admin.anggota.index') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2">Anggota</a>
+            <a href="{{ route('admin.pengurus.index') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2">Pengurus</a>
           </div>
         </li>
       </ol>
@@ -33,7 +33,7 @@
 
   
   <div class="flex justify-between items-center mb-6">
-    <h1 class="text-2xl font-bold">Anggota</h1>
+    <h1 class="text-2xl font-bold">Pengurus</h1>
   </div>
   
   @if (session('success'))
@@ -50,11 +50,11 @@
 
   <div class="mb-6 flex justify-end">
     <a
-      href="{{ route('admin.anggota.create') }}"
+      href="{{ route('admin.pengurus.create') }}"
       class="bg-green-800 text-white py-2 px-4 rounded-md flex items-center"
     >
       <i data-lucide="plus" class="mr-2"></i>
-      Tambah Anggota
+      Tambah Pengurus
     </a>
   </div>
 
@@ -89,6 +89,11 @@
               </th>
               <th>
                   <span class="flex items-center">
+                      Jabatan
+                  </span>
+              </th>
+              <th>
+                  <span class="flex items-center">
                       Action
                   </span>
               </th>
@@ -109,7 +114,14 @@
               @endif
             </td>
             <td>
-              <a href="{{ route('admin.anggota.edit', $user->id) }}">
+              @if($user->jabatan == 'pengawas')
+                  Pengawas
+              @elseif($user->jabatan == 'bendahara')
+                  Bendahara
+              @endif
+            </td>
+            <td>
+              <a href="{{ route('admin.pengurus.edit', $user->id) }}">
                   <button class="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 ml-2">
                     Edit
                   </button>
@@ -117,9 +129,9 @@
               <button 
                   class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
                   onclick="confirmDelete({{ $user->id }})">
-                    Hapus                  
+                    Hapus
               </button>
-              <form id="delete-form-{{ $user->id }}" action="{{ route('admin.anggota.destroy', $user->id) }}" method="POST" style="display: none;">
+              <form id="delete-form-{{ $user->id }}" action="{{ route('admin.pengurus.destroy', $user->id) }}" method="POST" style="display: none;">
                   @csrf
                   @method('DELETE')
               </form>
@@ -144,20 +156,20 @@
     }
 
     function confirmDelete(userId) {
-            Swal.fire({
-                title: 'Apakah Anda yakin?',
-                text: "Data anggota akan dihapus secara permanen!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#22c55e',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, Hapus!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $(`#delete-form-${userId}`).submit();
-                }
-            })
-        }
+          Swal.fire({
+              title: 'Apakah Anda yakin?',
+              text: "Data pengurus akan dihapus secara permanen!",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#22c55e',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Ya, Hapus!',
+              cancelButtonText: 'Batal'
+          }).then((result) => {
+              if (result.isConfirmed) {
+                  $(`#delete-form-${userId}`).submit();
+              }
+          })
+    }
   </script>
 @endpush

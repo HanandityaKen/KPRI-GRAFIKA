@@ -82,10 +82,10 @@
                   <a href="{{ route('admin.kas-harian.index') }}" class="flex item-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Kas Harian</a>
               </li>
               <li>
-                  <a href="{{ route('admin.jkm')}}" class="flex items-center w full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">JKM</a>
+                  <a href="{{ route('admin.jkm')}}" class="flex items-center w full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Jurnal Kas Masuk</a>
               </li>
               <li>
-                  <a href="{{ route('admin.jkk')}}" class="flex items-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">JKK</a>
+                  <a href="{{ route('admin.jkk')}}" class="flex items-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Jurnal Kas Keluar</a>
               </li>
               <li>
                   <a href="{{ route('admin.rekap-jkm')}}" class="flex items-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Rekap JKM</a>

@@ -12,9 +12,7 @@ class AnggotaController extends Controller
 {
     public function index()
     {
-        $users = Anggota::where('posisi', 'anggota')->get(); 
-
-        return view('admin.anggota.index-anggota', compact('users'));
+        return view('admin.anggota.index-anggota');
     }
 
     public function create()

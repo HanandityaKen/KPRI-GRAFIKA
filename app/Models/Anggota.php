@@ -22,4 +22,9 @@ class Anggota extends Model
     protected $hidden = [
         'password'
     ];
+
+    public function kas_harian()
+    {
+        return $this->hasMany(KasHarian::class);
+    }
 }

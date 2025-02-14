@@ -34,7 +34,12 @@
             <a href="profile.html" class="block px-4 py-2 hover:bg-gray-100 text-xs">Profile</a>
           </li>
           <li>
-            <a href="/index.html" class="block px-4 py-2 hover:bg-gray-100 text-xs">Logout</a>
+            <form action="{{ route('admin.logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="block w-full text-left px-4 py-2 hover:bg-gray-100 text-xs">
+                    Logout
+                </button>
+            </form>
           </li>
         </ul>
       </div>
@@ -55,42 +60,6 @@
 
       if (!dropdown.contains(e.target) && !toggleButton.contains(e.target)) {
         dropdown.classList.add("hidden");
-      }
-    });
-
-    function toggleSidebar() {
-      const sidebar = document.querySelector(".fixed-sidebar");
-      sidebar.classList.toggle("active");
-    }
-
-    function toggleSidebar() {
-      const sidebar = document.querySelector(".fixed-sidebar");
-      const mainContent = document.querySelector(".main-content");
-
-      if (window.innerWidth <= 768) {
-        // Mobile behavior
-        sidebar.classList.toggle("active");
-        mainContent.classList.toggle("shifted");
-      } else {
-        // Desktop behavior
-        sidebar.classList.toggle("collapsed");
-        mainContent.classList.toggle("expanded");
-      }
-    }
-
-    // Add window resize listener to handle responsive behavior
-    window.addEventListener("resize", function () {
-      const sidebar = document.querySelector(".fixed-sidebar");
-      const mainContent = document.querySelector(".main-content");
-
-      if (window.innerWidth <= 768) {
-        sidebar.classList.remove("collapsed");
-        mainContent.classList.remove("expanded");
-        sidebar.classList.remove("active");
-        mainContent.classList.remove("shifted");
-      } else {
-        sidebar.classList.remove("active");
-        mainContent.classList.remove("shifted");
       }
     });
   </script>

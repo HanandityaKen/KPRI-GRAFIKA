@@ -12,9 +12,7 @@ class PengurusController extends Controller
 {
     public function index()
     {
-        $users = Anggota::where('posisi', 'pengurus')->get(); 
-
-        return view('admin.pengurus.index-pengurus', compact('users'));
+        return view('admin.pengurus.index-pengurus');
     }
 
     public function create()

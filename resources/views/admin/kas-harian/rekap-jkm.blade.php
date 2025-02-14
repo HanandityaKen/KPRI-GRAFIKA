@@ -38,7 +38,7 @@
   </div>
 
   <div class="flex justify-between items-center mb-6">
-    <h1 class="text-xl font-bold">Rekap Jurnal Kas Masuk</h1>
+    <h1 class="text-xl font-bold">Rekap JKM</h1>
   </div>
 
   {{-- @livewire('rekap-jkm-filter') --}}

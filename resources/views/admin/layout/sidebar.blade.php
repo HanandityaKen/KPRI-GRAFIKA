@@ -90,6 +90,9 @@
               <li>
                   <a href="{{ route('admin.rekap-jkm')}}" class="flex items-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Rekap JKM</a>
               </li>
+              <li>
+                  <a href="{{ route('admin.rekap-jkk')}}" class="flex items-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Rekap JKK</a>
+              </li>
           </ul>
       </li>
   </ul>

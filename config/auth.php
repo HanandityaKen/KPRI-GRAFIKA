@@ -40,9 +40,9 @@ return [
             'driver' => 'session',
             'provider' => 'anggota',
         ],
-        'petugas' => [
+        'pengurus' => [
             'driver' => 'session',
-            'provider' => 'petugas',
+            'provider' => 'pengurus',
         ],
         'admin' => [
             'driver' => 'session',

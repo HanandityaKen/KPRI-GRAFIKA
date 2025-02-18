@@ -1,6 +1,6 @@
 @extends('admin.layout.main')
 
-@section('title', 'Rekap JKM')
+@section('title', 'Rekap JKK')
     
 @section('content')
 <div>
@@ -30,7 +30,7 @@
             <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
               <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
             </svg>
-            <a href="{{ route('admin.rekap-jkm') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Rekap JKM</a>
+            <a href="{{ route('admin.rekap-jkk') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Rekap JKK</a>
           </div>
         </li>
       </ol>
@@ -38,9 +38,9 @@
   </div>
 
   <div class="flex justify-between items-center mb-6">
-    <h1 class="text-xl font-bold">Rekap Jurnal Kas Masuk</h1>
+    <h1 class="text-xl font-bold">Rekap Jurnal Kas Keluar</h1>
   </div>
 
-  @livewire('rekap-jkm-filter')
+  @livewire('rekap-jkk-filter')
 </div>
 @endsection

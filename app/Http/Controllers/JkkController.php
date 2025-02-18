@@ -37,4 +37,9 @@ class JkkController extends Controller
         //     ->orderBy('anggota.nama', 'asc')
         //     ->get();
     }
+
+    public function rekapJkk()
+    {
+        return view('admin.kas-harian.rekap-jkk');
+    }
 }

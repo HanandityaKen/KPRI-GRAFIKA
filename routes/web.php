@@ -20,7 +20,8 @@ Route::prefix('admin')->as('admin.')->group(function () {
     Route::resource('kas-harian', KasHarianController::class)->only(['index', 'create', 'store', 'edit','update', 'destroy']);
     Route::get('/jkm', [JkmController::class, 'jkm'])->name('jkm');
     Route::get('/jkk', [JkkController::class, 'jkk'])->name('jkk');
-    Route::get('/rekapJkm', [JkmController::class, 'rekapJkm'])->name('rekap-jkm');
+    Route::get('/rekap-jkm', [JkmController::class, 'rekapJkm'])->name('rekap-jkm');
+    Route::get('/rekap-jkk', [JkkController::class, 'rekapJkk'])->name('rekap-jkk');
     Route::post('/logout-admin', [AuthController::class, 'logoutAdmin'])->name('logout');
 });
 

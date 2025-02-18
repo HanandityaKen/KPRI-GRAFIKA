@@ -14,98 +14,98 @@
             <thead>
                 <tr>
                     <th class="p-3 text-left text-[#6DA854]">No</th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
+                    <th class="p-3 text-left whitespace-nowrap">
+                        <div class="flex items-center text-sm">
                             Uraian
                         </div>
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
+                    <th class="p-3 text-left whitespace-nowrap">
+                        <div class="flex items-center text-sm">
                             Tanggal
                         </div>
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
+                    <th class="p-3 text-left whitespace-nowrap">
+                        <div class="flex items-center text-sm">
                             Angsuran
                         </div>
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
+                    <th class="p-3 text-left whitespace-nowrap">
+                        <div class="flex items-center text-sm">
                             Pokok
                         </div>
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
+                    <th class="p-3 text-left whitespace-nowrap">
+                        <div class="flex items-center text-sm">
                             Wajib
                         </div>
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
+                    <th class="p-3 text-left whitespace-nowrap">
+                        <div class="flex items-center text-sm">
                             M.Suka
                         </div>
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
+                    <th class="p-3 text-left whitespace-nowrap">
+                        <div class="flex items-center text-sm">
                             SWP
                         </div>
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
+                    <th class="p-3 text-left whitespace-nowrap">
+                        <div class="flex items-center text-sm">
                             Qurban
                         </div>
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
+                    <th class="p-3 text-left whitespace-nowrap">
+                        <div class="flex items-center text-sm">
                             Jasa
                         </div>
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
+                    <th class="p-3 text-left whitespace-nowrap">
+                        <div class="flex items-center text-sm">
                             J.Admin
                         </div>
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
+                    <th class="p-3 text-left whitespace-nowrap">
+                        <div class="flex items-center text-sm">
                             Lain-Lain
                         </div>
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
+                    <th class="p-3 text-left whitespace-nowrap">
+                        <div class="flex items-center text-sm">
                             Piutang
                         </div>
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
+                    <th class="p-3 text-left whitespace-nowrap">
+                        <div class="flex items-center text-sm">
                             Hutang
                         </div>
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
+                    <th class="p-3 text-left whitespace-nowrap">
+                        <div class="flex items-center text-sm">
                             Biaya Umum
                         </div>
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
+                    <th class="p-3 text-left whitespace-nowrap">
+                        <div class="flex items-center text-sm">
                             Biaya Organisasi
                         </div>
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
+                    <th class="p-3 text-left whitespace-nowrap">
+                        <div class="flex items-center text-sm">
                             Biaya Operasional
                         </div>
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
+                    <th class="p-3 text-left whitespace-nowrap">
+                        <div class="flex items-center text-sm">
                             Biaya Lain
                         </div>
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
+                    <th class="p-3 text-left whitespace-nowrap">
+                        <div class="flex items-center text-sm">
                             Tanah Kavling
                         </div>
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
+                    <th class="p-3 text-left whitespace-nowrap">
+                        <div class="flex items-center text-sm">
                             Jumlah
                         </div>
                     </th>
@@ -116,24 +116,24 @@
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
                         <td class="pl-5 text-[#6DA854]">{{ $jkks->firstItem() + $index }}</td>
                         <td class="p-3">{{ $jkk->nama }}</td>
-                        <td class="p-3">{{ \Carbon\Carbon::parse($jkk->tanggal)->translatedFormat('d-m-y') }}</td>
-                        <td class="p-3">- Rp {{ number_format($jkk->total_angsuran, 0, ',', '.') }}</td>
-                        <td class="p-3">- Rp {{ number_format($jkk->total_pokok, 0, ',', '.') }}</td>
-                        <td class="p-3">- Rp {{ number_format($jkk->total_wajib, 0, ',', '.') }}</td>
-                        <td class="p-3">- Rp {{ number_format($jkk->total_manasuka, 0, ',', '.') }}</td>
-                        <td class="p-3">- Rp {{ number_format($jkk->total_swp, 0, ',', '.') }}</td>
-                        <td class="p-3">- Rp {{ number_format($jkk->total_qurban, 0, ',', '.') }}</td>
-                        <td class="p-3">- Rp {{ number_format($jkk->total_jasa, 0, ',', '.') }}</td>
-                        <td class="p-3">- Rp {{ number_format($jkk->total_j_admin, 0, ',', '.') }}</td>
-                        <td class="p-3">- Rp {{ number_format($jkk->total_lain_lain, 0, ',', '.') }}</td>
-                        <td class="p-3">- Rp {{ number_format($jkk->total_piutang, 0, ',', '.') }}</td>
-                        <td class="p-3">- Rp {{ number_format($jkk->total_hutang, 0, ',', '.') }}</td>
-                        <td class="p-3">- Rp {{ number_format($jkk->total_b_umum, 0, ',', '.') }}</td>
-                        <td class="p-3">- Rp {{ number_format($jkk->total_b_orgns, 0, ',', '.') }}</td>
-                        <td class="p-3">- Rp {{ number_format($jkk->total_b_oprs, 0, ',', '.') }}</td>
-                        <td class="p-3">- Rp {{ number_format($jkk->total_b_lain, 0, ',', '.') }}</td>
-                        <td class="p-3">- Rp {{ number_format($jkk->total_tnh_kav, 0, ',', '.') }}</td>
-                        <td class="p-3">- Rp {{ number_format($jkk->total_jumlah, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">{{ \Carbon\Carbon::parse($jkk->tanggal)->translatedFormat('d-m-y') }}</td>
+                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_angsuran, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_pokok, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_wajib, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_manasuka, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_swp, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_qurban, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_jasa, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_j_admin, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_lain_lain, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_piutang, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_hutang, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_b_umum, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_b_orgns, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_b_oprs, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_b_lain, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_tnh_kav, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_jumlah, 0, ',', '.') }}</td>
                     </tr>
                 @empty
                     <tr>

@@ -73,7 +73,7 @@
                     </th>
                     <th class="p-3 text-left whitespace-nowrap">
                         <div class="flex items-center">
-                            Lain-lain
+                            Lain-Lain
                             {{-- <i data-lucide="arrow-down-up" class="ml-2 w-4"></i> --}}
                         </div>
                     </th>

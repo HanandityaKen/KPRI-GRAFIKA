@@ -61,7 +61,7 @@
       <li>
           <a href="{{ route('admin.pengurus.index') }}"
               class="flex items-center p-2 text-green-800 rounded-lg hover:bg-green-700 group">
-              <i data-lucide="user-cog" class="text-green-800 mr-3 group-hover:text-white"></i>
+              <i data-lucide="id-card" class="text-green-800 mr-3 group-hover:text-white"></i>
               <span class="font-semibold group-hover:text-white">Pengurus</span>
           </a>
       </li>
@@ -95,6 +95,7 @@
               </li>
           </ul>
       </li>
+    </li>
   </ul>
 
 

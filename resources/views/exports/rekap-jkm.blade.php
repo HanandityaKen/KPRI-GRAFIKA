@@ -1,20 +1,20 @@
 <body>
     <h3 class="mb-4">Rekap JKM Tahun: {{ $selectedYear }}</h3>
-    <table>
+    <table style="width: 100%">
         <thead>
             <tr>
                 <th>Bulan</th>
                 <th>Angsuran</th>
                 <th>Pokok</th>
                 <th>Wajib</th>
-                <th>Manasuka</th>
-                <th>Wajib Pinjam</th>
+                <th>M.Suka</th>
+                <th>SWP</th>
                 <th>Qurban</th>
                 <th>Jasa</th>
-                <th>JS Admin</th>
-                <th>Lain-lain</th>
-                <th>Barang Kons</th>
-                <th>Total</th>
+                <th>J.Admin</th>
+                <th>Lain-Lain</th>
+                <th>Barang Konsumsi</th>
+                <th>Jumlah</th>
             </tr>
         </thead>
         <tbody>
@@ -35,8 +35,12 @@
             </tr>
             @endforeach
         </tbody>
-    </table>
-    <div class="mt-4">
-        <h3 class="text-lg font-semibold">Total Tahun {{ $selectedYear }}: Rp {{ number_format($totalPerTahun, 0, ',', '.') }}</h3>
-    </div>
+        <tfoot>
+            <tr>
+                <td colspan="12" style="padding: 8px; font-weight: bold">
+                    Total Tahun {{ $selectedYear }}: Rp {{ number_format($totalPerTahun, 0, ',', '.') }}
+                </td>
+            </tr>
+        </tfoot>
+    </table>    
 </body>

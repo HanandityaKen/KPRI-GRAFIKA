@@ -133,7 +133,7 @@
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_b_oprs, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_b_lain, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_tnh_kav, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_jumlah, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap font-bold">- Rp {{ number_format($jkk->total_jumlah, 0, ',', '.') }}</td>
                     </tr>
                 @empty
                     <tr>

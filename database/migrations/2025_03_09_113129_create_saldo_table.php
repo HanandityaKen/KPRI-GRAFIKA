@@ -11,12 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('keuangan_koperasi', function (Blueprint $table) {
+        Schema::create('saldo', function (Blueprint $table) {
             $table->id();
-            $table->integer('tahun');
-            $table->decimal('total_simpanan', 10, 2);
-            $table->decimal('total_pinjaman', 10, 2);
-            $table->decimal('total_shu', 10, 2);
+            $table->integer('saldo')->default(0);
             $table->timestamps();
         });
     }
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('keuangan_koperasi');
+        Schema::dropIfExists('saldo');
     }
 };

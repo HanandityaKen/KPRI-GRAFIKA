@@ -43,7 +43,7 @@
                         <td class="p-3">{{$kasHarian->keterangan}}</td>
                         <td class="flex align-middle">
                             <a href="{{ route('admin.kas-harian.edit', $kasHarian->id) }}">
-                                <button class="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 ml-2">
+                                <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
                                     Edit
                                 </button>
                             </a>

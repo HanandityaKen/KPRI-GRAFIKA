@@ -10,6 +10,7 @@ class Anggota extends Model
 
     protected $fillable = [
         'id',
+        'no_anggota',
         'nama',
         'email',
         'telepon',
@@ -26,5 +27,10 @@ class Anggota extends Model
     public function kas_harian()
     {
         return $this->hasMany(KasHarian::class);
+    }
+
+    public function simpanan()
+    {
+        return $this->hasOne(Simpanan::class, 'anggota_id');
     }
 }

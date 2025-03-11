@@ -23,18 +23,21 @@ class AnggotaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'no_anggota'    => 'required|numeric|unique:anggota',
             'nama'      => 'required|string',
             'posisi'      => 'required|in:anggota',
             'telepon'   => 'required|numeric|regex:/^08[0-9]{8,11}$/',
             'email'   => 'required|email',
             'password'   => 'required|string|min:8',
         ], [
+            'no_anggota.unique' => '* No Anggota sudah terdaftar.',
             'telepon.regex' => '* Nomor telepon harus dimulai dengan 08 dan berisi 10-13 digit.',
             'telepon.numeric' => '* Nomor telepon hanya boleh berisi angka. ',
             'password.min' => '* Password harus berisi minimal 8 karakter. ',
         ]);
 
         Anggota::create([
+            'no_anggota' => $request->no_anggota,
             'nama' => $request->nama,
             'posisi' => $request->posisi,
             'telepon' => $request->telepon,
@@ -54,12 +57,14 @@ class AnggotaController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
+            'no_anggota'    => 'required|numeric|unique:anggota',
             'nama'      => 'required|string',
             'posisi'      => 'required|in:anggota',
             'telepon'   => 'required|numeric|regex:/^08[0-9]{8,11}$/',
             'email'   => 'required|email',
             'password'   => 'nullable|string|min:8',
         ], [
+            'no_anggota.unique' => '* No Anggota sudah terdaftar.',
             'telepon.regex' => '* Nomor telepon harus dimulai dengan 08 dan berisi 10-13 digit.',
             'telepon.numeric' => '* Nomor telepon hanya boleh berisi angka. ',
             'password.min' => '* Password harus berisi minimal 8 karakter. ',
@@ -67,6 +72,7 @@ class AnggotaController extends Controller
 
         $user = Anggota::findOrFail($id);
 
+        $user->no_anggota = $request->input('no_anggota');
         $user->nama = $request->input('nama');
         $user->posisi = $request->input('posisi');
         $user->telepon = $request->input('telepon');

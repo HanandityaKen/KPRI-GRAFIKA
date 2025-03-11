@@ -13,14 +13,14 @@
     <div class="bg-gradient-to-br from-[#003705] to-green-700 shadow rounded-lg p-6 flex items-center">
       <i data-lucide="users" class="text-white mr-3"></i>
       <div>
-        <p class="text-2xl font-bold text-white">340</p>
+        <p class="text-2xl font-bold text-white">{{ $jumlahAnggota }}</p>
         <h3 class="text-white mb-2">Anggota Aktif</h3>
       </div>
     </div>
     <div class="bg-gradient-to-br from-[#2E6A27] to-green-700 shadow rounded-lg p-6 flex items-center">
       <i data-lucide="wallet" class="text-white mr-3"></i>
       <div>
-        <p class="text-2xl font-bold text-white">Rp. 350.000.000</p>
+        <p class="text-2xl font-bold text-white">Rp {{ number_format($jumlahSaldo, 0, ',', '.') }}</p>
         <h3 class="text-white mb-2">Total Simpanan</h3>
       </div>
     </div>

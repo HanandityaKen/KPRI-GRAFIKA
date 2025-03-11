@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Anggota;
+use App\Models\Saldo;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
@@ -12,7 +13,11 @@ class AdminController extends Controller
     {
         $users = Anggota::all(); 
 
-        return view('admin.dashboard', compact('users'));
+        $jumlahAnggota = Anggota::count();
+
+        $jumlahSaldo = Saldo::first()?->saldo ?? 0;
+
+        return view('admin.dashboard', compact('users', 'jumlahAnggota', 'jumlahSaldo'));
     }
 
     //file ori

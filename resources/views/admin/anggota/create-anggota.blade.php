@@ -47,6 +47,13 @@
   <form action="{{ route('admin.anggota.store') }}" method="POST">
     @csrf
     <div class="mb-3">
+      <label class="block mb-1 text-sm font-medium text-gray-900">No Anggota</label>
+      <input type="text" id="no_anggota" name="no_anggota" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" value="{{ old('no_anggota') }}" placeholder="Masukan No Anggota" inputmode="numeric" required/>
+      @error('no_anggota')
+        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+      @enderror
+    </div>
+    <div class="mb-4">
       <label class="block mb-1 text-sm font-medium text-gray-900">Nama</label>
       <input type="text" name="nama" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" value="{{ old('nama') }}" placeholder="Masukan Nama" required/>
     </div>
@@ -57,14 +64,6 @@
       </select>
       <input type="hidden" name="posisi" value="anggota">
     </div>
-    {{-- <div class="mb-4 hidden" id="jabatan-container">
-      <label class="block mb-1 text-sm font-medium text-gray-900">Jabatan</label>
-      <select name="jabatan" class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2">
-        <option value="" disabled selected>Pilih Jabatan</option>
-        <option value="sekretaris">Sekretaris</option>
-        <option value="bendahara">Bendahara</option>
-      </select>
-    </div> --}}
     <div class="mb-4">
       <label class="block mb-1 text-sm font-medium text-gray-900">Nomor Telepon</label>
       <input type="text" id="telepon" name="telepon" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" inputmode="numeric" pattern="[0-9]*" value="{{ old('telepon') }}" placeholder="Masukan No. Telepon" required/>
@@ -99,21 +98,13 @@
 @push('scripts') 
   <script>
     $(document).ready(function () {
+      $('#no_anggota').on('input', function () {
+        $(this).val($(this).val().replace(/\D/g, ''));
+      });
+
       $('#telepon').on('input', function () {
         $(this).val($(this).val().replace(/\D/g, ''));
       });
     });
   </script>
-{{-- <script>
-  document.getElementById('posisi').addEventListener('change', function () {
-    var posisi = this.value;
-    var jabatanContainer = document.getElementById('jabatan-container');
-
-    if (posisi === 'pengurus') {
-      jabatanContainer.classList.remove('hidden'); 
-    } else {
-      jabatanContainer.classList.add('hidden');    
-    }
-  });
-</script> --}}
 @endpush

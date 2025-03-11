@@ -8,6 +8,7 @@ use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\KasHarianController;
 use App\Http\Controllers\JkmController;
 use App\Http\Controllers\JkkController;
+use App\Http\Controllers\SimpananController;
 
 //Admin
 Route::get('/admin', [AuthController::class, 'showAdminLoginForm'])->name('admin.login');
@@ -22,6 +23,7 @@ Route::prefix('admin')->as('admin.')->group(function () {
     Route::get('/jkk', [JkkController::class, 'jkk'])->name('jkk');
     Route::get('/rekap-jkm', [JkmController::class, 'rekapJkm'])->name('rekap-jkm');
     Route::get('/rekap-jkk', [JkkController::class, 'rekapJkk'])->name('rekap-jkk');
+    Route::resource('simpanan', SimpananController::class)->only(['index']);
     Route::post('/logout-admin', [AuthController::class, 'logoutAdmin'])->name('logout');
 });
 

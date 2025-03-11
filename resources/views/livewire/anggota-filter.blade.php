@@ -19,21 +19,23 @@
             <thead>
                 <tr>
                     <th class="p-3 text-left text-[#6DA854]">No</th>
-                    <th class="p-3 text-left">Nama</th>
-                    <th class="p-3 text-left">Telepon</th>
-                    <th class="p-3 text-left">Email</th>
-                    <th class="p-3 text-left">Posisi</th>
-                    <th class="p-3 text-left">Action</th>
+                    <th class="p-3 text-left whitespace-nowrap">No Anggota</th>
+                    <th class="p-3 text-left whitespace-nowrap">Nama</th>
+                    <th class="p-3 text-left whitespace-nowrap">Telepon</th>
+                    <th class="p-3 text-left whitespace-nowrap">Email</th>
+                    <th class="p-3 text-left whitespace-nowrap">Posisi</th>
+                    <th class="p-3 text-left whitespace-nowrap">Action</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($users as $index => $user)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
                         <td class="pl-5 text-[#6DA854]">{{ $users->firstItem() + $index }}</td>
-                        <td class="p-3">{{ $user->nama }}</td>
-                        <td class="p-3">{{ $user->telepon }}</td>
-                        <td class="p-3">{{ $user->email }}</td>
-                        <td class="p-3">
+                        <td class="p-3 text-center whitespace-nowrap">{{ $user->no_anggota }}</td>
+                        <td class="p-3 whitespace-nowrap">{{ $user->nama }}</td>
+                        <td class="p-3 whitespace-nowrap">{{ $user->telepon }}</td>
+                        <td class="p-3 whitespace-nowrap">{{ $user->email }}</td>
+                        <td class="p-3 whitespace-nowrap">
                             @if($user->posisi == 'anggota')
                                 Anggota
                             @elseif($user->posisi == 'pengurus')
@@ -42,7 +44,7 @@
                         </td>
                         <td class="flex">
                             <a href="{{ route('admin.anggota.edit', $user->id) }}">
-                                <button class="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 ml-2">
+                                <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
                                     Edit
                                 </button>
                             </a>

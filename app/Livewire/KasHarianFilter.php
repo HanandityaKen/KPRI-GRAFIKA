@@ -44,7 +44,7 @@ class KasHarianFilter extends Component
                     });
                 })
                 ->orderByDesc('created_at')
-                ->paginate(5)
+                ->paginate(10)
                 ->onEachSide(1)
         ]);        
         

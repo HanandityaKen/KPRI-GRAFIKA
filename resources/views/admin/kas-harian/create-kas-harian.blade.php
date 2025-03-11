@@ -38,7 +38,7 @@
     </nav>
   </div>
 
-  @if ($errors->any())
+  {{-- @if ($errors->any())
       <div class="w-full p-4 mb-4 text-red-700 bg-red-100 border border-red-400 rounded-lg">
           <ul>
               @foreach ($errors->all() as $error)
@@ -46,11 +46,23 @@
               @endforeach
           </ul>
       </div>
-  @endif
+  @endif --}}
 
   <div class="flex justify-between items-center mb-6">
     <h1 class="text-xl font-bold">Tambah Kas Harian</h1>
   </div>
+
+  @error('error')
+    <div class="flex items-center p-4 mb-6 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
+        <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+        </svg>
+        <span class="sr-only">Info</span>
+        <div>
+            <span class="font-medium">{{ $message }}</span>
+        </div>
+    </div>
+  @enderror
 
   <div class="mb-3">
     <label class="block mb-1 text-sm font-medium text-gray-900">Jenis Transaksi</label>

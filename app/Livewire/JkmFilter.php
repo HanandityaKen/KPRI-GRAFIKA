@@ -29,7 +29,7 @@ class JkmFilter extends Component
             ->selectRaw('SUM(kas_harian.angsuran) as total_angsuran')
             ->selectRaw('SUM(kas_harian.pokok) as total_pokok')
             ->selectRaw('SUM(kas_harian.wajib) as total_wajib')
-            ->selectRaw('SUM(kas_harian.manasuka) as total_m_suka')
+            ->selectRaw('SUM(kas_harian.manasuka) as total_manasuka')
             ->selectRaw('SUM(kas_harian.wajib_pinjam) as total_swp')
             ->selectRaw('SUM(kas_harian.qurban) as total_qurban')
             ->selectRaw('SUM(kas_harian.jasa) as total_jasa')

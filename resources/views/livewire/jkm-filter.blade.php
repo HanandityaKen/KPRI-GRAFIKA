@@ -97,7 +97,7 @@
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($jkm->total_j_admin, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($jkm->total_lain_lain, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($jkm->total_barang_kons, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($jkm->total_jumlah, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap font-bold">Rp {{ number_format($jkm->total_jumlah, 0, ',', '.') }}</td>
                     </tr>
                 @empty
                     <tr>

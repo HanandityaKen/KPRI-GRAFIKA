@@ -14,8 +14,13 @@ return new class extends Migration
         Schema::create('simpanan', function (Blueprint $table) {
             $table->id();
             $table->integer('anggota_id');
-            $table->enum('jenis_simpanan', ['pokok', 'wajib', 'manasuka', 'wp', 'qurban'])->default('pokok');
-            $table->decimal('total', 10, 2);
+            $table->integer('kas_harian_id')->nullable(); 
+            $table->integer('pokok');
+            $table->integer('wajib');
+            $table->integer('manasuka');
+            $table->integer('wajib_pinjam');
+            $table->integer('qurban');
+            $table->integer('total');
             $table->timestamps();
         });
     }

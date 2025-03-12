@@ -13,7 +13,7 @@ use App\Http\Controllers\SimpananController;
 //Admin
 Route::get('/admin', [AuthController::class, 'showAdminLoginForm'])->name('admin.login');
 Route::post('/admin-login-proses', [AuthController::class, 'adminLoginProses'])->name('admin.login.proses');
-Route::prefix('admin')->as('admin.')->group(function () {
+Route::prefix('admin')->as('admin.')->middleware('admin')->group(function () {
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     Route::get('/dashboard-example', [AdminController::class, 'example'])->name('dashboard-example');
     Route::resource('anggota', AnggotaController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);

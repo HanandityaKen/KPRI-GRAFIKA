@@ -101,7 +101,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="text-center">Tidak ada data.</td>
+                        <td colspan="6" class="text-center">Tidak ada data kas masuk.</td>
                     </tr>
                 @endforelse
             </tbody>

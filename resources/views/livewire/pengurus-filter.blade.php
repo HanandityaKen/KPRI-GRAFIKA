@@ -67,7 +67,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="text-center p-3">Tidak ada data anggota.</td>
+                        <td colspan="6" class="text-center p-3">Tidak ada data pengurus.</td>
                     </tr>
                 @endforelse
             </tbody>

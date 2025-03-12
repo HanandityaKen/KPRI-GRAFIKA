@@ -104,7 +104,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="text-center p-3">Tidak ada data</td>
+                        <td colspan="6" class="text-center p-3">Tidak ada data rekap jurnal kas masuk.</td>
                     </tr>
                 @endforelse
             </tbody>

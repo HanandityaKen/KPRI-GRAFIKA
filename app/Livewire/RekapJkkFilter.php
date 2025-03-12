@@ -17,11 +17,20 @@ class RekapJkkFilter extends Component
     public function mount()
     {
         $this->selectedYear = now()->format('Y');
-        $this->availableYears = KasHarian::where('jenis_transaksi', 'kas keluar')
+        $years = KasHarian::where('jenis_transaksi', 'kas keluar')
             ->selectRaw('YEAR(tanggal) as year')
             ->distinct()
             ->orderBy('year', 'desc')
-            ->pluck('year');
+            ->pluck('year')
+            ->toArray();
+
+            if (!in_array($this->selectedYear, $years)) {
+                $years[] = $this->selectedYear;
+            }
+
+            rsort($years);
+
+            $this->availableYears = $years;
     }
 
     public function getTotalByYear()

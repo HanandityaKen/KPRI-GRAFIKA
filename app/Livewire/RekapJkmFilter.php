@@ -21,7 +21,17 @@ class RekapJkmFilter extends Component
             ->selectRaw('YEAR(tanggal) as year')
             ->distinct()
             ->orderBy('year', 'desc')
-            ->pluck('year');
+            ->pluck('year')
+            ->toArray();
+
+            if (!in_array($this->selectedYear, $years)) {
+                $years[] = $this->selectedYear;
+            }
+
+            rsort($years);
+
+            $this->availableYears = $years;
+            
     }
 
     public function getTotalByYear()

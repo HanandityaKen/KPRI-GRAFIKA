@@ -3,11 +3,11 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\Anggota;
+use App\Models\Persentase;
 use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
 
-class PengurusFilter extends Component
+class PersentaseFilter extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
@@ -22,13 +22,11 @@ class PengurusFilter extends Component
 
     public function render()
     {
-        return view('livewire.pengurus-filter', [
-            'users' => Anggota::where(function($query) {
+        return view('livewire.persentase-filter', [
+            'persentases' => Persentase::where(function($query) {
                 $query->where('nama', 'like', '%' . $this->search . '%')
-                    ->orWhere('email', 'like', '%' . $this->search . '%')
-                    ->orWhere('telepon', 'like', '%' . $this->search . '%');
+                    ->orWhereRaw("TRIM(TRAILING '.0' FROM FORMAT(persentase * 100, 2)) LIKE ?", ["%{$this->search}%"]);
             })
-            ->where('posisi', 'pengurus')
             ->paginate(10)
             ->onEachSide(1)
         ]);

@@ -9,6 +9,7 @@ use App\Http\Controllers\KasHarianController;
 use App\Http\Controllers\JkmController;
 use App\Http\Controllers\JkkController;
 use App\Http\Controllers\SimpananController;
+use App\Http\Controllers\PersentaseController;
 
 //Admin
 Route::get('/admin', [AuthController::class, 'showAdminLoginForm'])->name('admin.login');
@@ -24,6 +25,7 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::get('/rekap-jkm', [JkmController::class, 'rekapJkm'])->name('rekap-jkm');
     Route::get('/rekap-jkk', [JkkController::class, 'rekapJkk'])->name('rekap-jkk');
     Route::resource('simpanan', SimpananController::class)->only(['index']);
+    Route::resource('persentase', PersentaseController::class)->only(['index', 'create', 'store', 'edit', 'update']);
     Route::post('/logout-admin', [AuthController::class, 'logoutAdmin'])->name('logout');
 });
 

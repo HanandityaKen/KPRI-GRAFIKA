@@ -29,6 +29,7 @@ class AnggotaFilter extends Component
                     ->orWhere('telepon', 'like', '%' . $this->search . '%');
             })
             ->paginate(10)
+            ->onEachSide(1)
         ]);
     }
 }

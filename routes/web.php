@@ -12,8 +12,10 @@ use App\Http\Controllers\SimpananController;
 use App\Http\Controllers\PersentaseController;
 
 use App\Http\Controllers\Pengurus\PengurusController as SubPengurusController;
+use App\Http\Controllers\Pengurus\KasHarianController as SubKasHarianController;
 
 //Admin
+
 Route::get('/admin', [AuthController::class, 'showAdminLoginForm'])->name('admin.login');
 Route::post('/admin-login-proses', [AuthController::class, 'adminLoginProses'])->name('admin.login.proses');
 Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(function () {
@@ -35,6 +37,7 @@ Route::get('/pengurus', [AuthController::class, 'showPengurusLoginForm'])->name(
 Route::post('/pengurus-login-proses', [AuthController::class, 'pengurusLoginProses'])->name('pengurus.login.proses');
 Route::prefix('pengurus')->as('pengurus.')->middleware('pengurus', 'no-cache')->group(function () {
     Route::get('/dashboard', [SubPengurusController::class, 'index'])->name('dashboard');
+    Route::resource('kas-harian', SubKasHarianController::class)->only(['index', 'create', 'store', 'edit','update', 'destroy']);
     Route::post('/logout-pengurus', [AuthController::class, 'logoutPengurus'])->name('logout');
 });
 

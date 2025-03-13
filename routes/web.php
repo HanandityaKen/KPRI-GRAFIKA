@@ -33,7 +33,7 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
 
 Route::get('/pengurus', [AuthController::class, 'showPengurusLoginForm'])->name('pengurus.login');
 Route::post('/pengurus-login-proses', [AuthController::class, 'pengurusLoginProses'])->name('pengurus.login.proses');
-Route::prefix('pengurus')->as('pengurus.')->group(function () {
+Route::prefix('pengurus')->as('pengurus.')->middleware('pengurus', 'no-cache')->group(function () {
     Route::get('/dashboard', [SubPengurusController::class, 'index'])->name('dashboard');
     Route::post('/logout-pengurus', [AuthController::class, 'logoutPengurus'])->name('logout');
 });

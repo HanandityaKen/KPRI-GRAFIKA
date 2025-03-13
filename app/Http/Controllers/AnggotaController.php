@@ -57,7 +57,7 @@ class AnggotaController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'no_anggota'    => 'required|numeric|unique:anggota',
+            'no_anggota' => 'required|numeric|unique:anggota,no_anggota,' . $id . ',id',
             'nama'      => 'required|string',
             'posisi'      => 'required|in:anggota',
             'telepon'   => 'required|numeric|regex:/^08[0-9]{8,11}$/',

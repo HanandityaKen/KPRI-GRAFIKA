@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\Anggota;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
@@ -54,18 +55,26 @@ class AuthController extends Controller
     public function pengurusLoginProses(Request $request)
     {
         $request->validate([
-            'username' => 'required|string',
+            'nama' => 'required|string',
             'password' => 'required|string',
         ]);
 
-        if (!Auth::guard('pengurus')->attempt(['username' => $request->username, 'password' => $request->password])) {
+        if (!Auth::guard('pengurus')->attempt(['nama' => $request->nama, 'password' => $request->password])) {
             return back()->withErrors([
-                'username' => 'Username yang Anda masukkan salah',
-                'password' => 'Password yang Anda masukkan salah',
+                'error' => 'Nama atau Password yang Anda Masukan Salah!'
             ]);
         }
 
-        return redirect()->intended(route('pengurus.index'));
+        $user = Auth::guard('pengurus')->user();
+
+        if (!$user || $user->posisi !== 'pengurus') {
+            Auth::guard('pengurus')->logout();
+            return back()->withErrors([
+                'error' => 'Anda tidak memiliki izin',
+            ]);
+        }
+
+        return redirect()->intended(route('pengurus.dashboard'));
         
     }
 

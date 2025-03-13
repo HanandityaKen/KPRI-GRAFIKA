@@ -19,6 +19,7 @@
             <thead>
                 <tr>
                     <th class="p-3 text-left text-[#6DA854]">No</th>
+                    <th class="p-3 text-left">No. Anggota</th>
                     <th class="p-3 text-left">Nama</th>
                     <th class="p-3 text-left">Telepon</th>
                     <th class="p-3 text-left">Email</th>
@@ -31,6 +32,7 @@
                 @forelse ($users as $index => $user)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
                         <td class="pl-5 text-[#6DA854]">{{ $index + 1 }}</td>
+                        <td class="p-3 text-center">{{ $user->no_anggota }}</td>
                         <td class="p-3">{{ $user->nama }}</td>
                         <td class="p-3">{{ $user->telepon }}</td>
                         <td class="p-3">{{ $user->email }}</td>

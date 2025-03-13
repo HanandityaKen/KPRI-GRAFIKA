@@ -74,7 +74,7 @@ return [
         ],
         'pengurus' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\Pengurus::class),
+            'model' => env('AUTH_MODEL', App\Models\Anggota::class),
         ],
         'admins' => [
             'driver' => 'eloquent',

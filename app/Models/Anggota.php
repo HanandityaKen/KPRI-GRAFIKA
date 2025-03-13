@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Anggota extends Model
+class Anggota extends Authenticatable
 {
     protected $table = 'anggota';
 

@@ -42,23 +42,8 @@
 									</div>
 							</div>
 						@enderror
-            <form action="{{ route('admin.login.proses') }}" method="POST" id="loginForm">
+            <form action="{{ route('pengurus.login.proses') }}" method="POST" id="loginForm">
               @csrf
-              {{-- <div class="relative mb-5">
-                <input
-                  id="username"
-                  name="username"
-                  type="text"
-                  placeholder="Username"
-                  class="w-full h-[50px] rounded-lg bg-gray-200 p-3 pl-12"
-                  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 " 
-									required
-                />
-                <i
-                  data-lucide="user"
-                  class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
-                ></i>
-              </div> --}}
 							<div class="relative mb-6">
 								<div class="absolute inset-y-0 start-0 flex items-center ps-2.5 pointer-events-none">
 									<svg class="w-6 h-6 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -67,10 +52,10 @@
 								</div>
 								<input 
 									type="text" 
-									id="username" 
-									name="username"
+									id="nama" 
+									name="nama"
 									class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full ps-10 p-2.5" 
-									placeholder="Username"
+									placeholder="Nama"
 									required
 								>
 							</div>
@@ -89,20 +74,6 @@
 									required
 								>
 							</div>
-              {{-- <div class="relative mb-5">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="Masukan Password"
-                  class="w-full h-[50px] rounded-lg bg-gray-200 p-3 pl-12"
-									required
-                />
-                <i
-                  data-lucide="lock"
-                  class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500"
-                ></i>
-              </div> --}}
 							<div class="w-full flex justify-end gap-3 mb-5">
 								<input type="checkbox" name="" id="my-checkbox" />
 								<label for="my-checkbox" class="text-sm text-gray-500">Show Password</label>
@@ -133,35 +104,6 @@
 			}
 
 			document.getElementById("my-checkbox").addEventListener("change", showPassword);
-
-			// lucide.createIcons();
-
-			// function validateLogin() {
-			// 	const username = document.getElementById('username').value;
-			// 	const password = document.getElementById('password').value;
-			// 	const errorAlert = document.getElementById('error-alert');
-
-			// 	if (username.trim() === '' || password.trim() === '') {
-			// 		errorAlert.classList.remove('hidden');
-			// 		return;
-			// 	}
-
-			// 	errorAlert.classList.add('hidden');
-			// 	// window.location.href = '/pages/dashboard.html';
-			// }
-
-			// // Close alert functionality
-			// document.getElementById('close-alert').addEventListener('click', function() {
-			// 	document.getElementById('error-alert').classList.add('hidden');
-			// });
-
-			// // Add event listener for Enter key press
-			// document.addEventListener('keydown', function(event) {
-			// 	if (event.key === 'Enter') {
-			// 		validateLogin();
-			// 	}
-			// });
 		</script>
-		{{-- <script src="assets/js/dropdown.js"></script> --}}
 	</body>
 </html>

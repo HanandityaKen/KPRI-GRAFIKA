@@ -11,6 +11,8 @@ use App\Http\Controllers\JkkController;
 use App\Http\Controllers\SimpananController;
 use App\Http\Controllers\PersentaseController;
 
+use App\Http\Controllers\Pengurus\PengurusController as SubPengurusController;
+
 //Admin
 Route::get('/admin', [AuthController::class, 'showAdminLoginForm'])->name('admin.login');
 Route::post('/admin-login-proses', [AuthController::class, 'adminLoginProses'])->name('admin.login.proses');
@@ -28,4 +30,12 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::resource('persentase', PersentaseController::class)->only(['index', 'create', 'store', 'edit', 'update']);
     Route::post('/logout-admin', [AuthController::class, 'logoutAdmin'])->name('logout');
 });
+
+Route::get('/pengurus', [AuthController::class, 'showPengurusLoginForm'])->name('pengurus.login');
+Route::post('/pengurus-login-proses', [AuthController::class, 'pengurusLoginProses'])->name('pengurus.login.proses');
+Route::prefix('pengurus')->as('pengurus.')->group(function () {
+    Route::get('/dashboard', [SubPengurusController::class, 'index'])->name('dashboard');
+    Route::post('/logout-pengurus', [AuthController::class, 'logoutPengurus'])->name('logout');
+});
+
 

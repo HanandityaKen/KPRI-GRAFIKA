@@ -27,6 +27,7 @@ class PengurusController extends Controller
         // dd($request->all());
 
         $request->validate([
+            'no_anggota'    => 'required|numeric|unique:anggota',
             'nama'      => 'required|string',
             'posisi'      => 'required|in:pengurus',
             'jabatan'      => 'required|in:pengawas,bendahara',
@@ -34,12 +35,14 @@ class PengurusController extends Controller
             'email'   => 'required|email',
             'password'   => 'required|string|min:8',
         ], [
+            'no_anggota.unique' => '* No Anggota sudah terdaftar.',
             'telepon.regex' => '* Nomor telepon harus dimulai dengan 08 dan berisi 10-13 digit.',
             'telepon.numeric' => '* Nomor telepon hanya boleh berisi angka. ',
             'password.min' => '* Password harus berisi minimal 8 karakter. ',
         ]);
 
         Anggota::create([
+            'no_anggota' => $request->no_anggota,
             'nama' => $request->nama,
             'posisi' => $request->posisi,
             'jabatan' => $request->jabatan,
@@ -61,8 +64,9 @@ class PengurusController extends Controller
     }
 
     public function update(Request $request, string $id)
-    {
+    {   
         $request->validate([
+            'no_anggota'    => 'required|numeric|unique:anggota',
             'nama'      => 'required|string',
             'posisi'      => 'required|in:pengurus',
             'jabatan'      => 'required|in:pengawas,bendahara',
@@ -70,6 +74,7 @@ class PengurusController extends Controller
             'email'   => 'required|email',
             'password'   => 'nullable|string|min:8',
         ], [
+            'no_anggota.unique' => '* No Anggota sudah terdaftar.',
             'telepon.regex' => '* Nomor telepon harus dimulai dengan 08 dan berisi 10-13 digit.',
             'telepon.numeric' => '* Nomor telepon hanya boleh berisi angka. ',
             'password.min' => '* Password harus berisi minimal 8 karakter. ',
@@ -77,6 +82,7 @@ class PengurusController extends Controller
 
         $user = Anggota::findOrFail($id);
 
+        $user->no_anggota = $request->input('no_anggota');
         $user->nama = $request->input('nama');
         $user->posisi = $request->input('posisi');
         $user->jabatan = $request->input('jabatan');

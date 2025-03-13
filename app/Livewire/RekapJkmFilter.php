@@ -17,7 +17,7 @@ class RekapJkmFilter extends Component
     public function mount()
     {
         $this->selectedYear = now()->format('Y');
-        $this->availableYears = KasHarian::where('jenis_transaksi', 'kas masuk')
+        $years = KasHarian::where('jenis_transaksi', 'kas masuk')
             ->selectRaw('YEAR(tanggal) as year')
             ->distinct()
             ->orderBy('year', 'desc')

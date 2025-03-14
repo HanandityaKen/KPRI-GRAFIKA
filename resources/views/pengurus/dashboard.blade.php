@@ -27,8 +27,8 @@
     <div class="bg-gradient-to-br from-[#6DA854] to-green-700 shadow rounded-lg p-6 flex items-center">
       <i data-lucide="credit-card" class="text-white mr-3"></i>
       <div>
-        <p class="text-2xl font-bold text-white">Rp. 150.000.000</p>
-        <h3 class="text-white mb-2">Total Pinjaman</h3>
+        <p class="text-2xl font-bold text-white">Rp {{ number_format($totalSimpanan, 0, ',', '.') }}</p>
+        <h3 class="text-white mb-2">Total Saldo Koperasi</h3>
       </div>
     </div>
   </div>

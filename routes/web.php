@@ -15,6 +15,7 @@ use App\Http\Controllers\Pengurus\PengurusController as SubPengurusController;
 use App\Http\Controllers\Pengurus\KasHarianController as SubKasHarianController;
 use App\Http\Controllers\Pengurus\JkmController as SubJkmController;
 use App\Http\Controllers\Pengurus\JkkController as SubJkkController;
+use App\Http\Controllers\Pengurus\SimpananController as SubSimpananController;
 
 //Admin
 
@@ -44,6 +45,7 @@ Route::prefix('pengurus')->as('pengurus.')->middleware('pengurus', 'no-cache')->
     Route::get('/jkk', [SubJkkController::class, 'jkk'])->name('jkk');
     Route::get('/rekap-jkm', [SubJkmController::class, 'rekapJkm'])->name('rekap-jkm');
     Route::get('/rekap-jkk', [SubJkkController::class, 'rekapJkk'])->name('rekap-jkk');
+    Route::resource('simpanan', SubSimpananController::class)->only(['index']);
     Route::post('/logout-pengurus', [AuthController::class, 'logoutPengurus'])->name('logout');
 });
 

@@ -34,16 +34,16 @@
                   <a href="{{ route('pengurus.kas-harian.index') }}" class="flex item-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Kas Harian</a>
               </li>
               <li>
-                  <a href="" class="flex items-center w full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Jurnal Kas Masuk</a>
+                  <a href="{{ route('pengurus.jkm') }}" class="flex items-center w full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Jurnal Kas Masuk</a>
               </li>
               <li>
-                  <a href="" class="flex items-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Jurnal Kas Keluar</a>
+                  <a href="{{ route('pengurus.jkk') }}" class="flex items-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Jurnal Kas Keluar</a>
               </li>
               <li>
-                  <a href="" class="flex items-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Rekap JKM</a>
+                  <a href="{{ route('pengurus.rekap-jkm') }}" class="flex items-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Rekap JKM</a>
               </li>
               <li>
-                  <a href="" class="flex items-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Rekap JKK</a>
+                  <a href="{{ route('pengurus.rekap-jkk') }}" class="flex items-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Rekap JKK</a>
               </li>
           </ul>
       </li>

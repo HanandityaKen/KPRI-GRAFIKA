@@ -13,6 +13,8 @@ use App\Http\Controllers\PersentaseController;
 
 use App\Http\Controllers\Pengurus\PengurusController as SubPengurusController;
 use App\Http\Controllers\Pengurus\KasHarianController as SubKasHarianController;
+use App\Http\Controllers\Pengurus\JkmController as SubJkmController;
+use App\Http\Controllers\Pengurus\JkkController as SubJkkController;
 
 //Admin
 
@@ -38,6 +40,10 @@ Route::post('/pengurus-login-proses', [AuthController::class, 'pengurusLoginPros
 Route::prefix('pengurus')->as('pengurus.')->middleware('pengurus', 'no-cache')->group(function () {
     Route::get('/dashboard', [SubPengurusController::class, 'index'])->name('dashboard');
     Route::resource('kas-harian', SubKasHarianController::class)->only(['index', 'create', 'store', 'edit','update', 'destroy']);
+    Route::get('/jkm', [SubJkmController::class, 'jkm'])->name('jkm');
+    Route::get('/jkk', [SubJkkController::class, 'jkk'])->name('jkk');
+    Route::get('/rekap-jkm', [SubJkmController::class, 'rekapJkm'])->name('rekap-jkm');
+    Route::get('/rekap-jkk', [SubJkkController::class, 'rekapJkk'])->name('rekap-jkk');
     Route::post('/logout-pengurus', [AuthController::class, 'logoutPengurus'])->name('logout');
 });
 

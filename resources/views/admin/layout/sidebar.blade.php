@@ -103,6 +103,30 @@
         </a>
       </li>
       <li>
+        <button type="button"
+            class="flex items-center w-full p-2 text-green-800 transition duration-75 rounded-lg group hover:bg-green-700"
+            aria-controls="dropdown-piutang" data-collapse-toggle="dropdown-piutang">
+            <i data-lucide="hand-coins" class="text-green-800 mr-3 group-hover:text-white"></i>
+            <span class="flex-1 text-left whitespace-nowrap font-semibold group-hover:text-white">Piutang</span>
+            <svg class="w-3 h-3 text-green-800 group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 4 4 4-4" />
+            </svg>
+        </button>
+        <ul id="dropdown-piutang" class="hidden space-y-0">
+            <li>
+                <a href="{{ route('admin.pinjaman.index') }}" class="flex item-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Pinjaman</a>
+            </li>
+            <li>
+                <a href="" class="flex item-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Angsuran</a>
+            </li>
+            <li>
+                <a href="" class="flex item-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Piutang</a>
+            </li>
+        </ul>
+      </li>
+      <li>
         <a href="{{ route('admin.persentase.index') }}"
             class="flex items-center p-2 text-green-800 rounded-lg hover:bg-green-700 group">
             <i data-lucide="chart-no-axes-column" class="text-green-800 mr-3 group-hover:text-white"></i>

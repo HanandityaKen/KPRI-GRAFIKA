@@ -9,6 +9,7 @@ use App\Http\Controllers\KasHarianController;
 use App\Http\Controllers\JkmController;
 use App\Http\Controllers\JkkController;
 use App\Http\Controllers\SimpananController;
+use App\Http\Controllers\PinjamanController;
 use App\Http\Controllers\PersentaseController;
 
 use App\Http\Controllers\Pengurus\PengurusController as SubPengurusController;
@@ -33,6 +34,9 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::get('/rekap-jkm', [JkmController::class, 'rekapJkm'])->name('rekap-jkm');
     Route::get('/rekap-jkk', [JkkController::class, 'rekapJkk'])->name('rekap-jkk');
     Route::resource('simpanan', SimpananController::class)->only(['index']);
+    Route::resource('pinjaman', PinjamanController::class)->only(['index']);
+    Route::post('/setujui-pinjaman/{id}', [PinjamanController::class, 'setujuiPinjaman'])->name('setujui-pinjaman');
+    Route::post('/tolak-pinjaman/{id}', [PinjamanController::class, 'tolakPinjaman'])->name('tolak-pinjaman');
     Route::resource('persentase', PersentaseController::class)->only(['index', 'create', 'store', 'edit', 'update']);
     Route::post('/logout-admin', [AuthController::class, 'logoutAdmin'])->name('logout');
 });

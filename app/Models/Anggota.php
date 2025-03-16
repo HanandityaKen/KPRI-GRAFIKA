@@ -33,4 +33,9 @@ class Anggota extends Authenticatable
     {
         return $this->hasOne(Simpanan::class, 'anggota_id');
     }
+
+    public function pengajuan_pinjaman()
+    {
+        return $this->hasMany(PengajuanPinjaman::class);
+    }
 }

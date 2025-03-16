@@ -51,7 +51,7 @@ Route::prefix('pengurus')->as('pengurus.')->middleware('pengurus', 'no-cache')->
     Route::get('/rekap-jkm', [SubJkmController::class, 'rekapJkm'])->name('rekap-jkm');
     Route::get('/rekap-jkk', [SubJkkController::class, 'rekapJkk'])->name('rekap-jkk');
     Route::resource('simpanan', SubSimpananController::class)->only(['index']);
-    Route::resource('pinjaman', SubPinjamanController::class)->only(['index', 'create', 'store']);
+    Route::resource('pinjaman', SubPinjamanController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::post('/logout-pengurus', [AuthController::class, 'logoutPengurus'])->name('logout');
 });
 

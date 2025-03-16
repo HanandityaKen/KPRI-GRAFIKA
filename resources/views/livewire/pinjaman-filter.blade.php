@@ -33,7 +33,7 @@
                         </td>
                         <td class="p-3 whitespace-nowrap">
                             @if ($pengajuanPinjaman->status == 'menunggu')
-                                <span class="bg-yellow-100 text-yellow-800 text-xs font-medium me-2 px-1.5 py-0.5 rounded-sm">Menunggu</span>
+                                <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-1.5 py-0.5 rounded-sm">Menunggu</span>
                             @elseif ($pengajuanPinjaman->status == 'disetujui')
                                 <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Disetujui</span>
                             @elseif ($pengajuanPinjaman->status == 'ditolak')

@@ -48,3 +48,23 @@
       @livewire('pengurus.pinjaman-filter')
     </div>
 @endsection
+@push('scripts')
+    <script>
+      function confirmDelete(pengajuanPinjamanId) {
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Data pengajuan pinjaman akan dihapus secara permanen!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#166534',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(`#delete-form-${pengajuanPinjamanId}`).submit();
+                }
+            })
+      }
+    </script>
+@endpush

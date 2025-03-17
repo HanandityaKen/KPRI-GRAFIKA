@@ -10,7 +10,7 @@ use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
 use Carbon\Carbon;
 
-class PinjamanFilter extends Component
+class PengajuanPinjamanFilter extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
@@ -70,7 +70,7 @@ class PinjamanFilter extends Component
 
     public function render()
     {
-        return view('livewire.pinjaman-filter', [
+        return view('livewire.pengajuan-pinjaman-filter', [
             'pengajuanPinjamans' => PengajuanPinjaman::with('anggota')
                 ->where(function ($query) {
                     $query->whereHas('anggota', function ($query) {

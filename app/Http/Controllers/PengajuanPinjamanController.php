@@ -7,11 +7,11 @@ use App\Models\Anggota;
 use App\Models\Saldo;
 use App\Models\PengajuanPinjaman;
 
-class PinjamanController extends Controller
+class PengajuanPinjamanController extends Controller
 {
     public function index()
     {
-        return view('admin.pinjaman.index-pinjaman');
+        return view('admin.pengajuan-pinjaman.index-pengajuan-pinjaman');
     }
 
     public function setujuiPinjaman($id)

@@ -1,5 +1,5 @@
 <div>
-    <form action="{{ route('pengurus.pinjaman.update', $pinjaman->id) }}" method="POST">   
+    <form action="{{ route('pengurus.pengajuan-pinjaman.update', $pinjaman->id) }}" method="POST">   
         @csrf
         @method('PUT')
         <div class="grid grid-cols-2 gap-4">

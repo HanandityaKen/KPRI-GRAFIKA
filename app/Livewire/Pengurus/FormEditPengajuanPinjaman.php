@@ -7,7 +7,7 @@ use App\Models\Anggota;
 use App\Models\Persentase;
 use App\Models\PengajuanPinjaman;
 
-class FormEditPinjaman extends Component
+class FormEditPengajuanPinjaman extends Component
 {
     public $pinjaman;
     public $namaList = [];
@@ -74,6 +74,6 @@ class FormEditPinjaman extends Component
 
     public function render()
     {
-        return view('livewire.pengurus.form-edit-pinjaman');
+        return view('livewire.pengurus.form-edit-pengajuan-pinjaman');
     }
 }

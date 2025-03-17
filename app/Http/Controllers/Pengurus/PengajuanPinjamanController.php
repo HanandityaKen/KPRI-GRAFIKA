@@ -7,18 +7,18 @@ use Illuminate\Http\Request;
 use App\Models\Anggota;
 use App\Models\PengajuanPinjaman;
 
-class PinjamanController extends Controller
+class PengajuanPinjamanController extends Controller
 {
     public function index()
     {
-        return view('pengurus.pinjaman.index-pinjaman');
+        return view('pengurus.pengajuan-pinjaman.index-pengajuan-pinjaman');
     }
 
     public function create()
     {
         $namaList = Anggota::pluck('nama', 'id');
 
-        return view('pengurus.pinjaman.create-pinjaman', compact('namaList'));
+        return view('pengurus.pengajuan-pinjaman.create-pengajuan-pinjaman', compact('namaList'));
     }
 
     public function store(Request $request)
@@ -55,18 +55,28 @@ class PinjamanController extends Controller
             'status' => 'menunggu',
         ]);
 
-        return redirect()->route('pengurus.pinjaman.index')->with('success', 'Berhasil Menambahkan Data Pengajuan Pinjaman');
+        return redirect()->route('pengurus.pengajuan-pinjaman.index')->with('success', 'Berhasil Menambahkan Data Pengajuan Pinjaman');
     }
 
     public function edit(string $id)
     {
         $pengajuanPinjaman = PengajuanPinjaman::findOrFail($id);
 
-        return view('pengurus.pinjaman.edit-pinjaman', compact('pengajuanPinjaman'));
+        if (!$pengajuanPinjaman) {
+            return back()->with(['error' => 'Pinjaman tidak ditemukan']);
+        }
+
+        if ($pengajuanPinjaman->status !== 'menunggu') {
+            return back()->with(['error' => 'Pinjaman sudah diproses']);
+        }
+
+        return view('pengurus.pengajuan-pinjaman.edit-pengajuan-pinjaman', compact('pengajuanPinjaman'));
     }
 
     public function update(Request $request, string $id)
     {
+        $pengajuanPinjaman = PengajuanPinjaman::findOrFail($id);
+
         $request->validate([
             'pengurus_id' => 'required',
             'anggota_id' => 'required',
@@ -100,15 +110,23 @@ class PinjamanController extends Controller
             'total_pinjaman' => $total_pinjaman,
         ]);
 
-        return redirect()->route('pengurus.pinjaman.index')->with('success', 'Berhasil Mengubah Pengajuan Pinjaman');
+        return redirect()->route('pengurus.pengajuan-pinjaman.index')->with('success', 'Berhasil Mengubah Pengajuan Pinjaman');
     }
 
     public function destroy(string $id)
     {
         $pengajuanPinjaman = PengajuanPinjaman::findOrFail($id);
+
+        if (!$pengajuanPinjaman) {
+            return back()->with(['error' => 'Pinjaman tidak ditemukan']);
+        }
+
+        if ($pengajuanPinjaman->status !== 'menunggu') {
+            return back()->with(['error' => 'Pinjaman sudah diproses']);
+        }
         
         $pengajuanPinjaman->delete();
 
-        return redirect()->route('pengurus.pinjaman.index')->with('success', 'Berhasil Menghapus Pengajuan Pinjaman');
+        return redirect()->route('pengurus.pengajuan-pinjaman.index')->with('success', 'Berhasil Menghapus Pengajuan Pinjaman');
     }
 }

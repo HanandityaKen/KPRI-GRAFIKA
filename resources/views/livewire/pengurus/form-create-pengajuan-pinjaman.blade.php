@@ -55,7 +55,7 @@
 </div> --}}
 
 <div>
-    <form action="{{ route('pengurus.pinjaman.store') }}" method="POST">   
+    <form action="{{ route('pengurus.pengajuan-pinjaman.store') }}" method="POST">   
         @csrf
         <div class="grid grid-cols-2 gap-4">
             <input type="text" name="pengurus_id" value="{{ auth()->guard('pengurus')->user()->id }}" hidden>

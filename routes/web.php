@@ -17,7 +17,7 @@ use App\Http\Controllers\Pengurus\KasHarianController as SubKasHarianController;
 use App\Http\Controllers\Pengurus\JkmController as SubJkmController;
 use App\Http\Controllers\Pengurus\JkkController as SubJkkController;
 use App\Http\Controllers\Pengurus\SimpananController as SubSimpananController;
-use App\Http\Controllers\Pengurus\PinjamanController as SubPinjamanController;
+use App\Http\Controllers\Pengurus\PengajuanPinjamanController as SubPengajuanPinjamanController;
 
 //Admin
 
@@ -51,7 +51,7 @@ Route::prefix('pengurus')->as('pengurus.')->middleware('pengurus', 'no-cache')->
     Route::get('/rekap-jkm', [SubJkmController::class, 'rekapJkm'])->name('rekap-jkm');
     Route::get('/rekap-jkk', [SubJkkController::class, 'rekapJkk'])->name('rekap-jkk');
     Route::resource('simpanan', SubSimpananController::class)->only(['index']);
-    Route::resource('pinjaman', SubPinjamanController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+    Route::resource('pengajuan-pinjaman', SubPengajuanPinjamanController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::post('/logout-pengurus', [AuthController::class, 'logoutPengurus'])->name('logout');
 });
 

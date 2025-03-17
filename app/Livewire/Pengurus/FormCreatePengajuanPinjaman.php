@@ -6,7 +6,7 @@ use Livewire\Component;
 use App\Models\Anggota;
 use App\Models\Persentase;
 
-class FormCreatePinjaman extends Component
+class FormCreatePengajuanPinjaman extends Component
 {
     public $namaList = [];
     public $jumlah_pinjaman = '';
@@ -66,6 +66,6 @@ class FormCreatePinjaman extends Component
 
     public function render()
     {
-        return view('livewire.pengurus.form-create-pinjaman');
+        return view('livewire.pengurus.form-create-pengajuan-pinjaman');
     }
 }

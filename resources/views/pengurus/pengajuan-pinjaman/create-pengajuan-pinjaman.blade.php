@@ -1,6 +1,6 @@
 @extends('pengurus.layout.main')
 
-@section('title', 'Tambah Pinjaman')
+@section('title', 'Tambah Pengajuan Pinjaman')
 
 @section('content')
     <div>
@@ -23,7 +23,7 @@
                 <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                 </svg>
-                <a href="{{ route('pengurus.pinjaman.index') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Pinjaman</a>
+                <a href="{{ route('pengurus.pengajuan-pinjaman.index') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Pinjaman</a>
               </div>
             </li>
             <li>
@@ -31,7 +31,7 @@
                 <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                 </svg>
-                <a href="{{ route('pengurus.pinjaman.create') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Tambah Pinjaman</a>
+                <a href="{{ route('pengurus.pengajuan-pinjaman.create') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Tambah Pinjaman</a>
               </div>
             </li>
           </ol>
@@ -54,7 +54,7 @@
         </div>
       @enderror
 
-      @livewire('pengurus.form-create-pinjaman')
+      @livewire('pengurus.form-create-pengajuan-pinjaman')
 
     </div>
 @endsection

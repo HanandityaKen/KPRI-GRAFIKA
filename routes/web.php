@@ -11,6 +11,7 @@ use App\Http\Controllers\JkkController;
 use App\Http\Controllers\SimpananController;
 use App\Http\Controllers\PengajuanPinjamanController;
 use App\Http\Controllers\PersentaseController;
+use App\Http\Controllers\SaldoKoperasiController;
 
 use App\Http\Controllers\Pengurus\PengurusController as SubPengurusController;
 use App\Http\Controllers\Pengurus\KasHarianController as SubKasHarianController;
@@ -38,6 +39,7 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::post('/setujui-pengajuan-pinjaman/{id}', [PengajuanPinjamanController::class, 'setujuiPinjaman'])->name('setujui-pengajuan-pinjaman');
     Route::post('/tolak-pengajuan-pinjaman/{id}', [PengajuanPinjamanController::class, 'tolakPinjaman'])->name('tolak-pengajuan-pinjaman');
     Route::resource('persentase', PersentaseController::class)->only(['index', 'create', 'store', 'edit', 'update']);
+    Route::resource('saldo-koperasi', SaldoKoperasiController::class)->only(['index']);
     Route::post('/logout-admin', [AuthController::class, 'logoutAdmin'])->name('logout');
 });
 

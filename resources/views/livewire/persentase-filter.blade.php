@@ -8,10 +8,10 @@
             </div>
             <input type="text" wire:model.live="search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500" placeholder="Search">
         </div>
-        <a href="{{ route('admin.persentase.create') }}" wire:ignore class="bg-green-800 text-white py-2 px-4 rounded-md flex items-center ml-4">
+        {{-- <a href="{{ route('admin.persentase.create') }}" wire:ignore class="bg-green-800 text-white py-2 px-4 rounded-md flex items-center ml-4">
             <i data-lucide="plus" class="mr-2"></i>
             Tambah Persentase
-        </a>
+        </a> --}}
     </div>
 
     <div class="bg-white shadow rounded-lg border-[2px] border-[#6DA854] overflow-x-auto no-scrollbar">

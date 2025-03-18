@@ -13,7 +13,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="mb-3">
+            {{-- <div class="mb-3">
                 <label class="block mb-1 text-sm font-medium text-gray-900">Lama Angsuran</label>
                 <select wire:model.lazy="lama_angsuran" name="lama_angsuran" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2">
                     <option value="" disabled>Pilih Lama Angsuran</option>
@@ -25,6 +25,10 @@
                     <option value="48 bulan">48 Bulan</option>
                     <option value="60 bulan">60 Bulan</option>
                 </select>
+            </div> --}}
+            <div class="mb-3">
+                <label class="block mb-1 text-sm font-medium text-gray-900">Lama Angsuran</label>
+                <input type="text" wire:model.live="lama_angsuran" id="lama_angsuran" name="lama_angsuran" class="format-bulan bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Lama Angsuran" inputmode="numeric" value="{{ old('lama_angsuran') }}"/>
             </div>
             <div class="mb-3">
                 <label class="block mb-1 text-sm font-medium text-gray-900">Jumlah Pinjaman</label>

@@ -24,7 +24,7 @@ class FormEditPengajuanPinjaman extends Component
         $this->pinjaman = PengajuanPinjaman::findOrFail($id);
         $this->namaList = Anggota::pluck('nama', 'id')->toArray();
         $this->jumlah_pinjaman = "Rp " . number_format($this->pinjaman->jumlah_pinjaman, 0, ',', '.');
-        $this->lama_angsuran = $this->pinjaman->lama_angsuran;
+        $this->lama_angsuran = ucwords($this->pinjaman->lama_angsuran);
         $this->hitungPinjaman();
     }
 

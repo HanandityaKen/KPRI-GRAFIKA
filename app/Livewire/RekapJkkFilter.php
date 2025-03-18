@@ -47,6 +47,8 @@ class RekapJkkFilter extends Component
                 SUM(jasa) + 
                 SUM(js_admin) + 
                 SUM(lain_lain) + 
+                SUM(piutang) + 
+                SUM(hutang) + 
                 SUM(b_umum) + 
                 SUM(b_orgns) + 
                 SUM(b_oprs) + 
@@ -79,7 +81,7 @@ class RekapJkkFilter extends Component
                 SUM(b_oprs) as total_b_oprs,
                 SUM(b_lain) as total_b_lain,
                 SUM(tnh_kav) as total_tnh_kav,
-                SUM(angsuran + pokok + wajib + manasuka + wajib_pinjam + qurban + jasa + js_admin + lain_lain + b_umum + b_orgns + b_oprs + b_lain + tnh_kav) as total_jumlah
+                SUM(angsuran + pokok + wajib + manasuka + wajib_pinjam + qurban + jasa + js_admin + lain_lain + piutang + hutang + b_umum + b_orgns + b_oprs + b_lain + tnh_kav) as total_jumlah
             ')
             ->where('jenis_transaksi', 'kas keluar')
             ->whereYear('tanggal', $this->selectedYear)

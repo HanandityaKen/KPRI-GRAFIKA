@@ -71,7 +71,7 @@
                 <a href="{{ route('pengurus.pengajuan-pinjaman.index') }}" class="flex item-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Pinjaman</a>
             </li>
             <li>
-                <a href="" class="flex item-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Angsuran</a>
+                <a href="{{ route('pengurus.angsuran.index') }}" class="flex item-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Angsuran</a>
             </li>
             <li>
                 <a href="" class="flex item-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Sisa Hutang</a>

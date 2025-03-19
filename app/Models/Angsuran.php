@@ -14,4 +14,14 @@ class Angsuran extends Model
         'kurang_jasa',
         'kurang_angsuran',
     ];
+
+    public function pinjaman()
+    {
+        return $this->belongsTo(Pinjaman::class,'pinjaman_id');
+    }
+
+    public function kas_harian()
+    {
+        return $this->belongsTo(KasHarian::class,'kas_harian_id');
+    }
 }

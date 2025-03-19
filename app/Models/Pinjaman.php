@@ -13,4 +13,19 @@ class Pinjaman extends Model
         'kas_harian_id',
         'status',
     ];
+
+    public function pengajuan_pinjaman()
+    {
+        return $this->belongsTo(PengajuanPinjaman::class, 'pengajuan_pinjaman_id');
+    }
+
+    public function kas_harian()
+    {
+        return $this->belongsTo(KasHarian::class, 'kas_harian_id');
+    }
+
+    public function angsuran()
+    {
+        return $this->hasMany(Angsuran::class);
+    }
 }

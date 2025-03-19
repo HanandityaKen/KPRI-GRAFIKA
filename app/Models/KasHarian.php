@@ -97,4 +97,15 @@ class KasHarian extends Model
     {
         return $this->hasOne(Simpanan::class, 'anggota_id', 'anggota_id');
     }
+
+    public function pinjaman()
+    {
+        return $this->hasMany(Pinjaman::class);
+    }
+
+    public function angsuran()
+    {
+        return $this->hasMany(Angsuran::class);
+    }
+
 }

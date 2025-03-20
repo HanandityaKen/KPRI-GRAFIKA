@@ -38,9 +38,9 @@
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->kurang_angsuran, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->kurang_jasa, 0, ',', '.') }}</td>
                         <td>
-                            <a href="">
+                            <a href="{{ route('pengurus.kas-harian.create') }}">
                                 <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
-                                    Edit
+                                    Bayar
                                 </button>
                             </a>
                         </td>

@@ -42,20 +42,22 @@
                         </td>
                         <td class="p-3">{{$kasHarian->keterangan}}</td>
                         <td class="flex align-middle">
-                            <a href="{{ route('pengurus.kas-harian.edit', $kasHarian->id) }}">
-                                <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
-                                    Edit
+                            @if ($kasHarian->js_admin == 0 && $kasHarian->hutang == 0)
+                                <a href="{{ route('pengurus.kas-harian.edit', $kasHarian->id) }}">
+                                    <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
+                                        Edit
+                                    </button>
+                                </a>
+                                <button 
+                                    class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
+                                    onclick="confirmDelete({{ $kasHarian->id }})">
+                                        Hapus
                                 </button>
-                            </a>
-                            <button 
-                                class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
-                                onclick="confirmDelete({{ $kasHarian->id }})">
-                                    Hapus
-                            </button>
-                            <form id="delete-form-{{ $kasHarian->id }}" action="{{ route('pengurus.kas-harian.destroy', $kasHarian->id) }}" method="POST" style="display: none;">
-                                @csrf
-                                @method('DELETE')
-                            </form>
+                                <form id="delete-form-{{ $kasHarian->id }}" action="{{ route('pengurus.kas-harian.destroy', $kasHarian->id) }}" method="POST" style="display: none;">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            @endif
                         </td>
                     </tr>
                 @empty

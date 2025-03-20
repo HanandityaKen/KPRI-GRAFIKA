@@ -10,6 +10,9 @@ use App\Models\Jkk;
 use App\Models\Simpanan;
 use App\Models\Saldo;
 use App\Models\Anggota;
+use App\Models\PengajuanPinjaman;
+use App\Models\Pinjaman;
+use App\Models\Angsuran;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -122,6 +125,32 @@ class KasHarianController extends Controller
                 ]
             );
 
+            if ($angsuran > 0 || $jasa > 0) {
+                $pengajuanPinjaman = PengajuanPinjaman::where('anggota_id', $request->anggota_id)
+                    ->where('status', 'disetujui')
+                    ->latest()
+                    ->first();
+            
+                if ($pengajuanPinjaman) {
+                    $pinjaman = Pinjaman::where('pengajuan_pinjaman_id', $pengajuanPinjaman->id)
+                        ->latest()
+                        ->first();
+            
+                    if ($pinjaman) {
+                        $angsuranData = Angsuran::where('pinjaman_id', $pinjaman->id)
+                            ->latest()
+                            ->first();
+            
+                        if ($angsuranData) {
+                            $angsuranData->update([
+                                'kurang_angsuran' => DB::raw("kurang_angsuran - $angsuran"),
+                                'kurang_jasa'     => DB::raw("kurang_jasa - $jasa"),
+                            ]);
+                        }
+                    }
+                }
+            }
+
             $saldoMasuk = $pokok + $wajib + $manasuka + $wajib_pinjam + $qurban + $angsuran + $jasa + $js_admin + $lain_lain + $barang_kons;
 
             $saldo = Saldo::first();
@@ -129,7 +158,7 @@ class KasHarianController extends Controller
             if (!$saldo) {
                 Saldo::create(['saldo' => $saldoMasuk]);
             } else {
-                $saldo->update(['saldo' => $saldo->saldo + $saldoMasuk]);
+                $saldo->update(['saldo' => DB::raw("saldo + $saldoMasuk")]);
             }
         }
         
@@ -163,7 +192,7 @@ class KasHarianController extends Controller
                 return back()->withErrors(['error' => 'Saldo koperasi tidak cukup!']);
             }
             
-            $saldo->update(['saldo' => $saldo->saldo - $saldoKeluar]);
+            $saldo->update(['saldo' => DB::raw("saldo - $saldoKeluar")]);
 
             $kasHarian = KasHarian::create([
                 'anggota_id'        => $request->anggota_id,

@@ -112,18 +112,45 @@ class KasHarianController extends Controller
                 'keterangan'    => $request->keterangan,
             ]);
 
-            $simpanan = Simpanan::updateOrCreate(
-                ['anggota_id' => $request->anggota_id],
-                [
+            // $simpanan = Simpanan::updateOrCreate(
+            //     ['anggota_id' => $request->anggota_id],
+            //     [
+            //         'kas_harian_id' => $kasHarian->id,
+            //         'pokok'         => DB::raw("pokok + $pokok"),
+            //         'wajib'         => DB::raw("wajib + $wajib"),
+            //         'manasuka'      => DB::raw("manasuka + $manasuka"),
+            //         'wajib_pinjam'  => DB::raw("wajib_pinjam + $wajib_pinjam"),
+            //         'qurban'        => DB::raw("qurban + $qurban"),
+            //         'total'         => DB::raw("total + ($pokok + $wajib + $manasuka + $wajib_pinjam + $qurban)"),
+            //     ]
+            // );
+
+            $simpanan = Simpanan::where('anggota_id', $request->anggota_id)->first();
+
+            if ($simpanan) {
+                $pokok = $simpanan->pokok > 0 ? 0 : $pokok;
+
+                $simpanan->update([
                     'kas_harian_id' => $kasHarian->id,
-                    'pokok'         => DB::raw("pokok + $pokok"),
                     'wajib'         => DB::raw("wajib + $wajib"),
                     'manasuka'      => DB::raw("manasuka + $manasuka"),
                     'wajib_pinjam'  => DB::raw("wajib_pinjam + $wajib_pinjam"),
                     'qurban'        => DB::raw("qurban + $qurban"),
                     'total'         => DB::raw("total + ($pokok + $wajib + $manasuka + $wajib_pinjam + $qurban)"),
-                ]
-            );
+                ]);
+            } else {
+                // Jika belum ada, masukkan semua data termasuk pokok
+                Simpanan::create([
+                    'anggota_id'    => $request->anggota_id,
+                    'kas_harian_id' => $kasHarian->id,
+                    'pokok'         => $pokok,
+                    'wajib'         => $wajib,
+                    'manasuka'      => $manasuka,
+                    'wajib_pinjam'  => $wajib_pinjam,
+                    'qurban'        => $qurban,
+                    'total'         => ($pokok + $wajib + $manasuka + $wajib_pinjam + $qurban),
+                ]);
+            }
 
             if ($angsuran > 0 || $jasa > 0) {
                 $pengajuanPinjaman = PengajuanPinjaman::where('anggota_id', $request->anggota_id)

@@ -7,6 +7,7 @@ use App\Models\Anggota;
 use App\Models\PengajuanPinjaman;
 use App\Models\Pinjaman;
 use App\Models\Angsuran;
+use App\Models\Simpanan;
 
 class FormCreateKasHarian extends Component
 {
@@ -17,6 +18,7 @@ class FormCreateKasHarian extends Component
     public $angsuranList = [];
     public $jasaList = [];
     public $hasAngsuran = false;
+    public $pokok = '';
 
     public function mount()
     {
@@ -27,6 +29,7 @@ class FormCreateKasHarian extends Component
     {
         if ($propertyName === 'anggota_id') {
             $this->getAngsuranJasa();
+            $this->getPokok();
         }
     }
 
@@ -73,6 +76,23 @@ class FormCreateKasHarian extends Component
         $this->jasaList = [0 => "Rp 0"];
         $this->angsuran = 0;
         $this->jasa = 0;
+    }
+
+    public function getPokok()
+    {
+        if ($this->anggota_id) {
+            $kasHarian = Simpanan::where('anggota_id', $this->anggota_id)->latest()->first();
+    
+            if ($kasHarian && $kasHarian->pokok > 0) {
+                $this->pokok = 'Rp 0';
+            } else {
+                $this->pokok = 'Rp ' . number_format(300000, 0, ',', '.');
+            }
+    
+            return;
+        }
+    
+        $this->pokok = 'Rp ' . number_format(300000, 0, ',', '.');
     }
 
     public function render()

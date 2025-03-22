@@ -6,11 +6,13 @@ use Livewire\Component;
 use App\Models\Anggota;
 use App\Models\Persentase;
 use App\Models\PengajuanPinjaman;
+use App\Models\Pinjaman;
 
 class FormEditPengajuanPinjaman extends Component
 {
     public $pinjaman;
     public $namaList = [];
+    public $anggota_id = '';
     public $jumlah_pinjaman = '';
     public $lama_angsuran = '';
     public $nominal_pokok = '';
@@ -18,11 +20,13 @@ class FormEditPengajuanPinjaman extends Component
     public $nominal_angsuran = '';
     public $biaya_admin = '';
     public $total_pinjaman = '';
+    public $pinjamanAktif = false;
 
     public function mount($id)
     {
         $this->pinjaman = PengajuanPinjaman::findOrFail($id);
         $this->namaList = Anggota::pluck('nama', 'id')->toArray();
+        $this->anggota_id = $this->pinjaman->anggota_id;
         $this->jumlah_pinjaman = "Rp " . number_format($this->pinjaman->jumlah_pinjaman, 0, ',', '.');
         $this->lama_angsuran = ucwords($this->pinjaman->lama_angsuran);
         $this->hitungPinjaman();
@@ -63,6 +67,19 @@ class FormEditPengajuanPinjaman extends Component
             $this->total_pinjaman = "Rp " . number_format($this->total_pinjaman, 0, ',', '.');
         } else {
             $this->reset(['nominal_pokok', 'nominal_bunga', 'nominal_angsuran', 'biaya_admin', 'total_pinjaman']);
+        }
+    }
+
+    public function updatedAnggotaId()
+    {
+        if ($this->anggota_id) {
+            $this->pinjamanAktif = Pinjaman::whereHas('pengajuan_pinjaman', function ($query) {
+                    $query->where('anggota_id', $this->anggota_id);
+                })
+                ->where('status', 'dalam pembayaran')
+                ->exists();
+        } else {
+            $this->pinjamanAktif = false;
         }
     }
 

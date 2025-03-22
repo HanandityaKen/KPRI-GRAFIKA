@@ -56,28 +56,6 @@
             <label class="block mb-1 text-sm font-medium text-gray-900">Qurban</label>
             <input type="text" id="qurban" name="qurban" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Qurban" inputmode="numeric" value="{{ old('qurban') }}" />
         </div>
-        @if ($hasAngsuran)    
-            <div class="mb-4">
-                <label class="block mb-1 text-sm font-medium text-gray-900">Angsuran</label>
-                <select wire:model="angsuran" name="angsuran" id="angsuran" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2">
-                    @foreach ($angsuranList as $value => $angsuran)
-                        <option value="{{ $angsuran }}">{{ $angsuran }}</option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="mb-4">
-                <label class="block mb-1 text-sm font-medium text-gray-900">Jasa</label>
-                <select wire:model="jasa" name="jasa" id="jasa" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2">
-                    @foreach ($jasaList as $value => $jasa)
-                        <option value="{{ $jasa }}">{{ $jasa }}</option>
-                    @endforeach
-                </select>
-            </div>
-        @endif
-        {{-- <div class="mb-4">
-            <label class="block mb-1 text-sm font-medium text-gray-900">Jasa Admin</label>
-            <input type="text" id="jasa admin" name="js_admin" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Jasa Admin" inputmode="numeric" value="{{ old('jasa admin') }}" />
-        </div> --}}
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Lain-Lain</label>
             <input type="text" id="lain-lain" name="lain_lain" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Lain-Lain" inputmode="numeric" value="{{ old('lain-lain') }}" />

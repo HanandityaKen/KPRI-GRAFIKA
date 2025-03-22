@@ -17,6 +17,7 @@ class FormEditKasHarian extends Component
     {
         $this->kasHarian = KasHarian::findOrFail($id);
         $this->namaList = Anggota::pluck('nama', 'id')->toArray();
+        $this->anggota_id = $this->kasHarian->anggota_id;
     }
 
     public function updated($propertyName)

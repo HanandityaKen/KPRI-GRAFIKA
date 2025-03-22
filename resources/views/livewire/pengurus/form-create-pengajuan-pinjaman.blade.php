@@ -61,12 +61,17 @@
             <input type="text" name="pengurus_id" value="{{ auth()->guard('pengurus')->user()->id }}" hidden>
             <div class="mb-3">
                 <label class="block mb-1 text-sm font-medium text-gray-900">Nama</label>
-                <select id="select_nama_kas_masuk" name="anggota_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
-                    <option value="" disabled {{ old('anggota_id') ? '' : 'selected' }}>Pilih Nama Anggota</option>
-                    @foreach($namaList as $id => $nama)
-                        <option value="{{ $id }}" {{ old('anggota_id') == $id ? 'selected' : '' }}>{{ $nama }}</option>
-                    @endforeach
-                </select>
+                <div wire:ignore>
+                    <select wire:model.lazy="anggota_id" id="select_nama_kas_masuk" name="anggota_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
+                        <option value="" disabled {{ old('anggota_id') ? '' : 'selected' }}>Pilih Nama Anggota</option>
+                        @foreach($namaList as $id => $nama)
+                            <option value="{{ $id }}" {{ old('anggota_id') == $id ? 'selected' : '' }}>{{ $nama }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                @if($pinjamanAktif)
+                    <p class="text-red-500 text-xs mt-1">* Anggota ini memiliki angsuran yang belum selesai.</p>
+                @endif
             </div>
             {{-- <div class="mb-3">
                 <label class="block mb-1 text-sm font-medium text-gray-900">Lama Angsuran</label>
@@ -110,7 +115,7 @@
                 <input type="text" wire:model="nominal_angsuran" id="nominal_angsuran" name="nominal_angsuran" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Nominal Angsuran" inputmode="numeric" value="{{ old('nominal_angsuran') }}" readonly/>
             </div>
             <div class="flex justify-start">
-                <button type="submit" class="bg-green-800 text-white py-2 px-4 rounded-md">
+                <button type="submit" class="bg-green-800 text-white py-2 px-4 rounded-md"  @if($pinjamanAktif) disabled @endif>
                     Simpan
                 </button>
             </div>

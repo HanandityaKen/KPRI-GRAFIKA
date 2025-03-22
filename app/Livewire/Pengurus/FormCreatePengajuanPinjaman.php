@@ -5,10 +5,12 @@ namespace App\Livewire\Pengurus;
 use Livewire\Component;
 use App\Models\Anggota;
 use App\Models\Persentase;
+use App\Models\Pinjaman;
 
 class FormCreatePengajuanPinjaman extends Component
 {
     public $namaList = [];
+    public $anggota_id = '';
     public $jumlah_pinjaman = '';
     public $lama_angsuran = '';
     public $nominal_pokok = '';
@@ -16,7 +18,7 @@ class FormCreatePengajuanPinjaman extends Component
     public $nominal_angsuran = '';
     public $biaya_admin = '';
     public $total_pinjaman = '';
-
+    public $pinjamanAktif = false;
 
     public function mount()
     {
@@ -61,6 +63,19 @@ class FormCreatePengajuanPinjaman extends Component
             // dd($this->nominal_pokok, $this->nominal_bunga, $this->nominal_angsuran, $this->biaya_admin, $this->total_pinjaman);
         } else {
             $this->reset(['nominal_pokok', 'nominal_bunga', 'nominal_angsuran', 'biaya_admin', 'total_pinjaman']);
+        }
+    }
+
+    public function updatedAnggotaId()
+    {
+        if ($this->anggota_id) {
+            $this->pinjamanAktif = Pinjaman::whereHas('pengajuan_pinjaman', function ($query) {
+                    $query->where('anggota_id', $this->anggota_id);
+                })
+                ->where('status', 'dalam pembayaran')
+                ->exists();
+        } else {
+            $this->pinjamanAktif = false;
         }
     }
 

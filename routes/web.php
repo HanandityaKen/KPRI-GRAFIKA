@@ -12,6 +12,7 @@ use App\Http\Controllers\SimpananController;
 use App\Http\Controllers\PengajuanPinjamanController;
 use App\Http\Controllers\PersentaseController;
 use App\Http\Controllers\SaldoKoperasiController;
+use App\Http\Controllers\AngsuranController;
 
 use App\Http\Controllers\Pengurus\PengurusController as SubPengurusController;
 use App\Http\Controllers\Pengurus\KasHarianController as SubKasHarianController;

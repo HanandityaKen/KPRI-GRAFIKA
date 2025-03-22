@@ -76,6 +76,20 @@
                   e.target.value = value ? `${value} Bulan` : ""; // Tambahkan " Bulan"
               });
           }
+
+          function initializeSelect2() {
+              new TomSelect("#select_nama_kas_masuk", {
+                  create: false,
+                  sortField: {
+                      field: "text",
+                      direction: "asc"
+                  },
+                  openOnFocus: true,
+                  maxOptions: 10,
+              });
+          }
+
+          initializeSelect2();
       });
     </script>
 @endpush

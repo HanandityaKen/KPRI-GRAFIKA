@@ -32,6 +32,16 @@ class PengajuanPinjamanController extends Controller
             return back()->with(['error' => 'Pinjaman sudah diproses']);
         }
 
+        $pinjaman = Pinjaman::whereHas('pengajuan_pinjaman', function ($query) use ($pengajuanPinjaman) {
+            $query->where('anggota_id', $pengajuanPinjaman->anggota_id);
+        })
+        ->where('status', 'dalam pembayaran')
+        ->exists();
+
+        if ($pinjaman) {
+            return back()->with(['error' => 'Anggota ini masih memiliki angsuran yang belum lunas.']);
+        }
+
         $saldoTerakhir = Saldo::first();
         
         $jumlahPinjaman = $pengajuanPinjaman->jumlah_pinjaman;

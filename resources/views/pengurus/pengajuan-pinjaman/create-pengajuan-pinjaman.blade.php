@@ -31,7 +31,7 @@
                 <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                 </svg>
-                <a href="{{ route('pengurus.pengajuan-pinjaman.create') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Tambah Pengajuan Pinjaman</a>
+                <a href="{{ route('pengurus.pengajuan-pinjaman.create') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2 whitespace-nowrap">Tambah Pengajuan Pinjaman</a>
               </div>
             </li>
           </ol>
@@ -76,6 +76,21 @@
                   e.target.value = value ? `${value} Bulan` : ""; // Tambahkan " Bulan"
               });
           }
+
+          function initializeSelect2() {
+              new TomSelect("#select_nama_kas_masuk", {
+                  create: false,
+                  sortField: {
+                      field: "text",
+                      direction: "asc"
+                  },
+                  openOnFocus: true,
+                  maxOptions: 10,
+              });
+          }
+
+          initializeSelect2();
+
       });
     </script>
 @endpush

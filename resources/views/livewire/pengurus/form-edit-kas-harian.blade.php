@@ -80,10 +80,10 @@
             <label class="block mb-1 text-sm font-medium text-gray-900">Lain-Lain</label>
             <input type="text" id="lain_lain" name="lain_lain" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Lain-Lain" inputmode="numeric" value="{{ old('lain_lain', $kasHarian->lain_lain) }}" />
         </div>
-        <div class="mb-4">
+        {{-- <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Barang Konsumsi</label>
             <input type="text" id="barang kons" name="barang_kons" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Barang Konsumsi" inputmode="numeric" value="{{ old('barang_kons', $kasHarian->barang_kons) }}" />
-        </div>
+        </div> --}}
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Keterangan</label>
             <input type="text" name="keterangan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Keterangan" value="{{ old('keterangan', $kasHarian->keterangan) }}"/>

@@ -259,6 +259,15 @@
               openOnFocus: true,
               maxOptions: 10,
           });
+          new TomSelect("#select_nama_kas_keluar", {
+              create: false,
+              sortField: {
+                  field: "text",
+                  direction: "asc"
+              },
+              openOnFocus: true,
+              maxOptions: 10,
+          });
       }
 
       initializeSelect2();

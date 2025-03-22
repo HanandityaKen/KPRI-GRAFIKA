@@ -38,11 +38,17 @@
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->kurang_angsuran, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->kurang_jasa, 0, ',', '.') }}</td>
                         <td>
-                            <a href="{{ route('pengurus.kas-harian.create') }}">
-                                <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
-                                    Bayar
+                            @if ($angsuran->pinjaman->status == 'lunas')
+                                <button class="px-3 py-1 bg-green-500 text-white rounded ml-2">
+                                    Lunas
                                 </button>
-                            </a>
+                            @else
+                                <a href="{{ route('pengurus.angsuran.edit', $angsuran->id) }}">
+                                    <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
+                                        Bayar
+                                    </button>
+                                </a>
+                            @endif
                         </td>
                     </tr>
                 @empty

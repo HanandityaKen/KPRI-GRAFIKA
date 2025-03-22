@@ -127,6 +127,7 @@ class PengajuanPinjamanController extends Controller
             'pinjaman_id' => $pinjaman->id,
             'kurang_jasa' => intval($pengajuanPinjaman->nominal_bunga * $lama_angsuran),
             'kurang_angsuran' => intval($pengajuanPinjaman->nominal_pokok * $lama_angsuran),
+            'sisa_angsuran' => $lama_angsuran
         ]);
 
         $pengajuanPinjaman->update([

@@ -81,7 +81,7 @@
         </div>
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Nama</label>
-            <select id="select_nama" name="anggota_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
+            <select id="select_nama_kas_keluar" name="anggota_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
               <option value="" disabled>Pilih Nama Anggota</option>
                 @foreach($namaList as $id => $nama)
                     <option value="{{ $id }}" {{ old('nama', $kasHarian->anggota_id) == $id ? 'selected' : '' }}>{{ $nama }}</option>
@@ -187,7 +187,16 @@
 
 
     document.addEventListener("DOMContentLoaded", function() {
-        new TomSelect("#select_nama", {
+        new TomSelect("#select_nama_kas_masuk", {
+            create: false,
+            sortField: {
+                field: "text",
+                direction: "asc"
+            },
+            openOnFocus: true,
+            maxOptions: 10,
+        });
+        new TomSelect("#select_nama_kas_keluar", {
             create: false,
             sortField: {
                 field: "text",

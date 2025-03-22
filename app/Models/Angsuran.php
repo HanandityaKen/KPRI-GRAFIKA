@@ -13,6 +13,9 @@ class Angsuran extends Model
         'kas_harian_id',
         'kurang_jasa',
         'kurang_angsuran',
+        'tunggakan',
+        'angsuran_ke',
+        'sisa_angsuran',
     ];
 
     public function pinjaman()

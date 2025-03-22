@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->integer('pinjaman_id');
             $table->string('angsuran_ke');
-            $table->string('kurang_angsuran');
+            $table->integer('kurang_angsuran');
             $table->timestamps();
         });
     }

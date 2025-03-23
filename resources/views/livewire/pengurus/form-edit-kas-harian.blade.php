@@ -33,10 +33,10 @@
                 </select>
             </div>
         </div>
-        {{-- <div class="mb-4">
+        <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Pokok</label>
             <input type="text" id="pokok" name="pokok" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Pokok" inputmode="numeric" value="{{ old('pokok', $kasHarian->pokok) }}" readonly/>
-        </div> --}}
+        </div>
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Wajib</label>
             <select name="wajib" id="wajib" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2">

@@ -88,13 +88,18 @@
                 @endforeach
             </select>
         </div>
-        <div class="mb-4">
+        {{-- <div class="mb-4">
           <label class="block mb-1 text-sm font-medium text-gray-900">Pokok</label>
           <input type="text" id="pokok" name="pokok" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Pokok" inputmode="numeric" value="{{ old('pokok', $kasHarian->pokok) }}"/>
-        </div>
+        </div> --}}
         <div class="mb-4">
           <label class="block mb-1 text-sm font-medium text-gray-900">Wajib</label>
-          <input type="text" id="wajib" name="wajib" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Wajib" inputmode="numeric" value="{{ old('wajib', $kasHarian->wajib) }}"/>
+          <select name="wajib" id="wajib" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2">
+              <option value="">Pilih Nominal Wajib</option>
+              <option value="250000" {{ old('wajib', $kasHarian->wajib) == '250000' ? 'selected' : '' }}>Rp 250.000</option>
+              <option value="150000" {{ old('wajib', $kasHarian->wajib) == '150000' ? 'selected' : '' }}>Rp 150.000</option>
+              <option value="100000" {{ old('wajib', $kasHarian->wajib) == '100000' ? 'selected' : '' }}>Rp 100.000</option>
+          </select>
         </div>
         <div class="mb-4">
           <label class="block mb-1 text-sm font-medium text-gray-900">Manasuka</label>
@@ -102,7 +107,12 @@
         </div>
         <div class="mb-4">
           <label class="block mb-1 text-sm font-medium text-gray-900">Wajib Pinjam</label>
-          <input type="text" id="wajib pinjam" name="wajib_pinjam" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Wajib Pinjam" inputmode="numeric" value="{{ old('wajib pinjam', $kasHarian->wajib_pinjam) }}" />
+          <select name="wajib_pinjam" id="wajib_pinjam" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2">
+              <option value="">Pilih Nominal Wajib Pinjam</option>
+              <option value="15000" {{ old('wajib_pinjam', $kasHarian->wajib_pinjam) == '15000' ? 'selected' : '' }}>Rp 15.000</option>
+              <option value="10000" {{ old('wajib_pinjam', $kasHarian->wajib_pinjam) == '10000' ? 'selected' : '' }}>Rp 10.000</option>
+              <option value="5000" {{ old('wajib_pinjam', $kasHarian->wajib_pinjam) == '5000' ? 'selected' : '' }}>Rp 5.000</option>
+          </select>
         </div>
         <div class="mb-4">
           <label class="block mb-1 text-sm font-medium text-gray-900">Qurban</label>

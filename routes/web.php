@@ -13,6 +13,7 @@ use App\Http\Controllers\PengajuanPinjamanController;
 use App\Http\Controllers\PersentaseController;
 use App\Http\Controllers\SaldoKoperasiController;
 use App\Http\Controllers\AngsuranController;
+use App\Http\Controllers\PinjamanController;
 
 use App\Http\Controllers\Pengurus\PengurusController as SubPengurusController;
 use App\Http\Controllers\Pengurus\KasHarianController as SubKasHarianController;
@@ -40,6 +41,7 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::resource('pengajuan-pinjaman', PengajuanPinjamanController::class)->only(['index']);
     Route::post('/setujui-pengajuan-pinjaman/{id}', [PengajuanPinjamanController::class, 'setujuiPinjaman'])->name('setujui-pengajuan-pinjaman');
     Route::post('/tolak-pengajuan-pinjaman/{id}', [PengajuanPinjamanController::class, 'tolakPinjaman'])->name('tolak-pengajuan-pinjaman');
+    Route::resource('pinjaman', PinjamanController::class)->only(['index']);
     Route::resource('angsuran', AngsuranController::class)->only(['index', 'edit', 'update']);
     Route::resource('persentase', PersentaseController::class)->only(['index', 'create', 'store', 'edit', 'update']);
     Route::resource('saldo-koperasi', SaldoKoperasiController::class)->only(['index']);

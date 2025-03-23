@@ -40,6 +40,7 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::resource('pengajuan-pinjaman', PengajuanPinjamanController::class)->only(['index']);
     Route::post('/setujui-pengajuan-pinjaman/{id}', [PengajuanPinjamanController::class, 'setujuiPinjaman'])->name('setujui-pengajuan-pinjaman');
     Route::post('/tolak-pengajuan-pinjaman/{id}', [PengajuanPinjamanController::class, 'tolakPinjaman'])->name('tolak-pengajuan-pinjaman');
+    Route::resource('angsuran', AngsuranController::class)->only(['index', 'edit', 'update']);
     Route::resource('persentase', PersentaseController::class)->only(['index', 'create', 'store', 'edit', 'update']);
     Route::resource('saldo-koperasi', SaldoKoperasiController::class)->only(['index']);
     Route::post('/logout-admin', [AuthController::class, 'logoutAdmin'])->name('logout');

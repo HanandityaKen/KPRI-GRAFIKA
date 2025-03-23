@@ -122,10 +122,7 @@
                 <a href="" class="flex item-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Pinjaman</a>
             </li>
             <li>
-                <a href="" class="flex item-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Angsuran</a>
-            </li>
-            <li>
-                <a href="" class="flex item-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Sisa Hutang</a>
+                <a href="{{ route('admin.angsuran.index') }}" class="flex item-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Angsuran</a>
             </li>
         </ul>
       </li>

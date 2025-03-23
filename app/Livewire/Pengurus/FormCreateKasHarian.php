@@ -13,12 +13,12 @@ class FormCreateKasHarian extends Component
 {
     public $namaList = [];
     public $anggota_id = '';
-    public $angsuran = 0;
-    public $jasa = 0;
-    public $angsuranList = [];
-    public $jasaList = [];
-    public $hasAngsuran = false;
     public $pokok = '';
+    // public $angsuran = 0;
+    // public $jasa = 0;
+    // public $angsuranList = [];
+    // public $jasaList = [];
+    // public $hasAngsuran = false;
 
     public function mount()
     {

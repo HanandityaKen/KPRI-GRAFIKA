@@ -108,4 +108,9 @@ class KasHarian extends Model
         return $this->hasMany(Angsuran::class);
     }
 
+    public function unit_konsumsi()
+    {
+        return $this->hasMany(UnitKonsumsi::class);
+    }
+
 }

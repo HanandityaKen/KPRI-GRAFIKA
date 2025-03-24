@@ -24,4 +24,9 @@ class PengajuanUnitKonsumsi extends Model
     {
         return $this->belongsTo(Anggota::class, 'anggota_id');
     }
+
+    public function unit_konsumsi()
+    {
+        return $this->hasMany(UnitKonsumsi::class);
+    }
 }

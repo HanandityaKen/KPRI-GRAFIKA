@@ -144,7 +144,7 @@ class PengajuanPinjamanController extends Controller
             'status' => 'disetujui'
         ]);
 
-        return back()->with('success', 'Pinjaman berhasil disetujui');
+        return back()->with('success', 'Pengajuan Pinjaman berhasil disetujui');
     }
 
     public function tolakPinjaman($id)
@@ -163,7 +163,7 @@ class PengajuanPinjamanController extends Controller
             'status' => 'ditolak'
         ]);
 
-        return back()->with('success', 'Pinjaman berhasil ditolak');
+        return back()->with('success', 'Pengajuan Pinjaman berhasil ditolak');
     }
 
 }

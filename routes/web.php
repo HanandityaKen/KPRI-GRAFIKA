@@ -23,6 +23,8 @@ use App\Http\Controllers\Pengurus\SimpananController as SubSimpananController;
 use App\Http\Controllers\Pengurus\PengajuanPinjamanController as SubPengajuanPinjamanController;
 use App\Http\Controllers\Pengurus\AngsuranController as SubAngsuranController;
 use App\Http\Controllers\Pengurus\PinjamanController as SubPinjamanController;
+use App\Http\Controllers\Pengurus\PengajuanUnitKonsumsiController as SubPengajuanUnitKonsumsiController;
+
 
 //Admin
 
@@ -62,6 +64,7 @@ Route::prefix('pengurus')->as('pengurus.')->middleware('pengurus', 'no-cache')->
     Route::resource('pengajuan-pinjaman', SubPengajuanPinjamanController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('pinjaman', SubPinjamanController::class)->only(['index']);
     Route::resource('angsuran', SubAngsuranController::class)->only(['index', 'edit', 'update']);
+    Route::resource('pengajuan-unit-konsumsi', SubPengajuanUnitKonsumsiController::class)->only(['index', 'create', 'store']);
     Route::post('/logout-pengurus', [AuthController::class, 'logoutPengurus'])->name('logout');
 });
 

@@ -39,4 +39,9 @@ class Anggota extends Authenticatable
         return $this->hasMany(PengajuanPinjaman::class);
     }
 
+    public function pengajuan_unit_konsumsi()
+    {
+        return $this->hasMany(PengajuanUnitKonsumsi::class);
+    }
+
 }

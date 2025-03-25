@@ -4,27 +4,25 @@ namespace App\Http\Controllers\Pengurus;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Angsuran;
+use App\Models\AngsuranUnitKonsumsi;
 use App\Models\KasHarian;
 use App\Models\Jkm;
 use App\Models\Saldo;
 
-class AngsuranController extends Controller
+class AngsuranUnitKonsumsiController extends Controller
 {
     public function index()
     {
-        return view('pengurus.angsuran.index-angsuran');
+        return view('pengurus.angsuran-unit-konsumsi.index-angsuran-unit-konsumsi');
     }
 
-    // Menampilkan form pembayaran angsuran
     public function edit(string $id)
     {
-        $angsuran  = Angsuran::findOrFail($id);
+        $angsuran  = AngsuranUnitKonsumsi::findOrFail($id);
 
-        return view('pengurus.angsuran.bayar-angsuran', compact('angsuran'));
+        return view('pengurus.angsuran-unit-konsumsi.bayar-angsuran-unit-konsumsi', compact('angsuran'));
     }
-    
-    // Proses pembayaran angsuran
+
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -35,33 +33,33 @@ class AngsuranController extends Controller
         $bayarAngsuran = intval($request->angsuran);
         $bayarJasa = intval(str_replace(['Rp', '.', ' '], '', $request->jasa ?? '0'));
 
-        $angsuran = Angsuran::findOrFail($id);
+        $angsuranUnitKonsumsi = AngsuranUnitKonsumsi::findOrFail($id);
 
-        $anggota_id = $angsuran->pinjaman->pengajuan_pinjaman->anggota_id;
+        $anggota_id = $angsuranUnitKonsumsi->unit_konsumsi->pengajuan_unit_konsumsi->anggota_id;
 
-        $tunggakan = $angsuran->tunggakan;
+        $tunggakan = $angsuranUnitKonsumsi->tunggakan;
 
-        if ($angsuran->sisa_angsuran == 1 && empty($request->angsuran)) {
+        if ($angsuranUnitKonsumsi->sisa_angsuran == 1 && empty($request->angsuran)) {
             return back()->withErrors(['angsuran' => '* Angsuran harus diisi karena ini adalah pembayaran terakhir!'])->withInput();
-        }        
+        }    
 
         if ($bayarAngsuran == 0) {
-            $angsuran->tunggakan = $angsuran->tunggakan + intval($angsuran->pinjaman->pengajuan_pinjaman->nominal_pokok);
+            $angsuranUnitKonsumsi->tunggakan = $angsuranUnitKonsumsi->tunggakan + intval($angsuranUnitKonsumsi->unit_konsumsi->pengajuan_unit_konsumsi->nominal_pokok);
         } else {
-            $angsuran->kurang_angsuran = $angsuran->kurang_angsuran - $bayarAngsuran;
-            $angsuran->tunggakan = $angsuran->tunggakan - $tunggakan;
+            $angsuranUnitKonsumsi->kurang_angsuran = $angsuranUnitKonsumsi->kurang_angsuran - $bayarAngsuran;
+            $angsuranUnitKonsumsi->tunggakan = $angsuranUnitKonsumsi->tunggakan - $tunggakan;
         }
-        
-        $angsuran->kurang_jasa = max(0, $angsuran->kurang_jasa - $bayarJasa);
-        
-        $angsuran->angsuran_ke = $angsuran->angsuran_ke + 1;
-        $angsuran->sisa_angsuran = $angsuran->sisa_angsuran - 1;
 
-        $angsuran->save();
+        $angsuranUnitKonsumsi->kurang_jasa = max(0, $angsuranUnitKonsumsi->kurang_jasa - $bayarJasa);
 
-        if ($angsuran->sisa_angsuran == 0) {
-            $pinjaman = $angsuran->pinjaman;
-            $pinjaman->update([
+        $angsuranUnitKonsumsi->angsuran_ke = $angsuranUnitKonsumsi->angsuran_ke + 1;
+        $angsuranUnitKonsumsi->sisa_angsuran = $angsuranUnitKonsumsi->sisa_angsuran - 1;
+
+        $angsuranUnitKonsumsi->save();
+
+        if ($angsuranUnitKonsumsi->sisa_angsuran == 0) {
+            $unit_konsumsi = $angsuranUnitKonsumsi->unit_konsumsi;
+            $unit_konsumsi->update([
                 'status' => 'lunas'
             ]);
         }
@@ -69,18 +67,18 @@ class AngsuranController extends Controller
         $kasHarian = KasHarian::create([
             'anggota_id' => $anggota_id,
             'jenis_transaksi' => 'kas masuk',
-            'tanggal' => $angsuran->updated_at->format('Y-m-d'),
-            'angsuran' => $bayarAngsuran,
+            'tanggal' => $angsuranUnitKonsumsi->updated_at->format('Y-m-d'),
+            'barang_kons' => $bayarAngsuran,
             'jasa' => $bayarJasa,
-
+            
             'pokok'             => 0,
             'wajib'             => 0,
             'manasuka'          => 0,
             'wajib_pinjam'      => 0,
             'qurban'            => 0,
+            'angsuran'          => 0,
             'js_admin'          => 0,
             'lain_lain'         => 0,
-            'barang_kons'       => 0,
             'piutang'           => 0,
             'hutang'            => 0,
             'b_umum'            => 0,
@@ -88,7 +86,7 @@ class AngsuranController extends Controller
             'b_oprs'            => 0,
             'b_lain'            => 0,
             'tnh_kav'           => 0,
-            'keterangan'        => 'Bayar Angsuran Pinjaman' 
+            'keterangan'        => 'Bayar Angsuran Unit atau Barang Konsumsi'
         ]);
 
         $bulan = strtolower($kasHarian->created_at->translatedFormat('F'));
@@ -101,12 +99,13 @@ class AngsuranController extends Controller
             'tahun' => $tahun,
         ]);
 
+        
         $saldoMasuk = $bayarAngsuran + $bayarJasa;
 
         $saldo = Saldo::first();
 
         $saldo->increment('saldo', $saldoMasuk);
-        
-        return redirect()->route('pengurus.angsuran.index')->with('success', 'Pembayaran Angsuran Pinjaman Berhasil!');
+
+        return redirect()->route('pengurus.angsuran-unit-konsumsi.index')->with('success', 'Pembayaran Angsuran Unit Konsumsi Berhasil!');
     }
 }

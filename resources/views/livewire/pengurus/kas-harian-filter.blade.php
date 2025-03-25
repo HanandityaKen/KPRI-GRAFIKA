@@ -42,7 +42,7 @@
                         </td>
                         <td class="p-3">{{$kasHarian->keterangan}}</td>
                         <td class="flex align-middle">
-                            @if ($kasHarian->js_admin == 0 && $kasHarian->hutang == 0)
+                            @if ($kasHarian->js_admin == 0 && $kasHarian->hutang == 0 && $kasHarian->jasa == 0 && $kasHarian->angsuran == 0 && $kasHarian->barang_kons == 0)
                                 <a href="{{ route('pengurus.kas-harian.edit', $kasHarian->id) }}">
                                     <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
                                         Edit

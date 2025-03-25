@@ -42,7 +42,7 @@
                                 Pengurus
                             @endif
                         </td>
-                        <td class="flex">
+                        <td class="whitespace-nowrap">
                             <a href="{{ route('admin.anggota.edit', $user->id) }}">
                                 <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
                                     Edit

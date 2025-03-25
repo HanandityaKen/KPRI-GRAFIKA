@@ -1,6 +1,6 @@
 @extends('pengurus.layout.main')
 
-@section('title', 'Edit Pengajuan Pinjaman')
+@section('title', 'Edit Pengajuan Unit Konsumsi')
 
 @section('content')
     <div>
@@ -23,7 +23,7 @@
                 <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                 </svg>
-                <a href="{{ route('pengurus.pengajuan-pinjaman.index') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Pengajuan Pinjaman</a>
+                <a href="{{ route('pengurus.pengajuan-unit-konsumsi.index') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Pengajuan Unit Konsumsi</a>
               </div>
             </li>
             <li>
@@ -31,7 +31,7 @@
                 <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                 </svg>
-                <a href="{{ route('pengurus.pengajuan-pinjaman.edit', $pengajuanPinjaman->id) }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Edit Pengajuan Pinjaman</a>
+                <a href="" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Edit Pengajuan Unit Konsumsi</a>
               </div>
             </li>
           </ol>
@@ -39,7 +39,7 @@
       </div>
 
       <div class="flex justify-between items-center mb-6">
-        <h1 class="text-xl font-bold">Edit Pengajuan Pinjaman</h1>
+        <h1 class="text-xl font-bold">Edit Pengajuan Unit Konsumsi</h1>
       </div>
 
       @error('error')
@@ -54,8 +54,7 @@
         </div>
       @enderror
 
-      @livewire('pengurus.form-edit-pengajuan-pinjaman', ['id' => $pengajuanPinjaman->id])
-
+      @livewire('pengurus.form-edit-pengajuan-unit-konsumsi', ['id' => $pengajuanUnitKonsumsi->id])
     </div>
 @endsection
 @push('scripts')
@@ -90,6 +89,7 @@
           }
 
           initializeSelect2();
+
       });
     </script>
 @endpush

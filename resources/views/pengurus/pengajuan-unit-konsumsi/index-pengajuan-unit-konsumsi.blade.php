@@ -60,3 +60,23 @@
       @livewire('pengurus.pengajuan-unit-konsumsi-filter')
     </div>
 @endsection
+@push('scripts')
+    <script>
+      function confirmDelete(pengajuanUnitKonsumsiId) {
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Data pengajuan unit konsumsi akan dihapus secara permanen!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#166534',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(`#delete-form-${pengajuanUnitKonsumsiId}`).submit();
+                }
+            })
+      }
+    </script>
+@endpush

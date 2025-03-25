@@ -55,17 +55,17 @@
                             @endif
                         </td>
                         <td class="whitespace-nowrap">
-                            <a href="">
+                            <a href="{{ route('pengurus.pengajuan-unit-konsumsi.edit', $pengajuanUnitKonsumsi->id) }}">
                                 <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
                                     Edit
                                 </button>
                             </a>
                             <button 
                                 class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
-                                onclick="">
+                                onclick="confirmDelete({{ $pengajuanUnitKonsumsi->id }})">
                                     Hapus
                             </button>
-                            <form id="" action="" method="POST" style="display: none;">
+                            <form id="delete-form-{{ $pengajuanUnitKonsumsi->id }}" action="{{ route('pengurus.pengajuan-unit-konsumsi.destroy', $pengajuanUnitKonsumsi->id) }}" method="POST" style="display: none;">
                                 @csrf
                                 @method('DELETE')
                             </form>

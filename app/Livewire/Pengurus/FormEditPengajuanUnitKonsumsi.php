@@ -5,13 +5,16 @@ namespace App\Livewire\Pengurus;
 use Livewire\Component;
 use App\Models\Anggota;
 use App\Models\Persentase;
+use App\Models\PengajuanUnitKonsumsi;
 use App\Models\UnitKonsumsi;
 
-class FormCreatePengajuanUnitKonsumsi extends Component
+class FormEditPengajuanUnitKonsumsi extends Component
 {
+    public $pengajuanUnitKonsumsi;
     public $namaList = [];
     public $anggota_id = '';
     public $nominal = '';
+    public $nama_barang = '';
     public $lama_angsuran = '';
     public $nominal_pokok = '';
     public $nominal_bunga = '';
@@ -20,10 +23,15 @@ class FormCreatePengajuanUnitKonsumsi extends Component
     public $disabled = false;
     public $unitKonsumsiAktif = false;
 
-    public function mount()
+    public function mount($id)
     {
-        $this->namaList = Anggota::pluck('nama', 'id');
-        $this->lama_angsuran = '';
+        $this->pengajuanUnitKonsumsi = PengajuanUnitKonsumsi::findOrFail($id);
+        $this->namaList = Anggota::pluck('nama', 'id')->toArray();
+        $this->anggota_id = $this->pengajuanUnitKonsumsi->anggota_id;
+        $this->nama_barang = $this->pengajuanUnitKonsumsi->nama_barang;
+        $this->nominal = "Rp " . number_format($this->pengajuanUnitKonsumsi->nominal, 0, ',', '.');
+        $this->lama_angsuran = ucwords($this->pengajuanUnitKonsumsi->lama_angsuran);
+        $this->updatedNominal();
     }
 
     public function updated($propertyName)
@@ -95,6 +103,6 @@ class FormCreatePengajuanUnitKonsumsi extends Component
 
     public function render()
     {
-        return view('livewire.pengurus.form-create-pengajuan-unit-konsumsi');
+        return view('livewire.pengurus.form-edit-pengajuan-unit-konsumsi');
     }
 }

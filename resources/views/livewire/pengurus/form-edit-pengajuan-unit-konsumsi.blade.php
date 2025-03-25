@@ -1,25 +1,25 @@
 <div>
-    <!-- Form Tambah Unit Konsumsi -->
-    <form action="{{ route('pengurus.pengajuan-unit-konsumsi.store') }}" method="POST">
+    <form action="{{ route('pengurus.pengajuan-unit-konsumsi.update', $pengajuanUnitKonsumsi->id) }}" method="POST">
         @csrf
+        @method('PUT')
         <input type="hidden" name="pengurus_id" value="{{ auth()->guard('pengurus')->user()->id }}"/>
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Nama</label>
             <div wire:ignore>
                 <select wire:model.lazy="anggota_id" id="select_nama_kas_masuk" name="anggota_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
-                    <option value="" disabled {{ old('anggota_id') ? '' : 'selected' }}>Pilih Nama Anggota</option>
+                    <option value="" disabled {{ old('anggota_id', $pengajuanUnitKonsumsi->anggota_id) ? '' : 'selected' }}>Pilih Nama Anggota</option>
                     @foreach($namaList as $id => $nama)
-                        <option value="{{ $id }}" {{ old('anggota_id') == $id ? 'selected' : '' }}>{{ $nama }}</option>
+                        <option value="{{ $id }}" {{ old('anggota_id', $pengajuanUnitKonsumsi->anggota_id) == $id ? 'selected' : '' }}>{{ $nama }}</option>
                     @endforeach
                 </select>
             </div>
-            @if($unitKonsumsiAktif)
+                @if($unitKonsumsiAktif)
                     <p class="text-red-500 text-xs mt-1">* Anggota ini memiliki angsuran yang belum selesai.</p>
-            @endif
+                @endif
         </div>
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Barang</label>
-            <input type="text" name="nama_barang" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nama Barang" value="{{ old('nama_barang') }}" required/>
+            <input type="text" wire:model="nama_barang" name="nama_barang" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nama Barang" value="{{ old('nama_barang') }}" required/>
         </div>
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Nominal Unit Konsumsi</label>

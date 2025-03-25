@@ -65,11 +65,11 @@ class PengajuanPinjamanController extends Controller
         $pengajuanPinjaman = PengajuanPinjaman::findOrFail($id);
 
         if (!$pengajuanPinjaman) {
-            return back()->with(['error' => 'Pinjaman tidak ditemukan']);
+            return back()->with(['error' => 'Pengajuan Pinjaman tidak ditemukan']);
         }
 
         if ($pengajuanPinjaman->status !== 'menunggu') {
-            return back()->with(['error' => 'Pinjaman sudah diproses']);
+            return back()->with(['error' => 'Pengajuan Pinjaman sudah diproses']);
         }
 
         return view('pengurus.pengajuan-pinjaman.edit-pengajuan-pinjaman', compact('pengajuanPinjaman'));

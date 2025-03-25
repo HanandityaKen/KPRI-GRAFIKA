@@ -16,6 +16,7 @@ use App\Http\Controllers\AngsuranController;
 use App\Http\Controllers\PinjamanController;
 use App\Http\Controllers\PengajuanUnitKonsumsiController;
 use App\Http\Controllers\UnitKonsumsiController;
+use App\Http\Controllers\AngsuranUnitKonsumsiController;
 
 use App\Http\Controllers\Pengurus\PengurusController as SubPengurusController;
 use App\Http\Controllers\Pengurus\KasHarianController as SubKasHarianController;
@@ -54,6 +55,7 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::post('/setujui-pengajuan-unit-konsumsi/{id}', [PengajuanUnitKonsumsiController::class, 'setujuiUnitKonsumsi'])->name('setujui-pengajuan-unit-konsumsi');
     Route::post('/tolak-pengajuan-unit-konsumsi/{id}', [PengajuanUnitKonsumsiController::class, 'tolakUnitKonsumsi'])->name('tolak-pengajuan-unit-konsumsi');
     Route::resource('unit-konsumsi', UnitKonsumsiController::class)->only(['index']);
+    Route::resource('angsuran-unit-konsumsi', AngsuranUnitKonsumsiController::class)->only(['index', 'edit', 'update']);
     Route::resource('persentase', PersentaseController::class)->only(['index', 'create', 'store', 'edit', 'update']);
     Route::resource('saldo-koperasi', SaldoKoperasiController::class)->only(['index']);
     Route::post('/logout-admin', [AuthController::class, 'logoutAdmin'])->name('logout');

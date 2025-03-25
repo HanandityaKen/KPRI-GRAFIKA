@@ -44,7 +44,7 @@
                             <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Ditolak</span>
                             @endif
                         </td>
-                        <td>
+                        <td class="whitespace-nowrap">
                             <a href="{{ route('pengurus.pengajuan-pinjaman.edit', $pengajuanPinjaman->id) }}">
                                 <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
                                     Edit

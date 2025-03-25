@@ -1,4 +1,4 @@
-<div class="w-56 bg-[#DCFED0] h-screen p-4 fixed-sidebar text-sm">
+<div class="w-56 bg-[#DCFED0] h-screen p-4 fixed-sidebar text-sm no-scrollbar">
   <!-- Logo and Brand -->
   <div class="flex items-center mb-10">
     <img src={{ asset('storage/assets/logo_kpri.png') }} class="w-[50px] mr-3" alt="Logo" />

@@ -95,7 +95,7 @@
                 <a href="{{ route('pengurus.pengajuan-unit-konsumsi.index') }}" class="flex item-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Pengajuan Unit Konsumsi</a>
             </li>
             <li>
-                <a href="" class="flex item-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Unit Konsumsi</a>
+                <a href="{{ route('pengurus.unit-konsumsi.index') }}" class="flex item-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Unit Konsumsi</a>
             </li>
             <li>
                 <a href="" class="flex item-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Angsuran</a>

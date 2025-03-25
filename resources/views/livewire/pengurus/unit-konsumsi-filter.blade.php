@@ -17,33 +17,38 @@
                     <th class="p-3 text-left text-[#6DA854]">No</th>
                     <th class="p-3 text-left whitespace-nowrap">Nama</th>
                     <th class="p-3 text-left whitespace-nowrap">Tanggal</th>
-                    <th class="text-left whitespace-nowrap">Jumlah Pinjaman</th>
+                    <th class="text-left whitespace-nowrap">Nama Barang</th>
+                    <th class="text-left whitespace-nowrap">Nominal</th>
                     <th class="p-3 text-left whitespace-nowrap">Status</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse ($pinjamans as $index => $pinjaman)
+                @forelse ($unit_konsumsis as $index => $unit_konsumsi)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
-                        <td class="pl-5 text-[#6DA854]">{{ $pinjamans->firstItem() + $index }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ $pinjaman->pengajuan_pinjaman->anggota->nama  }}</td>
+                        <td class="pl-5 text-[#6DA854]">{{ $unit_konsumsis->firstItem() + $index }}</td>
+                        <td class="p-3 whitespace-nowrap">{{ $unit_konsumsi->pengajuan_unit_konsumsi->anggota->nama  }}</td>
                         <td class="p-3 whitespace-nowrap">
-                            {{ \Carbon\Carbon::parse($pinjaman->pengajuan_pinjaman->created_at)->translatedFormat('d-m-Y') }}
+                            {{ \Carbon\Carbon::parse($unit_konsumsi->pengajuan_unit_konsumsi->created_at)->translatedFormat('d-m-Y') }}
                         </td>
-                        <td class="whitespace-nowrap">Rp {{ number_format($pinjaman->pengajuan_pinjaman->jumlah_pinjaman, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">{{ ucwords($unit_konsumsi->pengajuan_unit_konsumsi->nama_barang)  }}</td>
+                        <td class="whitespace-nowrap">Rp {{ number_format($unit_konsumsi->pengajuan_unit_konsumsi->nominal, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">
-                            @if ($pinjaman->status == 'dalam pembayaran')
+                            @if ($unit_konsumsi->status == 'dalam pembayaran')
                                 <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-md border border-blue-400">Dalam Pembayaran</span>
-                            @elseif ($pinjaman->status == 'lunas')
+                            @elseif ($unit_konsumsi->status == 'lunas')
                                 <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-md border border-green-400">Lunas</span>
                             @endif
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="text-center p-3">Tidak ada data pinjaman.</td>
+                        <td colspan="6" class="text-center p-3">Tidak ada data unit konsumsi.</td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
+    </div>
+    <div class="mt-3 pl-2 pr-4">
+        {{ $unit_konsumsis->links() }}
     </div>
 </div>

@@ -40,4 +40,7 @@
             </tbody>
         </table>
     </div>
+    <div class="mt-3 pl-2 pr-4">
+        {{ $pinjamans->links() }}
+    </div>
 </div>

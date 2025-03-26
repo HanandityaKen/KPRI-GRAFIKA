@@ -152,7 +152,7 @@
               text: "Data pengurus akan dihapus secara permanen!",
               icon: 'warning',
               showCancelButton: true,
-              confirmButtonColor: '#22c55e',
+              confirmButtonColor: '#166534',
               cancelButtonColor: '#d33',
               confirmButtonText: 'Ya, Hapus!',
               cancelButtonText: 'Batal'

@@ -45,8 +45,6 @@ class RekapJkkFilter extends Component
                 SUM(manasuka) + 
                 SUM(wajib_pinjam) + 
                 SUM(qurban) + 
-                SUM(jasa) + 
-                SUM(js_admin) + 
                 SUM(lain_lain) + 
                 SUM(piutang) + 
                 SUM(hutang) + 
@@ -72,8 +70,6 @@ class RekapJkkFilter extends Component
                 SUM(manasuka) as total_m_suka,
                 SUM(wajib_pinjam) as total_swp,
                 SUM(qurban) as total_qurban,
-                SUM(jasa) as total_jasa,
-                SUM(js_admin) as total_j_admin,
                 SUM(lain_lain) as total_lain_lain,
                 SUM(piutang) as total_piutang,
                 SUM(hutang) as total_hutang,
@@ -82,7 +78,7 @@ class RekapJkkFilter extends Component
                 SUM(b_oprs) as total_b_oprs,
                 SUM(b_lain) as total_b_lain,
                 SUM(tnh_kav) as total_tnh_kav,
-                SUM(angsuran + pokok + wajib + manasuka + wajib_pinjam + qurban + jasa + js_admin + lain_lain + piutang + hutang + b_umum + b_orgns + b_oprs + b_lain + tnh_kav) as total_jumlah
+                SUM(angsuran + pokok + wajib + manasuka + wajib_pinjam + qurban + lain_lain + piutang + hutang + b_umum + b_orgns + b_oprs + b_lain + tnh_kav) as total_jumlah
             ')
             ->where('jenis_transaksi', 'kas keluar')
             ->whereYear('tanggal', $this->selectedYear)
@@ -106,9 +102,7 @@ class RekapJkkFilter extends Component
                     'total_wajib' => $jkks->get($monthNumber)->total_wajib ?? 0,
                     'total_m_suka' => $jkks->get($monthNumber)->total_m_suka ?? 0,
                     'total_swp' => $jkks->get($monthNumber)->total_swp ?? 0,
-                    'total_qurban' => $jkks->get($monthNumber)->total_qurban ?? 0,
-                    'total_jasa' => $jkks->get($monthNumber)->total_jasa ?? 0,
-                    'total_j_admin' => $jkks->get($monthNumber)->total_j_admin ?? 0,
+                    'total_qurban' => $jkks->get($monthNumber)->total_qurban ?? 0,0,
                     'total_lain_lain' => $jkks->get($monthNumber)->total_lain_lain ?? 0,
                     'total_piutang' => $jkks->get($monthNumber)->total_piutang ?? 0,
                     'total_hutang' => $jkks->get($monthNumber)->total_hutang ?? 0,

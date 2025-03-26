@@ -102,6 +102,13 @@
             </li>
         </ul>
       </li>
+      <li>
+        <a href="{{ route('pengurus.riwayat-transaksi.index') }}"
+            class="flex items-center p-2 text-green-800 rounded-lg hover:bg-green-700 group">
+            <i data-lucide="history" class="text-green-800 mr-3 group-hover:text-white"></i>
+            <span class="font-semibold group-hover:text-white">Riwayat Transaksi</span>
+        </a>
+    </li>
   </ul>
 
 

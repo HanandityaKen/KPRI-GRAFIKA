@@ -10,8 +10,6 @@
                 <th>Manasuka</th>
                 <th>Wajib Pinjam</th>
                 <th>Qurban</th>
-                <th>Jasa</th>
-                <th>J. Admin</th>
                 <th>Lain-lain</th>
                 <th>Piutang</th>
                 <th>Hutang</th>
@@ -32,8 +30,6 @@
                 <td>- Rp {{ number_format($jkk['total_m_suka'], 0, ',', '.') }}</td>
                 <td>- Rp {{ number_format($jkk['total_swp'], 0, ',', '.') }}</td>
                 <td>- Rp {{ number_format($jkk['total_qurban'], 0, ',', '.') }}</td>
-                <td>- Rp {{ number_format($jkk['total_jasa'], 0, ',', '.') }}</td>
-                <td>- Rp {{ number_format($jkk['total_j_admin'], 0, ',', '.') }}</td>
                 <td>- Rp {{ number_format($jkk['total_lain_lain'], 0, ',', '.') }}</td>
                 <td>- Rp {{ number_format($jkk['total_piutang'], 0, ',', '.') }}</td>
                 <td>- Rp {{ number_format($jkk['total_hutang'], 0, ',', '.') }}</td>

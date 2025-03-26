@@ -56,16 +56,6 @@
                     </th>
                     <th class="p-3 text-left whitespace-nowrap">
                         <div class="flex items-center text-sm">
-                            Jasa
-                        </div>
-                    </th>
-                    <th class="p-3 text-left whitespace-nowrap">
-                        <div class="flex items-center text-sm">
-                            J.Admin
-                        </div>
-                    </th>
-                    <th class="p-3 text-left whitespace-nowrap">
-                        <div class="flex items-center text-sm">
                             Lain-Lain
                         </div>
                     </th>
@@ -123,8 +113,6 @@
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_manasuka, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_swp, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_qurban, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_jasa, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_j_admin, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_lain_lain, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_piutang, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_hutang, 0, ',', '.') }}</td>

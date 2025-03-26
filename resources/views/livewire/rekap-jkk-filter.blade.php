@@ -61,18 +61,6 @@
                     </th>
                     <th class="p-3 text-left whitespace-nowrap">
                         <div class="flex items-center text-sm">
-                            Jasa
-                            {{-- <i data-lucide="arrow-down-up" class="ml-2 w-4"></i> --}}
-                        </div>
-                    </th>
-                    <th class="p-3 text-left whitespace-nowrap">
-                        <div class="flex items-center text-sm">
-                            J.Admin
-                            {{-- <i data-lucide="arrow-down-up" class="ml-2 w-4"></i> --}}
-                        </div>
-                    </th>
-                    <th class="p-3 text-left whitespace-nowrap">
-                        <div class="flex items-center text-sm">
                             Lain-lain
                             {{-- <i data-lucide="arrow-down-up" class="ml-2 w-4"></i> --}}
                         </div>
@@ -126,8 +114,6 @@
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_m_suka'], 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_swp'], 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_qurban'], 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_jasa'], 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_j_admin'], 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_lain_lain'], 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_piutang'], 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_hutang'], 0, ',', '.') }}</td>

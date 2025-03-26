@@ -16,8 +16,8 @@
                 <tr>
                     <th class="p-3 text-left text-[#6DA854]">No</th>
                     <th class="p-3 text-left whitespace-nowrap">Nama</th>
+                    <th class="p-3 text-left whitespace-nowrap">Tanggal</th>
                     <th class="text-left whitespace-nowrap">Nominal</th>
-                    <th class="p-3 text-left whitespace-nowrap">Waktu Dibuat</th>
                     <th class="p-3 text-left whitespace-nowrap">Status</th>
                     <th class="p-3 text-left whitespace-nowrap">Action</th>
                 </tr>
@@ -27,10 +27,10 @@
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
                         <td class="pl-5 text-[#6DA854]">{{ $pengajuanPinjamans->firstItem() + $index }}</td>
                         <td class="p-3 whitespace-nowrap">{{ $pengajuanPinjaman->anggota->nama  }}</td>
-                        <td class="whitespace-nowrap">Rp {{ number_format($pengajuanPinjaman->jumlah_pinjaman, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">
                             {{ \Carbon\Carbon::parse($pengajuanPinjaman->created_at)->translatedFormat('d-m-Y') }}
                         </td>
+                        <td class="whitespace-nowrap">Rp {{ number_format($pengajuanPinjaman->jumlah_pinjaman, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">
                             @if ($pengajuanPinjaman->status == 'menunggu')
                                 <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-1.5 py-0.5 rounded-sm">Menunggu</span>

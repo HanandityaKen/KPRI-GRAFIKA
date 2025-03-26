@@ -16,6 +16,7 @@
                 <tr>
                     <th class="p-3 text-left text-[#6DA854]">No</th>
                     <th class="p-3 text-left whitespace-nowrap">Nama</th>
+                    <th class="p-3 text-left whitespace-nowrap">Tanggal</th>
                     <th class="text-left whitespace-nowrap">Jumlah Pinjaman</th>
                     <th class="p-3 text-left whitespace-nowrap">Status</th>
                 </tr>
@@ -25,6 +26,9 @@
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
                         <td class="pl-5 text-[#6DA854]">{{ $pinjamans->firstItem() + $index }}</td>
                         <td class="p-3 whitespace-nowrap">{{ $pinjaman->pengajuan_pinjaman->anggota->nama  }}</td>
+                        <td class="p-3 whitespace-nowrap">
+                            {{ \Carbon\Carbon::parse($pinjaman->pengajuan_pinjaman->created_at)->translatedFormat('d-m-Y') }}
+                        </td>
                         <td class="whitespace-nowrap">Rp {{ number_format($pinjaman->pengajuan_pinjaman->jumlah_pinjaman, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">
                             @if ($pinjaman->status == 'dalam pembayaran')

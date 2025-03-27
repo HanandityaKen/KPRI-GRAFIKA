@@ -197,24 +197,28 @@
 
 
     document.addEventListener("DOMContentLoaded", function() {
-        new TomSelect("#select_nama_kas_masuk", {
-            create: false,
-            sortField: {
-                field: "text",
-                direction: "asc"
-            },
-            openOnFocus: true,
-            maxOptions: 10,
-        });
-        new TomSelect("#select_nama_kas_keluar", {
-            create: false,
-            sortField: {
-                field: "text",
-                direction: "asc"
-            },
-            openOnFocus: true,
-            maxOptions: 10,
-        });
+      function initializeSelect2() {
+          new TomSelect("#select_nama_kas_masuk", {
+              create: false,
+              sortField: {
+                  field: "text",
+                  direction: "asc"
+              },
+              openOnFocus: true,
+              maxOptions: 10,
+          });
+          new TomSelect("#select_nama_kas_keluar", {
+              create: false,
+              sortField: {
+                  field: "text",
+                  direction: "asc"
+              },
+              openOnFocus: true,
+              maxOptions: 10,
+          });
+      }
+
+      initializeSelect2();
     });
 
     window.addEventListener('DOMContentLoaded', function () {

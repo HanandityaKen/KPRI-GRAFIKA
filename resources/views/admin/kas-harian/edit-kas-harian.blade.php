@@ -185,15 +185,32 @@
 
 
     document.addEventListener("DOMContentLoaded", function() {
-        new TomSelect("#select_nama", {
-            create: false,
-            sortField: {
-                field: "text",
-                direction: "asc"
-            },
-            openOnFocus: true,
-            maxOptions: 10,
-        });
+      let selectKasMasuk = document.querySelector("#select_nama_kas_masuk");
+      let selectNama = document.querySelector("#select_nama");
+
+      if (selectKasMasuk) {
+          new TomSelect(selectKasMasuk, {
+              create: false,
+              sortField: {
+                  field: "text",
+                  direction: "asc"
+              },
+              openOnFocus: true,
+              maxOptions: 10,
+          });
+      }
+
+      if (selectNama) {
+          new TomSelect(selectNama, {
+              create: false,
+              sortField: {
+                  field: "text",
+                  direction: "asc"
+              },
+              openOnFocus: true,
+              maxOptions: 10,
+          });
+      }
     });
 
     window.addEventListener('DOMContentLoaded', function () {

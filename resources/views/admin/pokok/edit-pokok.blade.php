@@ -1,6 +1,6 @@
 @extends('admin.layout.main')
 
-@section('title', 'Edit Persentase')
+@section('title', 'Edit Pokok')
 
 @section('content')
     <div>
@@ -23,7 +23,7 @@
                 <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                 </svg>
-                <a href="{{ route('admin.persentase.index') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Persentase</a>
+                <a href="{{ route('admin.pokok.index') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Pokok</a>
               </div>
             </li>
             <li>
@@ -31,7 +31,7 @@
                 <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                 </svg>
-                <a href="{{ route('admin.persentase.edit', $persentase->id) }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Edit Persentase</a>
+                <a href="{{ route('admin.pokok.edit', $pokok->id) }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Edit Pokok</a>
               </div>
             </li>
           </ol>
@@ -39,19 +39,15 @@
       </div>
 
       <div class="flex justify-between items-center mb-6">
-        <h1 class="text-xl font-bold">Edit Persentase</h1>
+        <h1 class="text-xl font-bold">Edit Pokok</h1>
       </div>
 
-      <form action="{{ route('admin.persentase.update', $persentase->id) }}" method="POST">
+      <form action="{{ route('admin.pokok.update', $pokok->id) }}" method="POST">
         @csrf
         @method('PUT')
-        <div class="mb-3">
-          <label class="block mb-1 text-sm font-medium text-gray-900">Nama Persentase</label>
-          <input type="text" name="nama" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" value="{{ old('nama', $persentase->nama) }}" placeholder="Masukan Nama Persentase" readonly/>
-        </div>
         <div class="mb-6">
-          <label class="block mb-1 text-sm font-medium text-gray-900">Persentase</label>
-          <input type="text" id="persentase" name="persentase" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" value="{{ old('persentase', $persentase->persentase * 100) }}" inputmode="numeric" placeholder="Masukan Persentase" required/>
+          <label class="block mb-1 text-sm font-medium text-gray-900">Nominal</label>
+          <input type="text" id="nominal" name="nominal" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" value="{{ old('nominal', $pokok->nominal) }}" inputmode="numeric" placeholder="Masukan Nominal" required/>
         </div>
         <div class="flex justify-start">
           <button type="submit" class="bg-green-800 text-white py-2 px-4 rounded-md">
@@ -64,22 +60,21 @@
 
 @push('scripts')
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const persentase = document.getElementById('persentase');
+      document.addEventListener("DOMContentLoaded", function () {
+          document.querySelectorAll('.format-rupiah').forEach(function (input) {
+            
+              let initialValue = input.value.replace(/\D/g, "");
+              if (initialValue) {
+                  let formatted = new Intl.NumberFormat("id-ID").format(initialValue);
+                  input.value = `Rp ${formatted}`;
+              }
 
-        if (persentase.value !== '') {
-            persentase.value += '%';
-        }
-
-        persentase.addEventListener('input', function() {
-          let value = this.value.replace(/[^0-9.]/g, '');
-
-          if ((value.match(/\./g) || []).length > 1) {
-              value = value.replace(/\.+$/, ''); 
-          }
-
-          this.value = value !== '' ? value + '%' : '';
-        });
+              input.addEventListener("input", function (e) {
+                  let value = e.target.value.replace(/\D/g, "");
+                  let formatted = new Intl.NumberFormat("id-ID").format(value);
+                  e.target.value = value ? `Rp ${formatted}` : "";
+              });
+          });
       });
     </script>
 @endpush

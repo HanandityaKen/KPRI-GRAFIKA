@@ -20,6 +20,7 @@ use App\Http\Controllers\AngsuranUnitKonsumsiController;
 use App\Http\Controllers\RiwayatTransaksiController;
 use App\Http\Controllers\WajibController;
 use App\Http\Controllers\WajibPinjamController;
+use App\Http\Controllers\PokokController;
 
 use App\Http\Controllers\Pengurus\PengurusController as SubPengurusController;
 use App\Http\Controllers\Pengurus\KasHarianController as SubKasHarianController;
@@ -66,6 +67,7 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::resource('saldo-koperasi', SaldoKoperasiController::class)->only(['index']);
     Route::resource('wajib', WajibController::class)->only(['index', 'edit', 'update']);
     Route::resource('wajib-pinjam', WajibPinjamController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+    Route::resource('pokok', PokokController::class)->only(['index', 'edit', 'update']);
     Route::post('/logout-admin', [AuthController::class, 'logoutAdmin'])->name('logout');
 });
 

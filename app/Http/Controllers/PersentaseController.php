@@ -44,14 +44,12 @@ class PersentaseController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'nama' => 'required|string',
             'persentase' => 'required|regex:/^\d+(\.\d+)?%?$/'
         ]);
     
         $persentase = str_replace('%', '', $request->persentase) / 100;
     
         Persentase::findOrFail($id)->update([
-            'nama' => $request->nama,
             'persentase' => $persentase
         ]);
 

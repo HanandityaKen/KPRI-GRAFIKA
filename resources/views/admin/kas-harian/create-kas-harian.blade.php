@@ -76,7 +76,7 @@
     @livewire('form-create-kas-harian')
   </div>
   <div id="kas_keluar" class="hidden">
-    <form action="{{ route('admin.kas-harian.store') }}" id="formCreateJkk" method="POST">
+    {{-- <form action="{{ route('admin.kas-harian.store') }}" id="formCreateJkk" method="POST">
       @csrf
       <input type="text" name="jenis_transaksi" class="hidden"  value="kas keluar"/>
       <div class="mb-4">
@@ -156,21 +156,20 @@
           Simpan
         </button>
       </div>
-    </form>
+    </form> --}}
+    @livewire('form-create-kas-harian-keluar')
   </div>
 </div>
 @endsection
 
 @push('scripts') 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll('.format-rupiah').forEach(function (input) {
-            input.addEventListener("input", function (e) {
-                let value = e.target.value.replace(/\D/g, ""); // Hapus semua non-digit
-                let formatted = new Intl.NumberFormat("id-ID").format(value);
-                e.target.value = value ? `Rp ${formatted}` : "";
-            });
-        });
+    document.body.addEventListener("input", function (e) {
+        if (e.target.classList.contains("format-rupiah")) {
+            let value = e.target.value.replace(/\D/g, ""); // Hapus semua non-digit
+            let formatted = new Intl.NumberFormat("id-ID").format(value);
+            e.target.value = value ? `Rp ${formatted}` : "";
+        }
     });
 
 

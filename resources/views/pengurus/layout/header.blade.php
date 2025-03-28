@@ -9,12 +9,12 @@
     <div class="relative flex items-center space-x-4">
       <a href="#" id="userDropdownToggle" class="flex gap-2 sm:gap-4 items-center justify-end">
         <!-- Avatar Image -->
-        <img src="{{ asset('storage/assets/foto_smk.webp')}}" class="rounded-full w-8 h-8 sm:w-12 sm:h-12" alt="Avatar" />
+        <img src="{{ Auth::guard('pengurus')->user()->foto_profile ? asset('storage/' . Auth::guard('pengurus')->user()->foto_profile) : asset('storage/assets/default-avatar.webp') }}" class="rounded-full w-8 h-8 sm:w-12 sm:h-12" alt="Avatar" />
         <!-- User Info -->
         <div class="flex items-center gap-1 sm:gap-2">
           <div class="hidden sm:block">
             <h4 class="text-green-800 font-semibold">{{ auth()->guard('pengurus')->user()->nama }}</h4>
-            <h4 class="text-sm text-gray-500">Pengurus</h4>
+            <h4 class="text-sm text-gray-500">{{ ucwords(auth()->guard('pengurus')->user()->jabatan) }}</h4>
           </div>
           <!-- Dropdown Icon -->
           <i data-lucide="chevron-down" class="text-green-800 sm:mr-3 group-hover:text-white"></i>
@@ -24,7 +24,7 @@
       <!-- Dropdown Menu -->
       <div id="userDropdownMenu" class="hidden absolute right-0 top-full mt-2 w-48 bg-white border rounded-lg shadow-lg z-10">
         <ul class="py-1">
-            <a href="profile.html" class="block px-4 py-2 hover:bg-gray-100 text-xs">Profile</a>
+            <a href="{{ route('pengurus.profile.index') }}" class="block px-4 py-2 hover:bg-gray-100 text-xs">Profile</a>
           </li>
           <li>
             <form action="{{ route('pengurus.logout') }}" method="POST">

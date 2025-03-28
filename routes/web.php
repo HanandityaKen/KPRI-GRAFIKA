@@ -21,6 +21,7 @@ use App\Http\Controllers\RiwayatTransaksiController;
 use App\Http\Controllers\WajibController;
 use App\Http\Controllers\WajibPinjamController;
 use App\Http\Controllers\PokokController;
+use App\Http\Controllers\ProfileController;
 
 use App\Http\Controllers\Pengurus\PengurusController as SubPengurusController;
 use App\Http\Controllers\Pengurus\KasHarianController as SubKasHarianController;
@@ -34,6 +35,8 @@ use App\Http\Controllers\Pengurus\PengajuanUnitKonsumsiController as SubPengajua
 use App\Http\Controllers\Pengurus\UnitKonsumsiController as SubUnitKonsumsiController;
 use App\Http\Controllers\Pengurus\AngsuranUnitKonsumsiController as SubAngsuranUnitKonsumsiController;
 use App\Http\Controllers\Pengurus\RiwayatTransaksiController as SubRiwayatTransaksiController;
+use App\Http\Controllers\Pengurus\ProfileController as SubProfileController;
+
 
 
 
@@ -68,6 +71,7 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::resource('wajib', WajibController::class)->only(['index', 'edit', 'update']);
     Route::resource('wajib-pinjam', WajibPinjamController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('pokok', PokokController::class)->only(['index', 'edit', 'update']);
+    Route::resource('profile', ProfileController::class)->only(['index', 'update']);
     Route::post('/logout-admin', [AuthController::class, 'logoutAdmin'])->name('logout');
 });
 
@@ -88,6 +92,7 @@ Route::prefix('pengurus')->as('pengurus.')->middleware('pengurus', 'no-cache')->
     Route::resource('unit-konsumsi', SubUnitKonsumsiController::class)->only(['index']);
     Route::resource('angsuran-unit-konsumsi', SubAngsuranUnitKonsumsiController::class)->only(['index', 'edit', 'update']);
     Route::resource('riwayat-transaksi', SubRiwayatTransaksiController::class)->only(['index']);
+    Route::resource('profile', SubProfileController::class)->only(['index', 'update']);
     Route::post('/logout-pengurus', [AuthController::class, 'logoutPengurus'])->name('logout');
 });
 

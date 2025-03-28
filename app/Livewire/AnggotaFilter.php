@@ -28,6 +28,7 @@ class AnggotaFilter extends Component
                     ->orWhere('email', 'like', '%' . $this->search . '%')
                     ->orWhere('telepon', 'like', '%' . $this->search . '%');
             })
+            ->orderBy('no_anggota', 'asc')
             ->paginate(10)
             ->onEachSide(1)
         ]);

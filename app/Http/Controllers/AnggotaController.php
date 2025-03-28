@@ -25,6 +25,7 @@ class AnggotaController extends Controller
         $request->validate([
             'no_anggota'    => 'required|numeric|unique:anggota',
             'nama'      => 'required|string',
+            'jenis_pegawai' => 'required|in:PNS,P3K,GTT',
             'posisi'      => 'required|in:anggota',
             'telepon'   => 'required|numeric|regex:/^08[0-9]{8,11}$/',
             'email'   => 'required|email',
@@ -39,6 +40,7 @@ class AnggotaController extends Controller
         Anggota::create([
             'no_anggota' => $request->no_anggota,
             'nama' => $request->nama,
+            'jenis_pegawai' => $request->jenis_pegawai,
             'posisi' => $request->posisi,
             'telepon' => $request->telepon,
             'email' => $request->email,
@@ -59,7 +61,7 @@ class AnggotaController extends Controller
         $request->validate([
             'no_anggota' => 'required|numeric|unique:anggota,no_anggota,' . $id . ',id',
             'nama'      => 'required|string',
-            'posisi'      => 'required|in:anggota',
+            'jenis_pegawai' => 'required|in:PNS,P3K,GTT',
             'telepon'   => 'required|numeric|regex:/^08[0-9]{8,11}$/',
             'email'   => 'required|email',
             'password'   => 'nullable|string|min:8',
@@ -74,7 +76,7 @@ class AnggotaController extends Controller
 
         $user->no_anggota = $request->input('no_anggota');
         $user->nama = $request->input('nama');
-        $user->posisi = $request->input('posisi');
+        $user->jenis_pegawai = $request->input('jenis_pegawai');
         $user->telepon = $request->input('telepon');
         $user->email = $request->input('email');
         if ($request->password) {

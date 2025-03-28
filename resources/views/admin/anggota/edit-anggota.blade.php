@@ -44,55 +44,7 @@
   </div>
 
   <!-- Form Tambah Anggota -->
-  <form action="{{ route('admin.anggota.update', $user->id) }}" method="POST">
-    @csrf
-    @method('PUT')
-    <div class="mb-3">
-      <label class="block mb-1 text-sm font-medium text-gray-900">No Anggota</label>
-      <input type="text" id="no_anggota" name="no_anggota" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan No Anggota" value="{{ old('no_anggota', $user->no_anggota) }}" required/>
-      @error('no_anggota')
-        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-      @enderror
-    </div>
-    <div class="mb-4">
-      <label class="block mb-1 text-sm font-medium text-gray-900">Nama</label>
-      <input type="text" name="nama" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nama" value="{{ old('nama', $user->nama) }}" required/>
-    </div>
-    <div class="mb-4">
-      <label class="block mb-1 text-sm font-medium text-gray-900">Role</label>
-      <select name="posisi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
-        <option value="" disabled selected>Pilih Posisi Anggota</option>
-        <option value="anggota" {{ old('posisi', $user->posisi) == 'anggota' ? 'selected' : '' }}>Anggota</option>
-        <option value="pengurus" {{ old('posisi', $user->posisi) == 'pengurus' ? 'selected' : '' }}>Pengurus</option>
-      </select>
-    </div>
-    <div class="mb-4">
-      <label class="block mb-1 text-sm font-medium text-gray-900">Nomor Telepon</label>
-      <input type="text" id="telepon" name="telepon" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan No. Telepon" value="{{ old('telepon', $user->telepon) }}" required/>
-      @error('telepon')
-        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-      @enderror
-    </div>
-    <div class="mb-4">
-      <label class="block mb-1 text-sm font-medium text-gray-900">Email</label>
-      <input type="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Email" value="{{ old('email', $user->email) }}" required/>
-      @error('email')
-        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-      @enderror
-    </div>
-    <div class="mb-6">
-      <label class="block mb-1 text-sm font-medium text-gray-900">Password</label>
-      <input type="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Password" value=""/>
-      @error('password')
-        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-      @enderror
-    </div>
-    <div class="flex justify-start">
-      <button type="submit" class="bg-green-800 text-white py-2 px-4 rounded-md">
-        Simpan
-      </button>
-    </div>
-  </form>
+  @livewire('form-edit-anggota', ['id' => $user->id])
 </div>
 @endsection
 

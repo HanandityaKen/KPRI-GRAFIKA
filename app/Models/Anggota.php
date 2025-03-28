@@ -17,6 +17,7 @@ class Anggota extends Authenticatable
         'foto_profile',
         'posisi',
         'jabatan',
+        'jenis_pegawai',
         'password',
     ];
 

@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Pengurus;
 
 use Livewire\Component;
 use App\Models\Anggota;
-use App\Models\KasHarian;
-use App\Models\Simpanan;
-use App\Models\Pokok;
 use App\Models\Wajib;
+use App\Models\Simpanan;
+use App\Models\Saldo;
 
-class FormEditKasHarianKeluar extends Component
-{
-    public $kasHarian;
+class FormCreateKasHarianKeluar extends Component
+{   
     public $namaList = [];
     public $anggota_id = '';
     public $bendahara = false;
+    public $wajibOptions = [0];
+    public $selectedWajib = 0;
 
     public $qurban = '';
     public $manasuka = '';
@@ -24,27 +24,16 @@ class FormEditKasHarianKeluar extends Component
     public $disabled_qurban = false;
     public $disabled_manasuka = false;
 
-    public $wajibOption = [];
-
-    public function mount($id)
+    public function mount()
     {
-        $this->kasHarian = KasHarian::findOrFail($id);
-        $this->namaList = Anggota::pluck('nama', 'id')->toArray();
-        $this->anggota_id = $this->kasHarian->anggota_id;
-
-        $this->manasuka = $this->kasHarian->manasuka;
-        $this->qurban = $this->kasHarian->qurban;
-
-        $anggota = Anggota::find($this->anggota_id);
-        $this->bendahara = $anggota && $anggota->jabatan === 'bendahara';
-
-        $this->wajibOption = [0, $this->kasHarian->wajib];
+        $this->namaList = Anggota::pluck('nama', 'id');
     }
 
     public function updated($propertyName)
     {
         if ($propertyName === 'anggota_id') {
             $this->getBendahara();
+            $this->getWajibOptions();
         }
     }
 
@@ -57,6 +46,19 @@ class FormEditKasHarianKeluar extends Component
         } else {
             $this->bendahara = false;
         }
+    }
+
+    public function getWajibOptions()
+    {
+        if ($this->anggota_id) {
+            $totalWajib =  Simpanan::where('anggota_id', $this->anggota_id)->pluck('wajib')->toArray();
+
+            $this->wajibOptions = array_merge([0], $totalWajib);
+        } else {
+            $this->wajibOptions = [0]; 
+        }
+
+        $this->selectedWajib = 0; 
     }
 
     public function updatedQurban()
@@ -102,6 +104,6 @@ class FormEditKasHarianKeluar extends Component
 
     public function render()
     {
-        return view('livewire.form-edit-kas-harian-keluar');
+        return view('livewire.pengurus.form-create-kas-harian-keluar');
     }
 }

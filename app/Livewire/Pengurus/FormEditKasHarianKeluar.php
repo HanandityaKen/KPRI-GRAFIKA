@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Livewire\Pengurus;
 
 use Livewire\Component;
 use App\Models\Anggota;
@@ -99,9 +99,9 @@ class FormEditKasHarianKeluar extends Component
             $this->disabled = false;
         }
     }
-
+    
     public function render()
     {
-        return view('livewire.form-edit-kas-harian-keluar');
+        return view('livewire.pengurus.form-edit-kas-harian-keluar');
     }
 }

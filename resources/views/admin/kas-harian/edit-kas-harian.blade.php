@@ -64,19 +64,18 @@
 @push('scripts') 
   <script>
     document.addEventListener("DOMContentLoaded", function () {
-        document.querySelectorAll('.format-rupiah').forEach(function (input) {
-          
-            let initialValue = input.value.replace(/\D/g, ""); // Hapus semua non-digit
-            if (initialValue) {
-                let formatted = new Intl.NumberFormat("id-ID").format(initialValue);
-                input.value = `Rp ${formatted}`;
-            }
-
-            input.addEventListener("input", function (e) {
+        document.body.addEventListener("input", function (e) {
+            if (e.target.classList.contains("format-rupiah")) {
                 let value = e.target.value.replace(/\D/g, ""); // Hapus semua non-digit
-                let formatted = new Intl.NumberFormat("id-ID").format(value);
-                e.target.value = value ? `Rp ${formatted}` : "";
-            });
+                e.target.value = value ? `Rp ${new Intl.NumberFormat("id-ID").format(value)}` : "";
+            }
+        });
+
+        document.querySelectorAll(".format-rupiah").forEach(function (input) {
+            let value = input.value.replace(/\D/g, ""); // Hapus semua non-digit saat halaman dimuat
+            if (value) {
+                input.value = `Rp ${new Intl.NumberFormat("id-ID").format(value)}`;
+            }
         });
     });
 
@@ -108,14 +107,6 @@
               maxOptions: 10,
           });
       }
-    });
-
-    document.body.addEventListener("input", function (e) {
-        if (e.target.classList.contains("format-rupiah")) {
-            let value = e.target.value.replace(/\D/g, ""); // Hapus semua non-digit
-            let formatted = new Intl.NumberFormat("id-ID").format(value);
-            e.target.value = value ? `Rp ${formatted}` : "";
-        }
     });
   </script>
 @endpush

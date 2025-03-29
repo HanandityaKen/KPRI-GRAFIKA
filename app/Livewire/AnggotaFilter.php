@@ -25,6 +25,7 @@ class AnggotaFilter extends Component
         return view('livewire.anggota-filter', [
             'users' => Anggota::where(function($query) {
                 $query->where('nama', 'like', '%' . $this->search . '%')
+                    ->orWhere('jenis_pegawai', 'like', '%' . $this->search . '%')
                     ->orWhere('email', 'like', '%' . $this->search . '%')
                     ->orWhere('telepon', 'like', '%' . $this->search . '%');
             })

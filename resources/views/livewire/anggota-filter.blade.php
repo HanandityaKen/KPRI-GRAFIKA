@@ -21,6 +21,7 @@
                     <th class="p-3 text-left text-[#6DA854]">No</th>
                     <th class="p-3 text-left whitespace-nowrap">No Anggota</th>
                     <th class="p-3 text-left whitespace-nowrap">Nama</th>
+                    <th class="p-3 text-left whitespace-nowrap">Jenis Pegawai</th>
                     <th class="p-3 text-left whitespace-nowrap">Telepon</th>
                     <th class="p-3 text-left whitespace-nowrap">Email</th>
                     <th class="p-3 text-left whitespace-nowrap">Posisi</th>
@@ -33,6 +34,7 @@
                         <td class="pl-5 text-[#6DA854]">{{ $users->firstItem() + $index }}</td>
                         <td class="p-3 text-center whitespace-nowrap">{{ $user->no_anggota }}</td>
                         <td class="p-3 whitespace-nowrap">{{ $user->nama }}</td>
+                        <td class="p-3 text-center whitespace-nowrap">{{ $user->jenis_pegawai }}</td>
                         <td class="p-3 whitespace-nowrap">{{ $user->telepon }}</td>
                         <td class="p-3 whitespace-nowrap">{{ $user->email }}</td>
                         <td class="p-3 whitespace-nowrap">

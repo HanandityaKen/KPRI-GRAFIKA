@@ -57,16 +57,16 @@
   <form action="{{ route('admin.pengurus.update', $user->id)}}" method="POST">
     @csrf
     @method('PUT')
-    <div class="mb-3">
-      <label class="block mb-1 text-sm font-medium text-gray-900">No Anggota</label>
-      <input type="text" id="no_anggota" name="no_anggota" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan No Anggota" value="{{ old('no_anggota', $user->no_anggota) }}" required/>
-      @error('no_anggota')
-        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-      @enderror
-    </div>
     <div class="mb-4">
       <label class="block mb-1 text-sm font-medium text-gray-900">Nama</label>
-      <input type="text" name="nama" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nama" value="{{ old('nama', $user->nama) }}" required/>
+      <select id="select_nama" name="nama" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
+          <option value="" disabled selected>Pilih Nama</option>
+          @foreach ($anggotaList as $id => $nama)
+              <option value="{{ $nama }}" {{ (old('nama', $user->id) == $id) ? 'selected' : '' }}>
+                  {{ $nama }}
+              </option>
+          @endforeach
+      </select>
     </div>
     <div class="mb-4">
       <label class="block mb-1 text-sm font-medium text-gray-900">Posisi</label>
@@ -78,37 +78,17 @@
     <div class="mb-4">
       <label class="block mb-1 text-sm font-medium text-gray-900">Jabatan</label>
       <input type="hidden" name="jabatan" value="{{ $user->jabatan }}">
-      <select name="jabatan_select" class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
+      <select name="jabatan" class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
         <option value="" selected>Pilih Jabatan</option>
         <option value="pengawas" {{ old('jabatan', $user->jabatan) == 'pengawas' ? 'selected' : '' }}>Pengawas</option>
-        <option value="bendahara" {{ old('jabatan', $user->jabatan) == 'bendahara' ? 'selected' : '' }} {{ $jumlahBendahara >= 2 ? 'disabled' : '' }}>
-          Bendahara
+        <option value="bendahara" {{ old('jabatan', $user->jabatan) == 'bendahara' ? 'selected' : '' }} 
+            @if ($user->jabatan !== 'bendahara' && $jumlahBendahara >= 2) disabled @endif>
+            Bendahara
         </option>
       </select>
-      @if ($jumlahBendahara >= 2)
-        <p class="text-red-500 text-xs mt-1">* Jumlah bendahara sudah 2 orang</p>
+      @if ($jumlahBendahara >= 2 && $user->jabatan !== 'bendahara')
+          <p class="text-red-500 text-xs mt-1">* Jumlah bendahara sudah 2 orang</p>
       @endif
-    </div>
-    <div class="mb-4">
-      <label class="block mb-1 text-sm font-medium text-gray-900">Nomor Telepon</label>
-      <input type="text" id="telepon" name="telepon" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan No. Telepon" value="{{ old('telepon', $user->telepon) }}" inputmode="numeric" pattern="[0-9]*" required/>
-      @error('telepon')
-        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-      @enderror
-    </div>
-    <div class="mb-4">
-      <label class="block mb-1 text-sm font-medium text-gray-900">Email</label>
-      <input type="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Email" value="{{ old('email', $user->email) }}" required/>
-      @error('email')
-        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-      @enderror
-    </div>
-    <div class="mb-6">
-      <label class="block mb-1 text-sm font-medium text-gray-900">Password</label>
-      <input type="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Password" value=""/>
-      @error('password')
-        <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-      @enderror
     </div>
     <div class="flex justify-start">
       <button type="submit" class="bg-green-800 text-white py-2 px-4 rounded-md">
@@ -121,5 +101,17 @@
 
 
 @push('scripts') 
-
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+      new TomSelect("#select_nama", {
+          create: false,
+          sortField: {
+              field: "text",
+              direction: "asc"
+          },
+          openOnFocus: true,
+          maxOptions: 10,
+      });
+  });
+</script>
 @endpush

@@ -17,38 +17,26 @@ class PengurusController extends Controller
 
     public function create()
     {
+        $anggotaList = Anggota::where('posisi', 'anggota')->pluck('nama', 'id');
+        
         $jumlahBendahara = Anggota::where('jabatan', 'bendahara')->count();
 
-        return view('admin.pengurus.create-pengurus', compact('jumlahBendahara'));
+        return view('admin.pengurus.create-pengurus', compact('anggotaList', 'jumlahBendahara'));
     }
 
     public function store(Request $request)
     {
-        // dd($request->all());
-
         $request->validate([
-            'no_anggota'    => 'required|numeric|unique:anggota',
-            'nama'      => 'required|string',
+            'anggota_id'      => 'required|exists:anggota,id',
             'posisi'      => 'required|in:pengurus',
             'jabatan'      => 'required|in:pengawas,bendahara',
-            'telepon'   => 'required|numeric|regex:/^08[0-9]{8,11}$/',
-            'email'   => 'required|email',
-            'password'   => 'required|string|min:8',
-        ], [
-            'no_anggota.unique' => '* No Anggota sudah terdaftar.',
-            'telepon.regex' => '* Nomor telepon harus dimulai dengan 08 dan berisi 10-13 digit.',
-            'telepon.numeric' => '* Nomor telepon hanya boleh berisi angka. ',
-            'password.min' => '* Password harus berisi minimal 8 karakter. ',
         ]);
 
-        Anggota::create([
-            'no_anggota' => $request->no_anggota,
-            'nama' => $request->nama,
-            'posisi' => $request->posisi,
+        $anggota = Anggota::find($request->anggota_id);
+
+        $anggota->update([
+            'posisi'  => $request->posisi,
             'jabatan' => $request->jabatan,
-            'telepon' => $request->telepon,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
         ]);
 
         return redirect()->route('admin.pengurus.index')->with('success', 'Berhasil Menambahkan Pengurus');
@@ -58,39 +46,28 @@ class PengurusController extends Controller
     {
         $user = Anggota::findOrFail($id);
 
+        $anggotaList = Anggota::where('posisi', 'anggota')
+            ->orWhere('id', $id)
+            ->pluck('nama', 'id');
+
         $jumlahBendahara = Anggota::where('jabatan', 'bendahara')->count();
 
-        return view('admin.pengurus.edit-pengurus', compact('user', 'jumlahBendahara'));
+        return view('admin.pengurus.edit-pengurus', compact('user', 'anggotaList', 'jumlahBendahara'));
     }
 
     public function update(Request $request, string $id)
     {   
         $request->validate([
-            'no_anggota'    => 'required|numeric|unique:anggota',
             'nama'      => 'required|string',
             'posisi'      => 'required|in:pengurus',
             'jabatan'      => 'required|in:pengawas,bendahara',
-            'telepon'   => 'required|numeric|regex:/^08[0-9]{8,11}$/',
-            'email'   => 'required|email',
-            'password'   => 'nullable|string|min:8',
-        ], [
-            'no_anggota.unique' => '* No Anggota sudah terdaftar.',
-            'telepon.regex' => '* Nomor telepon harus dimulai dengan 08 dan berisi 10-13 digit.',
-            'telepon.numeric' => '* Nomor telepon hanya boleh berisi angka. ',
-            'password.min' => '* Password harus berisi minimal 8 karakter. ',
         ]);
 
         $user = Anggota::findOrFail($id);
 
-        $user->no_anggota = $request->input('no_anggota');
         $user->nama = $request->input('nama');
         $user->posisi = $request->input('posisi');
         $user->jabatan = $request->input('jabatan');
-        $user->telepon = $request->input('telepon');
-        $user->email = $request->input('email');
-        if ($request->password) {
-            $user->password = Hash::make($request->password);
-        }
 
         $user->save();
 

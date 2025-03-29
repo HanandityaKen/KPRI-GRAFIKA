@@ -29,6 +29,7 @@ class PengurusFilter extends Component
                     ->orWhere('telepon', 'like', '%' . $this->search . '%');
             })
             ->where('posisi', 'pengurus')
+            ->orderBy('no_anggota', 'asc')
             ->paginate(10)
             ->onEachSide(1)
         ]);

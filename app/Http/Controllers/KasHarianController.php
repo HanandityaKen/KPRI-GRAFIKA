@@ -226,6 +226,7 @@ class KasHarianController extends Controller
 
     public function update(Request $request, string $id)
     {
+        // dd($request->all());
         $request->validate([
             'jenis_transaksi'   => 'required|in:kas masuk,kas keluar',
             'tanggal'           => 'required|date_format:d-m-Y',

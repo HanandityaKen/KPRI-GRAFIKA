@@ -16,8 +16,9 @@ class FormEditKasHarian extends Component
     public $namaList = [];
     public $anggota_id = '';
     public $pokok = '';
-    public $wajibList = [];
+    public $wajibOptions = [];
     public $wajibPinjamList = [];
+    public $selectedWajib = '';
 
     public function mount($id)
     {
@@ -25,14 +26,31 @@ class FormEditKasHarian extends Component
         $this->namaList = Anggota::pluck('nama', 'id')->toArray();
         $this->anggota_id = $this->kasHarian->anggota_id;
 
-        $this->wajibList = Wajib::orderBy('nominal', 'desc')->pluck('nominal', 'id')->toArray();
+        $this->selectedWajib = $this->kasHarian->wajib;
         $this->wajibPinjamList = WajibPinjam::orderBy('nominal', 'asc')->pluck('nominal', 'id')->toArray();
+
+        $this->getWajib();
     }
 
     public function updated($propertyName)
     {
         if ($propertyName === 'anggota_id') {
             $this->getPokok();
+            $this->getWajib();
+        }
+    }
+
+    public function getWajib()
+    {
+        $anggota = Anggota::find($this->anggota_id);
+
+        if ($anggota) {
+            $this->wajibOptions = Wajib::where('jenis_pegawai', $anggota->jenis_pegawai)
+                ->orderBy('nominal', 'desc')
+                ->pluck('nominal')
+                ->toArray();
+        } else {
+            $this->wajibOptions = [];
         }
     }
 

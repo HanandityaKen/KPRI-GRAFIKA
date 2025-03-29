@@ -40,10 +40,10 @@
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Wajib</label>
             <select name="wajib" id="wajib" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2">
-                <option value="">Pilih Nominal Wajib</option>
-                @foreach ($wajibList as $id => $nominal)
-                    <option value="{{ $nominal }}" {{ old('wajib', $kasHarian->wajib) == $nominal ? 'selected' : '' }}>
-                        Rp {{ number_format($nominal, 0, ',', '.') }}
+                <option value="0">Pilih Nominal Wajib</option>
+                @foreach($wajibOptions as $wajib)
+                    <option value="{{ $wajib }}" {{ old('wajib', $kasHarian->wajib) == $wajib ? 'selected' : '' }}>
+                        Rp {{ number_format($wajib, 0, ',', '.') }}
                     </option>
                 @endforeach
             </select>

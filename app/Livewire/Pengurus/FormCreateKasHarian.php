@@ -18,6 +18,7 @@ class FormCreateKasHarian extends Component
     public $anggota_id = '';
     public $pokok = '';
     public $wajibList = [];
+    public $wajibOptions = [];
     public $wajibPinjamList = [];
     // public $angsuran = 0;
     // public $jasa = 0;
@@ -28,13 +29,13 @@ class FormCreateKasHarian extends Component
     public function mount()
     {
         $this->namaList = Anggota::pluck('nama', 'id');
-        $this->wajibList = Wajib::orderBy('nominal', 'desc')->pluck('nominal', 'id');
         $this->wajibPinjamList = WajibPinjam::orderBy('nominal', 'asc')->pluck('nominal', 'id');
     }
 
     public function updated($propertyName)
     {
         if ($propertyName === 'anggota_id') {
+            $this->getWajib();
             $this->getPokok();
         }
     }
@@ -83,6 +84,19 @@ class FormCreateKasHarian extends Component
     //     $this->angsuran = 0;
     //     $this->jasa = 0;
     // }
+    public function getWajib()
+    {
+        $anggota = Anggota::find($this->anggota_id);
+
+        if ($anggota) {
+            $this->wajibOptions = Wajib::where('jenis_pegawai', $anggota->jenis_pegawai)
+                ->orderBy('nominal', 'desc')
+                ->pluck('nominal')
+                ->toArray();
+        } else {
+            $this->wajibOptions = [];
+        }
+    }
 
     public function getPokok()
     {

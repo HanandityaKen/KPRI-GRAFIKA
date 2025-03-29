@@ -31,11 +31,9 @@
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Wajib</label>
             <select name="wajib" id="wajib" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2">
-                <option value="">Pilih Nominal Wajib</option>
-                @foreach ($wajibList as $id => $nominal)
-                    <option value="{{ $nominal }}" {{ old('wajib') == $nominal ? 'selected' : '' }}>
-                        Rp {{ number_format($nominal, 0, ',', '.') }}
-                    </option>
+                <option value="" disabled selected>Pilih Nominal</option>
+                @foreach($wajibOptions as $option)
+                    <option value="{{ $option }}">Rp {{ number_format($option, 0, ',', '.') }}</option>
                 @endforeach
             </select>
             {{-- <input type="text" id="wajib" name="wajib" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Wajib" inputmode="numeric" value="{{ old('wajib') }}"/> --}}

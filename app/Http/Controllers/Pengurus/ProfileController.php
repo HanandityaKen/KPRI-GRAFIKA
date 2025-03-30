@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Pengurus;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -24,7 +26,7 @@ class ProfileController extends Controller
         $request->validate([
             'nama' => 'required|string|max:255',
             'telepon' => 'required|string|max:15',
-            'email' => 'required|email|unique:anggota,email,' . $pengurus->id,
+            'email' => 'required|email|unique:pengurus,email,' . $pengurus->id,
             'foto_profile' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'password' => 'nullable|min:6',
         ]);
@@ -36,14 +38,24 @@ class ProfileController extends Controller
 
         // Jika ada password baru, update
         if ($request->filled('password')) {
-            $pengurus->password = bcrypt($request->password);
+            $pengurus->password = Hash::make($request->password);
         }
 
         if ($request->hasFile('foto_profile')) {
+            if ($pengurus->foto_profile) {
+                Storage::disk('public')->delete($pengurus->foto_profile);
+            }
+            
             $fotoPath = $request->file('foto_profile')->store('pengurus', 'public');
             $pengurus->foto_profile = $fotoPath;
-        } elseif ($request->has('delete_foto')) { 
+        } elseif ($request->has('delete_foto') && $request->delete_foto == "1") { 
+            // Jika pengguna menghapus foto
+            if ($pengurus->foto_profile) {
+                Storage::disk('public')->delete($pengurus->foto_profile);
+            }
             $pengurus->foto_profile = null;
+        } else {
+            $pengurus->foto_profile = $pengurus->foto_profile;
         }
 
         $pengurus->save();

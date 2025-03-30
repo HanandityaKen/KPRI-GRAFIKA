@@ -78,11 +78,11 @@
         const fileInput = document.getElementById('fotoInput');
         const previewImage = document.getElementById('previewImage');
         const deleteImage = document.getElementById('deleteImage');
-        
-        // Simpan foto asli dari database (jika ada)
-        const originalImage = "{{ $admin->foto ? asset('storage/' . $admin->foto) : '' }}";
+        const deleteFotoInput = document.getElementById('delete_foto'); // Dapatkan elemen hidden
+
         const defaultImage = "{{ asset('storage/assets/default-avatar.webp') }}"; 
 
+        // Saat memilih file, reset input hidden agar foto tidak dihapus
         fileInput.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
@@ -91,9 +91,11 @@
                     previewImage.src = e.target.result;
                 };
                 reader.readAsDataURL(file);
+                deleteFotoInput.value = "0"; // Pastikan foto tidak dihapus jika memilih file baru
             }
         });
 
+        // Saat tombol hapus ditekan, atur foto ke default dan tandai untuk dihapus
         deleteImage.addEventListener('click', function() {
             previewImage.src = defaultImage;
             fileInput.value = ''; // Reset input file

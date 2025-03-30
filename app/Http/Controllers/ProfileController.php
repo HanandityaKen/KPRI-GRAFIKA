@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -33,14 +35,24 @@ class ProfileController extends Controller
 
         // Jika ada password baru, update
         if ($request->filled('password')) {
-            $admin->password = bcrypt($request->password);
+            $admin->password = Hash::make($request->password);
         }
 
         if ($request->hasFile('foto_profile')) {
+            if ($admin->foto_profile) {
+                Storage::disk('public')->delete($admin->foto_profile);
+            }
+            
             $fotoPath = $request->file('foto_profile')->store('admin', 'public');
             $admin->foto_profile = $fotoPath;
-        } elseif ($request->has('delete_foto')) { 
+        } elseif ($request->has('delete_foto') && $request->delete_foto == "1") { 
+            // Jika pengguna menghapus foto
+            if ($admin->foto_profile) {
+                Storage::disk('public')->delete($admin->foto_profile);
+            }
             $admin->foto_profile = null;
+        } else {
+            $admin->foto_profile = $admin->foto_profile;
         }
 
         $admin->save();

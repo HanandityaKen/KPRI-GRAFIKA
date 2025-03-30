@@ -47,10 +47,10 @@
 
   <!-- Statistik Section -->
   <section class="py-16 px-6 md:px-20 bg-white">
-    <h2 class="text-green-700 font-bold text-xl text-center mb-6">Statistik</h2>
+    <h2 class="text-green-700 font-bold text-xl text-center mb-6">Data Koperasi</h2>
     <div class="bg-green-100 p-14 rounded-lg shadow-md flex flex-col md:flex-row justify-between items-center text-center space-y-6 md:space-y-0 md:space-x-8">
       <div class="flex flex-col items-center">
-        <i data-lucide="dollar-sign" class="text-green-700 w-6 h-6"></i>
+        <i data-lucide="circle-dollar-sign" class="text-green-700 w-6 h-6"></i>
         <h3 class="text-lg font-bold text-green-800">Rp {{ number_format($totalSimpanan, 0, ',', '.') }}</h3>
         <p class="text-sm text-gray-600">Unit</p>
       </div>
@@ -78,8 +78,13 @@
       </div>
       <div class="flex flex-col items-center">
         <i data-lucide="handshake" class="text-green-700 w-6 h-6"></i>
-        <h3 class="text-lg font-bold text-green-800">Rp {{ number_format($pinjaman, 0, ',', '.') }}</h3>
-        <p class="text-sm text-gray-600">Total Pinjaman</p>
+        <h3 class="text-lg font-bold text-green-800">Rp {{ number_format($sisaPinjaman, 0, ',', '.') }}</h3>
+        <p class="text-sm text-gray-600">Sisa Pinjaman</p>
+      </div>
+      <div class="flex flex-col items-center">
+        <i data-lucide="utensils" class="text-green-700 w-6 h-6"></i>
+        <h3 class="text-lg font-bold text-green-800">Rp {{ number_format($sisaUnitKonsumsi, 0, ',', '.') }}</h3>
+        <p class="text-sm text-gray-600">Sisa Unit Konsumsi</p>
       </div>
     </div>
   </section>

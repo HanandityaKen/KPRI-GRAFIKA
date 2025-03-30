@@ -8,7 +8,10 @@ use App\Models\Anggota;
 use App\Models\Simpanan;
 use App\Models\PengajuanPinjaman;
 use App\Models\Pinjaman;
+use App\Models\Angsuran;
 use App\Models\PengajuanUnitKonsumsi;
+use App\Models\UnitKonsumsi;
+use App\Models\AngsuranUnitKonsumsi;
 use App\Models\Saldo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -26,21 +29,57 @@ class AnggotaController extends Controller
 
         $totalPinjaman = PengajuanPinjaman::where('status', 'disetujui')->sum('jumlah_pinjaman');
 
+        $totalUnitKonsumsi = PengajuanUnitKonsumsi::where('status', 'disetujui')->sum('nominal');
+
         $jumlahSaldo = Saldo::first()?->saldo ?? 0;
 
         $simpananAnggota = Simpanan::where('anggota_id', $anggotaId)->value('total');
 
-        $pinjamanAnggota = PengajuanPinjaman::where('anggota_id', $anggotaId)
-            ->where('status', 'disetujui')
-            ->sum('jumlah_pinjaman');
+        //total pinjaman
+        // $pinjamanAnggota = PengajuanPinjaman::where('anggota_id', $anggotaId)
+        //     ->where('status', 'disetujui')
+        //     ->sum('jumlah_pinjaman');
 
-        $unitKonsumsiAnggota = PengajuanUnitKonsumsi::where('anggota_id', $anggotaId)
-            ->where('status', 'disetujui')
-            ->sum('nominal');
+        //total unit konsumsi
+        // $unitKonsumsiAnggota = PengajuanUnitKonsumsi::where('anggota_id', $anggotaId)
+        //     ->where('status', 'disetujui')
+        //     ->sum('nominal');
 
-        $pinjaman = $pinjamanAnggota + $unitKonsumsiAnggota;
+        // $pinjaman = $pinjamanAnggota + $unitKonsumsiAnggota;
 
-        return view('anggota.dashboard', compact('jumlahAnggota', 'totalSimpanan', 'totalPinjaman', 'jumlahSaldo', 'simpananAnggota', 'pinjaman'));
+        // sisa pinjaman
+        $sisaPinjaman = Angsuran::whereHas('pinjaman', function ($query) use ($anggotaId) {
+            $query->where('status', 'dalam pembayaran')
+                    ->whereHas('pengajuan_pinjaman', function ($q) use ($anggotaId) {
+                        $q->where('anggota_id', $anggotaId);
+                    });
+            })
+            ->orderByDesc('created_at') 
+            ->first();
+        
+        if ($sisaPinjaman) {
+            $sisaPinjaman = $sisaPinjaman->kurang_angsuran + $sisaPinjaman->kurang_jasa;
+        } else {
+            $sisaPinjaman = 0; // Jika tidak ada data, set ke 0
+        }
+
+        //sisa unit konsumsi
+        $sisaUnitKonsumsi = AngsuranUnitKonsumsi::whereHas('unit_konsumsi', function ($query) use ($anggotaId) {
+            $query->where('status', 'dalam pembayaran')
+                    ->whereHas('pengajuan_unit_konsumsi', function ($q) use ($anggotaId) {
+                        $q->where('anggota_id', $anggotaId);
+                    });
+            })
+            ->orderByDesc('created_at') 
+            ->first();
+        
+        if ($sisaUnitKonsumsi) {
+            $sisaUnitKonsumsi = $sisaUnitKonsumsi->kurang_angsuran + $sisaUnitKonsumsi->kurang_jasa;
+        } else {
+            $sisaUnitKonsumsi = 0; // Jika tidak ada data, set ke 0
+        }
+
+        return view('anggota.dashboard', compact('jumlahAnggota', 'totalSimpanan', 'totalPinjaman', 'totalUnitKonsumsi', 'jumlahSaldo', 'simpananAnggota', 'sisaPinjaman', 'sisaUnitKonsumsi'));
     }
 
     public function simpanan()

@@ -9,7 +9,7 @@
       <div>
         <h3 class="text-lg font-semibold">KPRI Grafika</h3>
         <p class="text-sm text-green-700 leading-relaxed">Jl. Tanimbar No.34, Kasin, Kec. Klojen, Kota Malang, Jawa Timur 6511</p>
-        <a href="telp: 0341353735" class="text-sm text-green-700 hover:text-white">0341-353735</a>
+        <a href="telp: 0341353735" class="text-sm text-green-700">0341-353735</a>
       </div>
     </div>
 

@@ -1,6 +1,6 @@
 <nav class="bg-white shadow-md p-4 flex justify-between items-center">
-  <div class="flex items-center space-x-2">
-    <img src={{ asset('storage/assets/logo_kpri.png') }} class="w-[50px] mr-3" alt="Logo" />
+  <div class="flex items-center space-x-0">
+    <img src={{ asset('storage/assets/logo_kpri.png') }} class="w-[50px]" alt="Logo" />
     <h2 class="font-bold text-green-800">KPRI Grafika</h2>
   </div>
 

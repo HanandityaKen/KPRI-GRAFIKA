@@ -51,7 +51,8 @@
         </div>
   
         <!-- Personal Data Section -->
-        <div class="max-w-full mx-auto px-20">
+        @livewire('anggota.form-profile', ['id' => $anggota->id])
+        {{-- <div class="max-w-full mx-auto px-20">
           <h1 class="text-xl font-bold mb-4">Personal Data</h1>
               <div class="mb-3">
                   <label class="block mb-1 text-sm font-medium text-gray-900">Nama</label>
@@ -74,7 +75,7 @@
                       Simpan
                   </button>
               </div>
-        </div>
+        </div> --}}
       </form>
 
     </div>

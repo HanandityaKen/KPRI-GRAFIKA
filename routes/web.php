@@ -44,6 +44,8 @@ Route::post('/anggota-login-proses', [AuthController::class, 'anggotaLoginProses
 Route::middleware('anggota', 'no-cache')->group(function () {
     Route::get('/dashboard', [AnggotaAnggotaController::class, 'index'])->name('dashboard');
     Route::get('/simpanan', [AnggotaAnggotaController::class, 'simpanan'])->name('simpanan');
+    Route::get('/profile', [AnggotaAnggotaController::class, 'profile'])->name('profile');
+    Route::put('/update-profile', [AnggotaAnggotaController::class, 'updateProfile'])->name('update-profile');
     Route::post('/logout-anggota', [AuthController::class, 'logoutAnggota'])->name('logout');
 });
 

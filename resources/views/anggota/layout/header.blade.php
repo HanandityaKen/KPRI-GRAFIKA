@@ -8,7 +8,7 @@
     <li><a href="{{ route('dashboard') }}" class="text-sm font-semibold {{ Request::is('dashboard') ? 'text-green-600' : 'text-gray-600 hover:text-green-600' }}">Beranda</a></li>
     <li><a href="{{ route('simpanan') }}" class="text-sm font-semibold {{ Request::is('simpanan') ? 'text-green-600' : 'text-gray-600 hover:text-green-600' }}">Simpanan</a></li>
     <li><a href="pinjaman-user.html" class="text-gray-600 text-sm hover:text-green-600">Pinjaman</a></li>
-    <li><a href="profile-user.html" class="text-gray-600 text-sm hover:text-green-600">Profile</a></li>
+    <li><a href="{{ route('profile') }}" class="text-sm font-semibold {{ Request::is('profile') ? 'text-green-600' : 'text-gray-600 hover:text-green-600' }}">Profile</a></li>
   </ul>
 
   <!-- Avatar dan Dropdown Toggle -->
@@ -31,7 +31,7 @@
   <div id="userDropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg z-50">
     <ul class="py-1">
       <li>
-        <a href="profile.html" class="block px-4 py-2 hover:bg-gray-100 text-xs">Profile</a>
+        <a href="{{ route('profile') }}" class="block px-4 py-2 hover:bg-gray-100 text-xs">Profile</a>
       </li>
       <li>
         <form action="{{ route('logout') }}" method="POST" class="m-0 p-0">

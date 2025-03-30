@@ -5,8 +5,8 @@
   </div>
 
   <ul class="hidden md:flex space-x-6">
-    <li><a href="beranda.html" class="text-green-600 font-semibold text-sm">Beranda</a></li>
-    <li><a href="simpanan-user.html" class="text-gray-600 text-sm hover:text-green-600">Simpanan</a></li>
+    <li><a href="{{ route('dashboard') }}" class="text-sm font-semibold {{ Request::is('dashboard') ? 'text-green-600' : 'text-gray-600 hover:text-green-600' }}">Beranda</a></li>
+    <li><a href="{{ route('simpanan') }}" class="text-sm font-semibold {{ Request::is('simpanan') ? 'text-green-600' : 'text-gray-600 hover:text-green-600' }}">Simpanan</a></li>
     <li><a href="pinjaman-user.html" class="text-gray-600 text-sm hover:text-green-600">Pinjaman</a></li>
     <li><a href="profile-user.html" class="text-gray-600 text-sm hover:text-green-600">Profile</a></li>
   </ul>

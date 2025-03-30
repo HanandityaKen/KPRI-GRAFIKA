@@ -36,11 +36,29 @@ class AnggotaController extends Controller
             ->where('status', 'disetujui')
             ->sum('nominal');
 
-        // dd($unitKonsumsiAnggota);
-
         $pinjaman = $pinjamanAnggota + $unitKonsumsiAnggota;
-        // dd($pinjaman);
 
         return view('anggota.dashboard', compact('jumlahAnggota', 'totalSimpanan', 'totalPinjaman', 'jumlahSaldo', 'simpananAnggota', 'pinjaman'));
+    }
+
+    public function simpanan()
+    {
+        $anggotaId = Auth::guard('anggota')->user()->id;
+
+        $pokok = Simpanan::where('anggota_id', $anggotaId)->value('pokok');
+
+        $wajib = Simpanan::where('anggota_id', $anggotaId)->value('wajib');
+
+        $manasuka = Simpanan::where('anggota_id', $anggotaId)->value('manasuka');
+
+        $wajib_pinjam = Simpanan::where('anggota_id', $anggotaId)->value('wajib_pinjam');
+
+        $qurban = Simpanan::where('anggota_id', $anggotaId)->value('qurban');
+
+        $total = Simpanan::where('anggota_id', $anggotaId)->value('total');
+
+        // dd($pokok, $wajib, $manasuka, $wajib_pinjam, $qurban);
+
+        return view('anggota.simpanan', compact('pokok', 'wajib', 'manasuka', 'wajib_pinjam', 'qurban', 'total'));
     }
 }

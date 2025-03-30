@@ -30,5 +30,5 @@
   </div>
 
   <!-- Copyright -->
-  <p class="text-center text-xs text-gray-600">Copyright &copy; 2025. All rights reserved.</p>
+  <p class="text-center text-xs text-gray-600">Copyright &copy; {{ date('Y') }}. All rights reserved.</p>
 </footer>

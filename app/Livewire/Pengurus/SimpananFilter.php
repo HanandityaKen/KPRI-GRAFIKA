@@ -7,6 +7,8 @@ use App\Models\Simpanan;
 use App\Models\Anggota;
 use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
+use App\Exports\SimpananExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SimpananFilter extends Component
 {
@@ -35,5 +37,13 @@ class SimpananFilter extends Component
                 ->paginate(10)
                 ->onEachSide(1)
         ]);
+    }
+
+    public function exportExcel()
+    {
+        $tanggal = date('d-m-Y');
+        $filename = "simpanan_anggota_{$tanggal}.xlsx";
+    
+        return Excel::download(new SimpananExport, $filename);
     }
 }

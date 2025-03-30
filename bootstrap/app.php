@@ -5,6 +5,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use App\Http\Middleware\CheckAdmin;
 use App\Http\Middleware\CheckPengurus;
+use App\Http\Middleware\CheckAnggota;
 use App\Http\Middleware\NoCache;
 
 return Application::configure(basePath: dirname(__DIR__))
@@ -17,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin' => CheckAdmin::class,
             'pengurus' => CheckPengurus::class,
+            'anggota' => CheckAnggota::class,
             'no-cache' => NoCache::class,
         ]);
     })

@@ -26,12 +26,11 @@ class AuthController extends Controller
 
         if (!Auth::guard('anggota')->attempt(['nama' => $request->nama, 'password' => $request->password])) {
             return back()->withErrors([
-                'nama' => 'Nama yang Anda masukkan salah',
-                'password' => 'Password yang Anda masukkan salah',
+                'error' => 'Nama atau Password yang Anda Masukan Salah!'
             ]);
         }
 
-        return redirect()->intended(route('anggota.dashboard'));
+        return redirect()->intended(route('dashboard'));
     }
     
     public function logoutAnggota(Request $request)

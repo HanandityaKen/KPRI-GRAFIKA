@@ -37,8 +37,14 @@ use App\Http\Controllers\Pengurus\AngsuranUnitKonsumsiController as SubAngsuranU
 use App\Http\Controllers\Pengurus\RiwayatTransaksiController as SubRiwayatTransaksiController;
 use App\Http\Controllers\Pengurus\ProfileController as SubProfileController;
 
+use App\Http\Controllers\Anggota\AnggotaController as AnggotaAnggotaController;
 
-
+Route::get('/', [AuthController::class, 'showAnggotaLoginForm'])->name('anggota.login');
+Route::post('/anggota-login-proses', [AuthController::class, 'anggotaLoginProses'])->name('anggota.login.proses');
+Route::middleware('anggota', 'no-cache')->group(function () {
+    Route::get('/dashboard', [AnggotaAnggotaController::class, 'index'])->name('dashboard');
+    Route::post('/logout-anggota', [AuthController::class, 'logoutAnggota'])->name('logout');
+});
 
 //Admin
 

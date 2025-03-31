@@ -10,15 +10,18 @@ class FormProfile extends Component
     public $anggota;
     public $nama = '';
     public $telepon = '';
+    public $email = '';
     public $password = '';
 
     public $error_nama;
     public $error_telepon;
+    public $error_email;
     public $error_password;
 
     public $disabled = false;
     public $disabled_nama = false;
     public $disabled_telepon = false;
+    public $disabled_email = false;
     public $disabled_password = false;
 
     public function mount($id)
@@ -26,6 +29,7 @@ class FormProfile extends Component
         $this->anggota = Anggota::findOrFail($id);
         $this->nama = $this->anggota->nama;
         $this->telepon = $this->anggota->telepon;
+        $this->email = $this->anggota->email;
     }
 
     public function updatedNama()
@@ -60,6 +64,22 @@ class FormProfile extends Component
         $this->checkDisabled();
     }
 
+    public function updatedEmail()
+    {
+        if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+            $this->error_email = '* Format email tidak valid.';
+            $this->disabled_email = true;
+        } elseif (Anggota::where('email', $this->email)->where('id', '!=', $this->anggota->id)->exists()) {
+            $this->error_email = '* Email sudah digunakan.';
+            $this->disabled_email = true;
+        } else {
+            $this->error_email = '';
+            $this->disabled_email = false;
+        }
+
+        $this->checkDisabled();
+    }
+
     public function updatedPassword()
     {
         if ($this->password === '') {
@@ -78,7 +98,7 @@ class FormProfile extends Component
 
     public function checkDisabled()
     {
-        if ($this->disabled_nama || $this->disabled_telepon || $this->disabled_password ) {
+        if ($this->disabled_nama || $this->disabled_telepon || $this->disabled_email || $this->disabled_password ) {
             $this->disabled = true;
         } else {
             $this->disabled = false;

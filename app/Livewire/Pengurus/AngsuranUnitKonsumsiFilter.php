@@ -9,6 +9,8 @@ use App\Models\PengajuanUnitKonsumsi;
 use App\Models\UnitKonsumsi;
 use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
+use App\Exports\AngsuranUnitKonsumsiExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AngsuranUnitKonsumsiFilter extends Component
 {
@@ -38,5 +40,13 @@ class AngsuranUnitKonsumsiFilter extends Component
                 ->paginate(10)
                 ->onEachSide(1)
         ]);
+    }
+
+    public function exportExcel()
+    {
+        $tanggal = date('d-m-Y');
+        $filename = "angsuran_unit_konsumsi_{$tanggal}.xlsx";
+    
+        return Excel::download(new AngsuranUnitKonsumsiExport, $filename);
     }
 }

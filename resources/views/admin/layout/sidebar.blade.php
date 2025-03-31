@@ -173,9 +173,9 @@
             <li>
                 <a href="{{ route('admin.persentase.index') }}" class="flex item-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Persentase</a>
             </li>
-            <li>
+            {{-- <li>
                 <a href="{{ route('admin.saldo-koperasi.index') }}" class="flex item-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Saldo Koperasi</a>
-            </li>
+            </li> --}}
             <li>
                 <a href="{{ route('admin.pokok.index') }}" class="flex item-center w-full p-1 text-green-800 transition duration-75 rounded-lg pl-11 group hover:bg-green-700 hover:text-white text-sm">Pokok</a>
             </li>

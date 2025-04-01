@@ -5,9 +5,11 @@ namespace App\Exports;
 use App\Models\KasHarian;
 use Illuminate\Contracts\View\View;
 use Maatwebsite\Excel\Concerns\FromView;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 // use Maatwebsite\Excel\Concerns\FromCollection;
 
-class RekapJkmExport implements FromView
+class RekapJkmExport implements FromView, WithStyles
 {
     public $selectedYear;
 
@@ -86,5 +88,59 @@ class RekapJkmExport implements FromView
             'totalPerTahun' => $this->getTotalByYear(),
             'selectedYear' => $this->selectedYear
         ]);
+    }
+
+    public function styles(Worksheet $sheet)
+    {
+        // **Gabungkan sel untuk judul agar tidak mempengaruhi auto-size kolom**
+        $sheet->mergeCells('A1:L1'); // Sesuaikan sampai kolom I
+        $sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14);
+
+        // **Auto-fit lebar kolom berdasarkan isi header**
+        foreach (range('A', 'L') as $col) {
+            $sheet->getColumnDimension($col)->setAutoSize(true);
+        }
+
+        // **Menentukan range tabel untuk border (hanya di pinggir)**
+        $lastRow = $sheet->getHighestRow();
+        $borderRange = 'A3:L' . $lastRow; // Sesuaikan sampai kolom I
+
+        $sheet->getStyle($borderRange)->applyFromArray([
+            'borders' => [
+                'outline' => [ // Hanya border luar (atas, bawah, kanan, kiri)
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                ],
+            ],
+        ]);
+
+        // **Header diberi background abu-abu dan bold**
+        $sheet->getStyle('A3:L3')->applyFromArray([ // Sesuaikan sampai kolom I
+            'font' => ['bold' => true],
+            'fill' => [
+                'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                'startColor' => ['rgb' => 'E0E0E0'],
+            ],
+        ]);
+
+        // **Tambahkan border horizontal di antara header dan data**
+        $sheet->getStyle('A3:L3')->applyFromArray([ // Sesuaikan sampai kolom I
+            'borders' => [
+                'bottom' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                ],
+            ],
+        ]);
+
+        // **Tambahkan border antar data (hanya garis bawah antar baris data)**
+        for ($row = 4; $row <= $lastRow; $row++) {
+            $sheet->getStyle("A{$row}:L{$row}")->applyFromArray([ // Sesuaikan sampai kolom I
+                'borders' => [
+                    'bottom' => [
+                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    ],
+                ],
+            ]);
+        }
     }
 }

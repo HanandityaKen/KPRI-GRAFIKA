@@ -50,19 +50,24 @@
     <h2 class="text-green-700 font-bold text-xl text-center mb-6">Data Koperasi</h2>
     <div class="bg-green-100 p-14 rounded-lg shadow-md flex flex-col md:flex-row justify-between items-center text-center space-y-6 md:space-y-0 md:space-x-8">
       <div class="flex flex-col items-center">
-        <i data-lucide="circle-dollar-sign" class="text-green-700 w-6 h-6"></i>
-        <h3 class="text-lg font-bold text-green-800">Rp {{ number_format($totalSimpanan, 0, ',', '.') }}</h3>
-        <p class="text-sm text-gray-600">Unit</p>
-      </div>
-      <div class="flex flex-col items-center">
         <i data-lucide="users" class="text-green-700 w-6 h-6"></i>
         <h3 class="text-lg font-bold text-green-800">{{ $jumlahAnggota }}</h3>
         <p class="text-sm text-gray-600">Anggota</p>
       </div>
       <div class="flex flex-col items-center">
+        <i data-lucide="circle-dollar-sign" class="text-green-700 w-6 h-6"></i>
+        <h3 class="text-lg font-bold text-green-800">Rp {{ number_format($totalSimpanan, 0, ',', '.') }}</h3>
+        <p class="text-sm text-gray-600">Total Simpanan</p>
+      </div>
+      <div class="flex flex-col items-center">
         <i data-lucide="calendar" class="text-green-700 w-6 h-6"></i>
         <h3 class="text-lg font-bold text-green-800">Rp {{ number_format($totalPinjaman, 0, ',', '.') }}</h3>
-        <p class="text-sm text-gray-600">Agenda</p>
+        <p class="text-sm text-gray-600">Total Pinjaman</p>
+      </div>
+      <div class="flex flex-col items-center">
+        <i data-lucide="utensils" class="text-green-700 w-6 h-6"></i>
+        <h3 class="text-lg font-bold text-green-800">Rp {{ number_format($totalUnitKonsumsi, 0, ',', '.') }}</h3>
+        <p class="text-sm text-gray-600">Total Unit Konsumsi</p>
       </div>
     </div>
   </section>

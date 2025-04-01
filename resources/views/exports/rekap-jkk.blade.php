@@ -1,5 +1,6 @@
 <body>
-    <h3 class="mb-4">Rekap JKK Tahun: {{ $selectedYear }}</h3>
+    <h3 class="mb-4" style="text-align: center;">Rekap JKK Tahun: {{ $selectedYear }}</h3>
+    <br>
     <table style="width: 100%">
         <thead>
             <tr>

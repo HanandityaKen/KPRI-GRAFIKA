@@ -16,6 +16,7 @@
     },
     "dependencies": {
         "@tailwindcss/vite": "^4.0.0",
+        "lucide": "^0.486.0",
         "simple-datatables": "^9.2.2"
     }
 }

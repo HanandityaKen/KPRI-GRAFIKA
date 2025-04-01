@@ -6,8 +6,9 @@
     <title>KPRI Grafika - @yield('title', 'KPRI Grafika')</title>
     <link rel="icon" type="image/png" href="{{ asset('storage/assets/logo_kpri.png') }}">
     @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    {{-- <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script> --}}
   </head>
   <body class="bg-gray-100">
     <!-- Navbar -->
@@ -18,9 +19,6 @@
     <!-- Footer -->
     @include('anggota.layout.footer')
 
-    <script>
-      lucide.createIcons();
-    </script>
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const userDropdownToggle = document.getElementById("userDropdownToggle");

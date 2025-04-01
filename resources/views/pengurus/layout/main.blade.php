@@ -7,10 +7,11 @@
   <title>KPRI Grafika - @yield('title', 'KPRI Grafika')</title>
   <link rel="icon" type="image/png" href="{{ asset('storage/assets/logo_kpri.png') }}">
   @vite('resources/css/app.css');
+  @vite('resources/js/app.js')
+
   @livewireStyles
   <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/tom-select@2.4.2/dist/css/tom-select.css" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
   <style>
     /* Transition for smooth sliding */
     .fixed-sidebar {
@@ -88,8 +89,6 @@
   </div>
 
   <script>
-    lucide.createIcons();
-
     function toggleSidebar() {
       const sidebar = document.querySelector(".fixed-sidebar");
       sidebar.classList.toggle("active");

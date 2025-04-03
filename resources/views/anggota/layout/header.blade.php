@@ -7,8 +7,9 @@
   <ul class="hidden md:flex space-x-6">
     <li><a href="{{ route('dashboard') }}" class="text-sm font-semibold {{ Request::is('dashboard') ? 'text-green-600' : 'text-gray-600 hover:text-green-600' }}">Beranda</a></li>
     <li><a href="{{ route('simpanan') }}" class="text-sm font-semibold {{ Request::is('simpanan') ? 'text-green-600' : 'text-gray-600 hover:text-green-600' }}">Simpanan</a></li>
-    <li><a href="pinjaman-user.html" class="text-gray-600 text-sm hover:text-green-600">Pinjaman</a></li>
-    <li><a href="{{ route('profile') }}" class="text-sm font-semibold {{ Request::is('profile') ? 'text-green-600' : 'text-gray-600 hover:text-green-600' }}">Profile</a></li>
+    <li><a href="{{ route('pinjaman') }}" class="text-sm font-semibold {{ Request::is('pinjaman') ? 'text-green-600' : 'text-gray-600 hover:text-green-600' }}">Pinjaman</a></li>
+    <li><a href="{{ route('unit-konsumsi') }}" class="text-sm font-semibold {{ Request::is('unit-konsumsi') ? 'text-green-600' : 'text-gray-600 hover:text-green-600' }}">Unit Konsumsi</a></li>
+    {{-- <li><a href="{{ route('profile') }}" class="text-sm font-semibold {{ Request::is('profile') ? 'text-green-600' : 'text-gray-600 hover:text-green-600' }}">Profile</a></li> --}}
   </ul>
 
   <!-- Avatar dan Dropdown Toggle -->

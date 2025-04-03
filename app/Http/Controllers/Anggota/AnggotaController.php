@@ -103,6 +103,38 @@ class AnggotaController extends Controller
         return view('anggota.simpanan', compact('pokok', 'wajib', 'manasuka', 'wajib_pinjam', 'qurban', 'total'));
     }
 
+    public function pinjaman()
+    {
+        $anggotaId = Auth::guard('anggota')->user()->id;
+
+        $angsuranPinjaman = Angsuran::whereHas('pinjaman', function ($query) use ($anggotaId) {
+            $query->where('status', 'dalam pembayaran')
+                    ->whereHas('pengajuan_pinjaman', function ($q) use ($anggotaId) {
+                        $q->where('anggota_id', $anggotaId);
+                    });
+            })
+            ->orderByDesc('created_at') 
+            ->first();
+
+        return view('anggota.pinjaman', compact('angsuranPinjaman'));
+    }
+
+    public function unitKonsumsi()
+    {
+        $anggotaId = Auth::guard('anggota')->user()->id;
+
+        $angsuranUnitKonsumsi = AngsuranUnitKonsumsi::whereHas('unit_konsumsi', function ($query) use ($anggotaId) {
+            $query->where('status', 'dalam pembayaran')
+                    ->whereHas('pengajuan_unit_konsumsi', function ($q) use ($anggotaId) {
+                        $q->where('anggota_id', $anggotaId);
+                    });
+            })
+            ->orderByDesc('created_at') 
+            ->first();
+
+            return view('anggota.unit-konsumsi', compact('angsuranUnitKonsumsi'));
+    }
+
     public function profile()
     {
         $anggota = Auth::guard('anggota')->user();

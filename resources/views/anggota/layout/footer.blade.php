@@ -6,6 +6,7 @@
     <!-- Kiri: Logo dan Informasi -->
     <div class="flex items-start gap-4">
       <img src="{{ asset('storage/assets/logo_kpri.png') }}" alt="Logo KPRI Grafika" class="w-20 h-20 object-cover rounded-full flex-shrink-0" />
+      {{-- <img src="{{ asset('storage/assets/logo_kpri.png') }}" alt="Logo KPRI Grafika" class="w-20 h-20 object-contain flex-shrink-0" /> --}}
       <div>
         <h3 class="text-lg font-semibold">KPRI Grafika</h3>
         <p class="text-sm text-green-700 leading-relaxed">Jl. Tanimbar No.34, Kasin, Kec. Klojen, Kota Malang, Jawa Timur 6511</p>
@@ -14,8 +15,8 @@
     </div>
 
     <!-- Kanan: Google Maps -->
-    <div class="text-center md:text-left">
-      <h4 class="text-md text-sm font-semibold mb-2">Temukan Kami</h4>
+    <div class="hidden md:flex flex-col self-end md:self-auto pr-4 md:pr-0">
+      <h4 class="text-md text-sm font-semibold">Temukan Kami</h4>
       <iframe
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3952.938948799078!2d112.621!3d-7.9789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zN8KwNTgnNDQuNyJTIDExMsKwMzcnMjYuMCJF!5e0!3m2!1sen!2sid!4v1700000000000"
         width="280"
@@ -30,5 +31,5 @@
   </div>
 
   <!-- Copyright -->
-  <p class="text-center text-xs text-gray-600">Copyright &copy; {{ date('Y') }}. All rights reserved.</p>
+  <p class="text-center text-xs text-gray-600 mt-6">Copyright &copy; {{ date('Y') }}. All rights reserved.</p>
 </footer>

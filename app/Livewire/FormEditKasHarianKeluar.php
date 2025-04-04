@@ -16,8 +16,17 @@ class FormEditKasHarianKeluar extends Component
     public $anggota_id = '';
     public $bendahara = false;
 
-    public $qurban = '';
+    public $selectedWajib = '';
     public $manasuka = '';
+    public $qurban = '';
+    public $lain_lain = '';
+
+    public $b_umum = '';
+    public $b_orgns = '';
+    public $b_oprs = '';
+    public $b_lain = '';
+    public $tnh_kav = '';
+
     public $error_qurban;
     public $error_manasuka;
     public $disabled = false;
@@ -32,13 +41,23 @@ class FormEditKasHarianKeluar extends Component
         $this->namaList = Anggota::pluck('nama', 'id')->toArray();
         $this->anggota_id = $this->kasHarian->anggota_id;
 
+        $this->selectedWajib = $this->kasHarian->wajib;
         $this->manasuka = $this->kasHarian->manasuka;
         $this->qurban = $this->kasHarian->qurban;
+        $this->lain_lain = $this->kasHarian->lain_lain;
+
+        $this->b_umum = $this->kasHarian->b_umum;
+        $this->b_orgns = $this->kasHarian->b_orgns;
+        $this->b_oprs = $this->kasHarian->b_oprs;
+        $this->b_lain = $this->kasHarian->b_lain;
+        $this->tnh_kav = $this->kasHarian->tnh_kav;
 
         $anggota = Anggota::find($this->anggota_id);
         $this->bendahara = $anggota && $anggota->jabatan === 'bendahara';
 
         $this->wajibOption = [0, $this->kasHarian->wajib];
+
+        $this->checkDisabled();
     }
 
     public function updated($propertyName)
@@ -46,6 +65,8 @@ class FormEditKasHarianKeluar extends Component
         if ($propertyName === 'anggota_id') {
             $this->getBendahara();
         }
+
+        $this->checkDisabled();
     }
 
     public function getBendahara()
@@ -57,6 +78,11 @@ class FormEditKasHarianKeluar extends Component
         } else {
             $this->bendahara = false;
         }
+    }
+
+    public function updatedSelectedWajib()
+    {
+        $this->checkDisabled();
     }
 
     public function updatedQurban()
@@ -91,13 +117,65 @@ class FormEditKasHarianKeluar extends Component
         $this->checkDisabled();
     }
 
+    public function updatedLainLain() 
+    { 
+        $this->checkDisabled(); 
+    }
+
+    public function updatedBUmum() 
+    {
+        $this->checkDisabled(); 
+    }
+
+    public function updatedBOrgns() 
+    { 
+        $this->checkDisabled(); 
+    }
+
+    public function updatedBOprs() 
+    { 
+        $this->checkDisabled(); 
+    }
+
+    public function updatedBLain() 
+    { 
+        $this->checkDisabled(); 
+    }
+
+    public function updatedTnhKav() 
+    { 
+        $this->checkDisabled(); 
+    }
+
     public function checkDisabled()
     {
-        if ($this->disabled_qurban || $this->disabled_manasuka) {
-            $this->disabled = true;
-        } else {
-            $this->disabled = false;
-        }
+        $qurban     = (int) str_replace(['Rp', '.', ','], '', $this->qurban);
+        $manasuka   = (int) str_replace(['Rp', '.', ','], '', $this->manasuka);
+        $lain_lain  = (int) str_replace(['Rp', '.', ','], '', $this->lain_lain);
+        $wajib      = (int) $this->selectedWajib;
+
+        // Biaya tambahan khusus bendahara
+        $b_umum     = (int) str_replace(['Rp', '.', ','], '', $this->b_umum);
+        $b_orgns    = (int) str_replace(['Rp', '.', ','], '', $this->b_orgns);
+        $b_oprs     = (int) str_replace(['Rp', '.', ','], '', $this->b_oprs);
+        $b_lain     = (int) str_replace(['Rp', '.', ','], '', $this->b_lain);
+        $tnh_kav    = (int) str_replace(['Rp', '.', ','], '', $this->tnh_kav);
+
+        $hasValidationError = $this->disabled_qurban || $this->disabled_manasuka;
+
+        $isAllZero = $qurban === 0 &&
+                    $manasuka === 0 &&
+                    $lain_lain === 0 &&
+                    $wajib === 0 &&
+                    (!$this->bendahara || (
+                        $b_umum === 0 &&
+                        $b_orgns === 0 &&
+                        $b_oprs === 0 &&
+                        $b_lain === 0 &&
+                        $tnh_kav === 0
+                    ));
+
+        $this->disabled = $hasValidationError || $isAllZero;
     }
 
     public function render()

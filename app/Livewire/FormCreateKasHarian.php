@@ -79,24 +79,6 @@ class FormCreateKasHarian extends Component
     }
     
 
-    public function disabled()
-    {
-        $pokok = (int) str_replace(['Rp', '.', ','], '', $this->pokok);
-        $wajib = (int) str_replace(['Rp', '.', ','], '', $this->wajib);
-        $manasuka = (int) str_replace(['Rp', '.', ','], '', $this->manasuka);
-        $wajibPinjam = (int) str_replace(['Rp', '.', ','], '', $this->wajibPinjam);
-        $qurban = (int) str_replace(['Rp', '.', ','], '', $this->qurban);
-        $lain_lain = (int) str_replace(['Rp', '.', ','], '', $this->lain_lain);
-
-        // dd($pokok, $manasuka, $wajib, $wajibPinjam, $qurban, $lain_lain);
-
-        if ($pokok === 0 && $manasuka === 0 && $wajib === 0 && $wajibPinjam === 0 && $qurban === 0 && $lain_lain === 0) {
-            $this->disabled = true;
-        } else {
-            $this->disabled = false;
-        }
-    }
-
     public function updatedPokok()
     {
         $pokok = (int) str_replace(['Rp', '.', ','], '', $this->pokok);
@@ -175,21 +157,23 @@ class FormCreateKasHarian extends Component
         $this->disabled();
     }
 
-    // public function checkDisabled()
-    // {
-    //     if (
-    //         $this->disabled_pokok &&
-    //         $this->disabled_wajib &&
-    //         $this->disabled_manasuka &&
-    //         $this->disabled_wajibPinjam &&
-    //         $this->disabled_qurban &&
-    //         $this->disabled_lain_lain
-    //     ) {
-    //         $this->disabled = true;
-    //     } else {
-    //         $this->disabled = false;
-    //     }
-    // }
+    public function disabled()
+    {
+        $pokok = (int) str_replace(['Rp', '.', ','], '', $this->pokok);
+        $wajib = (int) str_replace(['Rp', '.', ','], '', $this->wajib);
+        $manasuka = (int) str_replace(['Rp', '.', ','], '', $this->manasuka);
+        $wajibPinjam = (int) str_replace(['Rp', '.', ','], '', $this->wajibPinjam);
+        $qurban = (int) str_replace(['Rp', '.', ','], '', $this->qurban);
+        $lain_lain = (int) str_replace(['Rp', '.', ','], '', $this->lain_lain);
+
+        // dd($pokok, $manasuka, $wajib, $wajibPinjam, $qurban, $lain_lain);
+
+        if ($pokok === 0 && $manasuka === 0 && $wajib === 0 && $wajibPinjam === 0 && $qurban === 0 && $lain_lain === 0) {
+            $this->disabled = true;
+        } else {
+            $this->disabled = false;
+        }
+    }
 
     public function render()
     {

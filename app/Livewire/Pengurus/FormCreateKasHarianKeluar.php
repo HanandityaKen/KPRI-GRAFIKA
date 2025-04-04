@@ -15,11 +15,20 @@ class FormCreateKasHarianKeluar extends Component
     public $bendahara = false;
     public $wajibOptions = [0];
     public $selectedWajib = 0;
-
     public $qurban = '';
     public $manasuka = '';
+    public $lain_lain = '';
+
+    // Tambahan khusus untuk bendahara
+    public $b_umum = '';
+    public $b_orgns = '';
+    public $b_oprs = '';
+    public $b_lain = '';
+    public $tnh_kav = '';
+
     public $error_qurban;
     public $error_manasuka;
+
     public $disabled = false;
     public $disabled_qurban = false;
     public $disabled_manasuka = false;
@@ -46,6 +55,8 @@ class FormCreateKasHarianKeluar extends Component
         } else {
             $this->bendahara = false;
         }
+
+        $this->checkDisabled();
     }
 
     public function getWajibOptions()
@@ -59,6 +70,12 @@ class FormCreateKasHarianKeluar extends Component
         }
 
         $this->selectedWajib = 0; 
+        $this->checkDisabled();
+    }
+
+    public function updatedSelectedWajib()
+    {
+        $this->checkDisabled();
     }
 
     public function updatedQurban()
@@ -93,13 +110,65 @@ class FormCreateKasHarianKeluar extends Component
         $this->checkDisabled();
     }
 
+    public function updatedLainLain() 
+    { 
+        $this->checkDisabled(); 
+    }
+
+    public function updatedBUmum() 
+    {
+        $this->checkDisabled(); 
+    }
+
+    public function updatedBOrgns() 
+    { 
+        $this->checkDisabled(); 
+    }
+
+    public function updatedBOprs() 
+    { 
+        $this->checkDisabled(); 
+    }
+
+    public function updatedBLain() 
+    { 
+        $this->checkDisabled(); 
+    }
+
+    public function updatedTnhKav() 
+    { 
+        $this->checkDisabled(); 
+    }
+
     public function checkDisabled()
     {
-        if ($this->disabled_qurban || $this->disabled_manasuka) {
-            $this->disabled = true;
-        } else {
-            $this->disabled = false;
-        }
+        $qurban     = (int) str_replace(['Rp', '.', ','], '', $this->qurban);
+        $manasuka   = (int) str_replace(['Rp', '.', ','], '', $this->manasuka);
+        $lain_lain  = (int) str_replace(['Rp', '.', ','], '', $this->lain_lain);
+        $wajib      = (int) $this->selectedWajib;
+
+        // Biaya tambahan khusus bendahara
+        $b_umum     = (int) str_replace(['Rp', '.', ','], '', $this->b_umum);
+        $b_orgns    = (int) str_replace(['Rp', '.', ','], '', $this->b_orgns);
+        $b_oprs     = (int) str_replace(['Rp', '.', ','], '', $this->b_oprs);
+        $b_lain     = (int) str_replace(['Rp', '.', ','], '', $this->b_lain);
+        $tnh_kav    = (int) str_replace(['Rp', '.', ','], '', $this->tnh_kav);
+
+        $hasValidationError = $this->disabled_qurban || $this->disabled_manasuka;
+
+        $isAllZero = $qurban === 0 &&
+                    $manasuka === 0 &&
+                    $lain_lain === 0 &&
+                    $wajib === 0 &&
+                    (!$this->bendahara || (
+                        $b_umum === 0 &&
+                        $b_orgns === 0 &&
+                        $b_oprs === 0 &&
+                        $b_lain === 0 &&
+                        $tnh_kav === 0
+                    ));
+
+        $this->disabled = $hasValidationError || $isAllZero;
     }
 
     public function render()

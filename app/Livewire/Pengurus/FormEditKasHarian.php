@@ -19,6 +19,12 @@ class FormEditKasHarian extends Component
     public $wajibOptions = [];
     public $wajibPinjamList = [];
     public $selectedWajib = '';
+    public $selectedWajibPinjam = '';
+    public $qurban = '';
+    public $manasuka = '';
+    public $lain_lain = '';
+
+    public $disabled = false;
 
     public function mount($id)
     {
@@ -26,10 +32,18 @@ class FormEditKasHarian extends Component
         $this->namaList = Anggota::pluck('nama', 'id')->toArray();
         $this->anggota_id = $this->kasHarian->anggota_id;
 
+        $this->pokok = $this->kasHarian->pokok;
         $this->selectedWajib = $this->kasHarian->wajib;
+        $this->selectedWajibPinjam = $this->kasHarian->wajib_pinjam;
+        $this->qurban = $this->kasHarian->qurban;
+        $this->manasuka = $this->kasHarian->manasuka;
+        $this->lain_lain = $this->kasHarian->lain_lain;
+
         $this->wajibPinjamList = WajibPinjam::orderBy('nominal', 'asc')->pluck('nominal', 'id')->toArray();
 
         $this->getWajib();
+
+        $this->disabled();
     }
 
     public function updated($propertyName)
@@ -38,6 +52,8 @@ class FormEditKasHarian extends Component
             $this->getWajib();
             $this->getPokok();
         }
+
+        $this->disabled();
     }
 
     public function getWajib()
@@ -70,6 +86,23 @@ class FormEditKasHarian extends Component
         }
     
         $this->pokok = 'Rp ' . number_format($pokok->nominal, 0, ',', '.');
+    }
+
+    public function disabled()
+    {
+        $wajib = (int) str_replace(['Rp', '.', ','], '', $this->selectedWajib);
+        $manasuka = (int) str_replace(['Rp', '.', ','], '', $this->manasuka);
+        $wajibPinjam = (int) str_replace(['Rp', '.', ','], '', $this->selectedWajibPinjam);
+        $qurban = (int) str_replace(['Rp', '.', ','], '', $this->qurban);
+        $lain_lain = (int) str_replace(['Rp', '.', ','], '', $this->lain_lain);
+
+        // dd($pokok, $manasuka, $wajib, $wajibPinjam, $qurban, $lain_lain);
+
+        if ($manasuka === 0 && $wajib === 0 && $wajibPinjam === 0 && $qurban === 0 && $lain_lain === 0) {
+            $this->disabled = true;
+        } else {
+            $this->disabled = false;
+        }
     }
 
     public function render()

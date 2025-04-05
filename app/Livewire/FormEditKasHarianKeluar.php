@@ -90,6 +90,8 @@ class FormEditKasHarianKeluar extends Component
         $qurban = (int) str_replace(['Rp', '.', ','], '', $this->qurban);
         $totalQurban = Simpanan::where('anggota_id', $this->anggota_id)->value('qurban');
 
+        $totalQurban = $totalQurban + (int) $this->kasHarian->qurban;
+
         if ($qurban > $totalQurban) {
             $this->error_qurban = '* Simpanan qurban tidak cukup!';
             $this->disabled_qurban = true;
@@ -105,6 +107,8 @@ class FormEditKasHarianKeluar extends Component
     {
         $manasuka = (int) str_replace(['Rp', '.', ','], '', $this->manasuka);
         $totalManasuka = Simpanan::where('anggota_id', $this->anggota_id)->value('manasuka');
+
+        $totalManasuka = $totalManasuka + (int) $this->kasHarian->manasuka;
 
         if ($manasuka > $totalManasuka) {
             $this->error_manasuka = '* Simpanan manasuka tidak cukup!';

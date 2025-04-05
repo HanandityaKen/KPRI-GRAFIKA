@@ -332,7 +332,9 @@ class KasHarianController extends Controller
         $totalSebelumUpdate = $kasHarian->pokok + $kasHarian->wajib + $kasHarian->manasuka + 
                         $kasHarian->wajib_pinjam + $kasHarian->qurban + 
                         $kasHarian->angsuran + $kasHarian->jasa + $kasHarian->js_admin + 
-                        $kasHarian->lain_lain + $kasHarian->barang_kons;
+                        $kasHarian->lain_lain + $kasHarian->barang_kons +
+                        $kasHarian->b_umum + $kasHarian->b_orgns + $kasHarian->b_oprs +
+                        $kasHarian->b_lain + $kasHarian->tnh_kav;
 
 
         $kasHarian->update([
@@ -462,7 +464,8 @@ class KasHarianController extends Controller
                 );
 
                 $totalSesudahUpdate = $pokok + $wajib + $manasuka + $wajib_pinjam + $qurban + 
-                                    $angsuran + $jasa + $js_admin + $lain_lain + $barang_kons;
+                                    $angsuran + $jasa + $js_admin + $lain_lain + $barang_kons +
+                                    $b_umum + $b_orgns + $b_oprs + $b_lain + $tnh_kav;
 
                 $selisihSaldo = $totalSesudahUpdate - $totalSebelumUpdate;
 

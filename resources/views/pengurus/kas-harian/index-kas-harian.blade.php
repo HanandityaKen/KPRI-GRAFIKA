@@ -67,13 +67,13 @@
                 text: "Data kas harian akan dihapus secara permanen!",
                 icon: 'warning',
                 showCancelButton: true,
-                confirmButtonColor: '#22c55e',
+                confirmButtonColor: '#166534',
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Ya, Hapus!',
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $(`#delete-form-${kasHarianId}`).submit();
+                  document.getElementById(`delete-form-${kasHarianId}`).submit();
                 }
             })
       }

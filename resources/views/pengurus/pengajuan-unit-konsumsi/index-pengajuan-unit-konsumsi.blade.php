@@ -74,7 +74,7 @@
                 cancelButtonText: 'Batal'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $(`#delete-form-${pengajuanUnitKonsumsiId}`).submit();
+                    document.getElementById(`delete-form-${pengajuanUnitKonsumsiId}`).submit();
                 }
             })
       }

@@ -6,8 +6,8 @@
   {{-- <title>KPRI Grafika - </title> --}}
   <title>KPRI Grafika - @yield('title', 'KPRI Grafika')</title>
   <link rel="icon" type="image/png" href="{{ asset('storage/assets/logo_kpri.png') }}">
-  @vite('resources/css/app.css');
-  @vite('resources/js/app.js')
+  <link rel="stylesheet" href="{{ asset('build/assets/app-DZE8fvpm.css') }}">
+  <script src="{{ asset('build/assets/app-DA3rf8Wk.js') }}" defer></script>
   @livewireStyles
   <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" />
   <link href="https://cdn.jsdelivr.net/npm/tom-select@2.4.2/dist/css/tom-select.css" rel="stylesheet">

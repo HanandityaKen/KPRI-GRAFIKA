@@ -78,7 +78,10 @@ class PengurusController extends Controller
     {
         $user = Anggota::findOrFail($id);
 
-        $user->delete();
+        $user->update([
+            'posisi' => 'anggota',
+            'jabatan' => null,
+        ]);
 
         return redirect()->route('admin.pengurus.index')->with('success', 'Berhasil Menghapus Pengurus');
     }

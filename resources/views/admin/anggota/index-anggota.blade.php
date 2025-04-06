@@ -59,22 +59,21 @@
 @push('scripts')
 
   <script>
-
     function confirmDelete(userId) {
-            Swal.fire({
-                title: 'Apakah Anda yakin?',
-                text: "Data anggota akan dihapus secara permanen!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#166534',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, Hapus!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $(`#delete-form-${userId}`).submit();
-                }
-            })
-        }
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Data anggota akan dihapus secara permanen!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#166534',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(`delete-form-${userId}`).submit();
+            }
+        });
+    }
   </script>
 @endpush

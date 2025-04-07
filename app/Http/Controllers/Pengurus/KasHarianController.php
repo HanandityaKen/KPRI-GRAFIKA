@@ -57,6 +57,9 @@ class KasHarianController extends Controller
             'keterangan'        => 'nullable|string',
         ]);
 
+        $no_anggota = Anggota::findOrFail($request->anggota_id)->no_anggota;
+        $nama = Anggota::findOrFail($request->anggota_id)->nama;
+
         $tanggal = Carbon::createFromFormat('d-m-Y', $request->tanggal)->format('Y-m-d');
 
         $pokok = intval(str_replace(['Rp', '.', ' '], '', $request->pokok));
@@ -80,6 +83,7 @@ class KasHarianController extends Controller
         if ($request->jenis_transaksi === 'kas masuk') {
             $kasHarian = KasHarian::create([
                 'anggota_id'        => $request->anggota_id,
+                'nama_anggota'      => $nama,
                 'jenis_transaksi'   => $request->jenis_transaksi,
                 'tanggal'           => $tanggal,
                 'pokok'             => $pokok ?? 0,
@@ -137,6 +141,8 @@ class KasHarianController extends Controller
                     'wajib_pinjam'  => DB::raw("wajib_pinjam + $wajib_pinjam"),
                     'qurban'        => DB::raw("qurban + $qurban"),
                     'total'         => DB::raw("total + ($pokok + $wajib + $manasuka + $wajib_pinjam + $qurban)"),
+                    'no_anggota'    => $no_anggota,
+                    'nama_anggota'  => $nama,
                 ]);
             } else {
                 // Jika belum ada, masukkan semua data termasuk pokok
@@ -149,33 +155,9 @@ class KasHarianController extends Controller
                     'wajib_pinjam'  => $wajib_pinjam,
                     'qurban'        => $qurban,
                     'total'         => ($pokok + $wajib + $manasuka + $wajib_pinjam + $qurban),
+                    'no_anggota'    => $no_anggota,
+                    'nama_anggota'  => $nama,
                 ]);
-            }
-
-            if ($angsuran > 0 || $jasa > 0) {
-                $pengajuanPinjaman = PengajuanPinjaman::where('anggota_id', $request->anggota_id)
-                    ->where('status', 'disetujui')
-                    ->latest()
-                    ->first();
-            
-                if ($pengajuanPinjaman) {
-                    $pinjaman = Pinjaman::where('pengajuan_pinjaman_id', $pengajuanPinjaman->id)
-                        ->latest()
-                        ->first();
-            
-                    if ($pinjaman) {
-                        $angsuranData = Angsuran::where('pinjaman_id', $pinjaman->id)
-                            ->latest()
-                            ->first();
-            
-                        if ($angsuranData) {
-                            $angsuranData->update([
-                                'kurang_angsuran' => DB::raw("kurang_angsuran - $angsuran"),
-                                'kurang_jasa'     => DB::raw("kurang_jasa - $jasa"),
-                            ]);
-                        }
-                    }
-                }
             }
 
             $saldoMasuk = $pokok + $wajib + $manasuka + $wajib_pinjam + $qurban + $angsuran + $jasa + $js_admin + $lain_lain + $barang_kons;
@@ -223,6 +205,7 @@ class KasHarianController extends Controller
 
             $kasHarian = KasHarian::create([
                 'anggota_id'        => $request->anggota_id,
+                'nama_anggota'      => $nama,
                 'jenis_transaksi'   => $request->jenis_transaksi,
                 'tanggal'           => $tanggal,
                 'pokok'             => $pokok ?? 0,

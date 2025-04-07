@@ -29,7 +29,7 @@
                 @forelse ($kasHarians as $index => $kasHarian)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
                         <td class="pl-5 text-[#6DA854]">{{ $kasHarians->firstItem() + $index }}</td>
-                        <td class="p-3">{{$kasHarian->anggota->nama}}</td>
+                        <td class="p-3">{{$kasHarian->anggota->nama ?? $kasHarian->nama_anggota}}</td>
                         <td class="p-3">
                             @if ($kasHarian->jenis_transaksi == 'kas masuk')
                                 Kas Masuk

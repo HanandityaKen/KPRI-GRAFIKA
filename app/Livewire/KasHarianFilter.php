@@ -25,9 +25,7 @@ class KasHarianFilter extends Component
     {
         return view('livewire.kas-harian-filter', [
             'kasHarians' => KasHarian::where(function ($query) {
-                    $query->whereHas('anggota', function ($query) {
-                        $query->where('nama', 'like', '%' . $this->search . '%');
-                    })
+                    $query->where('nama_anggota', 'like', '%' . $this->search . '%')
                     ->orWhere('jenis_transaksi', 'like', '%' . $this->search . '%')
                     ->orWhere(function ($query) {
                         try {

@@ -53,6 +53,9 @@ class KasHarianController extends Controller
             'keterangan'        => 'nullable|string',
         ]);
 
+        $no_anggota = Anggota::findOrFail($request->anggota_id)->no_anggota;
+        $nama = Anggota::findOrFail($request->anggota_id)->nama;
+
         $tanggal = Carbon::createFromFormat('d-m-Y', $request->tanggal)->format('Y-m-d');
 
         $pokok = intval(str_replace(['Rp', '.', ' '], '', $request->pokok));
@@ -76,6 +79,7 @@ class KasHarianController extends Controller
         if ($request->jenis_transaksi === 'kas masuk') {
             $kasHarian = KasHarian::create([
                 'anggota_id'        => $request->anggota_id,
+                'nama_anggota'      => $nama,
                 'jenis_transaksi'   => $request->jenis_transaksi,
                 'tanggal'           => $tanggal,
                 'pokok'             => $pokok ?? 0,
@@ -118,6 +122,8 @@ class KasHarianController extends Controller
                     'wajib_pinjam'  => DB::raw("wajib_pinjam + $wajib_pinjam"),
                     'qurban'        => DB::raw("qurban + $qurban"),
                     'total'         => DB::raw("total + ($pokok + $wajib + $manasuka + $wajib_pinjam + $qurban)"),
+                    'no_anggota'  => $no_anggota,
+                    'nama_anggota'  => $nama,
                 ]
             );
 
@@ -166,6 +172,7 @@ class KasHarianController extends Controller
 
             $kasHarian = KasHarian::create([
                 'anggota_id'        => $request->anggota_id,
+                'nama_anggota'      => $nama,
                 'jenis_transaksi'   => $request->jenis_transaksi,
                 'tanggal'           => $tanggal,
                 'pokok'             => $pokok ?? 0,
@@ -226,7 +233,6 @@ class KasHarianController extends Controller
 
     public function update(Request $request, string $id)
     {
-        // dd($request->all());
         $request->validate([
             'jenis_transaksi'   => 'required|in:kas masuk,kas keluar',
             'tanggal'           => 'required|date_format:d-m-Y',

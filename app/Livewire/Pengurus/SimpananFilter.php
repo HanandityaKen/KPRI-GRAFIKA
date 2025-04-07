@@ -26,14 +26,14 @@ class SimpananFilter extends Component
     public function render()
     {
         return view('livewire.pengurus.simpanan-filter', [
-            'simpanans' => Simpanan::with('anggota', 'kas_harian') 
-                ->whereHas('anggota', function ($query) {
+            'simpanans' => Simpanan::query()
+                ->where(function ($query) {
                     $query->where('no_anggota', 'like', '%' . $this->search . '%')
-                        ->orWhere('nama', 'like', '%' . $this->search . '%');
+                        ->orWhere('nama_anggota', 'like', '%' . $this->search . '%');
                 })
-                ->selectRaw('anggota_id, SUM(pokok) as total_pokok, SUM(wajib) as total_wajib, SUM(manasuka) as total_manasuka, SUM(wajib_pinjam) as total_wp, SUM(qurban) as total_qurban')
-                ->groupBy('anggota_id')
-                ->orderBy(Anggota::select('no_anggota')->whereColumn('anggota.id', 'simpanan.anggota_id'))
+                ->selectRaw('anggota_id, no_anggota, nama_anggota, SUM(pokok) as total_pokok, SUM(wajib) as total_wajib, SUM(manasuka) as total_manasuka, SUM(wajib_pinjam) as total_wp, SUM(qurban) as total_qurban')
+                ->groupBy('anggota_id', 'no_anggota', 'nama_anggota')
+                ->orderBy('anggota_id', 'asc')
                 ->paginate(10)
                 ->onEachSide(1)
         ]);

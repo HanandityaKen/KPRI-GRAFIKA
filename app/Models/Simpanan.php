@@ -11,6 +11,8 @@ class Simpanan extends Model
     protected $fillable = [
         'id',
         'anggota_id',
+        'no_anggota',
+        'nama_anggota',
         'kas_harian_id',
         'pokok',
         'wajib',

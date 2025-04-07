@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Anggota;
+use App\Models\KasHarian;
+use App\Models\Simpanan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -85,12 +87,25 @@ class AnggotaController extends Controller
 
         $user->save();
 
+        // Update the kas_harian table with the new name
+        KasHarian::where('anggota_id', $user->id)->update([
+            'nama_anggota' => $user->nama
+        ]);
+
+        // Update the simpanan table with the new name
+        Simpanan::where('anggota_id', $user->id)->update([
+            'no_anggota' => $user->no_anggota,
+            'nama_anggota' => $user->nama
+        ]);
+
         return redirect()->route('admin.anggota.index')->with('success', 'Berhasil Mengubah Anggota');
     }
 
     public function destroy(string $id)
     {
         $user = Anggota::findOrFail($id);
+
+        Simpanan::where('anggota_id', $user->id)->delete();
     
         $user->delete();
 

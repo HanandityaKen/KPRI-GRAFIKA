@@ -10,6 +10,7 @@ class KasHarian extends Model
 
     protected $fillable = [
         'anggota_id',
+        'nama_anggota',
         'jenis_transaksi',
         'tanggal',
         'pokok',

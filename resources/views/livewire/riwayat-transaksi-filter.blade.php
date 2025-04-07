@@ -47,7 +47,7 @@
                 @forelse ($riwayatTransaksis as $index => $riwayatTransaksi)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
                         <td class="pl-5 text-[#6DA854]">{{ $riwayatTransaksis->firstItem() + $index }}</td>
-                        <td class="p-3">{{$riwayatTransaksi->anggota->nama}}</td>
+                        <td class="p-3">{{$riwayatTransaksi->nama_anggota}}</td>
                         <td class="p-3">
                             {{ \Carbon\Carbon::parse($riwayatTransaksi->tanggal)->translatedFormat('d-m-Y') }}
                         </td>

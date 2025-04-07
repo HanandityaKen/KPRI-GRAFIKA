@@ -25,12 +25,13 @@
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Nama</label>
             <div wire:ignore>
-                <select wire:model.lazy="anggota_id" id="select_nama" name="anggota_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
+                <select disabled wire:model.lazy="anggota_id" id="select_nama" name="anggota_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
                     <option value="" disabled>Pilih Nama Anggota</option>
                     @foreach($namaList as $id => $nama)
                         <option value="{{ $id }}" {{ old('nama', $kasHarian->anggota_id) == $id ? 'selected' : '' }}>{{ $nama }}</option>
                     @endforeach
                 </select>
+                <input type="hidden" name="anggota_id" value="{{ $kasHarian->anggota_id }}">
             </div>
         </div>
         <div class="mb-4">

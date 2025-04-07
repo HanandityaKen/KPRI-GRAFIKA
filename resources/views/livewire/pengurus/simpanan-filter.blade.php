@@ -23,7 +23,7 @@
     </div>
 
     <!-- Anggota Table -->
-    <div class="bg-white shadow rounded-lg border-[2px] border-[#6DA854] overflow-x-auto">
+    <div class="bg-white shadow rounded-lg border-[2px] border-[#6DA854] overflow-x-auto no-scrollbar">
         <table class="w-full">
             <thead>
                 <tr>
@@ -75,8 +75,8 @@
                 @forelse ($simpanans as $index => $simpanan)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
                         <td class="pl-5 text-[#6DA854]">{{ $simpanans->firstItem() + $index }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ $simpanan->anggota->no_anggota }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ $simpanan->anggota->nama }}</td>
+                        <td class="p-3 whitespace-nowrap">{{ $simpanan->no_anggota }}</td>
+                        <td class="p-3 whitespace-nowrap">{{ $simpanan->nama_anggota }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($simpanan->total_pokok, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($simpanan->total_wajib, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($simpanan->total_manasuka, 0, ',', '.') }}</td>

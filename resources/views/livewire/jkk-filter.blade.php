@@ -105,7 +105,7 @@
                 @forelse ($jkks as $index => $jkk)     
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
                         <td class="pl-5 text-[#6DA854]">{{ $jkks->firstItem() + $index }}</td>
-                        <td class="p-3">{{ $jkk->nama }}</td>
+                        <td class="p-3">{{ $jkk->nama_anggota }}</td>
                         <td class="p-3 whitespace-nowrap">{{ \Carbon\Carbon::parse($jkk->tanggal)->translatedFormat('d-m-y') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_angsuran, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_pokok, 0, ',', '.') }}</td>

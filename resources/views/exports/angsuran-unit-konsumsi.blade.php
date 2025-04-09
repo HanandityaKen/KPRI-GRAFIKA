@@ -19,7 +19,7 @@
         @foreach ($angsurans as $key => $angsuran)
             <tr>
                 <td>{{ $key + 1 }}</td>
-                <td>{{ $angsuran->unit_konsumsi->pengajuan_unit_konsumsi->anggota->nama }}</td>
+                <td>{{ $angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nama_anggota }}</td>
                 <td>{{ $angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nama_barang }}</td>
                 <td>Rp {{ number_format($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal, 0, ',', '.') }}</td>
                 <td>{{ ucwords($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->lama_angsuran) }}</td>

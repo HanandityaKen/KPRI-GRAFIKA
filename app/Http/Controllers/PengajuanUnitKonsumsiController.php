@@ -51,6 +51,7 @@ class PengajuanUnitKonsumsiController extends Controller
 
         $kasHarian = KasHarian::create([
             'anggota_id' => $pengajuanUnitKonsumsi->anggota_id,
+            'nama_anggota' => $pengajuanUnitKonsumsi->nama_anggota,
             'jenis_transaksi' => 'kas keluar',
             'tanggal' => $pengajuanUnitKonsumsi->created_at->format('Y-m-d'),
             'barang_kons' => $nominalUnitKonsumsi,

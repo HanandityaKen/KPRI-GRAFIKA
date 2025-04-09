@@ -15,7 +15,7 @@ class AngsuranUnitKonsumsiExport implements FromView, WithStyles
 {
     public function view(): View
     {
-        $angsurans = AngsuranUnitKonsumsi::with(['unit_konsumsi.pengajuan_unit_konsumsi.anggota'])
+        $angsurans = AngsuranUnitKonsumsi::with(['unit_konsumsi.pengajuan_unit_konsumsi'])
             ->whereHas('unit_konsumsi', function ($query) {
                 $query->where('status', 'dalam pembayaran');
             })

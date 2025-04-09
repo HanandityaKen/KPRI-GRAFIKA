@@ -28,13 +28,11 @@ class AngsuranUnitKonsumsiFilter extends Component
     public function render()
     {
         return view('livewire.pengurus.angsuran-unit-konsumsi-filter', [
-            'angsurans' => AngsuranUnitKonsumsi::with(['unit_konsumsi.pengajuan_unit_konsumsi.anggota'])
+            'angsurans' => AngsuranUnitKonsumsi::with(['unit_konsumsi.pengajuan_unit_konsumsi'])
                 ->whereHas('unit_konsumsi.pengajuan_unit_konsumsi', function ($query) {
-                    $query->whereHas('anggota', function ($q) {
-                        $q->where('nama', 'like', '%' . $this->search . '%');
-                    })
-                    ->orWhere('nama_barang', 'like', '%' . $this->search . '%')
-                    ->orWhere('status', 'like', '%' . $this->search . '%');
+                    $query->where('nama_anggota', 'like', '%' . $this->search . '%')
+                        ->orWhere('nama_barang', 'like', '%' . $this->search . '%')
+                        ->orWhere('status', 'like', '%' . $this->search . '%');
                 })
                 ->orderByDesc('created_at')
                 ->paginate(10)

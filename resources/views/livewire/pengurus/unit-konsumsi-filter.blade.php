@@ -26,7 +26,7 @@
                 @forelse ($unit_konsumsis as $index => $unit_konsumsi)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
                         <td class="pl-5 text-[#6DA854]">{{ $unit_konsumsis->firstItem() + $index }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ $unit_konsumsi->pengajuan_unit_konsumsi->anggota->nama  }}</td>
+                        <td class="p-3 whitespace-nowrap">{{ $unit_konsumsi->pengajuan_unit_konsumsi->nama_anggota  }}</td>
                         <td class="p-3 whitespace-nowrap">
                             {{ \Carbon\Carbon::parse($unit_konsumsi->pengajuan_unit_konsumsi->created_at)->translatedFormat('d-m-Y') }}
                         </td>

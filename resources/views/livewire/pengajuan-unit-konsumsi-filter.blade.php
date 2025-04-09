@@ -31,7 +31,7 @@
                 @forelse ($pengajuanUnitKonsumsis as $index => $pengajuanUnitKonsumsi)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
                         <td class="pl-5 text-[#6DA854]">{{ $pengajuanUnitKonsumsis->firstItem() + $index }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ $pengajuanUnitKonsumsi->anggota->nama }}</td>
+                        <td class="p-3 whitespace-nowrap">{{ $pengajuanUnitKonsumsi->nama_anggota }}</td>
                         <td class="p-3 whitespace-nowrap">
                             {{ \Carbon\Carbon::parse($pengajuanUnitKonsumsi->created_at)->translatedFormat('d-m-Y') }}
                         </td>

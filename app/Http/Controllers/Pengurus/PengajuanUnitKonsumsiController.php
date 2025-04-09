@@ -34,6 +34,8 @@ class PengajuanUnitKonsumsiController extends Controller
             'jumlah_nominal' => 'required',
         ]);
 
+        $nama = Anggota::findOrFail($request->anggota_id)->nama;
+
         $nominal = intval(str_replace(['Rp', '.', ' '], '', $request->nominal));
         $nominal_pokok = intval(str_replace(['Rp', '.', ' '], '', $request->nominal_pokok));
         $nominal_bunga = intval(str_replace(['Rp', '.', ' '], '', $request->nominal_bunga));
@@ -43,6 +45,7 @@ class PengajuanUnitKonsumsiController extends Controller
 
         PengajuanUnitKonsumsi::create([
             'anggota_id' => $request->anggota_id,
+            'nama_anggota' => $nama,
             'pengurus_id' => $request->pengurus_id,
             'nama_barang' => $request->nama_barang,
             'nominal' => $nominal,
@@ -84,6 +87,8 @@ class PengajuanUnitKonsumsiController extends Controller
             'jumlah_nominal' => 'required',
         ]);
 
+        $nama = Anggota::findOrFail($request->anggota_id)->nama;
+
         $nominal = intval(str_replace(['Rp', '.', ' '], '', $request->nominal));
         $nominal_pokok = intval(str_replace(['Rp', '.', ' '], '', $request->nominal_pokok));
         $nominal_bunga = intval(str_replace(['Rp', '.', ' '], '', $request->nominal_bunga));
@@ -95,6 +100,7 @@ class PengajuanUnitKonsumsiController extends Controller
 
         $pengajuanUnitKonsumsi->update([
             'anggota_id' => $request->anggota_id,
+            'nama_anggota' => $nama,
             'pengurus_id' => $request->pengurus_id,
             'nama_barang' => $request->nama_barang,
             'nominal' => $nominal,

@@ -7,6 +7,8 @@ use App\Models\Anggota;
 use App\Models\KasHarian;
 use App\Models\PengajuanPinjaman;
 use App\Models\Pinjaman;
+use App\Models\PengajuanUnitKonsumsi;
+use App\Models\UnitKonsumsi;
 use App\Models\Simpanan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -99,6 +101,11 @@ class AnggotaController extends Controller
             'nama_anggota' => $user->nama
         ]);
 
+        // Update the pengajuan_unit_konsumsi table with the new name
+        PengajuanUnitKonsumsi::where('anggota_id', $user->id)->update([
+            'nama_anggota' => $user->nama
+        ]);
+
         // Update the simpanan table with the new name
         Simpanan::where('anggota_id', $user->id)->update([
             'no_anggota' => $user->no_anggota,
@@ -121,6 +128,17 @@ class AnggotaController extends Controller
 
         if ($pinjaman) {
             return redirect()->route('admin.anggota.index')->with('error', $user->nama . ' masih memiliki angsuran pinjaman yang belum lunas.');
+        }
+
+        $unitKonsumsi = UnitKonsumsi::whereHas('pengajuan_unit_konsumsi', function ($query) use ($user) {
+            $query->where('anggota_id', $user->id);
+        })
+        ->where('status', 'dalam pembayaran')
+        ->orderBy('created_at', 'desc')
+        ->first();
+
+        if ($unitKonsumsi) {
+            return redirect()->route('admin.anggota.index')->with('error', $user->nama . ' masih memiliki angsuran unit konsumsi yang belum lunas.');
         }
 
         Simpanan::where('anggota_id', $user->id)->delete();

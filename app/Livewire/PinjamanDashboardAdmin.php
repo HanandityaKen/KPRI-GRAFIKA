@@ -19,8 +19,7 @@ class PinjamanDashboardAdmin extends Component
     public function render()
     {
         return view('livewire.pinjaman-dashboard-admin', [
-            'pengajuanPinjamans' => PengajuanPinjaman::with('anggota')
-                ->where('status', 'menunggu') 
+            'pengajuanPinjamans' => PengajuanPinjaman::where('status', 'menunggu') 
                 ->orderByDesc('created_at')
                 ->paginate(10)
                 ->onEachSide(1)

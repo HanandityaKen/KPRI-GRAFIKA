@@ -25,7 +25,7 @@
                 @forelse ($pinjamans as $index => $pinjaman)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
                         <td class="pl-5 text-[#6DA854]">{{ $pinjamans->firstItem() + $index }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ $pinjaman->pengajuan_pinjaman->anggota->nama  }}</td>
+                        <td class="p-3 whitespace-nowrap">{{ $pinjaman->pengajuan_pinjaman->nama_anggota  }}</td>
                         <td class="p-3 whitespace-nowrap">
                             {{ \Carbon\Carbon::parse($pinjaman->pengajuan_pinjaman->created_at)->translatedFormat('d-m-Y') }}
                         </td>
@@ -39,7 +39,9 @@
                         </td>
                     </tr>
                 @empty
-                    
+                    <tr>
+                        <td colspan="6" class="text-center p-3">Tidak ada data pinjaman.</td>
+                    </tr>
                 @endforelse
             </tbody>
         </table>

@@ -34,7 +34,7 @@
                     @forelse ($angsurans as $index => $angsuran)
                         <tr class="border-b border-gray-200 hover:bg-gray-100">
                             <td class="pl-5 text-[#6DA854]">{{ $angsurans->firstItem() + $index }}</td>
-                            <td class="p-3 whitespace-nowrap">{{ $angsuran->pinjaman->pengajuan_pinjaman->anggota->nama }}</td>
+                            <td class="p-3 whitespace-nowrap">{{ $angsuran->pinjaman->pengajuan_pinjaman->nama_anggota }}</td>
                             <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->pinjaman->pengajuan_pinjaman->jumlah_pinjaman, 0, ',', '.') }}</td>
                             <td class="p-3 whitespace-nowrap">{{ ucwords($angsuran->pinjaman->pengajuan_pinjaman->lama_angsuran) }}</td>
                             <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->pinjaman->pengajuan_pinjaman->nominal_angsuran, 0, ',', '.') }}</td>

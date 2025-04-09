@@ -52,6 +52,7 @@ class PengajuanPinjamanController extends Controller
 
         $kasHarianMasuk = KasHarian::create([
             'anggota_id' => $pengajuanPinjaman->anggota_id,
+            'nama_anggota' => $pengajuanPinjaman->nama_anggota,
             'jenis_transaksi' => 'kas masuk',
             'tanggal' => $pengajuanPinjaman->created_at->format('Y-m-d'),
             'js_admin' => $pengajuanPinjaman->biaya_admin,
@@ -91,6 +92,7 @@ class PengajuanPinjamanController extends Controller
 
         $kasHarianKeluar = KasHarian::create([
             'anggota_id' => $pengajuanPinjaman->anggota_id,
+            'nama_anggota' => $pengajuanPinjaman->nama_anggota,
             'jenis_transaksi' => 'kas keluar',
             'tanggal' => $pengajuanPinjaman->created_at->format('Y-m-d'),
             'hutang' => $pengajuanPinjaman->jumlah_pinjaman,

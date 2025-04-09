@@ -35,6 +35,8 @@ class PengajuanPinjamanController extends Controller
             'total_pinjaman' => 'required',
         ]);
 
+        $nama = Anggota::findOrFail($request->anggota_id)->nama;
+
         $jumlah_pinjaman = intval(str_replace(['Rp', '.', ' '], '', $request->jumlah_pinjaman));
         $nominal_pokok = intval(str_replace(['Rp', '.', ' '], '', $request->nominal_pokok));
         $nominal_bunga = intval(str_replace(['Rp', '.', ' '], '', $request->nominal_bunga));
@@ -46,6 +48,7 @@ class PengajuanPinjamanController extends Controller
 
         PengajuanPinjaman::create([
             'anggota_id' => $request->anggota_id,
+            'nama_anggota' => $nama,
             'pengurus_id' => $request->pengurus_id,
             'jumlah_pinjaman' => $jumlah_pinjaman,
             'lama_angsuran' => $lama_angsuran . ' bulan',
@@ -91,6 +94,8 @@ class PengajuanPinjamanController extends Controller
             'total_pinjaman' => 'required',
         ]);
 
+        $nama = Anggota::findOrFail($request->anggota_id)->nama;
+
         $jumlah_pinjaman = intval(str_replace(['Rp', '.', ' '], '', $request->jumlah_pinjaman));
         $nominal_pokok = intval(str_replace(['Rp', '.', ' '], '', $request->nominal_pokok));
         $nominal_bunga = intval(str_replace(['Rp', '.', ' '], '', $request->nominal_bunga));
@@ -104,6 +109,7 @@ class PengajuanPinjamanController extends Controller
 
         $pengajuanPinjaman->update([
             'anggota_id' => $request->anggota_id,
+            'nama_anggota' => $nama,
             'pengurus_id' => $request->pengurus_id,
             'jumlah_pinjaman' => $jumlah_pinjaman,
             'lama_angsuran' => $lama_angsuran . ' bulan',

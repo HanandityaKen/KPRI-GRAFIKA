@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Anggota;
 use App\Models\KasHarian;
+use App\Models\PengajuanPinjaman;
+use App\Models\Pinjaman;
 use App\Models\Simpanan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -92,6 +94,11 @@ class AnggotaController extends Controller
             'nama_anggota' => $user->nama
         ]);
 
+        // Update the pengajuan_pinjaman table with the new name
+        PengajuanPinjaman::where('anggota_id', $user->id)->update([
+            'nama_anggota' => $user->nama
+        ]);
+
         // Update the simpanan table with the new name
         Simpanan::where('anggota_id', $user->id)->update([
             'no_anggota' => $user->no_anggota,
@@ -105,8 +112,19 @@ class AnggotaController extends Controller
     {
         $user = Anggota::findOrFail($id);
 
+        $pinjaman = Pinjaman::whereHas('pengajuan_pinjaman', function ($query) use ($user) {
+            $query->where('anggota_id', $user->id);
+        })
+        ->where('status', 'dalam pembayaran')
+        ->orderBy('created_at', 'desc')
+        ->first();
+
+        if ($pinjaman) {
+            return redirect()->route('admin.anggota.index')->with('error', $user->nama . ' masih memiliki angsuran pinjaman yang belum lunas.');
+        }
+
         Simpanan::where('anggota_id', $user->id)->delete();
-    
+
         $user->delete();
 
         return redirect()->route('admin.anggota.index')->with('success', 'Berhasil Menghapus Anggota');

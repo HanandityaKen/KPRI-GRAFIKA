@@ -10,6 +10,7 @@ class PengajuanPinjaman extends Model
 
     protected $fillable = [
         'anggota_id',
+        'nama_anggota',
         'pengurus_id',
         'jumlah_pinjaman',
         'biaya_admin',

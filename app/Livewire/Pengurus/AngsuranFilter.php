@@ -28,10 +28,10 @@ class AngsuranFilter extends Component
     public function render()
     {
         return view('livewire.pengurus.angsuran-filter', [
-            'angsurans' => Angsuran::with(['pinjaman.pengajuan_pinjaman.anggota'])
+            'angsurans' => Angsuran::with(['pinjaman.pengajuan_pinjaman'])
                 ->where(function ($query) {
-                    $query->whereHas('pinjaman.pengajuan_pinjaman.anggota', function ($q) {
-                        $q->where('nama', 'like', '%' . $this->search . '%');
+                    $query->whereHas('pinjaman.pengajuan_pinjaman', function ($q) {
+                        $q->where('nama_anggota', 'like', '%' . $this->search . '%');
                     })
                     ->orWhereHas('pinjaman', function ($q) {
                         $q->where('status', 'like', '%' . $this->search . '%');

@@ -39,6 +39,8 @@ class AngsuranController extends Controller
 
         $anggota_id = $angsuran->pinjaman->pengajuan_pinjaman->anggota_id;
 
+        $nama = $angsuran->pinjaman->pengajuan_pinjaman->nama_anggota;
+
         $tunggakan = $angsuran->tunggakan;
 
         if ($angsuran->sisa_angsuran == 1 && empty($request->angsuran)) {
@@ -68,6 +70,7 @@ class AngsuranController extends Controller
 
         $kasHarian = KasHarian::create([
             'anggota_id' => $anggota_id,
+            'nama_anggota' => $nama,
             'jenis_transaksi' => 'kas masuk',
             'tanggal' => $angsuran->updated_at->format('Y-m-d'),
             'angsuran' => $bayarAngsuran,

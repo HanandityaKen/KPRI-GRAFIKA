@@ -25,12 +25,9 @@ class PengajuanPinjamanFilter extends Component
     public function render()
     {
         return view('livewire.pengurus.pengajuan-pinjaman-filter', [
-            'pengajuanPinjamans' => PengajuanPinjaman::with('anggota')
-                ->where(function ($query) {
-                    $query->whereHas('anggota', function ($query) {
-                        $query->where('nama', 'like', '%' . $this->search . '%');
-                    })
-                    ->orWhere('status', 'like', '%' . $this->search . '%');
+            'pengajuanPinjamans' => PengajuanPinjaman::where(function ($query) {
+                    $query->where('nama_anggota', 'like', '%' . $this->search . '%')
+                        ->orWhere('status', 'like', '%' . $this->search . '%');
     
                     // Filter berdasarkan tanggal
                     try {
@@ -41,7 +38,7 @@ class PengajuanPinjamanFilter extends Component
                             $date = Carbon::createFromFormat('d-m', $this->search, 'Asia/Jakarta')->format('m-d');
                             $query->orWhereRaw("DATE_FORMAT(created_at, '%m-%d') = ?", [$date]);
                         } catch (\Exception $e) {
-
+                            // Abaikan error parsing tanggal
                         }
                     }
                 })

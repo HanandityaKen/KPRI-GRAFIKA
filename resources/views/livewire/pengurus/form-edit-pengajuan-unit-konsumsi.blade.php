@@ -8,6 +8,12 @@
             <div wire:ignore>
                 <select wire:model.lazy="anggota_id" id="select_nama_kas_masuk" name="anggota_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
                     <option value="" disabled {{ old('anggota_id', $pengajuanUnitKonsumsi->anggota_id) ? '' : 'selected' }}>Pilih Nama Anggota</option>
+
+                    {{-- Tampilkan opsi nama_anggota dari kasHarian jika tidak ada di namaList --}}
+                    @if(!array_key_exists($pengajuanUnitKonsumsi->anggota_id, $namaList))
+                        <option disabled value="{{ $pengajuanUnitKonsumsi->anggota_id }}" selected>{{ $pengajuanUnitKonsumsi->nama_anggota }}</option>
+                    @endif
+
                     @foreach($namaList as $id => $nama)
                         <option value="{{ $id }}" {{ old('anggota_id', $pengajuanUnitKonsumsi->anggota_id) == $id ? 'selected' : '' }}>{{ $nama }}</option>
                     @endforeach

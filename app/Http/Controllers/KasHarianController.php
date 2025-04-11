@@ -497,20 +497,20 @@ class KasHarianController extends Controller
     }
 
 
-    public function filterKasHarian(Request $request)
-    {
-        $query = KasHarian::query();
+    // public function filterKasHarian(Request $request)
+    // {
+    //     $query = KasHarian::query();
 
-        if ($request->filled('year')) {
-            $query->whereYear('tanggal', $request->year);
-        }
+    //     if ($request->filled('year')) {
+    //         $query->whereYear('tanggal', $request->year);
+    //     }
 
-        if ($request->filled('month')) {
-            $query->whereMonth('tanggal', $request->month);
-        }
+    //     if ($request->filled('month')) {
+    //         $query->whereMonth('tanggal', $request->month);
+    //     }
 
-        $kasHarian = $query->get();
+    //     $kasHarian = $query->get();
 
-        return response()->json($kasHarian); // Kirim data JSON ke JavaScript
-    }
+    //     return response()->json($kasHarian); // Kirim data JSON ke JavaScript
+    // }
 }

@@ -141,6 +141,23 @@ class AnggotaController extends Controller
             return redirect()->route('admin.anggota.index')->with('error', $user->nama . ' masih memiliki angsuran unit konsumsi yang belum lunas.');
         }
 
+        $totalManasuka = Simpanan::where('anggota_id', $user->id)->value('manasuka');
+        $totalWajib    = Simpanan::where('anggota_id', $user->id)->value('wajib');
+        $totalQurban   = Simpanan::where('anggota_id', $user->id)->value('qurban');
+
+        if ($totalManasuka > 0 || $totalWajib > 0 || $totalQurban > 0) {
+            KasHarian::create([
+                'anggota_id'      => $user->id,
+                'nama_anggota'    => $user->nama,
+                'jenis_transaksi' => 'kas keluar',
+                'tanggal'         => now()->format('Y-m-d'),
+                'manasuka'        => $totalManasuka,
+                'wajib'           => $totalWajib,
+                'qurban'          => $totalQurban,
+                'keterangan'      => 'Pengembalian dana simpanan anggota yang dihapus',
+            ]);
+        }
+
         Simpanan::where('anggota_id', $user->id)->delete();
 
         $user->delete();

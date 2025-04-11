@@ -51,7 +51,7 @@ class SimpananFilter extends Component
                     $query->where('no_anggota', 'like', '%' . $this->search . '%')
                         ->orWhere('nama_anggota', 'like', '%' . $this->search . '%');
                 })
-                ->selectRaw('anggota_id, no_anggota, nama_anggota, SUM(pokok) as total_pokok, SUM(wajib) as total_wajib, SUM(manasuka) as total_manasuka, SUM(wajib_pinjam) as total_wp, SUM(qurban) as total_qurban')
+                ->selectRaw('anggota_id, no_anggota, nama_anggota, SUM(pokok) as total_pokok, SUM(wajib) as total_wajib, SUM(manasuka) as total_manasuka, SUM(wajib_pinjam) as total_wajib_pinjam, SUM(qurban) as total_qurban')
                 ->groupBy('anggota_id', 'no_anggota', 'nama_anggota')
                 ->orderBy('anggota_id', 'asc')
                 ->paginate(10)

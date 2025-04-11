@@ -51,19 +51,21 @@
                             @endif
                         </td>
                         <td class="whitespace-nowrap">
-                            <form action="{{ route('admin.setujui-pengajuan-unit-konsumsi', $pengajuanUnitKonsumsi->id) }}" method="POST" class="inline">
-                                @csrf
-                                <button type="submit" class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
-                                    Disetujui
-                                </button>
-                            </form>
-                        
-                            <form action="{{ route('admin.tolak-pengajuan-unit-konsumsi', $pengajuanUnitKonsumsi->id) }}" method="POST" class="inline">
-                                @csrf
-                                <button type="submit" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-500 ml-2">
-                                    Ditolak
-                                </button>
-                            </form>
+                            @if ($pengajuanUnitKonsumsi->status == 'menunggu')
+                                <form action="{{ route('admin.setujui-pengajuan-unit-konsumsi', $pengajuanUnitKonsumsi->id) }}" method="POST" class="inline">
+                                    @csrf
+                                    <button type="submit" class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
+                                        Disetujui
+                                    </button>
+                                </form>
+                            
+                                <form action="{{ route('admin.tolak-pengajuan-unit-konsumsi', $pengajuanUnitKonsumsi->id) }}" method="POST" class="inline">
+                                    @csrf
+                                    <button type="submit" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-500 ml-2">
+                                        Ditolak
+                                    </button>
+                                </form>
+                            @endif
                         </td>
                     </tr>
                 @empty

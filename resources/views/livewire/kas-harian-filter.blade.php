@@ -19,9 +19,9 @@
                 <tr>
                     <th class="p-3 text-left text-[#6DA854]">No</th>
                     <th class="p-3 text-left">Nama Anggota</th>
-                    <th class="p-3 text-left">Jenis Transaksi</th>
+                    <th class="p-3 text-left whitespace-nowrap">Jenis Transaksi</th>
                     <th class="p-3 text-left">Tanggal</th>
-                    <th class="p-3 text-left">Keterangan</th>
+                    <th class="p-3 text-left whitespace-nowrap">Keterangan</th>
                     <th class="p-3 text-left">Action</th>
                 </tr>
             </thead>
@@ -37,12 +37,12 @@
                                 Kas Keluar
                             @endif
                         </td>
-                        <td class="p-3">
+                        <td class="p-3 whitespace-nowrap">
                             {{ \Carbon\Carbon::parse($kasHarian->tanggal)->translatedFormat('d-m-Y') }}
                         </td>
                         <td class="p-3">{{$kasHarian->keterangan}}</td>
                         <td class="whitespace-nowrap">
-                            @if ($kasHarian->js_admin == 0 && $kasHarian->hutang == 0 && $kasHarian->jasa == 0 && $kasHarian->angsuran == 0 && $kasHarian->barang_kons == 0)     
+                            @if ($kasHarian->anggota && $kasHarian->js_admin == 0 && $kasHarian->hutang == 0 && $kasHarian->jasa == 0 && $kasHarian->angsuran == 0 && $kasHarian->barang_kons == 0)     
                                 <a href="{{ route('admin.kas-harian.edit', $kasHarian->id) }}">
                                     <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
                                         Edit

@@ -105,6 +105,7 @@ Route::prefix('pengurus')->as('pengurus.')->middleware('pengurus', 'no-cache')->
     Route::resource('unit-konsumsi', SubUnitKonsumsiController::class)->only(['index']);
     Route::resource('angsuran-unit-konsumsi', SubAngsuranUnitKonsumsiController::class)->only(['index', 'edit', 'update']);
     Route::resource('riwayat-transaksi', SubRiwayatTransaksiController::class)->only(['index']);
+    Route::get('/detail-riwayat-transaksi/{id}', [SubRiwayatTransaksiController::class, 'detail'])->name('detail-riwayat-transaksi');
     Route::resource('profile', SubProfileController::class)->only(['index', 'update']);
     Route::post('/logout-pengurus', [AuthController::class, 'logoutPengurus'])->name('logout');
 });

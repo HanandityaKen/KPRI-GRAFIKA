@@ -40,8 +40,10 @@
                     <th class="p-3 text-left text-[#6DA854]">No</th>
                     <th class="p-3 text-left">Nama Anggota</th>
                     <th class="p-3 text-left">Tanggal</th>
-                    <th class="p-3 text-left">Jenis Transaksi</th>
+                    <th class="p-3 text-left whitespace-nowrap">Jenis Transaksi</th>
                     <th class="p-3 text-left">Jumlah</th>
+                    <th class="p-3 text-left">Keterangan</th>
+                    <th class="p-3 text-left">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -49,7 +51,7 @@
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
                         <td class="pl-5 text-[#6DA854]">{{ $riwayatTransaksis->firstItem() + $index }}</td>
                         <td class="p-3">{{$riwayatTransaksi->nama_anggota}}</td>
-                        <td class="p-3">
+                        <td class="p-3 whitespace-nowrap">
                             {{ \Carbon\Carbon::parse($riwayatTransaksi->tanggal)->translatedFormat('d-m-Y') }}
                         </td>
                         <td class="p-3">
@@ -60,6 +62,14 @@
                             @endif
                         </td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($riwayatTransaksi->total, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">{{$riwayatTransaksi->keterangan}}</td>
+                        <td class="p-3 whitespace-nowrap">
+                            <a href="{{ route('pengurus.detail-riwayat-transaksi', $riwayatTransaksi->id) }}">
+                                <button class="px-3 py-1 bg-blue-700 text-white rounded hover:bg-blue-600">
+                                    Detail
+                                </button>
+                            </a>
+                        </td>
                     </tr>
                 @empty
                     <tr>

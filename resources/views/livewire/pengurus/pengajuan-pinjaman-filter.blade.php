@@ -45,20 +45,22 @@
                             @endif
                         </td>
                         <td class="whitespace-nowrap">
-                            <a href="{{ route('pengurus.pengajuan-pinjaman.edit', $pengajuanPinjaman->id) }}">
-                                <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
-                                    Edit
+                            @if ($pengajuanPinjaman->status == 'menunggu')
+                                <a href="{{ route('pengurus.pengajuan-pinjaman.edit', $pengajuanPinjaman->id) }}">
+                                    <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
+                                        Edit
+                                    </button>
+                                </a>
+                                <button 
+                                    class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
+                                    onclick="confirmDelete({{ $pengajuanPinjaman->id }})">
+                                        Hapus
                                 </button>
-                            </a>
-                            <button 
-                                class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
-                                onclick="confirmDelete({{ $pengajuanPinjaman->id }})">
-                                    Hapus
-                            </button>
-                            <form id="delete-form-{{ $pengajuanPinjaman->id }}" action="{{ route('pengurus.pengajuan-pinjaman.destroy', $pengajuanPinjaman->id) }}" method="POST" style="display: none;">
-                                @csrf
-                                @method('DELETE')
-                            </form>
+                                <form id="delete-form-{{ $pengajuanPinjaman->id }}" action="{{ route('pengurus.pengajuan-pinjaman.destroy', $pengajuanPinjaman->id) }}" method="POST" style="display: none;">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            @endif
                         </td>
                     </tr>
                 @empty

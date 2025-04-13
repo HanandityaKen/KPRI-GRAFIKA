@@ -157,8 +157,8 @@ class AnggotaController extends Controller
 
         $request->validate([
             'nama' => 'required|string|max:255',
-            'telepon' => 'required|string|max:15',
-            'email' => 'required|email|unique:anggota,email,' . $anggota->id,
+            'telepon' => 'nullable|string|max:15',
+            'email' => 'nullable|email|unique:anggota,email,' . $anggota->id,
             'foto_profile' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'password' => 'nullable|min:6',
         ]);
@@ -189,6 +189,26 @@ class AnggotaController extends Controller
         }
 
         $anggota->save();
+
+        // Update the kas_harian table with the new name
+        KasHarian::where('anggota_id', $anggota->id)->update([
+            'nama_anggota' => $anggota->nama
+        ]);
+
+        // Update the pengajuan_pinjaman table with the new name
+        PengajuanPinjaman::where('anggota_id', $anggota->id)->update([
+            'nama_anggota' => $anggota->nama
+        ]);
+
+        // Update the pengajuan_unit_konsumsi table with the new name
+        PengajuanUnitKonsumsi::where('anggota_id', $anggota->id)->update([
+            'nama_anggota' => $anggota->nama
+        ]);
+
+        // Update the simpanan table with the new name
+        Simpanan::where('anggota_id', $anggota->id)->update([
+            'nama_anggota' => $anggota->nama
+        ]);
 
         return redirect()->back()->with('success', 'Profil berhasil diperbarui');
 

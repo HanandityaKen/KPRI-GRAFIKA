@@ -10,8 +10,8 @@
       <h1 class="text-white text-3xl md:text-4xl font-bold">KPRI Grafika</h1>
       <p class="text-white mt-2 text-sm">Melayani</p>
       <div class="mt-4 space-x-2 md:space-x-4">
-        <button class="bg-green-600 text-white px-3 md:px-4 py-2 rounded-md text-sm">Simpanan</button>
-        <button class="bg-green-600 text-white px-3 md:px-4 py-2 rounded-md text-sm">Pinjaman</button>
+        <a href="{{ route('simpanan') }}" class="bg-green-600 text-white px-3 md:px-4 py-2 rounded-md text-sm">Simpanan</a>
+        <a href="{{ route('pinjaman') }}" class="bg-green-600 text-white px-3 md:px-4 py-2 rounded-md text-sm">Pinjaman</a>
       </div>
     </div>
   </section>

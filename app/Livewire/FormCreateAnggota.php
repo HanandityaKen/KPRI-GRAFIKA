@@ -54,7 +54,10 @@ class FormCreateAnggota extends Component
 
     public function updatedTelepon()
     {
-        if (!str_starts_with($this->telepon, '08')) {
+        if (empty($this->telepon)) {
+            $this->error_telepon = '';
+            $this->disabled_telepon = false;
+        } elseif (!str_starts_with($this->telepon, '08')) {
             $this->error_telepon = '* Nomor telepon harus diawali dengan "08".';
             $this->disabled_telepon = true;
         } elseif (!preg_match('/^\d{10,13}$/', $this->telepon)) {
@@ -73,7 +76,10 @@ class FormCreateAnggota extends Component
 
     public function updatedEmail()
     {
-        if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+        if (empty($this->email)) {
+            $this->error_email = '';
+            $this->disabled_email = false;
+        } elseif (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
             $this->error_email = '* Format email tidak valid.';
             $this->disabled_email = true;
         } elseif (Anggota::where('email', $this->email)->exists()) {

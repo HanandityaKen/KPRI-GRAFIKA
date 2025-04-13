@@ -33,8 +33,8 @@ class AnggotaController extends Controller
             'nama'      => 'required|string',
             'jenis_pegawai' => 'required|in:PNS,P3K,GTT',
             'posisi'      => 'required|in:anggota',
-            'telepon'   => 'required|numeric|regex:/^08[0-9]{8,11}$/',
-            'email'   => 'required|email',
+            'telepon'   => 'nullable|numeric|regex:/^08[0-9]{8,11}$/',
+            'email'   => 'nullable|email',
             'password'   => 'required|string|min:8',
         ], [
             'no_anggota.unique' => '* No Anggota sudah terdaftar.',
@@ -68,8 +68,8 @@ class AnggotaController extends Controller
             'no_anggota' => 'required|numeric|unique:anggota,no_anggota,' . $id . ',id',
             'nama'      => 'required|string',
             'jenis_pegawai' => 'required|in:PNS,P3K,GTT',
-            'telepon'   => 'required|numeric|regex:/^08[0-9]{8,11}$/',
-            'email'   => 'required|email',
+            'telepon'   => 'nullable|numeric|regex:/^08[0-9]{8,11}$/',
+            'email'   => 'nullable|email',
             'password'   => 'nullable|string|min:8',
         ], [
             'no_anggota.unique' => '* No Anggota sudah terdaftar.',

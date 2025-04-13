@@ -26,7 +26,7 @@
         </div>
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Nomor Telepon</label>
-            <input wire:model.live="telepon" type="text" id="telepon" name="telepon" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan No. Telepon" value="{{ old('telepon', $user->telepon) }}" required/>
+            <input wire:model.live="telepon" type="text" id="telepon" name="telepon" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan No. Telepon" inputmode="numeric" pattern="[0-9]*" value="{{ old('telepon', $user->telepon) }}"/>
             @error('telepon')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
             @enderror
@@ -34,7 +34,7 @@
         </div>
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Email</label>
-            <input wire:model.live="email" type="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Email" value="{{ old('email', $user->email) }}" required/>
+            <input wire:model.live="email" type="email" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Email" value="{{ old('email', $user->email) }}"/>
             @error('email')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
             @enderror
@@ -55,3 +55,8 @@
         </div>
     </form>
 </div>
+<script>
+    document.getElementById('telepon').addEventListener('input', function (e) {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+</script>

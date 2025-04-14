@@ -5,7 +5,7 @@
 @section('content')
     
 <div>
-  <hr class="my-2 border-t-[2px] border-green-800 opacity-20 mb-5" />
+  <hr class="my-5 border-t-[2px] border-green-800 opacity-20 mb-5" />
 
   {{-- Breadcrumb --}}
   <div class="mb-5">

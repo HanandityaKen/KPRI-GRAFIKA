@@ -16,16 +16,33 @@ use Illuminate\Validation\ValidationException;
 
 class AnggotaController extends Controller
 {
+    /**
+     * Menampilkan halaman daftar anggota.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         return view('admin.anggota.index-anggota');
     }
 
+    /** 
+     * Menampilkan halaman untuk membuat atau menambahkan anggota baru.
+     * 
+     * @return \Illuminate\View\View
+     */
     public function create()
     {
         return view('admin.anggota.create-anggota');
     }
 
+    /**
+     * Proses menyimpan anggota baru ke dalam tabel anggota.
+     *
+     * @param \Illuminate\Http\Request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -56,12 +73,25 @@ class AnggotaController extends Controller
         return redirect()->route('admin.anggota.index')->with('success', 'Berhasil Menambahkan Anggota');
     }
 
+    /**
+     * Menampilkan halaman edit anggota berdasarkan ID.
+     *
+     * @param string $id
+     * @return \Illuminate\View\View
+     */
     public function edit(string $id)
     {
         $user = Anggota::findOrFail($id);
         return view('admin.anggota.edit-anggota', compact('user'));
     }
 
+    /**
+     * Proses memperbarui data anggota berdasarkan ID dan mengubah field nama_anggota di tabel kas_harian, simpanan, pengajuan_pinjaman dan pengajuan_unit_konsumsi.
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param string $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -91,22 +121,22 @@ class AnggotaController extends Controller
 
         $user->save();
 
-        // Update the kas_harian table with the new name
+        // Perbarui tabel kas_harian dengan nama anggota yang baru
         KasHarian::where('anggota_id', $user->id)->update([
             'nama_anggota' => $user->nama
         ]);
 
-        // Update the pengajuan_pinjaman table with the new name
+        // Perbarui tabel pengajuan_pinjaman dengan nama anggota yang baru
         PengajuanPinjaman::where('anggota_id', $user->id)->update([
             'nama_anggota' => $user->nama
         ]);
 
-        // Update the pengajuan_unit_konsumsi table with the new name
+        // Perbarui tabel pengajuan_unit_konsumsi dengan nama anggota yang baru
         PengajuanUnitKonsumsi::where('anggota_id', $user->id)->update([
             'nama_anggota' => $user->nama
         ]);
 
-        // Update the simpanan table with the new name
+        // Perbarui tabel simpanan dengan nama anggota yang baru
         Simpanan::where('anggota_id', $user->id)->update([
             'no_anggota' => $user->no_anggota,
             'nama_anggota' => $user->nama
@@ -115,10 +145,19 @@ class AnggotaController extends Controller
         return redirect()->route('admin.anggota.index')->with('success', 'Berhasil Mengubah Anggota');
     }
 
+    /**
+     * Menghapus anggota berdasarkan ID jika tidak memiliki pinjaman atau unit konsumsi yang belum lunas
+     * 
+     * Hapus simpanan anggota dan catat pengembalian dana simpanan ke dalam kas_harian.
+     * 
+     * @param string $id 
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(string $id)
     {
         $user = Anggota::findOrFail($id);
 
+        // Periksa apakah pinjaman terakhir anggota masih dalam pembayaran
         $pinjaman = Pinjaman::whereHas('pengajuan_pinjaman', function ($query) use ($user) {
             $query->where('anggota_id', $user->id);
         })
@@ -126,10 +165,12 @@ class AnggotaController extends Controller
         ->orderBy('created_at', 'desc')
         ->first();
 
+        // Tampilkan pesan error jika pinjaman masih dalam pembayaran
         if ($pinjaman) {
             return redirect()->route('admin.anggota.index')->with('error', $user->nama . ' masih memiliki angsuran pinjaman yang belum lunas.');
         }
 
+        // Periksa apakah unit konsumsi terakhir anggota masih dalam pembayaran
         $unitKonsumsi = UnitKonsumsi::whereHas('pengajuan_unit_konsumsi', function ($query) use ($user) {
             $query->where('anggota_id', $user->id);
         })
@@ -137,14 +178,17 @@ class AnggotaController extends Controller
         ->orderBy('created_at', 'desc')
         ->first();
 
+        // Tampilkan pesan error jika unit konsumsi masih dalam pembayaran
         if ($unitKonsumsi) {
             return redirect()->route('admin.anggota.index')->with('error', $user->nama . ' masih memiliki angsuran unit konsumsi yang belum lunas.');
         }
 
+        // Mengambil manasuka, wajib, dan qurban dari simpanan anggota
         $totalManasuka = Simpanan::where('anggota_id', $user->id)->value('manasuka');
         $totalWajib    = Simpanan::where('anggota_id', $user->id)->value('wajib');
         $totalQurban   = Simpanan::where('anggota_id', $user->id)->value('qurban');
 
+        // Proses pengembalian dana simpanan anggota yang dihapus
         if ($totalManasuka > 0 || $totalWajib > 0 || $totalQurban > 0) {
             KasHarian::create([
                 'anggota_id'      => $user->id,
@@ -158,8 +202,10 @@ class AnggotaController extends Controller
             ]);
         }
 
+        // Hapus simpanan anggota dari tabel simpanan
         Simpanan::where('anggota_id', $user->id)->delete();
 
+        //Hapus anggota dari tabel anggota
         $user->delete();
 
         return redirect()->route('admin.anggota.index')->with('success', 'Berhasil Menghapus Anggota');

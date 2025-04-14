@@ -5,7 +5,9 @@
 @section('content')
   <!-- Hero Section -->
   <section class="relative w-full h-screen">
-    <img src="{{ asset('storage/assets/foto_smk_hd.webp') }}" alt="Background" class="w-full h-full object-cover relative" />
+    {{-- <img src="{{ asset('storage/assets/foto_smk_hd.webp') }}" alt="Background" class="w-full h-full object-cover relative" /> --}}
+    <div class="absolute inset-0 bg-cover bg-center" style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('{{ asset('storage/assets/foto_smk_hd.webp') }}')"></div>
+
     <div class="absolute inset-0 flex flex-col justify-center items-start px-6 md:px-10">
       <h1 class="text-white text-3xl md:text-4xl font-bold">KPRI Grafika</h1>
       <p class="text-white mt-2 text-sm">Melayani</p>

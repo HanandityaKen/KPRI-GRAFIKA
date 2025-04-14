@@ -14,11 +14,36 @@ use Carbon\Carbon;
 
 class PengajuanUnitKonsumsiController extends Controller
 {
+    /**
+     * Menampilkan halaman index pengajuan unit konsumsi
+     * 
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         return view('admin.pengajuan-unit-konsumsi.index-pengajuan-unit-konsumsi');
     }
 
+    /**
+     * Proses setujui pengajuan pinjaman
+     * 
+     * Fungsi ini menangani proses persetujuan pengajuan unit konsumsi anggota dengan:
+     * - Mengambil pengajuan unit konsumsi berdasarkan ID
+     * - Memeriksa apakah pengajuan unit konsumsi ditemukan
+     * - Memeriksa status pengajuan unit konsumsi
+     * - Memeriksa apakah anggota masih memiliki unit konsumsi yang belum lunas
+     * - Mengambil saldo terakhir koperasi
+     * - Memeriksa apakah saldo koperasi cukup untuk menyetujui unit konsumsi
+     * - Create kas harian keluar untuk barang_kons
+     * - Memperbarui saldo koperasi setelah barang_kons
+     * - Create Jkk untuk kas harian keluar
+     * - Create unit konsumsi baru
+     * - Create angsuran baru untuk unit konsumsi
+     * - Memperbarui status pengajuan unit konsumsi menjadi disetujui
+     * 
+     * @param string $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function setujuiUnitKonsumsi($id)
     {
         $pengajuanUnitKonsumsi = PengajuanUnitKonsumsi::find($id);
@@ -111,6 +136,18 @@ class PengajuanUnitKonsumsiController extends Controller
         return back()->with('success', 'Pengajuan Unit Konsumsi berhasil disetujui');
     }
 
+    /**
+     * Proses tolak pengajuan unit konsumsi
+     * 
+     * Fungsi ini menangani proses penolakan pengajuan unit konsumsi anggota dengan:
+     * - Mengambil pengajuan unit konsumsi berdasarkan ID
+     * - Memeriksa apakah pengajuan unit konsumsi ditemukan
+     * - Memeriksa status pengajuan unit konsumsi
+     * - Memperbarui status pengajuan unit konsumsi menjadi ditolak
+     * 
+     * @param string $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function tolakUnitKonsumsi($id)
     {
         $pengajuanUnitKonsumsi = PengajuanUnitKonsumsi::find($id);

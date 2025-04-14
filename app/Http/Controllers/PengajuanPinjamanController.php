@@ -15,11 +15,39 @@ use Carbon\Carbon;
 
 class PengajuanPinjamanController extends Controller
 {
+    /**
+     * Menampilkan halaman index pengajuan pinjaman
+     * 
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         return view('admin.pengajuan-pinjaman.index-pengajuan-pinjaman');
     }
 
+    /**
+     * Proses setujui pengajuan pinjaman
+     * 
+     * Fungsi ini menangani proses persetujuan pengajuan pinjaman anggota dengan:
+     * - Mengambil pengajuan pinjaman berdasarkan ID
+     * - Memeriksa apakah pengajuan pinjaman ditemukan
+     * - Memeriksa status pengajuan pinjaman
+     * - Memeriksa apakah anggota masih memiliki pinjaman yang belum lunas
+     * - Mengambil saldo terakhir koperasi
+     * - Memeriksa apakah saldo koperasi cukup untuk menyetujui pinjaman
+     * - Create kas harian masuk untuk biaya admin
+     * - Memperbarui saldo koperasi setelah biaya admin
+     * - Create Jkm untuk kas harian masuk
+     * - Create kas harian keluar untuk pinjaman
+     * - Memperbarui saldo koperasi setelah pinjaman
+     * - Create Jkk untuk kas harian keluar
+     * - Create pinjaman baru
+     * - Create angsuran baru untuk pinjaman
+     * - Memperbarui status pengajuan pinjaman menjadi disetujui
+     * 
+     * @param string $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function setujuiPinjaman($id)
     {
         $pengajuanPinjaman = PengajuanPinjaman::find($id);
@@ -149,6 +177,18 @@ class PengajuanPinjamanController extends Controller
         return back()->with('success', 'Pengajuan Pinjaman berhasil disetujui');
     }
 
+    /**
+     * Proses tolak pengajuan pinjaman
+     * 
+     * Fungsi ini menangani proses penolakan pengajuan pinjaman anggota dengan:
+     * - Mengambil pengajuan pinjaman berdasarkan ID
+     * - Memeriksa apakah pengajuan pinjaman ditemukan
+     * - Memeriksa status pengajuan pinjaman
+     * - Memperbarui status pengajuan pinjaman menjadi ditolak
+     * 
+     * @param string $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function tolakPinjaman($id)
     {
         $pengajuanPinjaman = PengajuanPinjaman::find($id);

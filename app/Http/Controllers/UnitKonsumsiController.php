@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class UnitKonsumsiController extends Controller
 {
+    /**
+     * Menampilkan halaman index unit konsumsi
+     * 
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         return view('admin.unit-konsumsi.index-unit-konsumsi');

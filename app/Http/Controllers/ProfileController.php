@@ -9,12 +9,25 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
+    /**
+     * Menampilkan halaman edit profile
+     * 
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         $admin = Auth::guard('admin')->user();
         return view('admin.profile.index-profile', compact('admin'));
     }
 
+
+    /**
+     * Proses edit profile
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @param string $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, $id)
     {
         // dd($request->all());

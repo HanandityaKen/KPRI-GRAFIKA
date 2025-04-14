@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class SimpananController extends Controller
 {
+    /**
+     * Menampilkan halaman index simpanan
+     * 
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         return view('admin.simpanan.index-simpanan ');

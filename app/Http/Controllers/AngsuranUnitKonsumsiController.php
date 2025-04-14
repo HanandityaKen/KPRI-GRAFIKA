@@ -10,11 +10,22 @@ use App\Models\Saldo;
 
 class AngsuranUnitKonsumsiController extends Controller
 {
+    /**
+     * Menampilkan halaman index angsuran unit konsumsi
+     * 
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         return view('admin.angsuran-unit-konsumsi.index-angsuran-unit-konsumsi');
     }
 
+    /**
+     * Menampilkan halaman pembayaran angsuran unit konsumsi 
+     * 
+     * @param string $id
+     * @return \Illuminate\View\View
+     */
     public function edit(string $id)
     {
         $angsuran  = AngsuranUnitKonsumsi::findOrFail($id);
@@ -22,6 +33,21 @@ class AngsuranUnitKonsumsiController extends Controller
         return view('admin.angsuran-unit-konsumsi.bayar-angsuran-unit-konsumsi', compact('angsuran'));
     }
 
+    /**
+     * Proses pembayaran angsuran unit konsumsi
+     * 
+     * Fungsi ini menangani proses pembayaran angsuran unit konsumsi anggota dengan:
+     * - Validasi input angsuran dan jasa
+     * - Perhitungan tunggakan, kurang angsuran, kurang jasa, angsuran ke, dan sisa angsuran
+     * - Pembaruan status unit konsumsi menjadi lunas jika sisa angsuran menjadi 0
+     * - Pencatatan pembayaran ke dalam tabel kas_harian
+     * - Pencatatan ke dalam tabel jkm
+     * - Pembaruan saldo koperasi
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @param string $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, string $id)
     {
         $request->validate([

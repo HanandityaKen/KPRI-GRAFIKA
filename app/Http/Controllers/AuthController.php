@@ -11,12 +11,22 @@ use Illuminate\Validation\ValidationException;
 class AuthController extends Controller
 {
     
-    // //Anggota
+    /**
+     * Menampilkan halaman login anggota
+     * 
+     * @return \Illuminate\View\View 
+     */
     public function showAnggotaLoginForm()
     {
         return view ('auth.anggota-login');
     }
 
+    /**
+     * Proses login anggota
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function anggotaLoginProses(Request $request)
     {
         $request->validate([
@@ -33,6 +43,12 @@ class AuthController extends Controller
         return redirect()->intended(route('dashboard'));
     }
     
+    /**
+     * Proses logout anggota
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function logoutAnggota(Request $request)
     {
         session()->flush();
@@ -45,12 +61,22 @@ class AuthController extends Controller
         return redirect()->route('anggota.login');
     }
     
-    //Pengurus
+    /**
+     * Menampilkan halaman login pengurus
+     * 
+     * @return \Illuminate\View\View
+     */
     public function showPengurusLoginForm()
     {
         return view('auth.pengurus-login');
     }
     
+    /**
+     * Proses login pengurus
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function pengurusLoginProses(Request $request)
     {
         $request->validate([
@@ -77,6 +103,12 @@ class AuthController extends Controller
         
     }
 
+    /**
+     * Proses logout pengurus
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function logoutPengurus(Request $request)
     {
         Auth::guard('pengurus')->logout();
@@ -87,12 +119,22 @@ class AuthController extends Controller
         return redirect()->route('pengurus.login');
     }
     
-    //Admin
+    /**
+     * Menampilkan halaman login admin
+     * 
+     * @return \Illuminate\View\View
+     */
     public function showAdminLoginForm()
     {
         return view('auth.admin-login');
     }
 
+    /**
+     * Proses login admin
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function adminLoginProses(Request $request)
     {
         $request->validate([
@@ -110,6 +152,12 @@ class AuthController extends Controller
         
     }
 
+    /**
+     * Proses logout admin
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function logoutAdmin(Request $request)
     {
         Auth::guard('admin')->logout();
@@ -121,35 +169,3 @@ class AuthController extends Controller
     }
 
 }
-
-    // public function showLoginForm()
-    // {
-    //     return view('auth.login');
-    // }
-
-    // public function loginProses(Request $request)
-    // {
-    //     $request->validate([
-    //         'nama'      => 'required|string',
-    //         'password'  => 'required|string',
-    //     ]);
-
-    //     $guards = [
-    //         'anggota'   => 'kpri-grafika',
-    //         'pengurus'  => 'pengurus.index',
-    //         'admin'     => 'admin.index',
-    //     ];
-
-    //     foreach ($guards as $guard => $route) {
-    //         if (Auth::guard($guard)->attempt([
-    //             'nama' => $request->nama,
-    //             'password' => $request->password
-    //         ])) {
-    //             return redirect()->intended(route($route));
-    //         }
-    //     }
-
-    //     return back()->withErrors([
-    //         'username' => 'Username atau password salah',
-    //     ]);
-    // }

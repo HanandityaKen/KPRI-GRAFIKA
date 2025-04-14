@@ -14,19 +14,19 @@
 
   <!-- Avatar dan Dropdown Toggle -->
   <div class="relative">
-  <a href="#" id="userDropdownToggle" class="flex gap-2 sm:gap-4 items-center text-sm cursor-pointer">
+  <button type="button" id="userDropdownToggle" class="flex gap-2 sm:gap-4 items-center text-sm cursor-pointer">
     <!-- Avatar Image -->
     <img src="{{ Auth::guard('anggota')->user()->foto_profile ? asset('storage/' . Auth::guard('anggota')->user()->foto_profile) : asset('storage/assets/default-avatar.webp') }}" class="rounded-full w-8 h-8 sm:w-10 sm:h-10" alt="Avatar" />
     <!-- User Info -->
     <div class="flex items-center gap-1 sm:gap-2">
       <div class="hidden sm:block">
-        <h4 class="text-green-800 font-semibold">{{ Auth::guard('anggota')->user()->nama }}</h4>
-        <h4 class="text-xs text-gray-500">{{ ucwords(Auth::guard('anggota')->user()->posisi) }}</h4>
+        <h4 class="text-green-800 text-left font-semibold">{{ Auth::guard('anggota')->user()->nama }}</h4>
+        <h4 class="text-xs text-left text-gray-500">{{ ucwords(Auth::guard('anggota')->user()->posisi) }}</h4>
       </div>
       <!-- Dropdown Icon -->
       <i data-lucide="chevron-down" class="text-green-800 sm:mr-3"></i>
     </div>
-  </a>
+  </button>
 
   <!-- Dropdown Menu -->
   <div id="userDropdownMenu" class="hidden absolute right-0 mt-2 w-48 bg-white border rounded-lg shadow-lg z-50">

@@ -4,7 +4,7 @@
 
 @section('content')
   <div>
-    <hr class="my-2 border-t-[2px] border-green-800 opacity-20 mb-5" />
+    <hr class="my-5 border-t-[2px] border-green-800 opacity-20 mb-5" />
 
       <div class="mb-5">
         <nav class="flex" aria-label="Breadcrumb">

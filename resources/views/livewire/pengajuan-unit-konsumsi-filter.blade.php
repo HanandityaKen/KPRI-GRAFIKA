@@ -70,7 +70,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="text-center p-3">Tidak ada data pengajuan unit konsumsi.</td>
+                        <td colspan="12" class="text-center py-3">Tidak ada data pengajuan unit konsumsi.</td>
                     </tr>
                 @endforelse
             </tbody>

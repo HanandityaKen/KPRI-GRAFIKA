@@ -62,7 +62,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="text-center p-3">Tidak ada data kas harian.</td>
+                        <td colspan="6" class="text-center p-6">Tidak ada data kas harian.</td>
                     </tr>
                 @endforelse
             </tbody>

@@ -3,8 +3,7 @@
         <!-- Select Tahun & Bulan -->
         <div class="flex flex-row items-center space-x-4">
             <div class="flex items-center">
-                <label for="yearFilter" class="mr-2">Tahun:</label>
-                <select id="yearFilter" wire:model.change="selectedYear" class="p-2 bg-white border-2 border-[#6DA854] w-[100px] rounded-md">
+                <select id="yearFilter" wire:model.change="selectedYear" class="p-2 bg-white border-2 border-[#6DA854] w-full rounded-md">
                     <option value="">Pilih Tahun</option>
                     @foreach ($availableYears as $year)
                         <option value="{{ $year }}">{{ $year }}</option>
@@ -12,8 +11,7 @@
                 </select>
             </div>
             <div class="flex items-center">
-                <label for="monthFilter" class="mr-2">Bulan:</label>
-                <select id="monthFilter" wire:model.change="selectedMonth" class="p-2 bg-white border-2 border-[#6DA854] w-[100px] rounded-md">
+                <select id="monthFilter" wire:model.change="selectedMonth" class="p-2 bg-white border-2 border-[#6DA854] w-full rounded-md">
                     <option value="">Pilih Bulan</option>
                     @foreach($availableMonths as $month)
                         <option value="{{ $month['value'] }}">{{ $month['label'] }}</option>

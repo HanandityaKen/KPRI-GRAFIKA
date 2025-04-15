@@ -125,7 +125,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="text-center">Tidak ada data kas keluar.</td>
+                        <td colspan="14" class="text-center py-4">Tidak ada data kas keluar.</td>
                     </tr>
                 @endforelse
             </tbody>

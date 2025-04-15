@@ -101,7 +101,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="text-center">Tidak ada data kas masuk.</td>
+                        <td colspan="14" class="text-center py-4">Tidak ada data kas masuk.</td>
                     </tr>
                 @endforelse
             </tbody>

@@ -57,7 +57,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="6" class="text-center p-3">Tidak ada data angsuran.</td>
+                        <td colspan="8" class="text-center py-3">Tidak ada data angsuran.</td>
                     </tr>
                 @endforelse
             </tbody>

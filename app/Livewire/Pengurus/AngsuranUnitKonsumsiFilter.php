@@ -12,6 +12,17 @@ use Livewire\WithoutUrlPagination;
 use App\Exports\AngsuranUnitKonsumsiExport;
 use Maatwebsite\Excel\Facades\Excel;
 
+/**
+ * Komponen Livewire untuk memfilter dan menampilkan data angsuran unit konsumsi.
+ * 
+ * Fitur:
+ * - Pencarian berdasarkan nama anggota, nama barang, atau status
+ * - Paginasi data angsuran 
+ * - Relasi eager loading antara angsuran → unit konsumsi → pengajuan unit konsumsi
+ * - Ekspor data angsuran ke file Excel
+ * 
+ * @property string $search Kata kunci pencarian untuk memfilter data
+ */
 class AngsuranUnitKonsumsiFilter extends Component
 {
     use WithPagination, WithoutUrlPagination;

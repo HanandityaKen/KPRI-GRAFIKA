@@ -8,12 +8,37 @@ use Carbon\Carbon;
 use App\Exports\RekapJkmExport;
 use Maatwebsite\Excel\Facades\Excel;
 
+/**
+ * Komponen Livewire untuk menampilkan rekapitulasi kas masuk (JKM) berdasarkan tahun.
+ *
+ * Fitur:
+ * - Memilih tahun untuk ditampilkan
+ * - Menghitung total kas masuk per bulan
+ * - Menghitung total kas masuk per tahun
+ * - Mengekspor data ke file Excel
+ */
 class RekapJkmFilter extends Component
 {
+    /**
+     * Tahun yang dipilih oleh pengguna.
+     *
+     * @var string
+     */
     public $selectedYear;
 
+    /**
+     * Daftar tahun yang tersedia untuk dipilih.
+     *
+     * @var array
+     */
     public $availableYears = [];
 
+    /**
+     * Inisialisasi komponen saat pertama kali dijalankan.
+     * Mengambil semua tahun unik dari transaksi kas masuk dan menetapkan tahun saat ini sebagai default.
+     *
+     * @return void
+     */
     public function mount()
     {
         $this->selectedYear = now()->format('Y');
@@ -34,6 +59,11 @@ class RekapJkmFilter extends Component
             
     }
 
+    /**
+     * Menghitung total kas masuk untuk tahun yang dipilih.
+     *
+     * @return float|null Total kas masuk atau null jika tidak ada data.
+     */
     public function getTotalByYear()
     {
         return KasHarian::where('jenis_transaksi', 'kas masuk')
@@ -53,7 +83,11 @@ class RekapJkmFilter extends Component
             ->value('total');
     }
 
-
+    /**
+     * Merender tampilan Livewire dan menghitung rekap kas masuk per bulan.
+     *
+     * @return \Illuminate\View\View
+     */
     public function render()
     {
         Carbon::setLocale('id'); 
@@ -109,6 +143,11 @@ class RekapJkmFilter extends Component
         ]);
     }
 
+    /**
+     * Mengekspor data rekapitulasi kas masuk ke dalam file Excel berdasarkan tahun yang dipilih.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function exportExcel()
     {
         return Excel::download(new RekapJkmExport($this->selectedYear), 'rekap_jkm_'.$this->selectedYear.'.xlsx');

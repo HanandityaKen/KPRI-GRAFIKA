@@ -8,6 +8,38 @@ use App\Models\Persentase;
 use App\Models\PengajuanUnitKonsumsi;
 use App\Models\UnitKonsumsi;
 
+/**
+ * Komponen Livewire untuk mengedit pengajuan unit konsumsi.
+ *
+ * Fitur:
+ * - Mengambil data pengajuan unit konsumsi berdasarkan ID
+ * - Menghitung nominal pokok, bunga, dan total berdasarkan inputan
+ * - Validasi inputan untuk memastikan tidak ada yang kosong
+ * - Menangani status disabled untuk tombol submit
+ * - Menangani status aktif unit konsumsi untuk anggota
+ * 
+ * Properti:
+ * - $pengajuanUnitKonsumsi: Model pengajuan unit konsumsi yang sedang diedit
+ * - $namaList: Daftar nama anggota untuk dropdown
+ * - $anggota_id: ID anggota yang dipilih
+ * - $nominal: Jumlah nominal yang diminta
+ * - $lama_angsuran: Lama angsuran dalam bulan
+ * - $nominal_pokok: Nominal pokok pinjaman
+ * - $nominal_bunga: Nominal bunga pinjaman
+ * - $jumlah_nominal: Total pinjaman setelah dikurangi biaya admin
+ * - $error_nominal: Pesan error jika nominal melebihi batas
+ * - $disabled: Status disabled untuk tombol submit
+ * - $unitKonsumsiAktif: Status apakah anggota memiliki unit konsumsi aktif
+ * 
+ *  Metode:
+ * - mount: Inisialisasi data awal saat komponen dimuat
+ * - updated: Memanggil metode hitungUnitKonsumsi saat ada perubahan pada nominal atau lama angsuran
+ * - updatedNominal: Memeriksa dan menghitung nominal pokok, bunga, dan total pinjaman
+ * - hitungUnitKonsumsi: Menghitung nominal pokok, bunga, dan total pinjaman berdasarkan inputan
+ * - updatedAnggotaId: Memeriksa apakah anggota memiliki unit konsumsi aktif saat anggota dipilih
+ * - render: Mengembalikan tampilan komponen
+ */
+
 class FormEditPengajuanUnitKonsumsi extends Component
 {
     public $pengajuanUnitKonsumsi;

@@ -7,6 +7,18 @@ use App\Models\Anggota;
 use App\Models\Persentase;
 use App\Models\UnitKonsumsi;
 
+/**
+ * Komponen Livewire untuk membuat formulir pengajuan pinjaman oleh pengurus.
+ * 
+ * Komponen ini memungkinkan pengurus:
+ * - Memilih anggota.
+ * - Mengisi nominal, nama barang dan lama angsuran.
+ * - Secara otomatis menghitung:
+ *   - Nominal pokok angsuran.
+ *   - Nominal bunga.
+ *   - Nominal angsuran per bulan.
+ * - Mengecek apakah anggota masih memiliki pinjaman aktif.
+ */
 class FormCreatePengajuanUnitKonsumsi extends Component
 {
     public $namaList = [];
@@ -20,12 +32,23 @@ class FormCreatePengajuanUnitKonsumsi extends Component
     public $disabled = false;
     public $unitKonsumsiAktif = false;
 
+    /**
+     * Lifecycle hook yang dijalankan saat komponen pertama kali dimuat.
+     * Mengambil data semua anggota dan menyimpannya dalam bentuk array key-value (id => nama).
+     */
     public function mount()
     {
         $this->namaList = Anggota::pluck('nama', 'id');
         $this->lama_angsuran = '';
     }
 
+    /**
+     * Method ini akan otomatis dipanggil oleh Livewire
+     * setiap ada perubahan nilai pada properti apa pun.
+     * Di sini hanya tangani perubahan pada nominal dan lama angsuran.
+     *
+     * @param string $propertyName
+     */
     public function updated($propertyName)
     {
         if (in_array($propertyName, ['nominal', 'lama_angsuran'])) {
@@ -33,6 +56,10 @@ class FormCreatePengajuanUnitKonsumsi extends Component
         }
     }
 
+    /**
+     * Method ini akan dipanggil setiap kali nilai nominal berubah.
+     * Jika nominal lebih dari 5 juta, tampilkan pesan error dan reset nilai lainnya.
+     */
     public function updatedNominal()
     {
         $nominal = (int) str_replace(['Rp', '.', ','], '', $this->nominal);
@@ -50,6 +77,12 @@ class FormCreatePengajuanUnitKonsumsi extends Component
         $this->hitungUnitKonsumsi();
     }
 
+    /**
+     * Melakukan perhitungan otomatis terkait unit konsumsi:
+     * - Nominal pokok = nominal dibagi lama angsuran.
+     * - Bunga diambil dari tabel `persentase` dengan id 4.
+     * - Semua nilai dibulatkan ke atas kelipatan 100 dan diformat ke dalam format Rupiah.
+     */
     public function hitungUnitKonsumsi()
     {
         if (empty($this->nominal) || empty($this->lama_angsuran)) {
@@ -80,6 +113,11 @@ class FormCreatePengajuanUnitKonsumsi extends Component
         }
     }
 
+    /**
+     * Method ini akan dipanggil setiap kali anggota_id berubah.
+     * Mengecek apakah anggota yang dipilih sudah memiliki unit konsumsi aktif.
+     * Jika ada, set $unitKonsumsiAktif ke true, jika tidak set ke false.
+     */
     public function updatedAnggotaId()
     {
         if ($this->anggota_id) {
@@ -93,6 +131,11 @@ class FormCreatePengajuanUnitKonsumsi extends Component
         }
     }
 
+    /**
+     * Merender tampilan Livewire untuk form pengajuan unit konsumsi.
+     * 
+     * @return \Illuminate\View\View
+     */
     public function render()
     {
         return view('livewire.pengurus.form-create-pengajuan-unit-konsumsi');

@@ -5,8 +5,24 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\Anggota;
 
+/**
+ * Komponen Livewire untuk membuat form pendaftaran anggota baru.
+ * 
+ * Fitur:
+ * - Validasi interaktif untuk setiap field input (nomor anggota, nama, telepon, email, password)
+ * - Penanganan error dan status disable untuk tombol submit
+ */
 class FormCreateAnggota extends Component
 {
+    /**
+     * Komponen untuk form anggota baru.
+     *
+     * Properti:
+     * - $no_anggota, $nama, $telepon, $email, $password: Inputan dari user.
+     * - $error_*: Menyimpan pesan error untuk setiap input.
+     * - $disabled_*: Untuk menandakan apakah inputan dalam keadaan disabled.
+     * - $disabled: Menandakan apakah tombol submit dalam keadaan disabled.
+     */
     public $no_anggota = '';
     public $nama = '';
     public $telepon = '';
@@ -26,6 +42,10 @@ class FormCreateAnggota extends Component
     public $disabled_email = false;
     public $disabled_password = false;
 
+    /**
+     * Validasi real-time saat nomor anggota diubah.
+     * Mengecek apakah nomor sudah terdaftar.
+     */
     public function updatedNoAnggota()
     {
         if (Anggota::where('no_anggota', $this->no_anggota)->exists()) {
@@ -39,6 +59,10 @@ class FormCreateAnggota extends Component
         $this->checkDisabled();
     }
 
+    /**
+     * Validasi real-time saat nama diubah.
+     * Mengecek apakah nama sudah terdaftar.
+     */
     public function updatedNama()
     {
         if (Anggota::where('nama', $this->nama)->exists()) {
@@ -52,6 +76,10 @@ class FormCreateAnggota extends Component
         $this->checkDisabled();
     }
 
+    /**
+     * Validasi real-time saat telepon diubah.
+     * Cek format dan panjang nomor, serta cek apakah nomor sudah terdaftar.
+     */
     public function updatedTelepon()
     {
         if (empty($this->telepon)) {
@@ -74,6 +102,10 @@ class FormCreateAnggota extends Component
         $this->checkDisabled();
     }
 
+    /**
+     * Validasi real-time saat email diubah.
+     * Cek format dan apakah email sudah terdaftar.
+     */
     public function updatedEmail()
     {
         if (empty($this->email)) {
@@ -93,6 +125,10 @@ class FormCreateAnggota extends Component
         $this->checkDisabled();
     }
 
+    /**
+     * Validasi real-time saat password diubah.
+     * Minimal 8 karakter.
+     */
     public function updatedPassword()
     {
         if (strlen($this->password) < 8) {
@@ -106,6 +142,10 @@ class FormCreateAnggota extends Component
         $this->checkDisabled();
     }
 
+    /**
+     * Cek apakah semua inputan valid.
+     * Jika ada yang invalid, set disabled ke true.
+     */
     public function checkDisabled()
     {
         if ($this->disabled_no_anggota || $this->disabled_nama || $this->disabled_telepon || $this->disabled_email || $this->disabled_password ) {
@@ -115,6 +155,11 @@ class FormCreateAnggota extends Component
         }
     }
 
+    /**
+     * Merender tampilan form.
+     *
+     * @return \Illuminate\View\View
+     */
     public function render()
     {
         return view('livewire.form-create-anggota');

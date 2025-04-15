@@ -8,19 +8,47 @@ use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
 use Carbon\Carbon;
 
+/**
+ * Komponen Livewire untuk menampilkan dan memfilter data kas harian.
+ *
+ * Fitur:
+ * - Pencarian berdasarkan nama anggota, jenis transaksi, atau tanggal.
+ * - Tanggal bisa difilter dalam format 'd-m-Y' atau 'd-m'.
+ *
+ * @property string $search Input pencarian dari pengguna
+ */
 class KasHarianFilter extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
+    /**
+     * Input pencarian untuk nama anggota, jenis transaksi, atau tanggal.
+     *
+     * @var string
+     */
     public $search = '';
 
     protected $paginationTheme = 'tailwind';
 
+    /**
+     * Reset halaman ke 1 saat input pencarian diperbarui.
+     *
+     * @return void
+     */
     public function updatingSearch()
     {
         $this->resetPage();
     }
 
+    /**
+     * Render tampilan dan ambil data kas harian berdasarkan input pencarian.
+     *
+     * - Filter berdasarkan nama anggota atau jenis transaksi.
+     * - Jika input cocok dengan format tanggal (d-m-Y atau d-m), maka filter juga berdasarkan tanggal.
+     * - Gunakan pagination 10 item per halaman,
+     *
+     * @return \Illuminate\View\View
+     */
     public function render()
     {
         return view('livewire.kas-harian-filter', [

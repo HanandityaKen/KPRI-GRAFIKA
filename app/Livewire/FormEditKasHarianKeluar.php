@@ -9,8 +9,43 @@ use App\Models\Simpanan;
 use App\Models\Pokok;
 use App\Models\Wajib;
 
+/**
+ * Komponen Livewire untuk form edit kas harian keluar.
+ * 
+ * Fitur:
+ * - Menampilkan dropdown anggota dengan nama dan ID
+ * - Mengambil data kas harian berdasarkan id_kas_harian
+ * - Validasi inputan untuk memastikan tidak ada yang kosong di setiap field
+ * - Menangani status disabled untuk tombol submit
+ */
 class FormEditKasHarianKeluar extends Component
 {
+    /**
+     * Komponen untuk form kas harian keluar.
+     * 
+     * Properti:
+     * - $kasHarian: Model kas harian yang sedang diedit
+     * - $namaList: Daftar nama anggota untuk dropdown
+     * - $anggota_id: ID anggota yang dipilih
+     * - $bendahara: Status apakah anggota adalah bendahara
+     * - $wajibOptions: Daftar nominal wajib berdasarkan jenis pegawai
+     * - $selectedWajib: Nominal wajib yang dipilih
+     * - $qurban: Nominal qurban
+     * - $manasuka: Nominal manasuka
+     * - $lain_lain: Nominal lain-lain
+     * Khusus untuk bendahara, bendahara dapat mengisi field tambahan:
+     * - $b_umum: Nominal biaya umum
+     * - $b_orgns: Nominal biaya organisasi
+     * - $b_oprs: Nominal biaya operasional
+     * - $b_lain: Nominal biaya lain-lain
+     * - $tnh_kav: Nominal tanah kavling
+     * 
+     * - $error_qurban: Pesan error untuk qurban
+     * - $error_manasuka: Pesan error untuk manasuka
+     * 
+     * - $disabled: Status disabled untuk tombol submit
+     * - $disabled_*: Status disabled untuk setiap inputan
+     */
     public $kasHarian;
     public $namaList = [];
     public $anggota_id = '';
@@ -35,6 +70,11 @@ class FormEditKasHarianKeluar extends Component
 
     public $wajibOption = [];
 
+    /**
+     * Lifecycle hook untuk inisialisasi data awal.
+     * 
+     * @param int $id ID kas harian yang akan diedit.
+     */
     public function mount($id)
     {
         $this->kasHarian = KasHarian::findOrFail($id);
@@ -60,6 +100,9 @@ class FormEditKasHarianKeluar extends Component
         $this->checkDisabled();
     }
 
+    /**
+     * Mengecek apakah anggota adalah bendahara.
+     */
     public function updated($propertyName)
     {
         if ($propertyName === 'anggota_id') {
@@ -69,6 +112,9 @@ class FormEditKasHarianKeluar extends Component
         $this->checkDisabled();
     }
 
+    /**
+     * Mengecek apakah anggota yang dipilih adalah bendahara atau bukan.
+     */
     public function getBendahara()
     {
         if ($this->anggota_id) {
@@ -80,11 +126,18 @@ class FormEditKasHarianKeluar extends Component
         }
     }
 
+    /**
+     * Validasi real-time saat wajib diubah.
+     */
     public function updatedSelectedWajib()
     {
         $this->checkDisabled();
     }
 
+    /**
+     * Validasi real-time saat qurban diubah.
+     * Mengecek apakah simpanan qurban cukup.
+     */
     public function updatedQurban()
     {
         $qurban = (int) str_replace(['Rp', '.', ','], '', $this->qurban);
@@ -103,6 +156,10 @@ class FormEditKasHarianKeluar extends Component
         $this->checkDisabled();
     }
 
+    /**
+     * Validasi real-time saat manasuka diubah.
+     * Mengecek apakah simpanan manasuka cukup.
+     */
     public function updatedManasuka()
     {
         $manasuka = (int) str_replace(['Rp', '.', ','], '', $this->manasuka);
@@ -121,36 +178,60 @@ class FormEditKasHarianKeluar extends Component
         $this->checkDisabled();
     }
 
+    /**
+     * Validasi real-time saat lain-lain diubah.
+     */
     public function updatedLainLain() 
     { 
         $this->checkDisabled(); 
     }
 
+    /**
+     * Validasi real-time saat biaya umum diubah.
+     */
     public function updatedBUmum() 
     {
         $this->checkDisabled(); 
     }
 
+    /**
+     * Validasi real-time saat biaya organisasi diubah.
+     */
     public function updatedBOrgns() 
     { 
         $this->checkDisabled(); 
     }
 
+    /**
+     * Validasi real-time saat biaya operasional diubah.
+     */
     public function updatedBOprs() 
     { 
         $this->checkDisabled(); 
     }
 
+    /**
+     * Validasi real-time saat biaya lain-lain diubah.
+     */
     public function updatedBLain() 
     { 
         $this->checkDisabled(); 
     }
 
+    /**
+     * Validasi real-time saat tanah kavling diubah.
+     */
     public function updatedTnhKav() 
     { 
         $this->checkDisabled(); 
     }
 
+    /**
+     * Cek apakah semua inputan sudah diisi dan tidak ada yang kosong.
+     * Jika ada yang kosong, set disabled ke true.
+     * 
+     * @return void
+     */
     public function checkDisabled()
     {
         $qurban     = (int) str_replace(['Rp', '.', ','], '', $this->qurban);
@@ -182,6 +263,11 @@ class FormEditKasHarianKeluar extends Component
         $this->disabled = $hasValidationError || $isAllZero;
     }
 
+    /**
+     * Merender tampilan form.
+     * 
+     * @return \Illuminate\View\View
+     */
     public function render()
     {
         return view('livewire.form-edit-kas-harian-keluar');

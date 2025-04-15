@@ -8,8 +8,56 @@ use App\Models\Persentase;
 use App\Models\PengajuanPinjaman;
 use App\Models\Pinjaman;
 
+/**
+ * Komponen Livewire untuk form edit pengajuan pinjaman.
+ * 
+ * Fitur:
+ * - Menampilkan dropdown anggota dengan nama dan ID
+ * - Mengambil data pengajuan pinjaman berdasarkan id
+ * - Validasi inputan untuk memastikan tidak ada yang kosong di setiap field
+ * - Menghitung nominal pokok, bunga, angsuran, biaya admin, dan total pinjaman
+ * - Menangani status disabled untuk tombol submit
+ * - Menangani status aktif pinjaman untuk anggota
+ * 
+ * Properti:
+ * - $pinjaman: Model pengajuan pinjaman yang sedang diedit
+ * - $namaList: Daftar nama anggota untuk dropdown
+ * - $anggota_id: ID anggota yang dipilih
+ * - $jumlah_pinjaman: Jumlah pinjaman yang diminta
+ * - $lama_angsuran: Lama angsuran dalam bulan
+ * - $nominal_pokok: Nominal pokok pinjaman
+ * - $nominal_bunga: Nominal bunga pinjaman
+ * - $nominal_angsuran: Nominal angsuran per bulan
+ * - $biaya_admin: Biaya admin pinjaman
+ * - $total_pinjaman: Total pinjaman setelah dikurangi biaya admin
+ * - $pinjamanAktif: Status apakah anggota memiliki pinjaman aktif
+ * 
+ * Metode:
+ * - mount: Inisialisasi data awal saat komponen dimuat
+ * - updated: Memanggil metode hitungPinjaman saat ada perubahan pada jumlah pinjaman atau lama angsuran
+ * - hitungPinjaman: Menghitung nominal pokok, bunga, angsuran, biaya admin, dan total pinjaman
+ * - updatedAnggotaId: Memeriksa apakah anggota memiliki pinjaman aktif saat anggota dipilih
+ * - getFormattedJumlahPinjamanProperty: Mengembalikan format jumlah pinjaman yang diformat
+ * - render: Mengembalikan tampilan komponen
+ */
 class FormEditPengajuanPinjaman extends Component
 {
+    /**
+     * Komponen untuk form edit pengajuan pinjaman.
+     * 
+     * Properti:
+     * - $pinjaman: Model pengajuan pinjaman yang sedang diedit
+     * - $namaList: Daftar nama anggota untuk dropdown
+     * - $anggota_id: ID anggota yang dipilih
+     * - $jumlah_pinjaman: Jumlah pinjaman yang diminta
+     * - $lama_angsuran: Lama angsuran dalam bulan
+     * - $nominal_pokok: Nominal pokok pinjaman
+     * - $nominal_bunga: Nominal bunga pinjaman
+     * - $nominal_angsuran: Nominal angsuran per bulan
+     * - $biaya_admin: Biaya admin pinjaman
+     * - $total_pinjaman: Total pinjaman setelah dikurangi biaya admin
+     * - $pinjamanAktif: Status apakah anggota memiliki pinjaman aktif
+     */
     public $pinjaman;
     public $namaList = [];
     public $anggota_id = '';
@@ -22,6 +70,11 @@ class FormEditPengajuanPinjaman extends Component
     public $total_pinjaman = '';
     public $pinjamanAktif = false;
 
+    /**
+     * Lifecycle hook untuk inisialisasi data awal.
+     * 
+     * @param int $id ID pengajuan pinjaman yang akan diedit.
+     */
     public function mount($id)
     {
         $this->pinjaman = PengajuanPinjaman::findOrFail($id);
@@ -32,6 +85,13 @@ class FormEditPengajuanPinjaman extends Component
         $this->hitungPinjaman();
     }
 
+    /**
+     * Method ini akan otomatis dipanggil oleh Livewire
+     * setiap ada perubahan nilai pada properti apa pun.
+     * Di sini hanya tangani perubahan pada jumlah pinjaman dan lama angsuran.
+     *
+     * @param string $propertyName
+     */
     public function updated($propertyName)
     {
         if (in_array($propertyName, ['jumlah_pinjaman', 'lama_angsuran'])) {
@@ -39,6 +99,10 @@ class FormEditPengajuanPinjaman extends Component
         }
     }
 
+    /**
+     * Method ini akan dipanggil setiap kali nilai jumlah pinjaman atau lama angsuran berubah.
+     * Menghitung nominal pokok, bunga, angsuran, biaya admin, dan total pinjaman.
+     */
     public function hitungPinjaman()
     {
         if (empty($this->jumlah_pinjaman) || empty($this->lama_angsuran)) {
@@ -70,6 +134,10 @@ class FormEditPengajuanPinjaman extends Component
         }
     }
 
+    /**
+     * Validasi real-time saat anggota diubah.
+     * Memeriksa apakah anggota memiliki pinjaman aktif.
+     */
     public function updatedAnggotaId()
     {
         if ($this->anggota_id) {
@@ -83,12 +151,21 @@ class FormEditPengajuanPinjaman extends Component
         }
     }
 
+    /**
+     * Mengembalikan format jumlah pinjaman yang diformat.
+     * 
+     * @return string
+     */
     public function getFormattedJumlahPinjamanProperty()
     {
         return "Rp " . number_format($this->jumlah_pinjaman, 0, ',', '.');
     }
 
-
+    /**
+     * Merender tampilan Livewire untuk form edit pengajuan pinjaman.
+     * 
+     * @return \Illuminate\View\View
+     */
     public function render()
     {
         return view('livewire.pengurus.form-edit-pengajuan-pinjaman');

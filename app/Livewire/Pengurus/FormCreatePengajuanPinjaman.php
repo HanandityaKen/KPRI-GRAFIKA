@@ -7,6 +7,20 @@ use App\Models\Anggota;
 use App\Models\Persentase;
 use App\Models\Pinjaman;
 
+/**
+ * Komponen Livewire untuk membuat formulir pengajuan pinjaman oleh pengurus.
+ * 
+ * Komponen ini memungkinkan pengurus:
+ * - Memilih anggota.
+ * - Mengisi jumlah pinjaman dan lama angsuran.
+ * - Secara otomatis menghitung:
+ *   - Nominal pokok angsuran.
+ *   - Nominal bunga.
+ *   - Nominal angsuran per bulan.
+ *   - Biaya administrasi.
+ *   - Total pinjaman setelah dipotong biaya admin.
+ * - Mengecek apakah anggota masih memiliki pinjaman aktif.
+ */
 class FormCreatePengajuanPinjaman extends Component
 {
     public $namaList = [];
@@ -20,12 +34,23 @@ class FormCreatePengajuanPinjaman extends Component
     public $total_pinjaman = '';
     public $pinjamanAktif = false;
 
+    /**
+     * Lifecycle hook yang dijalankan saat komponen pertama kali dimuat.
+     * Mengambil data semua anggota dan menyimpannya dalam bentuk array key-value (id => nama).
+     */
     public function mount()
     {
         $this->namaList = Anggota::pluck('nama', 'id');
         $this->lama_angsuran = '';
     }
 
+    /**
+     * Method ini akan otomatis dipanggil oleh Livewire
+     * setiap ada perubahan nilai pada properti apa pun.
+     * Di sini hanya tangani perubahan pada jumlah pinjaman dan lama angsuran.
+     *
+     * @param string $propertyName
+     */
     public function updated($propertyName)
     {
         if (in_array($propertyName, ['jumlah_pinjaman', 'lama_angsuran'])) {
@@ -33,6 +58,12 @@ class FormCreatePengajuanPinjaman extends Component
         }
     }
 
+    /**
+     * Melakukan perhitungan otomatis terkait pinjaman:
+     * - Nominal pokok = jumlah pinjaman dibagi lama angsuran.
+     * - Bunga dan biaya admin diambil dari tabel `persentase`.
+     * - Semua nilai dibulatkan ke atas kelipatan 100 dan diformat ke dalam format Rupiah.
+     */
     public function hitungPinjaman()
     {
         if (empty($this->jumlah_pinjaman) || empty($this->lama_angsuran)) {
@@ -66,6 +97,11 @@ class FormCreatePengajuanPinjaman extends Component
         }
     }
 
+    /**
+     * Mengecek apakah anggota yang dipilih memiliki pinjaman aktif.
+     * Pinjaman aktif didefinisikan sebagai pinjaman dengan status "dalam pembayaran".
+     * Jika iya, maka akan mengatur $pinjamanAktif menjadi true.
+     */
     public function updatedAnggotaId()
     {
         if ($this->anggota_id) {
@@ -79,6 +115,11 @@ class FormCreatePengajuanPinjaman extends Component
         }
     }
 
+    /**
+     * Merender tampilan Livewire untuk form pengajuan pinjaman.
+     *
+     * @return \Illuminate\View\View
+     */
     public function render()
     {
         return view('livewire.pengurus.form-create-pengajuan-pinjaman');

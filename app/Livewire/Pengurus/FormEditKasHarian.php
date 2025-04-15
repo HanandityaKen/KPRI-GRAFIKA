@@ -10,8 +10,37 @@ use App\Models\Pokok;
 use App\Models\Wajib;
 use App\Models\WajibPinjam;
 
+/**
+ * Komponen Livewire untuk form edit kas harian masuk.
+ * 
+ * Fitur:
+ * - Menampilkan dropdown anggota dengan nama dan ID
+ * - Mengambil data kas harian berdasarkan id_kas_harian
+ * - Mengambil data wajib berdasarkan jenis pegawai anggota yang dipilih
+ * - Mengambil data pokok berdasarkan anggota yang dipilih
+ * - Validasi inputan untuk memastikan tidak ada yang kosong di setiap field
+ * - Menangani status disabled untuk tombol submit
+ */
 class FormEditKasHarian extends Component
 {
+    /**
+     * Komponen untuk form edit kas harian masuk.
+     * 
+     * Properti:
+     * - $kasHarian: Model kas harian yang sedang diedit
+     * - $namaList: Daftar nama anggota untuk dropdown
+     * - $anggota_id: ID anggota yang dipilih
+     * - $pokok: Nominal pokok
+     * - $wajibOptions: Daftar nominal wajib berdasarkan jenis pegawai
+     * - $wajibPinjamList: Daftar nominal wajib pinjam
+     * - $manasuka: Nominal manasuka
+     * - $qurban: Nominal qurban
+     * - $wajibPinjam: Nominal wajib pinjam
+     * - $wajib: Nominal wajib
+     * - $lain_lain: Nominal lain-lain
+     * - $disabled: Status disabled untuk tombol submit
+     * - $disabled_*: Status disabled untuk setiap inputan
+     */
     public $kasHarian;
     public $namaList = [];
     public $anggota_id = '';
@@ -26,6 +55,11 @@ class FormEditKasHarian extends Component
 
     public $disabled = false;
 
+    /**
+     * Lifecycle hook untuk inisialisasi data awal.
+     * 
+     * @param int $id ID kas harian yang akan diedit.
+     */
     public function mount($id)
     {
         $this->kasHarian = KasHarian::findOrFail($id);
@@ -46,6 +80,10 @@ class FormEditKasHarian extends Component
         $this->disabled();
     }
 
+    /**
+     * Validasi real-time saat anggota diubah.
+     * Mengambil data wajib dan pokok berdasarkan anggota yang dipilih.
+     */
     public function updated($propertyName)
     {
         if ($propertyName === 'anggota_id') {
@@ -56,6 +94,9 @@ class FormEditKasHarian extends Component
         $this->disabled();
     }
 
+    /**
+     * Mengambil data wajib berdasarkan jenis pegawai anggota yang dipilih.
+     */
     public function getWajib()
     {
         $anggota = Anggota::find($this->anggota_id);
@@ -70,6 +111,14 @@ class FormEditKasHarian extends Component
         }
     }
 
+    /**
+     * Mengambil data pokok dari tabel simpanan.
+     * 
+     * Jika disimpanan sudah ada pokok, maka set pokok ke 'Rp 0'.
+     * Jika tidak ada, ambil nominal dari tabel pokok.
+     *
+     * @return void
+     */
     public function getPokok()
     {
         if ($this->anggota_id) {
@@ -88,6 +137,12 @@ class FormEditKasHarian extends Component
         $this->pokok = 'Rp ' . number_format($pokok->nominal, 0, ',', '.');
     }
 
+    /**
+     * Menghitung apakah semua inputan bernilai 0.
+     * Jika semua inputan bernilai 0, set disabled ke true.
+     *
+     * @return void
+     */
     public function disabled()
     {
         $wajib = (int) str_replace(['Rp', '.', ','], '', $this->selectedWajib);
@@ -105,6 +160,11 @@ class FormEditKasHarian extends Component
         }
     }
 
+    /**
+     * Merender tampilan form.
+     * 
+     * @return \Illuminate\View\View
+     */
     public function render()
     {
         return view('livewire.pengurus.form-edit-kas-harian');

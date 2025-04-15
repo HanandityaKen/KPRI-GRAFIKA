@@ -10,12 +10,27 @@ use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
 use Carbon\Carbon;
 
+/**
+ * Komponen Livewire untuk menampilkan daftar pengajuan pinjaman
+ * dengan status "menunggu" di dashboard admin.
+ *
+ * Fitur:
+ * - Menampilkan daftar pengajuan pinjaman terbaru.
+ */
 class PinjamanDashboardAdmin extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
     protected $paginationTheme = 'tailwind';
 
+    /**
+     * Render daftar pengajuan pinjaman yang masih berstatus "menunggu".
+     *
+     * - Menampilkan 10 data per halaman.
+     * - Diurutkan dari yang terbaru berdasarkan `created_at`.
+     *
+     * @return \Illuminate\View\View
+     */
     public function render()
     {
         return view('livewire.pinjaman-dashboard-admin', [

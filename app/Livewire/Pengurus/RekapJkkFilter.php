@@ -8,13 +8,37 @@ use Carbon\Carbon;
 use App\Exports\RekapJkkExport;
 use Maatwebsite\Excel\Facades\Excel;
 
+/**
+ * Komponen Livewire untuk menampilkan rekapitulasi kas keluar (JKK) berdasarkan tahun.
+ *
+ * Fitur:
+ * - Memilih tahun untuk ditampilkan
+ * - Menghitung total kas keluar per bulan
+ * - Menghitung total kas keluar per tahun
+ * - Mengekspor data ke file Excel
+ */
 class RekapJkkFilter extends Component
 {
-
+    /**
+     * Tahun yang dipilih oleh pengguna.
+     *
+     * @var string
+     */
     public $selectedYear;
 
+    /**
+     * Daftar tahun yang tersedia untuk dipilih.
+     *
+     * @var array
+     */
     public $availableYears = [];
 
+    /**
+     * Inisialisasi komponen saat pertama kali dijalankan.
+     * Mengambil semua tahun unik dari transaksi kas keluar dan menetapkan tahun saat ini sebagai default.
+     *
+     * @return void
+     */
     public function mount()
     {
         $this->selectedYear = now()->format('Y');
@@ -34,6 +58,11 @@ class RekapJkkFilter extends Component
             $this->availableYears = $years;
     }
 
+    /**
+     * Menghitung total kas keluar untuk tahun yang dipilih.
+     *
+     * @return float|null Total kas keluar atau null jika tidak ada data.
+     */
     public function getTotalByYear()
     {
         return KasHarian::where('jenis_transaksi', 'kas keluar')
@@ -57,7 +86,11 @@ class RekapJkkFilter extends Component
             ->value('total');
     }
 
-
+    /**
+     * Merender tampilan Livewire dan menghitung rekap kas keluar per bulan.
+     *
+     * @return \Illuminate\View\View
+     */
     public function render()
     {
         Carbon::setLocale('id'); 
@@ -120,6 +153,11 @@ class RekapJkkFilter extends Component
         ]);
     }
 
+    /**
+     * Mengekspor data rekapitulasi kas keluar ke dalam file Excel berdasarkan tahun yang dipilih.
+     *
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     public function exportExcel()
     {
         return Excel::download(new RekapJkkExport($this->selectedYear), 'rekap_jkk_'.$this->selectedYear.'.xlsx');

@@ -8,19 +8,47 @@ use Livewire\WithoutUrlPagination;
 use App\Models\KasHarian;
 use Carbon\Carbon;
 
+/**
+ * Komponen Livewire untuk menampilkan dan memfilter data kas masuk (JKM).
+ * 
+ * Fitur:
+ * - Pencarian berdasarkan nama anggota atau tanggal (format: d-m-Y atau d-m).
+ * - Menampilkan total dari berbagai jenis transaksi kas masuk.
+ * - Reaktif terhadap perubahan input pencarian.
+ */
 class JkmFilter extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
+    /**
+     * Input pencarian untuk nama anggota atau tanggal.
+     *
+     * @var string
+     */
     public $search = '';
 
     protected $paginationTheme = 'tailwind';
 
+    /**
+     * Reset halaman ke pertama saat input pencarian berubah.
+     *
+     * @return void
+     */
     public function updatingSearch()
     {
         $this->resetPage();
     }
 
+    /**
+     * Render tampilan dan ambil data kas masuk berdasarkan pencarian dan pagination.
+     *
+     * - Data difilter berdasarkan nama anggota atau tanggal.
+     * - Tanggal bisa dalam format lengkap (d-m-Y) atau hanya tanggal dan bulan (d-m).
+     * - Data digrouping berdasarkan nama anggota dan tanggal.
+     * - Menampilkan total dari berbagai jenis kas masuk.
+     *
+     * @return \Illuminate\View\View
+     */
     public function render()
     {
         Carbon::setLocale('id'); 

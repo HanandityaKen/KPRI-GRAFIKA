@@ -30,20 +30,20 @@
             @endif
     
             <!-- Konten -->
-            <div class="px-20 sm:px-10 lg:px-20 mt-10">
-                <div class="flex items-center gap-5 mb-8">
-                    <div>
+            <div class="px-20 sm:px-10 lg:px-20 mt-10 mb-10">
+                <div class="flex flex-col items-center gap-5 text-center">
+                    <div class="w-44 sm:w-56">
                         <!-- Gambar Profil -->
-                        <img id="previewImage" src="{{ $anggota->foto_profile ? asset('storage/' . $anggota->foto_profile) : asset('storage/assets/default-avatar.webp') }}"  class="w-40 h-40 sm:w-50 sm:h-50 rounded-full object-cover aspect-square" alt="Avatar" />
+                        <img id="previewImage" src="{{ $anggota->foto_profile ? asset('storage/' . $anggota->foto_profile) : asset('storage/assets/default-avatar.webp') }}"  class="w-40 h-40 sm:w-50 sm:h-50 rounded-full object-cover aspect-square mx-auto" alt="Avatar" />
                     </div>
                     
-                    <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-                        <!-- Input Gambar -->
-                        <label class="p-3 py-2 w-full sm:w-40 bg-green-800 rounded-md text-center text-white text-sm cursor-pointer">
+                    <!-- Input Gambar -->
+                    <div class="flex flex-row gap-2 mt-2">
+                        <label class="px-4 py-2 bg-green-800 rounded-md text-center text-white text-sm cursor-pointer">
                             Change
                             <input type="file" id="fotoInput" name="foto_profile" accept="image/*" class="hidden">
                         </label>  
-                        <button type="button" id="deleteImage" class="p-3 py-2 w-full sm:w-40 bg-red-500 rounded-md text-center text-white text-sm">
+                        <button type="button" id="deleteImage" class="p-3 py-2 bg-red-500 rounded-md text-center text-white text-sm">
                             Delete
                         </button>
                     </div>

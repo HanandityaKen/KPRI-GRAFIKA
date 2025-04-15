@@ -20,6 +20,25 @@ use Illuminate\Support\Facades\Storage;
 
 class AnggotaController extends Controller
 {
+    /**
+     * Menampilkan halaman dashboard untuk anggota.
+     *
+     * Fungsi ini mengambil data terkait anggota saat ini dan informasi global yang relevan
+     * untuk ditampilkan pada dashboard, seperti jumlah anggota, total simpanan, total pinjaman,
+     * saldo koperasi, serta sisa pinjaman dan unit konsumsi anggota.
+     *
+     * Data yang diambil antara lain:
+     * - Jumlah seluruh anggota yang terdaftar
+     * - Total simpanan dari semua anggota
+     * - Total pinjaman yang telah disetujui
+     * - Total unit konsumsi yang telah disetujui
+     * - Saldo koperasi (jika tidak tersedia, dianggap 0)
+     * - Simpanan dari anggota yang sedang login
+     * - Sisa pinjaman anggota yang masih dalam pembayaran
+     * - Sisa unit konsumsi anggota yang masih dalam pembayaran
+     *
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         $anggotaId = Auth::guard('anggota')->user()->id;
@@ -83,6 +102,15 @@ class AnggotaController extends Controller
         return view('anggota.dashboard', compact('jumlahAnggota', 'totalSimpanan', 'totalPinjaman', 'totalUnitKonsumsi', 'jumlahSaldo', 'simpananAnggota', 'sisaPinjaman', 'sisaUnitKonsumsi'));
     }
 
+    /**
+     * Menampilkan halaman simpanan untuk anggota.
+     * 
+     * Fungsi ini mengambil data simpanan anggota yang sedang login,
+     * termasuk simpanan pokok, wajib, manasuka, wajib pinjam, qurban,
+     * dan total simpanan.
+     * 
+     * @return \Illuminate\View\View
+     */
     public function simpanan()
     {
         $anggotaId = Auth::guard('anggota')->user()->id;
@@ -104,6 +132,13 @@ class AnggotaController extends Controller
         return view('anggota.simpanan', compact('pokok', 'wajib', 'manasuka', 'wajib_pinjam', 'qurban', 'total'));
     }
 
+    /**
+     * Menampilkan halaman pinjaman untuk anggota.
+     * 
+     * Fungsi ini mengambil data pinjaman anggota yang sedang login terakhir dan dalam status dalam pembayaran.
+     * 
+     * @return \Illuminate\View\View
+     */
     public function pinjaman()
     {
         $anggotaId = Auth::guard('anggota')->user()->id;
@@ -120,6 +155,14 @@ class AnggotaController extends Controller
         return view('anggota.pinjaman', compact('angsuranPinjaman'));
     }
 
+
+    /**
+     * Menampilkan halaman unit konsumsi untuk anggota.
+     * 
+     * Fungsi ini mengambil data unit konsumsi anggota yang sedang login terakhir dan dalam status dalam pembayaran.
+     * 
+     * @return \Illuminate\View\View
+     */
     public function unitKonsumsi()
     {
         $anggotaId = Auth::guard('anggota')->user()->id;
@@ -136,12 +179,25 @@ class AnggotaController extends Controller
             return view('anggota.unit-konsumsi', compact('angsuranUnitKonsumsi'));
     }
 
+    /**
+     * Menampilkan halaman riwayat untuk anggota.
+     * 
+     * @return \Illuminate\View\View
+     */
     public function riwayat()
     {
         return view('anggota.riwayat');
     }
 
 
+    /**
+     * Menampilkan halaman profil untuk anggota.
+     * 
+     * Fungsi ini mengambil data anggota yang sedang login
+     * dan menampilkannya pada halaman profil.
+     * 
+     * @return \Illuminate\View\View
+     */
     public function profile()
     {
         $anggota = Auth::guard('anggota')->user();
@@ -149,6 +205,18 @@ class AnggotaController extends Controller
         return view('anggota.profile', compact('anggota'));
     }
 
+    /**
+     * Memperbarui profil anggota.
+     * 
+     * Fungsi ini menangani permintaan untuk memperbarui informasi profil anggota,
+     * termasuk nama, telepon, email, foto profil, dan password.
+     * 
+     * Mengubah juga nama anggota pada tabel lain yang terkait dengan anggota,
+     * seperti kas_harian, pengajuan_pinjaman, pengajuan_unit_konsumsi, dan simpanan.
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updateProfile(Request $request)
     {
         // dd($request->all());

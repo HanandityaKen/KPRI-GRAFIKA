@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class UnitKonsumsiController extends Controller
 {
     /**
-     * Menampilkan halaman index unit konsumsi
+     * Menampilkan halaman index unit konsumsi di admin
      * 
      * @return \Illuminate\View\View
      */

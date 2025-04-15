@@ -9,7 +9,7 @@ use App\Models\KasHarian;
 class JkkController extends Controller
 {
     /**
-     * Menampilkan halaman jkk
+     * Menampilkan halaman jkk di admin
      * 
      * @return \Illuminate\View\View
      */
@@ -19,7 +19,7 @@ class JkkController extends Controller
     }
 
     /**
-     * Menampilkan halaman rekap jkk
+     * Menampilkan halaman rekap jkk di admin
      * 
      * @return \Illuminate\View\View
      */

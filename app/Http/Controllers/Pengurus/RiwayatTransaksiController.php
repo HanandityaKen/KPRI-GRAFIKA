@@ -8,11 +8,24 @@ use App\Models\KasHarian;
 
 class RiwayatTransaksiController extends Controller
 {
+    /**
+     * Menampilkan halaman index riwayat transaksi di pengurus
+     * 
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         return view('pengurus.riwayat-transaksi.index-riwayat-transaksi');
     }
 
+    /**
+     * Menampilkan halaman detail riwayat transaksi berdasarkan id
+     * 
+     * Mengubah nama field dari database ke nama yang sudah ditentukan untuk ditampilkan di halaman detail riwayat transaksi 
+     * 
+     * @param string $id
+     * @return \Illuminate\View\View
+     */
     public function detail($id)
     {
         $riwayatTransaksi = KasHarian::findOrFail($id);

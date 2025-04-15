@@ -8,7 +8,7 @@ use App\Models\KasHarian;
 class RiwayatTransaksiController extends Controller
 {
     /**
-     * Menampilkan halaman index riwayat transaksi
+     * Menampilkan halaman index riwayat transaksi di admin
      * 
      * @return \Illuminate\View\View
      */

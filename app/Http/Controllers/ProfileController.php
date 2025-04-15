@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 class ProfileController extends Controller
 {
     /**
-     * Menampilkan halaman edit profile
+     * Menampilkan halaman profile admin
      * 
      * @return \Illuminate\View\View
      */
@@ -22,7 +22,7 @@ class ProfileController extends Controller
 
 
     /**
-     * Proses edit profile
+     * Mengupdate profile admin
      * 
      * @param \Illuminate\Http\Request $request
      * @param string $id

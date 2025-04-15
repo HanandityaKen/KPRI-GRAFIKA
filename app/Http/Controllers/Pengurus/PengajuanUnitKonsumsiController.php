@@ -9,11 +9,22 @@ use App\Models\PengajuanUnitKonsumsi;
 
 class PengajuanUnitKonsumsiController extends Controller
 {
+    /**
+     * Menampilkan halaman pengajuan unit konsumsi di pengurus
+     * 
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         return view('pengurus.pengajuan-unit-konsumsi.index-pengajuan-unit-konsumsi');
     }
 
+    /**
+     * Menampilkan halaman detail pengajuan unit konsumsi di pengurus
+     * 
+     * @param string $id
+     * @return \Illuminate\View\View
+     */
     public function create()
     {
         $namaList = Anggota::pluck('nama', 'id');
@@ -21,6 +32,19 @@ class PengajuanUnitKonsumsiController extends Controller
         return view('pengurus.pengajuan-unit-konsumsi.create-pengajuan-unit-konsumsi', compact('namaList'));
     }
 
+    /**
+     * Proses menyimpan data pengajuan unit konsumsi
+     * 
+     * Fungsi ini menangani proses membuat pengajuan unit konsumsi baru dengan:
+     * - Validasi input
+     * - Mengambil nama anggota berdasarkan ID
+     * - Menghapus desimal dan menghapus format rupiah dari input jumlah nominal, nominal pokok, nominal bunga, angsuran, dan jumlah nominal
+     * - Mengambil lama angsuran dari input dan menghapus karakter non-digit
+     * - Membuat pengajuan unit konsumsi baru dengan data yang telah diproses
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -59,6 +83,12 @@ class PengajuanUnitKonsumsiController extends Controller
         return redirect()->route('pengurus.pengajuan-unit-konsumsi.index')->with('success', 'Berhasil Menambahkan Data Pengajuan Unit Konsumsi');
     }
 
+    /**
+     * Menampilkan halaman edit pengajuan unit konsumsi di pengurus
+     * 
+     * @param string $id
+     * @return \Illuminate\View\View
+     */
     public function edit(string $id)
     {
         $pengajuanUnitKonsumsi = PengajuanUnitKonsumsi::findOrFail($id);
@@ -74,6 +104,21 @@ class PengajuanUnitKonsumsiController extends Controller
         return view('pengurus.pengajuan-unit-konsumsi.edit-pengajuan-unit-konsumsi', compact('pengajuanUnitKonsumsi'));
     }
 
+    /**
+     * Proses mengupdate data pengajuan unit konsumsi
+     * 
+     * Fungsi ini menangani proses memperbarui pengajuan unit konsumsi dengan:
+     * - Validasi input
+     * - Mengambil nama anggota berdasarkan ID
+     * - Menghapus desimal dan menghapus format rupiah dari input jumlah nominal, nominal pokok, nominal bunga, angsuran, dan jumlah nominal
+     * - Mengambil lama angsuran dari input dan menghapus karakter non-digit
+     * - Mengambil pengajuan unit konsumsi berdasarkan ID
+     * - Memperbarui pengajuan unit konsumsi dengan data yang telah diproses
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @param string $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -113,6 +158,14 @@ class PengajuanUnitKonsumsiController extends Controller
         return redirect()->route('pengurus.pengajuan-unit-konsumsi.index')->with('success', 'Berhasil Mengubah Data Pengajuan Unit Konsumsi');
     }
 
+    /**
+     * Proses menghapus pengajuan pinjaman
+     * 
+     * Jika pengajuan pinjaman sudah disetujui atau ditolak, tampilkan pesan error
+     * 
+     * @param string $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(string $id)
     {
         $pengajuanUnitKonsumsi = PengajuanUnitKonsumsi::findOrFail($id);

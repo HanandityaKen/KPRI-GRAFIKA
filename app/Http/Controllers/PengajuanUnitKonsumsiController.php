@@ -15,7 +15,7 @@ use Carbon\Carbon;
 class PengajuanUnitKonsumsiController extends Controller
 {
     /**
-     * Menampilkan halaman index pengajuan unit konsumsi
+     * Menampilkan halaman index pengajuan unit konsumsi di admin
      * 
      * @return \Illuminate\View\View
      */

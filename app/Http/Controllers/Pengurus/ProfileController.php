@@ -10,12 +10,24 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
+    /**
+     * Menampilkan halaman profil pengurus
+     * 
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         $pengurus = Auth::guard('pengurus')->user();
         return view('pengurus.profile.index-profile', compact('pengurus'));
     }
 
+    /**
+     * Mengupdate profil pengurus
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, $id)
     {
         // dd($request->all());

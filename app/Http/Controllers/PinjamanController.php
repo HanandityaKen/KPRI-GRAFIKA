@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class PinjamanController extends Controller
 {
     /**
-     * Menampilkan halaman index pinjaman
+     * Menampilkan halaman index pinjaman di admin
      * 
      * @return \Illuminate\View\View
      */

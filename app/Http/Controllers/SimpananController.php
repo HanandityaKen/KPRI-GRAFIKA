@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class SimpananController extends Controller
 {
     /**
-     * Menampilkan halaman index simpanan
+     * Menampilkan halaman index simpanan di admin
      * 
      * @return \Illuminate\View\View
      */

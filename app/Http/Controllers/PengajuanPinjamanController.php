@@ -16,7 +16,7 @@ use Carbon\Carbon;
 class PengajuanPinjamanController extends Controller
 {
     /**
-     * Menampilkan halaman index pengajuan pinjaman
+     * Menampilkan halaman index pengajuan pinjaman di admin
      * 
      * @return \Illuminate\View\View
      */

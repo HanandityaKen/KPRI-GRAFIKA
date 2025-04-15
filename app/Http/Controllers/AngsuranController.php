@@ -11,7 +11,7 @@ use App\Models\Saldo;
 class AngsuranController extends Controller
 {
     /**
-     * Menampilkan halaman index angsuran
+     * Menampilkan halaman index angsuran di admin
      * 
      * @return \Illuminate\View\View
      */
@@ -21,7 +21,7 @@ class AngsuranController extends Controller
     }
 
     /**
-     * Menampilan halaman pembayaran angsuran pinjaman 
+     * Menampilan halaman pembayaran angsuran pinjaman di admin
      * 
      * @param string $id
      * @return \Illuminate\View\View

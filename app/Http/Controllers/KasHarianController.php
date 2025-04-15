@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 class KasHarianController extends Controller
 {
     /**
-     * Menampilkan halaman index kas harian
+     * Menampilkan halaman index kas harian di admin
      */
     public function index()
     {
@@ -24,7 +24,7 @@ class KasHarianController extends Controller
     }
     
     /**
-     * Menampilkan halaman form tambah kas harian
+     * Menampilkan halaman form tambah kas harian di admin
      * 
      * @return \Illuminate\View\View
      */
@@ -246,7 +246,7 @@ class KasHarianController extends Controller
     }
 
     /**
-     * Menampilkan halaman edit kas harian
+     * Menampilkan halaman edit kas harian di admin
      * 
      * @param string $id
      * @return \Illuminate\View\View

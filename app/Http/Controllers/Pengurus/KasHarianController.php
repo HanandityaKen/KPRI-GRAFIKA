@@ -19,11 +19,21 @@ use Illuminate\Support\Facades\DB;
 
 class KasHarianController extends Controller
 {
+    /**
+     * Menampilkan halaman kas harian di pengurus
+     * 
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         return view('pengurus.kas-harian.index-kas-harian');
     }
 
+    /**
+     * Menampilkan halaman rekap kas harian di pengurus
+     * 
+     * @return \Illuminate\View\View
+     */
     public function create()
     {
         $namaList = Anggota::pluck('nama', 'id');
@@ -31,6 +41,20 @@ class KasHarianController extends Controller
         return view('pengurus.kas-harian.create-kas-harian', compact('namaList'));
     }
 
+    /**
+     * Proses menambah kas harian
+     * 
+     * Fungsi ini menangani proses penambahan kas harian dengan:
+     * - Validasi input kas harian
+     * - Memisahkan angka dari format mata uang
+     * - Create kas harian masuk atau kas harian keluar
+     * - Create jkm atau jkk
+     * - Create atau update simpanan anggota
+     * - Update saldo koperasi, menambahkan saldo jika kas masuk, dan mengurangi saldo jika kas keluar
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -255,6 +279,12 @@ class KasHarianController extends Controller
         return redirect()->route('pengurus.kas-harian.index')->with('success', 'Berhasil Menambahkan Kas Harian');
     }
 
+    /**
+     * Menampilkan halaman edit kas harian di pengurus
+     * 
+     * @param string $id
+     * @return \Illuminate\View\View
+     */
     public function edit(string $id)
     {
         $kasHarian = KasHarian::findOrFail($id);
@@ -264,6 +294,24 @@ class KasHarianController extends Controller
         return view('pengurus.kas-harian.edit-kas-harian', compact('kasHarian', 'namaList'));
     }
 
+    /**
+     * Proses update kas harian
+     * 
+     * Fungsi ini menangani proses update kas harian dengan:
+     * - Validasi input kas harian
+     * - Memisahkan angka dari format mata uang
+     * - Menjumlahkan total kas harian sebelum update
+     * - Update kas harian masuk atau kas harian keluar
+     * - Update jkm atau jkk
+     * - Update simpanan anggota
+     * - Menjumlahkan total kas harian setelah update
+     * - Hitung selisih saldo dengan saldo sesudah update - saldo setelah update
+     * - Update saldo koperasi, menambahkan saldo jika kas masuk, dan mengurangi saldo jika kas keluar
+     * 
+     * @param \Illuminate\Http\Request $request
+     * @param string $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update(Request $request, string $id)
     {
         $request->validate([
@@ -459,6 +507,20 @@ class KasHarianController extends Controller
         return redirect()->route('pengurus.kas-harian.index')->with('success', 'Berhasil Mengubah Kas Harian');
     }
 
+    /**
+     * Menghapus kas harian
+     * 
+     * Fungsi ini menangani proses penghapusan kas harian dengan:
+     * - Mengambil kas harian berdasarkan ID
+     * - Mengambil kas harian berdasarkan anggota_id dan jenis transaksi
+     * - Mengurangi kas harian dengan jumlah kas harian yang dihapus di kas masuk
+     * - Menambahkan kas harian dengan jumlah kas harian yang dihapus di kas keluar
+     * - Menghitung ulang total simpanan
+     * - Mengupdate simpanan anggota
+     * 
+     * @param string $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy($id)
     {
         $kasHarian = KasHarian::findOrFail($id);

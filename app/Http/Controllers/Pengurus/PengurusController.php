@@ -11,6 +11,11 @@ use Illuminate\Support\Facades\Auth;
 
 class PengurusController extends Controller
 {
+    /**
+     * Menampilkan halaman dashboard pengurus dengan data anggota, simpanan, dan saldo.
+     *
+     * @return \Illuminate\View\View
+     */
     public function index()
     {
         $users = Anggota::all(); 

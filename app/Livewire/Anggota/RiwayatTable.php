@@ -8,13 +8,25 @@ use App\Models\KasHarian;
 use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
 
-
+/**
+ * Komponen Livewire untuk menampilkan riwayat transaksi anggota.
+ *
+ * Komponen ini menggunakan paginasi dan hanya menampilkan
+ * data transaksi milik anggota yang sedang login.
+ *
+ * @property \Illuminate\Contracts\Auth\Authenticatable $anggota
+ */
 class RiwayatTable extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
     protected $paginationTheme = 'tailwind';
 
+    /**
+     * Render komponen dan ambil data riwayat transaksi anggota.
+     *
+     * @return \Illuminate\View\View
+     */
     public function render()
     {
         $anggotaId = Auth::guard('anggota')->user()->id;

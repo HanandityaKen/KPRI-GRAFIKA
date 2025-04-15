@@ -5,25 +5,62 @@ namespace App\Livewire\Anggota;
 use Livewire\Component;
 use App\Models\Anggota;
 
+/**
+ * Komponen Livewire untuk mengelola profil anggota.
+ * Komponen ini menangani input nama, telepon, email, dan password anggota,
+ * serta melakukan validasi pada setiap perubahan data
+ */
 class FormProfile extends Component
 {
+    /**
+     * Anggota yang sedang diedit
+     *
+     * @var Anggota
+     */
     public $anggota;
+
+    /**
+     * Data anggota
+     *
+     * @var string
+     */
     public $nama = '';
     public $telepon = '';
     public $email = '';
     public $password = '';
 
+    /**
+     * Pesan kesalahan untuk setiap field
+     *
+     * @var string
+     */
     public $error_nama;
     public $error_telepon;
     public $error_email;
     public $error_password;
 
-    public $disabled = false;
+    /**
+     * Status disabled untuk setiap field
+     *
+     * @var bool
+     */
     public $disabled_nama = false;
     public $disabled_telepon = false;
     public $disabled_email = false;
     public $disabled_password = false;
+    /**
+     * Status disabled untuk tombol simpan
+     *
+     * @var bool
+     */
+    public $disabled = false;
 
+    /**
+     * Inisialisasi komponen dengan ID anggota
+     *
+     * @param int $id ID anggota yang akan diedit
+     * @return void
+     */
     public function mount($id)
     {
         $this->anggota = Anggota::findOrFail($id);
@@ -32,6 +69,10 @@ class FormProfile extends Component
         $this->email = $this->anggota->email;
     }
 
+    /**
+     * Validasi apakah nama sudah diperbarui
+     * Jika nama sudah terdaftar, tampilkan pesan kesalahan
+     */
     public function updatedNama()
     {
         if (Anggota::where('nama', $this->nama)->where('id', '!=', $this->anggota->id)->exists()) {
@@ -45,6 +86,10 @@ class FormProfile extends Component
         $this->checkDisabled();
     }
 
+    /**
+     * Validasi apakah telepon sudah diperbarui
+     * Jika telepon sudah terdaftar, tampilkan pesan kesalahan
+     */
     public function updatedTelepon()
     {
         if (empty($this->telepon)) {
@@ -67,6 +112,10 @@ class FormProfile extends Component
         $this->checkDisabled();
     }
 
+    /**
+     * Validasi apakah email sudah diperbarui
+     * Jika email sudah terdaftar, tampilkan pesan kesalahan
+     */
     public function updatedEmail()
     {
         if (empty($this->email)) {
@@ -86,6 +135,10 @@ class FormProfile extends Component
         $this->checkDisabled();
     }
 
+    /**
+     * Validasi apakah password sudah diperbarui
+     * Jika password kurang dari 8 karakter, tampilkan pesan kesalahan
+     */
     public function updatedPassword()
     {
         if ($this->password === '') {
@@ -102,6 +155,10 @@ class FormProfile extends Component
         $this->checkDisabled();
     }
 
+    /**
+     * Simpan perubahan profil anggota
+     * Jika ada kesalahan, tampilkan pesan kesalahan
+     */
     public function checkDisabled()
     {
         if ($this->disabled_nama || $this->disabled_telepon || $this->disabled_email || $this->disabled_password ) {
@@ -111,6 +168,9 @@ class FormProfile extends Component
         }
     }
 
+    /**
+     * Merender halaman profil anggota
+     */
     public function render()
     {
         return view('livewire.anggota.form-profile');

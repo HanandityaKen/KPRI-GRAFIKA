@@ -6,13 +6,31 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Middleware NoCache
+ * 
+ * Middleware ini digunakan untuk mengatur header cache pada respons HTTP.
+ * Ini memastikan bahwa respons tidak disimpan dalam cache oleh browser atau proxy.
+ * 
+ * Fungsi utama midlleware ini adalah saat setelah logout tidak bisa kembali ke halaman sebelumnya
+ * 
+ * @package App\Http\Middleware
+ */
 class NoCache
 {
     /**
-     * Handle an incoming request.
+     * Menangani permintaan masuk dan menetapkan header untuk mencegah caching.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * Middleware ini menambahkan beberapa header HTTP (`Cache-Control`, `Pragma`, dan `Expires`)
+     * guna memastikan bahwa respon tidak disimpan dalam cache oleh browser atau proxy.
+     * 
+     * Fungsi utama midlleware ini adalah saat setelah logout tidak bisa kembali ke halaman sebelumnya
+     *
+     * @param  \Illuminate\Http\Request  $request  Objek permintaan HTTP yang masuk.
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next  Closure untuk meneruskan permintaan ke lapisan berikutnya.
+     * @return \Symfony\Component\HttpFoundation\Response  Respon HTTP yang sudah diberi header no-cache.
      */
+
     public function handle(Request $request, Closure $next): Response
     {
         $response = $next($request);

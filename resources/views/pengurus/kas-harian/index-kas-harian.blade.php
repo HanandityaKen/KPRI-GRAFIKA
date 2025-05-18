@@ -46,21 +46,11 @@
       @endif
 
       @livewire('pengurus.kas-harian-filter')
-
     </div>
 @endsection`
 
 @push('scripts')
     <script>  
-      document.addEventListener("DOMContentLoaded", function () {
-          if (document.getElementById("default-table") && typeof simpleDatatables.DataTable !== 'undefined') {
-              const dataTable = new simpleDatatables.DataTable("#default-table", {
-                  searchable: true,
-                  // perPageSelect: true,
-              });
-          }
-      });
-
       function confirmDelete(kasHarianId) {
             Swal.fire({
                 title: 'Apakah Anda yakin?',

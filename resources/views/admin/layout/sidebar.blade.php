@@ -147,10 +147,10 @@
               <a href="{{ route('admin.pokok.index') }}" class="flex item-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/pokok*') ? 'bg-[#009348]' : '' }}">Simpanan Pokok</a>
           </li>
           <li>
-              <a href="{{ route('admin.wajib.index') }}" class="flex item-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/wajib*') ? 'bg-[#009348]' : '' }}">Simpanan Wajib</a>
+            <a href="{{ route('admin.wajib.index') }}" class="flex items-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/wajib') || Request::is('admin/wajib/*') && !Request::is('admin/wajib-pinjam*') ? 'bg-[#009348]' : '' }}">Simpanan Wajib</a>
           </li>
           <li>
-              <a href="{{ route('admin.wajib-pinjam.index') }}" class="flex item-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/wajib-pinjam*') ? 'bg-[#009348]' : '' }}">Simpanan Wajib Pinjam</a>
+              <a href="{{ route('admin.wajib-pinjam.index') }}" class="flex items-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/wajib-pinjam*') ? 'bg-[#009348]' : '' }}">Simpanan Wajib Pinjam</a>
           </li>
         </ul>
       </li>

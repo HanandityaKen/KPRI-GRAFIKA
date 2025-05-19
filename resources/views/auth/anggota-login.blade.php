@@ -5,7 +5,7 @@
     <link rel="icon" type="image/png" href="{{ asset('storage/assets/logo_kpri.png') }}">
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="{{ asset('build/assets/app-DdZi1yqn.css') }}">
+		<link rel="stylesheet" href="{{ asset('build/assets/app-Ch75cst-.css ') }}">
 		<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 		<link rel="stylesheet" href="{{ asset('css/login.css') }}">
 	</head>

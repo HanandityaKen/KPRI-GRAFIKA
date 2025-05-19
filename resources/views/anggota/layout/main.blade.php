@@ -6,7 +6,7 @@
     <title>KPRI Grafika - @yield('title', 'KPRI Grafika')</title>
     <link rel="icon" type="image/png" href="{{ asset('storage/assets/logo_kpri.png') }}">
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
-    <link rel="stylesheet" href="{{ asset('build/assets/app-DdZi1yqn.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/assets/app-Ch75cst-.css ') }}">
     <script src="{{ asset('build/assets/app-DA3rf8Wk.js') }}" defer></script>
   </head>
   <body class="bg-gray-100">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Wajib;
+use App\Models\Anggota;
 
 class WajibController extends Controller
 {
@@ -74,16 +75,26 @@ class WajibController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
+            'jenis_pegawai' => 'required|string',
             'nominal' => 'required',
         ]);
 
+        $jenis_pegawai_new = $request->jenis_pegawai;
         $nominal = intval(str_replace(['Rp', '.', ' '], '', $request->nominal));
         
         $wajib = Wajib::findOrFail($id);
 
+        $jenis_pegawai_old = $wajib->jenis_pegawai;
+
         $wajib->update([
+            'jenis_pegawai' => $jenis_pegawai_new,
             'nominal' => $nominal
         ]);
+
+        if ($jenis_pegawai_old !== $jenis_pegawai_new) {
+            Anggota::where('jenis_pegawai', $jenis_pegawai_old)
+                ->update(['jenis_pegawai' => $jenis_pegawai_new]);
+        }
         
         return redirect()->route('admin.wajib.index')->with('success', 'Berhasil Mengubah Nominal Wajib');
     }

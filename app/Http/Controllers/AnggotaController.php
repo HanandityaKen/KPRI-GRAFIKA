@@ -48,7 +48,7 @@ class AnggotaController extends Controller
         $request->validate([
             'no_anggota'    => 'required|numeric|unique:anggota',
             'nama'      => 'required|string',
-            'jenis_pegawai' => 'required|in:PNS,P3K,GTT',
+            'jenis_pegawai' => 'required|string',
             'posisi'      => 'required|in:anggota',
             'telepon'   => 'nullable|numeric|regex:/^08[0-9]{8,11}$/',
             'email'   => 'nullable|email',
@@ -97,7 +97,7 @@ class AnggotaController extends Controller
         $request->validate([
             'no_anggota' => 'required|numeric|unique:anggota,no_anggota,' . $id . ',id',
             'nama'      => 'required|string',
-            'jenis_pegawai' => 'required|in:PNS,P3K,GTT',
+            'jenis_pegawai' => 'required|string',
             'telepon'   => 'nullable|numeric|regex:/^08[0-9]{8,11}$/',
             'email'   => 'nullable|email',
             'password'   => 'nullable|string|min:8',

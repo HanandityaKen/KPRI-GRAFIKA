@@ -49,3 +49,23 @@
 
   </div>
 @endsection
+@push('scripts')
+  <script>
+    function confirmDelete(wajibId) {
+        Swal.fire({
+            title: 'Apakah Anda yakin?',
+            text: "Data simpanan wajib akan dihapus secara permanen!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#166534',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Ya, Hapus!',
+            cancelButtonText: 'Batal'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(`delete-form-${wajibId}`).submit();
+            }
+        })
+    }
+  </script>
+@endpush

@@ -4,7 +4,7 @@
         @method('PUT')
         <div class="mb-3">
             <label class="block mb-1 text-sm font-medium text-gray-900">No Anggota</label>
-            <input wire:model.live="no_anggota" type="text" id="no_anggota" name="no_anggota" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan No Anggota" value="{{ old('no_anggota', $user->no_anggota) }}" required/>
+            <input wire:model.live="no_anggota" type="text" id="no_anggota" name="no_anggota" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan No Anggota" value="{{ old('no_anggota', $user->no_anggota) }}" required inputmode="numeric" pattern="\d*"/>
             @error('no_anggota')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
             @enderror
@@ -19,9 +19,9 @@
             <label class="block mb-1 text-sm font-medium text-gray-900">Jenis Pegawai</label>
             <select id="jenis_pegawai" name="jenis_pegawai" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
                 <option value="">Pilih Jenis Pegawai</option>
-                <option value="PNS" {{ old('jenis_pegawai', $user->jenis_pegawai ?? '') == 'PNS' ? 'selected' : '' }}>PNS</option>
-                <option value="P3K" {{ old('jenis_pegawai', $user->jenis_pegawai ?? '') == 'P3K' ? 'selected' : '' }}>P3K</option>
-                <option value="GTT" {{ old('jenis_pegawai', $user->jenis_pegawai ?? '') == 'GTT' ? 'selected' : '' }}>GTT</option>
+                @foreach ($jenisPegawaiOptions as $jenis_pegawai)
+                    <option value="{{ $jenis_pegawai }}" {{ old('jenis_pegawai', $user->jenis_pegawai) == $jenis_pegawai ? 'selected' : '' }}>{{ $jenis_pegawai }}</option>
+                @endforeach
             </select>
         </div>
         <div class="mb-4">
@@ -57,6 +57,10 @@
 </div>
 <script>
     document.getElementById('telepon').addEventListener('input', function (e) {
+        this.value = this.value.replace(/[^0-9]/g, '');
+    });
+
+    document.getElementById('no_anggota').addEventListener('input', function (e) {
         this.value = this.value.replace(/[^0-9]/g, '');
     });
 </script>

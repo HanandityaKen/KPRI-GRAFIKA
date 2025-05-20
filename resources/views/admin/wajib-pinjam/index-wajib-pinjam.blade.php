@@ -54,7 +54,7 @@
       function confirmDelete(wajibPinjamId) {
           Swal.fire({
               title: 'Apakah Anda yakin?',
-              text: "Data anggota akan dihapus secara permanen!",
+              text: "Data simpanan wajib pinjam akan dihapus secara permanen!",
               icon: 'warning',
               showCancelButton: true,
               confirmButtonColor: '#166534',
@@ -63,7 +63,7 @@
               cancelButtonText: 'Batal'
           }).then((result) => {
               if (result.isConfirmed) {
-                  $(`#delete-form-${wajibPinjamId}`).submit();
+                  document.getElementById(`delete-form-${wajibPinjamId}`).submit();
               }
           })
       }

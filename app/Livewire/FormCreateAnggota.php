@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Anggota;
+use App\Models\Wajib;
 
 /**
  * Komponen Livewire untuk membuat form pendaftaran anggota baru.
@@ -41,6 +42,13 @@ class FormCreateAnggota extends Component
     public $disabled_telepon = false;
     public $disabled_email = false;
     public $disabled_password = false;
+
+    public $jenisPegawaiOptions = [];
+
+    public function mount()
+    {
+        $this->jenisPegawaiOptions = Wajib::orderBy('id', 'asc')->pluck('jenis_pegawai');
+    }
 
     /**
      * Validasi real-time saat nomor anggota diubah.

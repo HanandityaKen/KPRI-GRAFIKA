@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Anggota;
+use App\Models\Wajib;
 
 /**
  * Komponen Livewire untuk form edit anggota.
@@ -44,6 +45,9 @@ class FormEditAnggota extends Component
     public $disabled_email = false;
     public $disabled_password = false;
 
+    public $jenisPegawaiOptions = [];
+    public $jenisPegawai = '';
+
     /**
      * Lifecycle hook untuk inisialisasi data awal.
      * 
@@ -55,6 +59,8 @@ class FormEditAnggota extends Component
 
         $this->no_anggota = $this->user->no_anggota;
         $this->nama = $this->user->nama;
+        $this->jenisPegawai = $this->user->jenis_pegawai;
+        $this->jenisPegawaiOptions = Wajib::orderBy('id', 'asc')->pluck('jenis_pegawai');
         $this->telepon = $this->user->telepon;
         $this->email = $this->user->email;
     }

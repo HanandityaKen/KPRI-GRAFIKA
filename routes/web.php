@@ -81,7 +81,7 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::get('/detail-riwayat-transaksi/{id}', [RiwayatTransaksiController::class, 'detail'])->name('detail-riwayat-transaksi');
     Route::resource('persentase', PersentaseController::class)->only(['index', 'create', 'store', 'edit', 'update']);
     Route::resource('saldo-koperasi', SaldoKoperasiController::class)->only(['index']);
-    Route::resource('wajib', WajibController::class)->only(['index', 'edit', 'update']);
+    Route::resource('wajib', WajibController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('wajib-pinjam', WajibPinjamController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('pokok', PokokController::class)->only(['index', 'edit', 'update']);
     Route::resource('profile', ProfileController::class)->only(['index', 'update']);

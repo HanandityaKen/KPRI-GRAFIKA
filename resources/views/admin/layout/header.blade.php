@@ -7,7 +7,7 @@
 
     <!-- User Avatar with Dropdown -->
     <div class="relative flex items-center space-x-4">
-      <a href="#" id="userDropdownToggle" class="flex gap-2 sm:gap-4 items-center justify-end">
+      <a href="#" id="userDropdownToggle" class="flex gap-2 items-center justify-end">
         <!-- Avatar Image -->
         <img src="{{ Auth::guard('admin')->user()->foto_profile ? asset('storage/' . Auth::guard('admin')->user()->foto_profile) : asset('storage/assets/default-avatar.webp') }}" class="rounded-full w-8 h-8 sm:w-10 sm:h-10" alt="Avatar" />
         <!-- User Info -->

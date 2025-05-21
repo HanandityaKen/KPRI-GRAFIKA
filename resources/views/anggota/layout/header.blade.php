@@ -4,7 +4,7 @@
           <i data-lucide="menu"></i>
         </button>
     <img src={{ asset('storage/assets/logo_kpri.png') }} class="w-12 mr-2" alt="Logo" />
-    <span class="font-bold text-lg text-green-800">KPRI Grafika</span>
+    <span class="font-bold text-lg text-green-800">{{ $namaKoperasi->nama }}</span>
   </div>
   
   <!-- Tengah: Menu (hanya tampil di desktop dan tetap bisa di-toggle di mobile) -->

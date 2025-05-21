@@ -2,7 +2,7 @@
   <!-- Logo and Brand -->
   <div class="flex items-center mt-2 mb-6">
     <img src={{ asset('storage/assets/logo_kpri_crop.png') }} class="w-[40px] ml-1" alt="Logo" />
-    <h2 class="font-bold text-lg text-white ml-3">KPRI Grafika</h2>
+    <h2 class="font-bold text-lg text-white ml-3">{{ $namaKoperasi->nama}}</h2>
     <div class="flex flex-1 justify-end">
       <i data-lucide="menu" class="text-white group-hover:text-white cursor-pointer toggle2sidebar" onclick="toggleSidebar()"></i>
     </div>
@@ -126,7 +126,7 @@
       </li>
       <li>
         <button type="button"
-            class="flex items-center w-full p-2 text-white mb-1 transition duration-75 rounded-lg group hover:bg-[#009348] {{ request()->is('admin/persentase*') || request()->is('admin/pokok*') || request()->is('admin/wajib*') || request()->is('admin/wajib-pinjam*') ? 'bg-[#009348]' : '' }}"
+            class="flex items-center w-full p-2 text-white mb-1 transition duration-75 rounded-lg group hover:bg-[#009348] {{ request()->is('admin/persentase*') || request()->is('admin/pokok*') || request()->is('admin/wajib*') || request()->is('admin/wajib-pinjam*') || request()->is('admin/nama-koperasi') ? 'bg-[#009348]' : '' }}"
             aria-controls="dropdown-master-settings" data-collapse-toggle="dropdown-master-settings">
             <i data-lucide="settings" class="text-white mr-3 group-hover:text-white"></i>
             <span class="flex-1 text-left whitespace-nowrap font-medium group-hover:text-white">Master Settings</span>
@@ -136,7 +136,7 @@
                     d="m1 1 4 4 4-4" />
             </svg>
         </button>
-        <ul id="dropdown-master-settings" class="{{ request()->is('admin/persentase*') || request()->is('admin/pokok*') || request()->is('admin/wajib*') || request()->is('admin/wajib-pinjam*') ? '' : 'hidden' }} space-y-1">
+        <ul id="dropdown-master-settings" class="{{ request()->is('admin/persentase*') || request()->is('admin/pokok*') || request()->is('admin/wajib*') || request()->is('admin/wajib-pinjam*') || request()->is('admin/nama-koperasi') ? '' : 'hidden' }} space-y-1">
           <li>
               <a href="{{ route('admin.persentase.index') }}" class="flex item-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/persentase*') ? 'bg-[#009348]' : '' }}">Persentase</a>
           </li>
@@ -151,6 +151,12 @@
           </li>
           <li>
               <a href="{{ route('admin.wajib-pinjam.index') }}" class="flex items-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/wajib-pinjam*') ? 'bg-[#009348]' : '' }}">Simpanan Wajib Pinjam</a>
+          </li>
+          <li>
+              <a href="{{ route('admin.nama-koperasi-index') }}" class="flex items-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/nama-koperasi') ? 'bg-[#009348]' : '' }}">Nama Koperasi</a>
+          </li>
+          <li>
+              <a href="" class="flex items-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm">Foto Koperasi</a>
           </li>
         </ul>
       </li>

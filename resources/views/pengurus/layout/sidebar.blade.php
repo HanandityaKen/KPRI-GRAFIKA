@@ -2,7 +2,7 @@
   <!-- Logo and Brand -->
   <div class="flex items-center mb-10">
     <img src={{ asset('storage/assets/logo_kpri.png') }} class="w-[50px] mr-3" alt="Logo" />
-    <h2 class="font-bold text-green-800">KPRI Grafika</h2>
+    <h2 class="font-bold text-green-800">{{ $namaKoperasi->nama }}</h2>
     <div class="flex flex-1 justify-end">
       <i data-lucide="menu" class="text-green-800 group-hover:text-white cursor-pointer toggle2sidebar" onclick="toggleSidebar()"></i>
     </div>

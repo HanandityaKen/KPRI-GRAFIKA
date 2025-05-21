@@ -13,7 +13,7 @@
             alt="Logo KPRI Grafika" 
             class="w-16 h-16 object-contain"
           />
-          <h3 class="text-xl font-bold text-green-700">KPRI Grafika</h3>
+          <h3 class="text-xl font-bold text-green-700">{{ $namaKoperasi->nama }}</h3>
         </div>
         <div class="space-y-3 px-5">
           <p class="flex items-center gap-5 text-sm">

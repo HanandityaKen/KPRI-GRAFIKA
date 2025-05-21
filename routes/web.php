@@ -21,6 +21,7 @@ use App\Http\Controllers\RiwayatTransaksiController;
 use App\Http\Controllers\WajibController;
 use App\Http\Controllers\WajibPinjamController;
 use App\Http\Controllers\PokokController;
+use App\Http\Controllers\NamaKoperasiController;
 use App\Http\Controllers\ProfileController;
 
 use App\Http\Controllers\Pengurus\PengurusController as SubPengurusController;
@@ -84,6 +85,8 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::resource('wajib', WajibController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('wajib-pinjam', WajibPinjamController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::resource('pokok', PokokController::class)->only(['index', 'edit', 'update']);
+    Route::get('/nama-koperasi', [NamaKoperasiController::class, 'index'])->name('nama-koperasi-index');
+    Route::put('/nama-koperasi-update', [NamaKoperasiController::class, 'update'])->name('nama-koperasi-update');
     Route::resource('profile', ProfileController::class)->only(['index', 'update']);
     Route::post('/logout-admin', [AuthController::class, 'logoutAdmin'])->name('logout');
 });

@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  {{-- <title>KPRI Grafika - </title> --}}
-  <title>KPRI Grafika - @yield('title', 'KPRI Grafika')</title>
-  <link rel="icon" type="image/png" href="{{ asset('storage/assets/logo_kpri.png') }}">
+  <title>{{ $namaKoperasi->nama }} - @yield('title', 'KPRI Grafika')</title>
+  <link rel="icon" type="image/png" href="{{ asset('storage/logo-koperasi/' . $logoKoperasi->logo ) }}">
   {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
-  <link rel="stylesheet" href="{{ asset('build/assets/app-Ch75cst-.css ') }}">
+  <link rel="stylesheet" href="{{ asset('build/assets/app-BGES5BSS.css') }}">
   <script src="{{ asset('build/assets/app-DA3rf8Wk.js') }}" defer></script>
   @livewireStyles
   <link href="https://cdn.jsdelivr.net/npm/tom-select@2.4.2/dist/css/tom-select.css" rel="stylesheet">

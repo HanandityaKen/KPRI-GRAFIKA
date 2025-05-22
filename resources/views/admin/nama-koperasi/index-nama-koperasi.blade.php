@@ -46,7 +46,7 @@
     @endif
 
     <div>
-      <form action="{{'nama-koperasi-update'}}" method="POST">
+      <form action="{{ route('admin.nama-koperasi-update')}}" method="POST">
         @csrf
         @method('PUT')
         <div>

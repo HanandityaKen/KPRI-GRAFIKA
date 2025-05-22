@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  {{-- <title>KPRI Grafika - </title> --}}
-  <title>KPRI Grafika - @yield('title', 'KPRI Grafika')</title>
-  <link rel="icon" type="image/png" href="{{ asset('storage/assets/logo_kpri.png') }}">
-  <link rel="stylesheet" href="{{ asset('build/assets/app-Ch75cst-.css ') }}">
+  <title>{{ $namaKoperasi->nama }} - @yield('title', 'KPRI Grafika')</title>
+  <link rel="icon" type="image/png" href="{{ asset('storage/logo-koperasi/' . $logoKoperasi->logo) }}">
+  {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+  <link rel="stylesheet" href="{{ asset('build/assets/app-BGES5BSS.css') }}">
   <script src="{{ asset('build/assets/app-DA3rf8Wk.js') }}" defer></script>
   @livewireStyles
-  {{-- <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css" rel="stylesheet" /> --}}
   <link href="https://cdn.jsdelivr.net/npm/tom-select@2.4.2/dist/css/tom-select.css" rel="stylesheet">
   <style>
     /* Transition for smooth sliding */
@@ -40,7 +39,7 @@
       width: 100%;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 1023px) {
       .fixed-sidebar {
         transform: translateX(-100%);
       }
@@ -57,7 +56,7 @@
         display: block;
       }
     }
-    @media (min-width: 768px) {
+    @media (min-width: 1023px) {
       .toggle2sidebar {
         display: none;
       }
@@ -97,7 +96,7 @@
       const sidebar = document.querySelector(".fixed-sidebar");
       const mainContent = document.querySelector(".main-content");
 
-      if (window.innerWidth <= 768) {
+      if (window.innerWidth <= 1025) {
         // Mobile behavior
         sidebar.classList.toggle("active");
         mainContent.classList.toggle("shifted");
@@ -112,7 +111,7 @@
       const sidebar = document.querySelector(".fixed-sidebar");
       const mainContent = document.querySelector(".main-content");
 
-      if (window.innerWidth <= 768) {
+      if (window.innerWidth <= 1025) {
         sidebar.classList.remove("collapsed");
         mainContent.classList.remove("expanded");
         sidebar.classList.remove("active");

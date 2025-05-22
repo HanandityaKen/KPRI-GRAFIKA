@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>KPRI GRAFIKA</title>
-    <link rel="icon" type="image/png" href="{{ asset('storage/assets/logo_kpri.png') }}">
+		<title>{{ $namaKoperasi->nama }}</title>
+    <link rel="icon" type="image/png" href="{{ asset('storage/logo-koperasi/' . $logoKoperasi->logo) }}">
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="{{ asset('build/assets/app-Ch75cst-.css ') }}">
+		{{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+		<link rel="stylesheet" href="{{ asset('build/assets/app-BGES5BSS.css') }}">
 		<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 		<link rel="stylesheet" href="{{ asset('css/login.css') }}">
 	</head>
@@ -13,9 +14,9 @@
 		<div class="flex justify-center items-center mx-4 h-screen">
 			<div class="w-[500px] rounded-lg bg-[#FFFFFF]">
 				<div class="m-10 flex flex-col gap-3 justify-center items-center">
-					<div class="flex items-center mb-5">
-						<img src="{{ asset('storage/assets/logo_kpri.png') }}" class="w-[100px]" alt="" />
-						<h3 class="font-semibold">KPRI Grafika</h3>
+					<div class="flex items-center mb-5 space-x-3">
+						<img src="{{ asset('storage/logo-koperasi/' . $logoKoperasi->logo) }}" class="rounded-full w-12 h-12" alt="" />
+						<h3 class="font-semibold">{{ $namaKoperasi->nama }}</h3>
 					</div>
 					<div class="flex flex-col gap-6 w-full">
             <div 

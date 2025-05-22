@@ -22,6 +22,7 @@ use App\Http\Controllers\WajibController;
 use App\Http\Controllers\WajibPinjamController;
 use App\Http\Controllers\PokokController;
 use App\Http\Controllers\NamaKoperasiController;
+use App\Http\Controllers\LogoKoperasiController;
 use App\Http\Controllers\ProfileController;
 
 use App\Http\Controllers\Pengurus\PengurusController as SubPengurusController;
@@ -87,6 +88,8 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::resource('pokok', PokokController::class)->only(['index', 'edit', 'update']);
     Route::get('/nama-koperasi', [NamaKoperasiController::class, 'index'])->name('nama-koperasi-index');
     Route::put('/nama-koperasi-update', [NamaKoperasiController::class, 'update'])->name('nama-koperasi-update');
+    Route::get('/logo-koperasi', [LogoKoperasiController::class, 'index'])->name('logo-koperasi-index');
+    Route::put('/logo-koperasi-update', [LogoKoperasiController::class, 'update'])->name('logo-koperasi-update');
     Route::resource('profile', ProfileController::class)->only(['index', 'update']);
     Route::post('/logout-admin', [AuthController::class, 'logoutAdmin'])->name('logout');
 });

@@ -1,14 +1,14 @@
 <nav class="bg-white shadow-md p-4 lg:px-16 lg:py-3 flex items-center justify-between relative">
-  <div class="flex items-center space-x-0 z-10">
+  <div class="flex items-center space-x-2 z-10">
         <button id="menuToggle" class="xl:hidden block text-green-800 focus:outline-none">
           <i data-lucide="menu"></i>
         </button>
-    <img src={{ asset('storage/assets/logo_kpri.png') }} class="w-12 mr-2" alt="Logo" />
+    <img src="{{ asset('storage/logo-koperasi/' . $logoKoperasi->logo) }}" class="rounded-full w-9 h-9" alt="Logo" />
     <span class="font-bold text-lg text-green-800">{{ $namaKoperasi->nama }}</span>
   </div>
   
   <!-- Tengah: Menu (hanya tampil di desktop dan tetap bisa di-toggle di mobile) -->
-  <div class="hidden xl:flex flex-1 justify-center pl-20">
+  <div class="hidden xl:flex flex-1 justify-center pl-14">
     <ul id="menuMobile" class="flex space-x-6 items-center">
       <li><a href="{{ route('dashboard') }}" class="text-base font-semibold {{ Request::is('dashboard') ? 'text-green-800' : 'text-gray-600 hover:text-green-800' }}">Beranda</a></li>
       <li><a href="{{ route('simpanan') }}" class="text-base font-semibold {{ Request::is('simpanan') ? 'text-green-800' : 'text-gray-600 hover:text-green-800' }}">Simpanan</a></li>
@@ -29,7 +29,7 @@
 
   <!-- Avatar -->
   <div class="relative z-10">
-    <button type="button" id="userDropdownToggle" class="flex gap-2 sm:gap-4 items-center text-sm cursor-pointer">
+    <button type="button" id="userDropdownToggle" class="flex gap-2 items-center text-sm cursor-pointer">
       <!-- Avatar Image -->
       <img src="{{ Auth::guard('anggota')->user()->foto_profile ? asset('storage/' . Auth::guard('anggota')->user()->foto_profile) : asset('storage/assets/default-avatar.webp') }}" class="rounded-full w-9 h-9 sm:w-10 sm:h-10" alt="Avatar" />
       <!-- User Info -->

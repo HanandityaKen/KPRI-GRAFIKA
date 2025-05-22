@@ -7,23 +7,23 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
       <!-- Kolom 1: Logo & Kontak -->
       <div class="flex flex-col space-y-4">
-        <div class="flex items-center gap-0">
+        <div class="flex items-center gap-2">
           <img 
-            src="{{ asset('storage/assets/logo_kpri.png') }}" 
+            src="{{ asset('storage/logo-koperasi/' . $logoKoperasi->logo) }}" 
             alt="Logo KPRI Grafika" 
-            class="w-16 h-16 object-contain"
+            class="w-12 h-12 object-contain"
           />
           <h3 class="text-xl font-bold text-green-700">{{ $namaKoperasi->nama }}</h3>
         </div>
-        <div class="space-y-3 px-5">
-          <p class="flex items-center gap-5 text-sm">
+        <div class="space-y-3 px-4">
+          <p class="flex items-center gap-6 text-sm">
             <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
             </svg>
             Jl. Tanimbar No.22, Kasin, Klojen<br>Kota Malang, Jawa Timur 65117
           </p>
-          <p class="flex items-center gap-5 text-sm">
+          <p class="flex items-center gap-6 text-sm">
             <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
             </svg>
@@ -33,8 +33,8 @@
       </div>
 
       <!-- Kolom 2: Sosial Media -->
-      <div class="flex flex-col px-4 md:px-0 space-y-4">
-        <h3 class="mt-5 text-lg font-semibold text-green-700 mb-1">Hubungi Kami</h3>
+      <div class="flex flex-col px-4 md:px-0 space-y-3">
+        <h3 class="mt-3 text-lg font-semibold text-green-700 mb-1">Hubungi Kami</h3>
         <div class="flex space-x-4">
           <a href="https://www.facebook.com/smknegeri4malang/" target="_blank" class="p-2 bg-gray-100 rounded-full hover:bg-green-100 transition">
             <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 24 24">
@@ -60,8 +60,8 @@
       </div>
 
       <!-- Kolom 3: Maps -->
-      <div class="flex flex-col px-4 md:px-0 space-y-4">
-        <h3 class="mt-5 text-lg font-semibold text-green-700 mb-1">Lokasi Kami</h3>
+      <div class="flex flex-col px-4 md:px-0 space-y-3">
+        <h3 class="mt-3 text-lg font-semibold text-green-700 mb-1">Lokasi Kami</h3>
         <div class="aspect-w-16 aspect-h-9">
           <iframe 
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2793.8389419883806!2d112.62521990473321!3d-7.990166696491992!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd6281b75ea5485%3A0x90fd5c6fcedf6acf!2sSMK%20Negeri%204%20Kota%20Malang!5e0!3m2!1sid!2sid!4v1747555887059!5m2!1sid!2sid"

@@ -1,6 +1,6 @@
 @extends('admin.layout.main')
 
-@section('title', 'Foto Koperasi')
+@section('title', 'Logo Koperasi')
 
 @section('content')
   <div>
@@ -34,33 +34,20 @@
     </div>
 
     @if (session('success'))
-        <div class="flex items-center p-4 mb-6 text-sm text-green-800 rounded-lg bg-green-50" role="alert">
-            <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-            </svg>
-            <span class="sr-only">Info</span>
-            <div>
-                <span class="font-medium">{{ session('success') }}</span>
-            </div>
-        </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil',
+                    text: '{{ session('success') }}',
+                    confirmButtonColor: '#16a34a',
+                    timer: 3000,
+                    timerProgressBar: true,
+                    showConfirmButton: false
+                });
+            });
+        </script>
     @endif
-
-    @if ($errors->any())
-      <div class="flex items-center p-4 mb-6 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
-          <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-              <path d="M10 1.25A8.75 8.75 0 1 0 18.75 10 8.76 8.76 0 0 0 10 1.25Zm.75 13.75a.75.75 0 0 1-1.5 0v-1.5a.75.75 0 0 1 1.5 0ZM10 11a.75.75 0 0 1-.75-.75V6.5a.75.75 0 0 1 1.5 0v3.75A.75.75 0 0 1 10 11Z"/>
-          </svg>
-          <div>
-              <span class="font-medium">Terjadi kesalahan:</span>
-              <ul class="mt-1 ml-4 list-disc list-inside">
-                  @foreach ($errors->all() as $error)
-                      <li>{{ $error }}</li>
-                  @endforeach
-              </ul>
-          </div>
-      </div>
-  @endif
-
 
     <div>
       <form action="{{ route('admin.logo-koperasi-update') }}" method="POST" enctype="multipart/form-data">

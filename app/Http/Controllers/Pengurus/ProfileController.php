@@ -37,8 +37,8 @@ class ProfileController extends Controller
         // Validasi input
         $request->validate([
             'nama' => 'required|string|max:255',
-            'telepon' => 'required|string|max:15',
-            'email' => 'required|email|unique:pengurus,email,' . $pengurus->id,
+            'telepon' => 'nullable|string|max:15',
+            'email' => 'nullable|email|unique:pengurus,email,' . $pengurus->id,
             'foto_profile' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
             'password' => 'nullable|min:6',
         ]);

@@ -49,7 +49,7 @@ class WajibController extends Controller
             'nominal' => $nominal
         ]);
 
-        return redirect()->route('admin.wajib.index')->with('success', 'Berhasil Menambahkan Jenis Pegawai');
+        return redirect()->route('admin.wajib.index')->with('success', 'Berhasil Menambahkan Simpanan Wajib');
     }
 
     /**
@@ -96,7 +96,7 @@ class WajibController extends Controller
                 ->update(['jenis_pegawai' => $jenis_pegawai_new]);
         }
         
-        return redirect()->route('admin.wajib.index')->with('success', 'Berhasil Mengubah Nominal Wajib');
+        return redirect()->route('admin.wajib.index')->with('success', 'Berhasil Mengubah Simpanan Wajib');
     }
 
     /**
@@ -111,6 +111,6 @@ class WajibController extends Controller
 
         $wajib->delete();
 
-        return redirect()->route('admin.wajib.index')->with('success', 'Berhasil Menghapus Jenis Pegawai');
+        return redirect()->route('admin.wajib.index')->with('success', 'Berhasil Menghapus Simpanan Wajib');
     }
 }

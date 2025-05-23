@@ -29,8 +29,11 @@ class FormCreatePengajuanUnitKonsumsi extends Component
     public $nominal_bunga = '';
     public $jumlah_nominal = '';
     public $error_nominal = '';
-    public $disabled = false;
+    public $disabled_nominal = false;
     public $unitKonsumsiAktif = false;
+    public $disabled_lama_angsuran = false;
+    public $error_lama_angsuran = '';
+    public $disabled = false;
 
     /**
      * Lifecycle hook yang dijalankan saat komponen pertama kali dimuat.
@@ -51,6 +54,10 @@ class FormCreatePengajuanUnitKonsumsi extends Component
      */
     public function updated($propertyName)
     {
+        if ($propertyName === 'lama_angsuran') {
+            $this->limitLamaAngsuran();
+        }
+
         if (in_array($propertyName, ['nominal', 'lama_angsuran'])) {
             $this->hitungUnitKonsumsi();
         }
@@ -67,14 +74,16 @@ class FormCreatePengajuanUnitKonsumsi extends Component
         if ($nominal > 5000000) {
             $this->error_nominal = '* Nominal maksimal Rp 5.000.000.';
             $this->reset(['nominal_pokok', 'nominal_bunga', 'jumlah_nominal']); // Reset nilai jika lebih dari 5 juta
-            $this->disabled = true;
+            $this->disabled_nominal = true;
+            $this->disabled();
             return;
         } else {
             $this->error_nominal = '';
-            $this->disabled = false;
+            $this->disabled_nominal = false;
         }
 
         $this->hitungUnitKonsumsi();
+        $this->disabled();
     }
 
     /**
@@ -129,7 +138,40 @@ class FormCreatePengajuanUnitKonsumsi extends Component
         } else {
             $this->unitKonsumsiAktif = false;
         }
+
+        $this->disabled();
     }
+
+    /**
+     * Method ini akan membatasi lama angsuran yang dapat dipilih.
+     * Jika lama angsuran lebih dari 12 bulan, setel ke 12 bulan.
+     */
+    public function limitLamaAngsuran()
+    {
+        if ((int) $this->lama_angsuran > 120) {
+            $this->error_lama_angsuran = '* Lama angsuran tidak boleh lebih dari 120 bulan / 10 tahun.';
+            $this->disabled_lama_angsuran = true;
+        } else {
+            $this->error_lama_angsuran = '';
+            $this->disabled_lama_angsuran = false;
+        }
+
+        $this->disabled();
+    }
+
+    /**
+     * Method ini akan menonaktifkan tombol simpan jika ada error.
+     * Jika tidak ada error, tombol simpan akan aktif.
+     */
+    public function disabled()
+    {
+        if ($this->unitKonsumsiAktif || $this->error_nominal || $this->error_lama_angsuran) {
+            $this->disabled = true;
+        } else {
+            $this->disabled = false;
+        }
+    }
+
 
     /**
      * Merender tampilan Livewire untuk form pengajuan unit konsumsi.

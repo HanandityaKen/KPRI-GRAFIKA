@@ -69,6 +69,9 @@ class FormEditPengajuanPinjaman extends Component
     public $biaya_admin = '';
     public $total_pinjaman = '';
     public $pinjamanAktif = false;
+    public $error_lama_angsuran = '';
+    public $disabled_lama_angsuran = false;
+    public $disabled = false;
 
     /**
      * Lifecycle hook untuk inisialisasi data awal.
@@ -81,7 +84,8 @@ class FormEditPengajuanPinjaman extends Component
         $this->namaList = Anggota::pluck('nama', 'id')->toArray();
         $this->anggota_id = $this->pinjaman->anggota_id;
         $this->jumlah_pinjaman = "Rp " . number_format($this->pinjaman->jumlah_pinjaman, 0, ',', '.');
-        $this->lama_angsuran = ucwords($this->pinjaman->lama_angsuran);
+        preg_match('/\d+/', $this->pinjaman->lama_angsuran, $matches);
+        $this->lama_angsuran = $matches[0] ?? null;
         $this->hitungPinjaman();
     }
 
@@ -94,9 +98,30 @@ class FormEditPengajuanPinjaman extends Component
      */
     public function updated($propertyName)
     {
+        if ($propertyName === 'lama_angsuran') {
+            $this->limitLamaAngsuran();
+        }
+
         if (in_array($propertyName, ['jumlah_pinjaman', 'lama_angsuran'])) {
             $this->hitungPinjaman();
         }
+    }
+
+    /**
+     * Method ini akan membatasi lama angsuran yang dapat dipilih.
+     * Jika lama angsuran lebih dari 12 bulan, setel ke 12 bulan.
+     */
+    public function limitLamaAngsuran()
+    {
+        if ((int) $this->lama_angsuran > 120) {
+            $this->error_lama_angsuran = '* Lama angsuran tidak boleh lebih dari 120 bulan / 10 tahun.';
+            $this->disabled_lama_angsuran = true;
+        } else {
+            $this->error_lama_angsuran = '';
+            $this->disabled_lama_angsuran = false;
+        }
+
+        $this->disabled();
     }
 
     /**
@@ -149,6 +174,8 @@ class FormEditPengajuanPinjaman extends Component
         } else {
             $this->pinjamanAktif = false;
         }
+
+        $this->disabled();
     }
 
     /**
@@ -160,6 +187,20 @@ class FormEditPengajuanPinjaman extends Component
     {
         return "Rp " . number_format($this->jumlah_pinjaman, 0, ',', '.');
     }
+
+    /**
+     * Mengatur status disabled untuk tombol submit.
+     * Jika anggota memiliki pinjaman aktif atau lama angsuran tidak valid, tombol akan dinonaktifkan.
+     */
+    public function disabled()
+    {
+        if ($this->pinjamanAktif || $this->disabled_lama_angsuran) {
+            $this->disabled = true;
+        } else {
+            $this->disabled = false;
+        }
+    }
+
 
     /**
      * Merender tampilan Livewire untuk form edit pengajuan pinjaman.

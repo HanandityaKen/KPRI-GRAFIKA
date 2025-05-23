@@ -72,7 +72,7 @@
           if (lamaAngsuranInput) {
               lamaAngsuranInput.addEventListener("input", function (e) {
                   let value = e.target.value.replace(/\D/g, ""); // Hanya angka
-                  e.target.value = value ? `${value} Bulan` : ""; // Tambahkan " Bulan"
+                  e.target.value = value; // Tambahkan " Bulan"
               });
           }
 

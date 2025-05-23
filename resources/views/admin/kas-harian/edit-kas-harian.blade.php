@@ -108,5 +108,23 @@
           });
       }
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      flatpickr("#datepicker-kas-masuk", {
+        dateFormat: "d-m-Y",
+        allowInput: true,
+        position: "below",
+        locale: "id"
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      flatpickr("#datepicker-kas-keluar", {
+        dateFormat: "d-m-Y",
+        allowInput: true,
+        position: "below",
+        locale: "id"
+      });
+    });
   </script>
 @endpush

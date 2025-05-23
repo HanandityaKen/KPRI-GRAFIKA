@@ -116,6 +116,24 @@
         });
     });
 
+    document.addEventListener('DOMContentLoaded', function () {
+      flatpickr("#datepicker-kas-masuk", {
+        dateFormat: "d-m-Y",
+        allowInput: true,
+        position: "below",
+        locale: "id"
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      flatpickr("#datepicker-kas-keluar", {
+        dateFormat: "d-m-Y",
+        allowInput: true,
+        position: "below",
+        locale: "id"
+      });
+    });
+
     document.addEventListener("DOMContentLoaded", function () {
       const jenisTransaksi = document.querySelector("select[name='jenis_transaksi']");
       const kasMasuk = document.getElementById("kas_masuk");

@@ -79,6 +79,23 @@
         });
     });
 
+    document.addEventListener('DOMContentLoaded', function () {
+      flatpickr("#datepicker-kas-masuk", {
+        dateFormat: "d-m-Y",
+        allowInput: true,
+        position: "below",
+        locale: "id"
+      });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      flatpickr("#datepicker-kas-keluar", {
+        dateFormat: "d-m-Y",
+        allowInput: true,
+        position: "below",
+        locale: "id"
+      });
+    });
 
     document.addEventListener("DOMContentLoaded", function() {
       let selectKasMasuk = document.querySelector("#select_nama_kas_masuk");

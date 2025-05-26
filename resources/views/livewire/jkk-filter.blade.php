@@ -71,22 +71,22 @@
                     </th>
                     <th class="p-3 text-left whitespace-nowrap">
                         <div class="flex items-center text-sm">
-                            Biaya Umum
+                            Beban Umum
                         </div>
                     </th>
                     <th class="p-3 text-left whitespace-nowrap">
                         <div class="flex items-center text-sm">
-                            Biaya Organisasi
+                            Beban Organisasi
                         </div>
                     </th>
                     <th class="p-3 text-left whitespace-nowrap">
                         <div class="flex items-center text-sm">
-                            Biaya Operasional
+                            Beban Operasional
                         </div>
                     </th>
                     <th class="p-3 text-left whitespace-nowrap">
                         <div class="flex items-center text-sm">
-                            Biaya Lain
+                            Beban Lain
                         </div>
                     </th>
                     <th class="p-3 text-left whitespace-nowrap">

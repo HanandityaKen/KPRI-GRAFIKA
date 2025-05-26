@@ -142,6 +142,7 @@ class RekapJkkFilter extends Component
                     'total_b_umum' => $jkks->get($monthNumber)->total_b_umum ?? 0,
                     'total_b_orgns' => $jkks->get($monthNumber)->total_b_orgns ?? 0,
                     'total_b_oprs' => $jkks->get($monthNumber)->total_b_oprs ?? 0,
+                    'total_b_lain' => $jkks->get($monthNumber)->total_b_lain ?? 0,
                     'total_tnh_kav' => $jkks->get($monthNumber)->total_tnh_kav ?? 0,
                     'total_jumlah' => $jkks->get($monthNumber)->total_jumlah ?? 0,
                 ];

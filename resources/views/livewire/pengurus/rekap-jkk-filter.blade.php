@@ -79,19 +79,25 @@
                     </th>
                     <th class="p-3 text-left whitespace-nowrap">
                         <div class="flex items-center text-sm">
-                            Biaya Umum
+                            Beban Umum
                             {{-- <i data-lucide="arrow-down-up" class="ml-2 w-4"></i> --}}
                         </div>
                     </th>
                     <th class="p-3 text-left whitespace-nowrap">
                         <div class="flex items-center text-sm">
-                            Biaya Organisasi
+                            Beban Organisasi
                             {{-- <i data-lucide="arrow-down-up" class="ml-2 w-4"></i> --}}
                         </div>
                     </th>
                     <th class="p-3 text-left whitespace-nowrap">
                         <div class="flex items-center text-sm">
-                            Biaya Operasional
+                            Beban Operasional
+                            {{-- <i data-lucide="arrow-down-up" class="ml-2 w-4"></i> --}}
+                        </div>
+                    </th>
+                    <th class="p-3 text-left whitespace-nowrap">
+                        <div class="flex items-center text-sm">
+                            Beban Lain
                             {{-- <i data-lucide="arrow-down-up" class="ml-2 w-4"></i> --}}
                         </div>
                     </th>
@@ -120,6 +126,7 @@
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_b_umum'], 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_b_orgns'], 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_b_oprs'], 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_b_lain'], 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_tnh_kav'], 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap font-bold">- Rp {{ number_format($jkk['total_jumlah'], 0, ',', '.') }}</td>
                     </tr>

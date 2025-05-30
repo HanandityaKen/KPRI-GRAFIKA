@@ -53,10 +53,25 @@ class AngsuranController extends Controller
     {
         $request->validate([
             'angsuran' => 'nullable|string',
+            'angsuran_manual' => 'nullable|string',
             'jasa' => 'required|string',
         ]);
 
-        $bayarAngsuran = intval($request->angsuran);
+        // $angsuranInput = $request->angsuran ?? $request->angsuran_manual ?? '0';
+        $angsuranInput = ($request->angsuran ?? $request->angsuran_manual ?? 0);
+
+        if (strpos($angsuranInput, 'Rp') !== false) {
+            // Format Rp dengan titik ribuan, hapus Rp, spasi, titik, lalu ubah koma jadi titik jika ada
+            $clean = str_replace(['Rp', ' ', '.'], '', $angsuranInput);
+            $clean = str_replace(',', '.', $clean);
+            $bayarAngsuran = intval(floatval($clean));
+        } else {
+            // Format angka biasa dengan titik sebagai desimal, jangan hapus titik
+            $clean = str_replace(['Rp', ' ', ','], '', $angsuranInput);
+            $bayarAngsuran = intval(floatval($clean));
+        }
+        
+
         $bayarJasa = intval(str_replace(['Rp', '.', ' '], '', $request->jasa ?? '0'));
 
         $angsuran = Angsuran::findOrFail($id);
@@ -67,31 +82,51 @@ class AngsuranController extends Controller
 
         $tunggakan = $angsuran->tunggakan;
 
-        if ($angsuran->sisa_angsuran == 1 && empty($request->angsuran)) {
+        if ($angsuran->sisa_angsuran == 1 && $angsuranInput == 0) {
             return back()->withErrors(['angsuran' => '* Angsuran harus diisi karena ini adalah pembayaran terakhir!'])->withInput();
         }        
 
         if ($bayarAngsuran == 0) {
             $angsuran->tunggakan = $angsuran->tunggakan + intval($angsuran->pinjaman->pengajuan_pinjaman->nominal_pokok);
+            $angsuran->kurang_jasa = max(0, $angsuran->kurang_jasa - $bayarJasa);
         } else {
-            $angsuran->kurang_angsuran = $angsuran->kurang_angsuran - $bayarAngsuran;
-            $angsuran->tunggakan = $angsuran->tunggakan - $tunggakan;
+            // Potong tunggakan dulu
+            $sisaBayarPokok = $bayarAngsuran;
+
+            if ($angsuran->tunggakan > 0) {
+                if ($sisaBayarPokok >= $angsuran->tunggakan) {
+                    $sisaBayarPokok = $sisaBayarPokok - $angsuran->tunggakan;
+                    $angsuran->tunggakan = 0;
+                } else {
+                    $angsuran->tunggakan = $angsuran->tunggakan - $sisaBayarPokok;
+                    $sisaBayarPokok = 0;
+                }
+            }
+
+            if ($sisaBayarPokok == $angsuran->kurang_angsuran) {
+                // Lunas
+                $angsuran->kurang_angsuran = 0;
+                $angsuran->kurang_jasa = 0;
+                $angsuran->sisa_angsuran = 0;
+            } else {
+                $angsuran->kurang_angsuran = max(0, $angsuran->kurang_angsuran - $sisaBayarPokok);
+                $angsuran->kurang_jasa = max(0, $angsuran->kurang_jasa - $bayarJasa);
+                $angsuran->sisa_angsuran = max(0, $angsuran->sisa_angsuran - 1);
+            }
+
+            // Bayar pokok → hitung sebagai 1 angsuran
+            $angsuran->angsuran_ke = $angsuran->angsuran_ke + 1;
         }
-        
-        $angsuran->kurang_jasa = max(0, $angsuran->kurang_jasa - $bayarJasa);
-        
-        $angsuran->angsuran_ke = $angsuran->angsuran_ke + 1;
-        $angsuran->sisa_angsuran = $angsuran->sisa_angsuran - 1;
 
         $angsuran->save();
 
-        if ($angsuran->sisa_angsuran == 0) {
+        if ($angsuran->sisa_angsuran == 0 && $angsuran->kurang_angsuran == 0 && $angsuran->kurang_jasa == 0) {
             $pinjaman = $angsuran->pinjaman;
             $pinjaman->update([
                 'status' => 'lunas'
             ]);
         }
-
+        
         $kasHarian = KasHarian::create([
             'anggota_id' => $anggota_id,
             'nama_anggota' => $nama,

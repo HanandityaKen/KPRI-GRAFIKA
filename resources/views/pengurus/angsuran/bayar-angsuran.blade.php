@@ -43,16 +43,6 @@
       <h1 class="text-xl font-bold">Bayar Angsuran</h1>
     </div>
 
-    {{-- @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif --}}
-
     @error('error')
       <div class="flex items-center p-4 mb-6 text-sm text-red-800 rounded-lg bg-red-50" role="alert">
           <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -65,38 +55,7 @@
       </div>
     @enderror
 
-    <form action="{{ route('pengurus.angsuran.update', $angsuran->id) }}" method="POST">
-      @csrf
-      @method('PUT')
-      <div class="mb-3">
-        <label class="block mb-1 text-sm font-medium text-gray-900">Nama Anggota</label>
-        <input type="text" name="nama" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500   focus:border-green-500 block w-full p-2" value="{{ old('nama', $angsuran->pinjaman->pengajuan_pinjaman->nama_anggota) }}" readonly/>
-        <input type="hidden" name="anggota_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500   focus:border-green-500 block w-full p-2" value="{{ old('anggota_id', $angsuran->pinjaman->pengajuan_pinjaman->anggota_id) }}" readonly/>
-      </div> 
-      <div class="mb-4">
-          <label class="block mb-1 text-sm font-medium text-gray-900">Angsuran</label>
-          <select name="angsuran" id="angsuran" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2">
-            {{-- <option value="{{ $angsuran->pinjaman->pengajuan_pinjaman->nominal_pokok }}:{{ $angsuran->tunggakan }}" {{ old('angsuran', $angsuran->angsuran) == ($angsuran->pinjaman->pengajuan_pinjaman->nominal_pokok + $angsuran->tunggakan) ? 'selected' : '' }}>
-                Rp {{ number_format($angsuran->pinjaman->pengajuan_pinjaman->nominal_pokok + $angsuran->tunggakan, 0, ',', '.') }}
-            </option>  --}}
-            <option value="{{ $angsuran->pinjaman->pengajuan_pinjaman->nominal_pokok + $angsuran->tunggakan }}" {{ old('angsuran', $angsuran->angsuran) == ($angsuran->pinjaman->pengajuan_pinjaman->nominal_pokok + $angsuran->tunggakan) ? 'selected' : '' }}>
-                Rp {{ number_format($angsuran->pinjaman->pengajuan_pinjaman->nominal_pokok + $angsuran->tunggakan, 0, ',', '.') }}
-            </option>  
-            <option value="0">Rp 0</option>            
-          </select>
-          @error('angsuran')
-            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-          @enderror
-      </div>
-      <div class="mb-4">
-          <label class="block mb-1 text-sm font-medium text-gray-900">Jasa</label>
-          <input type="text" name="jasa" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" value="{{ 'Rp ' . number_format($angsuran->pinjaman->pengajuan_pinjaman->nominal_bunga, 0, ',', '.') }}" readonly/>
-      </div>
-      <div class="flex justify-start">
-        <button type="submit" class="bg-green-800 text-white py-2 px-4 rounded-md">
-            Simpan
-        </button>
-      </div>
-    </form>
+    @livewire('pengurus.form-bayar-angsuran', ['id' => $angsuran->id])
+
   </div>
 @endsection

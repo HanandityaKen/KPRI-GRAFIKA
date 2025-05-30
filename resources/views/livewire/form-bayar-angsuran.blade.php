@@ -28,11 +28,13 @@
                     Rp {{ number_format($angsuran->pinjaman->pengajuan_pinjaman->nominal_pokok + $angsuran->tunggakan, 0, ',', '.') }}
                 </option>  
               @endif
-              @if ($angsuran->tunggakan > 0)
+
+              {{-- @if ($angsuran->tunggakan > 0)
                 <option value="{{ $angsuran->kurang_angsuran }}" {{ old('angsuran', $angsuran->angsuran) == $angsuran->kurang_angsuran ? 'selected' : '' }}>
                     Rp {{ number_format($angsuran->kurang_angsuran, 0, ',', '.') }}
                 </option>
-              @endif
+              @endif --}}
+              
                 <option value="0">Rp 0</option>            
                 <option value="">Masukan Manual</option>            
             </select>

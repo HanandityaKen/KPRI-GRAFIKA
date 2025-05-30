@@ -53,10 +53,23 @@ class AngsuranUnitKonsumsiController extends Controller
     {
         $request->validate([
             'angsuran' => 'nullable|string',
+            'angsuran_manual' => 'nullable|string',
             'jasa' => 'required|string',
         ]);
 
-        $bayarAngsuran = intval($request->angsuran);
+        $angsuranInput = ($request->angsuran ?? $request->angsuran_manual ?? 0);
+
+        if (strpos($angsuranInput, 'Rp') !== false) {
+            // Format Rp dengan titik ribuan, hapus Rp, spasi, titik, lalu ubah koma jadi titik jika ada
+            $clean = str_replace(['Rp', ' ', '.'], '', $angsuranInput);
+            $clean = str_replace(',', '.', $clean);
+            $bayarAngsuran = intval(floatval($clean));
+        } else {
+            // Format angka biasa dengan titik sebagai desimal, jangan hapus titik
+            $clean = str_replace(['Rp', ' ', ','], '', $angsuranInput);
+            $bayarAngsuran = intval(floatval($clean));
+        }
+
         $bayarJasa = intval(str_replace(['Rp', '.', ' '], '', $request->jasa ?? '0'));
 
         $angsuranUnitKonsumsi = AngsuranUnitKonsumsi::findOrFail($id);
@@ -67,25 +80,44 @@ class AngsuranUnitKonsumsiController extends Controller
 
         $tunggakan = $angsuranUnitKonsumsi->tunggakan;
 
-        if ($angsuranUnitKonsumsi->sisa_angsuran == 1 && empty($request->angsuran)) {
+        if ($angsuranUnitKonsumsi->sisa_angsuran == 1 && $angsuranInput == 0) {
             return back()->withErrors(['angsuran' => '* Angsuran harus diisi karena ini adalah pembayaran terakhir!'])->withInput();
         }    
 
         if ($bayarAngsuran == 0) {
             $angsuranUnitKonsumsi->tunggakan = $angsuranUnitKonsumsi->tunggakan + intval($angsuranUnitKonsumsi->unit_konsumsi->pengajuan_unit_konsumsi->nominal_pokok);
+            $angsuranUnitKonsumsi->kurang_jasa = max(0, $angsuranUnitKonsumsi->kurang_jasa - $bayarJasa);
         } else {
-            $angsuranUnitKonsumsi->kurang_angsuran = $angsuranUnitKonsumsi->kurang_angsuran - $bayarAngsuran;
-            $angsuranUnitKonsumsi->tunggakan = $angsuranUnitKonsumsi->tunggakan - $tunggakan;
+            // Potong tunggakan dulu
+            $sisaBayarPokok = $bayarAngsuran;
+
+            if ($angsuranUnitKonsumsi->tunggakan > 0) {
+                if ($sisaBayarPokok >= $angsuranUnitKonsumsi->tunggakan) {
+                    $sisaBayarPokok = $sisaBayarPokok - $angsuranUnitKonsumsi->tunggakan;
+                    $angsuranUnitKonsumsi->tunggakan = 0;
+                } else {
+                    $angsuranUnitKonsumsi->tunggakan = $angsuranUnitKonsumsi->tunggakan - $sisaBayarPokok;
+                    $sisaBayarPokok = 0;
+                }
+            }
+
+            if ($sisaBayarPokok == $angsuranUnitKonsumsi->kurang_angsuran) {
+                //Lunas
+                $angsuranUnitKonsumsi->kurang_angsuran = 0;
+                $angsuranUnitKonsumsi->kurang_jasa = 0;
+                $angsuranUnitKonsumsi->sisa_angsuran = 0;
+            } else {
+                $angsuranUnitKonsumsi->kurang_angsuran = max(0, $angsuranUnitKonsumsi->kurang_angsuran - $sisaBayarPokok);
+                $angsuranUnitKonsumsi->kurang_jasa = max(0, $angsuranUnitKonsumsi->kurang_jasa - $bayarJasa);
+                $angsuranUnitKonsumsi->sisa_angsuran = max(0, $angsuranUnitKonsumsi->sisa_angsuran - 1);
+            }
+
+            $angsuranUnitKonsumsi->angsuran_ke = $angsuranUnitKonsumsi->angsuran_ke + 1;
         }
-
-        $angsuranUnitKonsumsi->kurang_jasa = max(0, $angsuranUnitKonsumsi->kurang_jasa - $bayarJasa);
-
-        $angsuranUnitKonsumsi->angsuran_ke = $angsuranUnitKonsumsi->angsuran_ke + 1;
-        $angsuranUnitKonsumsi->sisa_angsuran = $angsuranUnitKonsumsi->sisa_angsuran - 1;
 
         $angsuranUnitKonsumsi->save();
 
-        if ($angsuranUnitKonsumsi->sisa_angsuran == 0) {
+        if ($angsuranUnitKonsumsi->sisa_angsuran == 0 && $angsuranUnitKonsumsi->kurang_angsuran == 0 && $angsuranUnitKonsumsi->kurang_jasa == 0) {
             $unit_konsumsi = $angsuranUnitKonsumsi->unit_konsumsi;
             $unit_konsumsi->update([
                 'status' => 'lunas'

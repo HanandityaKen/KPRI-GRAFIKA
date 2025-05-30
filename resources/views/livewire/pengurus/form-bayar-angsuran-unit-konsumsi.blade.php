@@ -1,11 +1,11 @@
 <div>
-  <form action="{{ route('pengurus.angsuran.update', $angsuran->id) }}" method="POST">
+  <form action="{{ route('pengurus.angsuran-unit-konsumsi.update', $angsuran->id) }}" method="POST">
     @csrf
     @method('PUT')
     <div class="mb-3">
       <label class="block mb-1 text-sm font-medium text-gray-900">Nama Anggota</label>
-      <input type="text" name="nama" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" value="{{ old('nama', $angsuran->pinjaman->pengajuan_pinjaman->nama_anggota) }}" readonly/>
-      <input type="hidden" name="anggota_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" value="{{ old('anggota_id', $angsuran->pinjaman->pengajuan_pinjaman->anggota_id) }}" readonly/>
+      <input type="text" name="nama" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500   focus:border-green-500 block w-full p-2" value="{{ old('nama', $angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nama_anggota) }}" readonly/>
+      <input type="hidden" name="anggota_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500   focus:border-green-500 block w-full p-2" value="{{ old('anggota_id', $angsuran->unit_konsumsi->pengajuan_unit_konsumsi->anggota_id) }}" readonly/>
     </div> 
     <div class="mb-4">
         <label class="block mb-1 text-sm font-medium text-gray-900">Kurang Angsuran</label>
@@ -19,13 +19,13 @@
         <label class="block mb-1 text-sm font-medium text-gray-900">Angsuran</label>
         <div wire:ignore>
           <select name="angsuran" id="angsuran_select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" onchange="toggleManualInput(this)">
-            @if ($angsuran->kurang_angsuran < $angsuran->pinjaman->pengajuan_pinjaman->nominal_pokok)
+            @if ($angsuran->kurang_angsuran < $angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal_pokok)
               <option value="{{ $angsuran->kurang_angsuran + $angsuran->tunggakan }}" {{ old('angsuran', $angsuran->angsuran) == $angsuran->kurang_angsuran + $angsuran->tunggakan ? 'selected' : '' }}>
                   Rp {{ number_format($angsuran->kurang_angsuran + $angsuran->tunggakan, 0, ',', '.') }}
               </option>
-            @else    
-              <option value="{{ $angsuran->pinjaman->pengajuan_pinjaman->nominal_pokok + $angsuran->tunggakan }}" {{ old('angsuran', $angsuran->angsuran) == ($angsuran->pinjaman->pengajuan_pinjaman->nominal_pokok + $angsuran->tunggakan) ? 'selected' : '' }}>
-                  Rp {{ number_format($angsuran->pinjaman->pengajuan_pinjaman->nominal_pokok + $angsuran->tunggakan, 0, ',', '.') }}
+            @else
+              <option value="{{ $angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal_pokok + $angsuran->tunggakan }}" {{ old('angsuran', $angsuran->angsuran) == ($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal_pokok + $angsuran->tunggakan) ? 'selected' : '' }}>
+                  Rp {{ number_format($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal_pokok + $angsuran->tunggakan, 0, ',', '.') }}
               </option>  
             @endif
 
@@ -34,12 +34,12 @@
                   Rp {{ number_format($angsuran->kurang_angsuran, 0, ',', '.') }}
               </option>
             @endif --}}
-
+            
               <option value="0">Rp 0</option>            
               <option value="">Masukan Manual</option>            
           </select>
           @error('angsuran')
-              <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
           @enderror
           <div id="manual_input_container" class="hidden mt-4">
               <input wire:model.live="angsuranManual" type="text" name="angsuran_manual" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Angsuran" value="{{ old('angsuran')}}" inputmode="numeric"/>
@@ -49,10 +49,10 @@
     </div>
     <div class="mb-4">
         <label class="block mb-1 text-sm font-medium text-gray-900">Jasa</label>
-        <input type="text" name="jasa" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" value="{{ 'Rp ' . number_format($angsuran->pinjaman->pengajuan_pinjaman->nominal_bunga, 0, ',', '.') }}" readonly/>
+        <input type="text" name="jasa" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" value="{{ 'Rp ' . number_format($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal_bunga, 0, ',', '.') }}" readonly/>
     </div>
     <div class="flex justify-start">
-      <button type="submit" class="bg-green-800 text-white py-2 px-4 rounded-md" @if ($disabled) disabled @endif>
+      <button type="submit" class="bg-green-800 text-white py-2 px-4 rounded-md">
           Simpan
       </button>
     </div>

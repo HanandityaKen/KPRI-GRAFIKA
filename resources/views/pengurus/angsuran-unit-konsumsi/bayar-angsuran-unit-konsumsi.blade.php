@@ -54,35 +54,7 @@
       </div>
     @enderror
 
-    <form action="{{ route('pengurus.angsuran-unit-konsumsi.update', $angsuran->id) }}" method="POST">
-      @csrf
-      @method('PUT')
-      <div class="mb-3">
-        <label class="block mb-1 text-sm font-medium text-gray-900">Nama Anggota</label>
-        <input type="text" name="nama" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500   focus:border-green-500 block w-full p-2" value="{{ old('nama', $angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nama_anggota) }}" readonly/>
-        <input type="hidden" name="anggota_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500   focus:border-green-500 block w-full p-2" value="{{ old('anggota_id', $angsuran->unit_konsumsi->pengajuan_unit_konsumsi->anggota_id) }}" readonly/>
-      </div> 
-      <div class="mb-4">
-          <label class="block mb-1 text-sm font-medium text-gray-900">Angsuran</label>
-          <select name="angsuran" id="angsuran" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2">
-            <option value="{{ $angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal_pokok + $angsuran->tunggakan }}" {{ old('angsuran', $angsuran->angsuran) == ($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal_pokok + $angsuran->tunggakan) ? 'selected' : '' }}>
-                Rp {{ number_format($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal_pokok + $angsuran->tunggakan, 0, ',', '.') }}
-            </option>  
-            <option value="0">Rp 0</option>            
-          </select>
-          @error('angsuran')
-            <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
-          @enderror
-      </div>
-      <div class="mb-4">
-          <label class="block mb-1 text-sm font-medium text-gray-900">Jasa</label>
-          <input type="text" name="jasa" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" value="{{ 'Rp ' . number_format($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal_bunga, 0, ',', '.') }}" readonly/>
-      </div>
-      <div class="flex justify-start">
-        <button type="submit" class="bg-green-800 text-white py-2 px-4 rounded-md">
-            Simpan
-        </button>
-      </div>
-    </form>
+    @livewire('pengurus.form-bayar-angsuran-unit-konsumsi', ['id' => $angsuran->id])
+    
   </div>
 @endsection

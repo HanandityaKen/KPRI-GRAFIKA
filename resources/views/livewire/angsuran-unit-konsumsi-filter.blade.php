@@ -26,6 +26,7 @@
                     <th class="p-3 text-left whitespace-nowrap">Nominal Jasa</th>
                     <th class="p-3 text-left whitespace-nowrap">Kurang Angsuran</th>
                     <th class="p-3 text-left whitespace-nowrap">Kurang Jasa</th>
+                    <th class="p-3 text-left whitespace-nowrap">Tunggakan</th>
                     <th class="p-3 text-left whitespace-nowrap">Action</th>
                 </tr>
             </thead>
@@ -41,6 +42,7 @@
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal_bunga, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->kurang_angsuran, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->kurang_jasa, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->tunggakan, 0, ',', '.') }}</td>
                         <td>
                             @if ($angsuran->unit_konsumsi->status == 'lunas')
                                 <button class="px-3 py-1 bg-green-500 text-white rounded ml-2">

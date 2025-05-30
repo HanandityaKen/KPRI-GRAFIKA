@@ -52,11 +52,25 @@
       </script>
   @endif
 
+  @if (session('error'))
+      <script>
+          document.addEventListener('DOMContentLoaded', function () {
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Gagal',
+                  text: '{{ session('error') }}',
+                  confirmButtonColor: '#16a34a',
+                  timer: 3000,
+                  timerProgressBar: true,
+                  showConfirmButton: false
+              });
+          });
+      </script>
+  @endif
+
   {{-- <livewire:anggota-filter /> --}}
   @livewire('anggota-filter')
 
-
-  
 </div>
 @endsection
 

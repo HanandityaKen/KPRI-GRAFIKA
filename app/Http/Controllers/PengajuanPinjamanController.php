@@ -64,11 +64,8 @@ class PengajuanPinjamanController extends Controller
             $query->where('anggota_id', $pengajuanPinjaman->anggota_id);
         })
         ->where('status', 'dalam pembayaran')
-        ->exists();
-
-        if ($pinjaman) {
-            return back()->with(['error' => 'Anggota ini masih memiliki angsuran yang belum lunas.']);
-        }
+        ->orderBy('created_at', 'desc')
+        ->first();
 
         $saldoTerakhir = Saldo::first();
         
@@ -78,11 +75,39 @@ class PengajuanPinjamanController extends Controller
             return back()->with(['error' => 'Saldo Koperasi tidak cukup']);
         }
 
+        // Cek angsuran lama
+        $angsuranLama = Angsuran::whereHas('pinjaman.pengajuan_pinjaman', function ($query) use ($pengajuanPinjaman) {
+            $query->where('anggota_id', $pengajuanPinjaman->anggota_id);
+        })->orderBy('id', 'desc')->first();
+            
+        // Hitung sisa jumlah pinjaman hasil dari pengajuan pinjaman dikurangi angsuran lama
+        $sisaJumlahPinjaman = $pengajuanPinjaman->total_pinjaman - ($angsuranLama->kurang_angsuran ?? 0);
+        
+        if ($pinjaman) {
+            if ($pengajuanPinjaman->jumlah_pinjaman <= $angsuranLama->kurang_angsuran) {
+                return back()->with(['error' => 'Jumlah pinjaman tidak boleh kurang dari atau sama dengan sisa angsuran']);
+            }
+
+            $pinjaman->update([
+                'status' => 'lunas'
+            ]);
+        }
+        
+        if ($angsuranLama) {
+            $angsuranLama->update([
+                'kurang_angsuran' => 0,
+                'kurang_jasa' => 0,
+                'sisa_angsuran' => 0
+            ]);
+            
+        }
+
         $kasHarianMasuk = KasHarian::create([
             'anggota_id' => $pengajuanPinjaman->anggota_id,
             'nama_anggota' => $pengajuanPinjaman->nama_anggota,
             'jenis_transaksi' => 'kas masuk',
             'tanggal' => $pengajuanPinjaman->created_at->format('Y-m-d'),
+            'angsuran' => ($angsuranLama && $angsuranLama->kurang_angsuran > 0) ? $angsuranLama->kurang_angsuran : 0,
             'js_admin' => $pengajuanPinjaman->biaya_admin,
 
             'pokok'             => 0,
@@ -90,7 +115,6 @@ class PengajuanPinjamanController extends Controller
             'manasuka'          => 0,
             'wajib_pinjam'      => 0,
             'qurban'            => 0,
-            'angsuran'          => 0,
             'jasa'              => 0,
             'lain_lain'         => 0,
             'barang_kons'       => 0,
@@ -101,11 +125,11 @@ class PengajuanPinjamanController extends Controller
             'b_oprs'            => 0,
             'b_lain'            => 0,
             'tnh_kav'           => 0,
-            'keterangan'        => 'Biaya Admin'
+            'keterangan'        => ($angsuranLama && $angsuranLama->kurang_angsuran > 0) ? 'Biaya Admin dan Bayar Angsuran Sebelumnya' : 'Biaya Admin',
         ]);
 
         $saldoTerakhir->update([
-            'saldo' => $saldoTerakhir->saldo + $pengajuanPinjaman->biaya_admin
+            'saldo' => $saldoTerakhir->saldo + $pengajuanPinjaman->biaya_admin + ($angsuranLama->kurang_angsuran ?? 0)
         ]);
 
         $bulan = strtolower($pengajuanPinjaman->created_at->translatedFormat('F'));
@@ -123,7 +147,7 @@ class PengajuanPinjamanController extends Controller
             'nama_anggota' => $pengajuanPinjaman->nama_anggota,
             'jenis_transaksi' => 'kas keluar',
             'tanggal' => $pengajuanPinjaman->created_at->format('Y-m-d'),
-            'hutang' => $pengajuanPinjaman->jumlah_pinjaman,
+            'hutang' => $sisaJumlahPinjaman,
 
             'pokok'             => 0,
             'wajib'             => 0,
@@ -145,7 +169,7 @@ class PengajuanPinjamanController extends Controller
         ]);
 
         $saldoTerakhir->update([
-            'saldo' => $saldoTerakhir->saldo - $jumlahPinjaman
+            'saldo' => $saldoTerakhir->saldo - $sisaJumlahPinjaman
         ]);
 
         Jkk::create([

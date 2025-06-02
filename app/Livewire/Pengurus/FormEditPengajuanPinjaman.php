@@ -180,18 +180,7 @@ class FormEditPengajuanPinjaman extends Component
         ->orderBy('created_at', 'desc')
         ->value('kurang_angsuran'); 
 
-        // dd($kurangAngsuran);
-        if (empty($this->jumlah_pinjaman) || $jumlahPinjaman < $kurangAngsuran) {
-            $this->error_jumlah_pinjaman = '* Jumlah pinjaman tidak boleh kurang dari kurang angsuran yang belum dibayar! (Min: Rp ' . number_format($kurangAngsuran, 0, ',', '.') . ')';
-            $this->disabled_jumlah_pinjaman = true;
-        } else {
-            $this->error_jumlah_pinjaman = '';
-            $this->disabled_jumlah_pinjaman = false;
-        }
-
         $this->kompen = "Rp " . number_format($jumlahPinjaman + (int) $kurangAngsuran, 0, ',', '.');
-
-        $this->disabled();
     }
 
     /**
@@ -224,8 +213,14 @@ class FormEditPengajuanPinjaman extends Component
 
             $this->nominal_bunga = ceil(($kompen * $bunga_persen) / 100) * 100;
             $this->nominal_angsuran = ceil(($this->nominal_pokok + $this->nominal_bunga) / 100) * 100;
-            $this->biaya_admin = ceil(($kompen * $biaya_admin_persen) / 100) * 100;
-            $this->total_pinjaman = ceil(($kompen - $this->biaya_admin - $kurangAngsuran) / 100) * 100;
+        
+            if ($jumlahPinjaman < 5000000) {
+                $this->biaya_admin = ceil(($jumlahPinjaman * $biaya_admin_persen) / 100) * 100;
+                $this->total_pinjaman = ceil(($jumlahPinjaman - $this->biaya_admin) / 100) * 100;
+            } else {
+                $this->biaya_admin = ceil(($kompen * $biaya_admin_persen) / 100) * 100;
+                $this->total_pinjaman = ceil(($kompen - $this->biaya_admin - $kurangAngsuran) / 100) * 100;
+            }
 
             $this->nominal_pokok = "Rp " . number_format($this->nominal_pokok, 0, ',', '.');
             $this->nominal_bunga = "Rp " . number_format($this->nominal_bunga, 0, ',', '.');
@@ -290,7 +285,7 @@ class FormEditPengajuanPinjaman extends Component
      */
     public function disabled()
     {
-        if ($this->disabled_lama_angsuran || $this->disabled_jumlah_pinjaman) {
+        if ($this->disabled_lama_angsuran) {
             $this->disabled = true;
         } else {
             $this->disabled = false;

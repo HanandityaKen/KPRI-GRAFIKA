@@ -24,6 +24,12 @@
                     <p class="text-red-500 text-xs mt-1">* Anggota ini memiliki angsuran yang belum selesai.</p>
                 @endif
             </div>
+            @if ($pinjamanAktif)
+                <div class="mb-3">
+                    <label class="block mb-1 text-sm font-medium text-gray-900">Kurang Angsuran</label>
+                    <input type="text" wire:model="kurangAngsuran" id="kurang_angsuran" name="kurang_angsuran" class="format-bulan bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Kurang Angsuran" inputmode="numeric" readonly/>
+                </div>
+            @endif
             <div class="mb-3">
                 <label class="block mb-1 text-sm font-medium text-gray-900">Lama Angsuran (Kali/Bulan)</label>
                 <input type="text" wire:model.live="lama_angsuran" id="lama_angsuran" name="lama_angsuran" class="format-bulan bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Lama Angsuran" inputmode="numeric" value="{{ old('lama_angsuran') }}"/>
@@ -32,7 +38,14 @@
             <div class="mb-3">
                 <label class="block mb-1 text-sm font-medium text-gray-900">Jumlah Pinjaman</label>
                 <input type="text" wire:model.live="jumlah_pinjaman" id="jumlah_pinjaman" name="jumlah_pinjaman" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Pinjaman" inputmode="numeric" value="{{ old('jumlah_pinjaman') }}" oninput="formatRupiah(this)"/>
+                <p class="text-red-500 text-xs mt-1">{{ $error_jumlah_pinjaman }}</p>
             </div>
+            @if ($pinjamanAktif)     
+                <div class="mb-3">
+                    <label class="block mb-1 text-sm font-medium text-gray-900">Kompen</label>
+                    <input type="text" wire:model="kompen" id="kompen" name="kompen" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Kompen" inputmode="numeric" value="{{ old('kompen') }}" readonly/>
+                </div>
+            @endif
             <div class="mb-3">
                 <label class="block mb-1 text-sm font-medium text-gray-900">Nominal Pokok</label>
                 <input type="text" wire:model="nominal_pokok" id="nominal_pokok" name="nominal_pokok" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Nominal Pokok" inputmode="numeric" readonly/>

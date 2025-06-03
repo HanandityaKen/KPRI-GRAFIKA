@@ -114,7 +114,7 @@ class PengajuanPinjamanController extends Controller
             'nama_anggota' => $pengajuanPinjaman->nama_anggota,
             'jenis_transaksi' => 'kas masuk',
             'tanggal' => $pengajuanPinjaman->created_at->format('Y-m-d'),
-            'angsuran' => ($angsuranLama->kurang_angsuran > 0 && $pengajuanPinjaman->jumlah_pinjaman >= 5000000) ? $angsuranLama->kurang_angsuran : 0,
+            'angsuran' => ($angsuranLama && $angsuranLama->kurang_angsuran > 0 && $pengajuanPinjaman->jumlah_pinjaman >= 5000000) ? $angsuranLama->kurang_angsuran : 0,
             'js_admin' => $pengajuanPinjaman->biaya_admin,
 
             'pokok'             => 0,
@@ -132,11 +132,11 @@ class PengajuanPinjamanController extends Controller
             'b_oprs'            => 0,
             'b_lain'            => 0,
             'tnh_kav'           => 0,
-            'keterangan'        => ($angsuranLama->kurang_angsuran > 0 && $pengajuanPinjaman->jumlah_pinjaman >= 5000000) ? 'Biaya Admin dan Bayar Angsuran Sebelumnya' : 'Biaya Admin',
+            'keterangan'        => ($angsuranLama && $angsuranLama->kurang_angsuran > 0 && $pengajuanPinjaman->jumlah_pinjaman >= 5000000) ? 'Biaya Admin dan Bayar Angsuran Sebelumnya' : 'Biaya Admin',
         ]);
         
         $saldoTerakhir->update([
-            'saldo' => $saldoTerakhir->saldo + $pengajuanPinjaman->biaya_admin + (($angsuranLama->kurang_angsuran > 0 && $pengajuanPinjaman->jumlah_pinjaman >= 5000000) ? $angsuranLama->kurang_angsuran : 0)
+            'saldo' => $saldoTerakhir->saldo + $pengajuanPinjaman->biaya_admin + (($angsuranLama && $angsuranLama->kurang_angsuran > 0 && $pengajuanPinjaman->jumlah_pinjaman >= 5000000) ? $angsuranLama->kurang_angsuran : 0)
         ]);
 
         $bulan = strtolower($pengajuanPinjaman->created_at->translatedFormat('F'));
@@ -187,30 +187,30 @@ class PengajuanPinjamanController extends Controller
         ]);
 
         $lama_angsuran = (int) preg_replace('/[^0-9]/', '', $pengajuanPinjaman->lama_angsuran);
+        $kurangJasa = intval($pengajuanPinjaman->nominal_bunga * $lama_angsuran);
+        $kurangAngsuran = intval($pengajuanPinjaman->nominal_pokok * $lama_angsuran);
 
-        if ($pengajuanPinjaman->jumlah_pinjaman < 5000000) {
-            // Jika jumlah pinjaman kurang dari 5 juta
+        if ($pengajuanPinjaman->jumlah_pinjaman < 5000000 && $pinjaman) {
             $angsuranLama->update([
-                'kurang_jasa' => intval($pengajuanPinjaman->nominal_bunga * $lama_angsuran),
-                'kurang_angsuran' => intval($pengajuanPinjaman->nominal_pokok * $lama_angsuran),
+                'kurang_jasa' => $kurangJasa,
+                'kurang_angsuran' => $kurangAngsuran,
                 'sisa_angsuran' => $lama_angsuran,
                 'angsuran_ke' => 0
             ]);
-        } else {
-            // Jika jumlah pinjaman lebih dari atau sama dengan 5 juta
-            $pinjaman = Pinjaman::create([
-                'pengajuan_pinjaman_id' => $pengajuanPinjaman->id,
-                'kas_harian_id' => $kasHarianKeluar->id,
-                'status' => 'dalam pembayaran'
-            ]);
-        
-            Angsuran::create([
-                'pinjaman_id' => $pinjaman->id,
-                'kurang_jasa' => intval($pengajuanPinjaman->nominal_bunga * $lama_angsuran),
-                'kurang_angsuran' => intval($pengajuanPinjaman->nominal_pokok * $lama_angsuran),
-                'sisa_angsuran' => $lama_angsuran
-            ]);
         }
+        
+        $pinjaman = Pinjaman::create([
+            'pengajuan_pinjaman_id' => $pengajuanPinjaman->id,
+            'kas_harian_id' => $kasHarianKeluar->id,
+            'status' => 'dalam pembayaran'
+        ]);
+        
+        Angsuran::create([
+            'pinjaman_id' => $pinjaman->id,
+            'kurang_jasa' => $kurangJasa,
+            'kurang_angsuran' => $kurangAngsuran,
+            'sisa_angsuran' => $lama_angsuran
+        ]);
 
         $pengajuanPinjaman->update([
             'status' => 'disetujui'

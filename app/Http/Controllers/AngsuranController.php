@@ -79,6 +79,8 @@ class AngsuranController extends Controller
 
         $nama = $angsuran->pinjaman->pengajuan_pinjaman->nama_anggota;
 
+        $pinjaman_id = $angsuran->pinjaman->id;
+
         $tunggakan = $angsuran->tunggakan;
 
         if ($angsuran->sisa_angsuran == 1 && $angsuranInput == 0) {
@@ -119,16 +121,23 @@ class AngsuranController extends Controller
 
         $angsuran->save();
 
-        if ($angsuran->sisa_angsuran == 0 && $angsuran->kurang_angsuran == 0 && $angsuran->kurang_jasa == 0) {
+        if ($angsuran->kurang_angsuran == 0) {
             $pinjaman = $angsuran->pinjaman;
             $pinjaman->update([
                 'status' => 'lunas'
+            ]);
+
+            $angsuran->update([
+                'kurang_angsuran' => 0,
+                'kurang_jasa' => 0,
+                'sisa_angsuran' => 0
             ]);
         }
 
         $kasHarian = KasHarian::create([
             'anggota_id' => $anggota_id,
             'nama_anggota' => $nama,
+            'pinjaman_id' => $pinjaman_id,
             'jenis_transaksi' => 'kas masuk',
             'tanggal' => $angsuran->updated_at->format('Y-m-d'),
             'angsuran' => $bayarAngsuran,
@@ -149,7 +158,7 @@ class AngsuranController extends Controller
             'b_oprs'            => 0,
             'b_lain'            => 0,
             'tnh_kav'           => 0,
-            'keterangan'        => 'Bayar Angsuran'
+            'keterangan'        => 'Bayar Angsuran Pinjaman'
         ]);
 
         $bulan = strtolower($kasHarian->created_at->translatedFormat('F'));

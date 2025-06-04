@@ -11,6 +11,7 @@ class KasHarian extends Model
     protected $fillable = [
         'anggota_id',
         'nama_anggota',
+        'pinjaman_id',
         'jenis_transaksi',
         'tanggal',
         'pokok',
@@ -99,9 +100,14 @@ class KasHarian extends Model
         return $this->hasOne(Simpanan::class, 'anggota_id', 'anggota_id');
     }
 
+    // public function pinjaman()
+    // {
+    //     return $this->hasMany(Pinjaman::class);
+    // }
+
     public function pinjaman()
     {
-        return $this->hasMany(Pinjaman::class);
+        return $this->belongsTo(Pinjaman::class, 'pinjaman_id');
     }
 
     public function angsuran()

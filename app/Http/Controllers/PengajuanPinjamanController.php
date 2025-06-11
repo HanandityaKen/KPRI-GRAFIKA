@@ -197,20 +197,21 @@ class PengajuanPinjamanController extends Controller
                 'sisa_angsuran' => $lama_angsuran,
                 'angsuran_ke' => 0
             ]);
+        } else {
+            $pinjaman = Pinjaman::create([
+                'pengajuan_pinjaman_id' => $pengajuanPinjaman->id,
+                'kas_harian_id' => $kasHarianKeluar->id,
+                'status' => 'dalam pembayaran'
+            ]);
+            
+            Angsuran::create([
+                'pinjaman_id' => $pinjaman->id,
+                'kurang_jasa' => $kurangJasa,
+                'kurang_angsuran' => $kurangAngsuran,
+                'sisa_angsuran' => $lama_angsuran
+            ]);
         }
         
-        $pinjaman = Pinjaman::create([
-            'pengajuan_pinjaman_id' => $pengajuanPinjaman->id,
-            'kas_harian_id' => $kasHarianKeluar->id,
-            'status' => 'dalam pembayaran'
-        ]);
-        
-        Angsuran::create([
-            'pinjaman_id' => $pinjaman->id,
-            'kurang_jasa' => $kurangJasa,
-            'kurang_angsuran' => $kurangAngsuran,
-            'sisa_angsuran' => $lama_angsuran
-        ]);
 
         $pengajuanPinjaman->update([
             'status' => 'disetujui'

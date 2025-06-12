@@ -71,8 +71,8 @@ class FormCreatePengajuanUnitKonsumsi extends Component
     {
         $nominal = (int) str_replace(['Rp', '.', ','], '', $this->nominal);
 
-        if ($nominal > 5000000) {
-            $this->error_nominal = '* Nominal maksimal Rp 5.000.000.';
+        if ($nominal > 6000000) {
+            $this->error_nominal = '* Nominal maksimal Rp 6.000.000.';
             $this->reset(['nominal_pokok', 'nominal_bunga', 'jumlah_nominal']); // Reset nilai jika lebih dari 5 juta
             $this->disabled_nominal = true;
             $this->disabled();
@@ -102,7 +102,7 @@ class FormCreatePengajuanUnitKonsumsi extends Component
         $nominal = (int) str_replace(['Rp', '.', ','], '', $this->nominal);
         $lamaAngsuran = (int) preg_replace('/[^0-9]/', '', $this->lama_angsuran);
 
-        if ($nominal > 5000000) {
+        if ($nominal > 6000000) {
             return;
         }
 
@@ -148,8 +148,8 @@ class FormCreatePengajuanUnitKonsumsi extends Component
      */
     public function limitLamaAngsuran()
     {
-        if ((int) $this->lama_angsuran > 120) {
-            $this->error_lama_angsuran = '* Lama angsuran tidak boleh lebih dari 120 bulan / 10 tahun.';
+        if ((int) $this->lama_angsuran > 10) {
+            $this->error_lama_angsuran = '* Lama angsuran tidak boleh lebih dari 10 bulan.';
             $this->disabled_lama_angsuran = true;
         } else {
             $this->error_lama_angsuran = '';

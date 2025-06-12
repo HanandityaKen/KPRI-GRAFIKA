@@ -116,7 +116,7 @@ class AngsuranUnitKonsumsiController extends Controller
 
         $angsuranUnitKonsumsi->save();
 
-        if ($angsuranUnitKonsumsi->sisa_angsuran == 0 && $angsuranUnitKonsumsi->kurang_angsuran == 0 && $angsuranUnitKonsumsi->kurang_jasa == 0) {
+        if ($angsuranUnitKonsumsi->kurang_angsuran == 0) {
             $unit_konsumsi = $angsuranUnitKonsumsi->unit_konsumsi;
             $unit_konsumsi->update([
                 'status' => 'lunas'

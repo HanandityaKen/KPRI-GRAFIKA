@@ -11,10 +11,12 @@ class FormBayarAngsuranUnitKonsumsi extends Component
     public $angsuranManual = '';
     public $error_angsuran_manual;
     public $disabled = false;
+    public $jasa = 0;
 
     public function mount($id)
     {
         $this->angsuran = AngsuranUnitKonsumsi::findOrFail($id);
+        $this->cekJasa();
     }
 
     public function updatedAngsuranManual()
@@ -29,6 +31,21 @@ class FormBayarAngsuranUnitKonsumsi extends Component
         } else {
             $this->error_angsuran_manual = '';
             $this->disabled = false;
+        }
+
+        $this->cekJasa();
+    }
+
+    public function cekJasa()
+    {
+        $angsuranManual = (int) str_replace(['Rp', '.', ','], '', $this->angsuranManual);
+        $kurangAngsuran = AngsuranUnitKonsumsi::where('id', $this->angsuran->id)->value('kurang_angsuran');
+        $tunggakan = AngsuranUnitKonsumsi::where('id', $this->angsuran->id)->value('tunggakan');
+
+        if ($angsuranManual === ($kurangAngsuran + $tunggakan)) {
+            $this->jasa = "Rp " . number_format($this->angsuran->kurang_jasa, 0, ',', '.');
+        } else {
+            $this->jasa = "Rp " . number_format($this->angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal_bunga, 0, ',', '.');
         }
     }
 

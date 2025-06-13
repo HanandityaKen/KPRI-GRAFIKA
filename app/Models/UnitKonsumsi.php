@@ -19,9 +19,14 @@ class UnitKonsumsi extends Model
         return $this->belongsTo(PengajuanUnitKonsumsi::class, 'pengajuan_unit_konsumsi_id');
     }
 
+    // public function kas_harian()
+    // {
+    //     return $this->belongsTo(KasHarian::class, 'kas_harian_id');
+    // }
+
     public function kas_harian()
     {
-        return $this->belongsTo(KasHarian::class, 'kas_harian_id');
+        return $this->hasOne(KasHarian::class, 'unit_konsumsi_id');
     }
 
     public function angsuran_unit_konsumsi()

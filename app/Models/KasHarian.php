@@ -12,6 +12,7 @@ class KasHarian extends Model
         'anggota_id',
         'nama_anggota',
         'pinjaman_id',
+        'unit_konsumsi_id',
         'jenis_transaksi',
         'tanggal',
         'pokok',
@@ -109,15 +110,20 @@ class KasHarian extends Model
     {
         return $this->belongsTo(Pinjaman::class, 'pinjaman_id');
     }
-
+    
     public function angsuran()
     {
         return $this->hasMany(Angsuran::class);
     }
-
+    
     public function unit_konsumsi()
     {
-        return $this->hasMany(UnitKonsumsi::class);
+        return $this->belongsTo(UnitKonsumsi::class, 'unit_konsumsi_id');
     }
+
+    // public function unit_konsumsi()
+    // {
+    //     return $this->hasMany(UnitKonsumsi::class);
+    // }
 
 }

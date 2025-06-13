@@ -78,6 +78,8 @@ class AngsuranUnitKonsumsiController extends Controller
 
         $nama = $angsuranUnitKonsumsi->unit_konsumsi->pengajuan_unit_konsumsi->nama_anggota;
 
+        $unit_konsumsi_id = $angsuranUnitKonsumsi->unit_konsumsi->id;
+
         $tunggakan = $angsuranUnitKonsumsi->tunggakan;
 
         if ($angsuranUnitKonsumsi->sisa_angsuran == 1 && $angsuranInput == 0) {
@@ -127,6 +129,7 @@ class AngsuranUnitKonsumsiController extends Controller
         $kasHarian = KasHarian::create([
             'anggota_id' => $anggota_id,
             'nama_anggota' => $nama,
+            'unit_konsumsi_id' => $unit_konsumsi_id,
             'jenis_transaksi' => 'kas masuk',
             'tanggal' => $angsuranUnitKonsumsi->updated_at->format('Y-m-d'),
             'barang_kons' => $bayarAngsuran,

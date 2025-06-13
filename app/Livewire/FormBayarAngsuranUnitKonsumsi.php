@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use App\Models\KasHarian;
 use App\Models\AngsuranUnitKonsumsi;
 
 class FormBayarAngsuranUnitKonsumsi extends Component
@@ -42,10 +43,23 @@ class FormBayarAngsuranUnitKonsumsi extends Component
         $kurangAngsuran = AngsuranUnitKonsumsi::where('id', $this->angsuran->id)->value('kurang_angsuran');
         $tunggakan = AngsuranUnitKonsumsi::where('id', $this->angsuran->id)->value('tunggakan');
 
-        if ($angsuranManual === ($kurangAngsuran + $tunggakan)) {
-            $this->jasa = "Rp " . number_format($this->angsuran->kurang_jasa, 0, ',', '.');
+        $unitKonsumsiId = $this->angsuran->unit_konsumsi->id;
+
+        $cekKasHarian = KasHarian::where('unit_konsumsi_id', $unitKonsumsiId)
+            ->where('jenis_transaksi', 'kas masuk')
+            ->where('keterangan', 'Bayar Angsuran Unit atau Barang Konsumsi')
+            ->whereMonth('tanggal', now()->month)
+            ->whereYear('tanggal', now()->year)
+            ->first();
+
+        if ($cekKasHarian) {
+            $this->jasa = "Rp " . number_format(0, 0, ',', '.');
         } else {
-            $this->jasa = "Rp " . number_format($this->angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal_bunga, 0, ',', '.');
+            if ($angsuranManual === ($kurangAngsuran + $tunggakan)) {
+                $this->jasa = "Rp " . number_format($this->angsuran->kurang_jasa, 0, ',', '.');
+            } else {
+                $this->jasa = "Rp " . number_format($this->angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal_bunga, 0, ',', '.');
+            }
         }
     }
 

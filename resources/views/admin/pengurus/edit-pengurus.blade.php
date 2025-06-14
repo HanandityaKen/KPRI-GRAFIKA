@@ -80,14 +80,34 @@
       <input type="hidden" name="jabatan" value="{{ $user->jabatan }}">
       <select name="jabatan" class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
         <option value="" selected>Pilih Jabatan</option>
-        <option value="pengawas" {{ old('jabatan', $user->jabatan) == 'pengawas' ? 'selected' : '' }}>Pengawas</option>
+        <option value="sekretaris" {{ old('jabatan', $user->jabatan) == 'sekretaris' ? 'selected' : '' }} 
+            @if ($user->jabatan !== 'sekretaris' && $jumlahSekretaris >= 1) disabled @endif>
+            Sekretaris
+        </option>
         <option value="bendahara" {{ old('jabatan', $user->jabatan) == 'bendahara' ? 'selected' : '' }} 
             @if ($user->jabatan !== 'bendahara' && $jumlahBendahara >= 2) disabled @endif>
             Bendahara
         </option>
+        <option value="pembantu umum" {{ old('jabatan', $user->jabatan) == 'pembantu umum' ? 'selected' : '' }}
+          @if ($user->jabatan !== 'pembantu umum' && $jumlahPembantuUmum >= 1) disabled @endif>
+          Pembantu Umum
+        </option>
+        <option value="pengawas" {{ old('jabatan', $user->jabatan) == 'pengawas' ? 'selected' : '' }}
+          @if ($user->jabatan !== 'pengawas' && $jumlahPengawas >= 2) disabled @endif>
+          Pengawas
+        </option>
       </select>
+      @if ($jumlahSekretaris >= 1 && $user->jabatan !== 'sekretaris')
+          <p class="text-red-500 text-xs mt-1">* Jumlah sekretaris sudah 1 orang</p>
+      @endif
       @if ($jumlahBendahara >= 2 && $user->jabatan !== 'bendahara')
           <p class="text-red-500 text-xs mt-1">* Jumlah bendahara sudah 2 orang</p>
+      @endif
+      @if ($jumlahPembantuUmum >= 1 && $user->jabatan !== 'pembantu umum')
+          <p class="text-red-500 text-xs mt-1">* Jumlah pembantu umum sudah 1 orang</p>
+      @endif
+      @if ($jumlahPengawas >= 2 && $user->jabatan !== 'pengawas')
+          <p class="text-red-500 text-xs mt-1">* Jumlah pengawas sudah 2 orang</p>
       @endif
     </div>
     <div class="flex justify-start">

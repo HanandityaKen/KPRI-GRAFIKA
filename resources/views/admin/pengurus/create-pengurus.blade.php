@@ -75,14 +75,25 @@
     <div class="mb-4">
       <label class="block mb-1 text-sm font-medium text-gray-900">Jabatan</label>
       <select name="jabatan" class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
-        <option value="" disabled {{ old('jabatan') ? '' : 'selected' }}>Pilih Jabatan</option>
-        <option value="pengawas" {{ old('jabatan') == 'pengawas' ? 'selected' : '' }}>Pengawas</option>
-        <option value="bendahara" {{ old('jabatan') == 'bendahara' ? 'selected' : '' }} {{ $jumlahBendahara >= 2 ? 'disabled' : ''}}>
+        <option value="" {{ old('jabatan') ? '' : 'selected' }}>Pilih Jabatan</option>
+        <option value="sekretaris" {{ old('jabatan') == 'sekretaris' ? 'selected' : '' }} {{ $jumlahSekretaris >= 1 ? 'disabled' : ''}}>Sekretaris</option>
+        <option value="bendahara" {{ old('jabatan') == 'bendahara' ? 'selected' : '' }} {{ $jumlahBendahara >= 2 ? 'disabled' : ''}}> Bendahara
+        <option value="pembantu umum" {{ old('jabatan') == 'pembantu umum' ? 'selected' : '' }} {{ $jumlahPembantuUmum >= 1 ? 'disabled' : ''}}>Pembantu Umum</option>
+        <option value="pengawas" {{ old('jabatan') == 'pengawas' ? 'selected' : '' }} {{ $jumlahPengawas >= 2 ? 'disabled' : ''}}>Pengawas</option>
           Bendahara 
         </option>
       </select>
+      @if ($jumlahSekretaris >= 1)
+        <p class="text-red-500 text-xs mt-1">* Jumlah sekretaris sudah 1 orang</p>
+      @endif
       @if ($jumlahBendahara >= 2)
         <p class="text-red-500 text-xs mt-1">* Jumlah bendahara sudah 2 orang</p>
+      @endif
+      @if ($jumlahPembantuUmum >= 1)
+        <p class="text-red-500 text-xs mt-1">* Jumlah pembantu umum sudah 1 orang</p>
+      @endif
+      @if ($jumlahPengawas >= 2)
+        <p class="text-red-500 text-xs mt-1">* Jumlah pengawas sudah 2 orang</p>
       @endif
     </div>
     <div class="flex justify-start">

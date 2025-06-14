@@ -44,11 +44,7 @@
                             @endif
                         </td>
                         <td class="p-3">
-                            @if($user->jabatan == 'pengawas')
-                                Pengawas
-                            @elseif($user->jabatan == 'bendahara')
-                                Bendahara
-                            @endif
+                            {{ ucwords($user->jabatan) }}
                         </td>
                         <td class="whitespace-nowrap">
                             <a href="{{ route('admin.pengurus.edit', $user->id) }}">

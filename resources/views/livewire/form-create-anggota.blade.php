@@ -1,5 +1,15 @@
+@php
+    $admin = auth()->guard('admin')->check();
+    $pengurus = auth()->guard('pengurus')->check() && auth()->guard('pengurus')->user()->jabatan === 'sekretaris';
+    
+    if ($admin) {
+        $storeRoute = route('admin.anggota.store');
+    } elseif ($pengurus) {
+        $storeRoute = route('pengurus.anggota.store');
+    }
+@endphp
 <div>
-    <form action="{{ route('admin.anggota.store') }}" method="POST">
+    <form action="{{ $storeRoute }}" method="POST">
         @csrf
         <div class="mb-3">
             <label class="block mb-1 text-sm font-medium text-gray-900">No Anggota</label>

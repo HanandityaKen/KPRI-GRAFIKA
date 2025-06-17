@@ -1,5 +1,16 @@
+@php
+    $admin = auth()->guard('admin')->check();
+    $pengurus = auth()->guard('pengurus')->check() && auth()->guard('pengurus')->user()->jabatan === 'sekretaris';
+    
+    if ($admin) {
+        $storeRoute = route('admin.anggota.update', $user->id);
+    } elseif ($pengurus) {
+        $storeRoute = route('pengurus.anggota.update', $user->id);
+    }
+@endphp
+
 <div>
-    <form action="{{ route('admin.anggota.update', $user->id) }}" method="POST">
+    <form action="{{ $storeRoute }}" method="POST">
         @csrf
         @method('PUT')
         <div class="mb-3">

@@ -19,6 +19,13 @@
           </a>
       </li>
       <li>
+          <a href="{{ route('pengurus.anggota.index') }}"
+              class="flex items-center p-2 text-white rounded-lg hover:bg-[#009348] group {{ Request::is('pengurus/anggota*') ? 'bg-[#009348]' : '' }}">
+              <i data-lucide="users" class="text-white mr-3 group-hover:text-white"></i>
+              <span class="font-medium group-hover:text-white">Anggota</span>
+          </a>
+      </li>
+      <li>
           <button type="button"
               class="flex items-center w-full p-2 text-white mb-1 transition duration-75 rounded-lg group hover:bg-[#009348] {{ request()->is('pengurus/kas-harian*') || request()->is('pengurus/jkm*') || request()->is('pengurus/jkk*') || request()->is('pengurus/rekap-jkm*') || request()->is('pengurus/rekap-jkk*') ? 'bg-[#009348]' : '' }}"
               aria-controls="dropdown-ecommerce" data-collapse-toggle="dropdown-ecommerce">

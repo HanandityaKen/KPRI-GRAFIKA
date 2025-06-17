@@ -34,6 +34,14 @@ class AuthController extends Controller
             'password' => 'required|string',
         ]);
 
+        // Logout dari guard lain jika aktif
+        if (Auth::guard('admin')->check()) {
+            Auth::guard('admin')->logout();
+        }
+        if (Auth::guard('pengurus')->check()) {
+            Auth::guard('pengurus')->logout();
+        }
+
         if (!Auth::guard('anggota')->attempt(['nama' => $request->nama, 'password' => $request->password])) {
             return back()->withErrors([
                 'error' => 'Nama atau Password yang Anda Masukan Salah!'
@@ -83,6 +91,14 @@ class AuthController extends Controller
             'nama' => 'required|string',
             'password' => 'required|string',
         ]);
+
+        // Logout dari guard lain jika aktif
+        if (Auth::guard('admin')->check()) {
+            Auth::guard('admin')->logout();
+        }
+        if (Auth::guard('anggota')->check()) {
+            Auth::guard('anggota')->logout();
+        }
 
         if (!Auth::guard('pengurus')->attempt(['nama' => $request->nama, 'password' => $request->password])) {
             return back()->withErrors([
@@ -141,6 +157,14 @@ class AuthController extends Controller
             'username' => 'required|string',
             'password' => 'required|string',
         ]);
+
+        // Logout dari guard lain jika aktif
+        if (Auth::guard('anggota')->check()) {
+            Auth::guard('anggota')->logout();
+        }
+        if (Auth::guard('pengurus')->check()) {
+            Auth::guard('pengurus')->logout();
+        }
 
         if (!Auth::guard('admin')->attempt(['username' => $request->username, 'password' => $request->password])) {
             return back()->withErrors([

@@ -13,6 +13,7 @@
             <th>Nominal Jasa</th>
             <th>Kurang Angsuran</th>
             <th>Kurang Jasa</th>
+            <th>Tunggakan</th>
         </tr>
     </thead>
     <tbody>
@@ -27,6 +28,7 @@
                 <td>Rp {{ number_format($angsuran->pinjaman->pengajuan_pinjaman->nominal_bunga, 0, ',', '.') }}</td>
                 <td>Rp {{ number_format($angsuran->kurang_angsuran, 0, ',', '.') }}</td>
                 <td>Rp {{ number_format($angsuran->kurang_jasa, 0, ',', '.') }}</td>
+                <td>Rp {{ number_format($angsuran->tunggakan, 0, ',', '.') }}</td>
             </tr>
         @endforeach
     </tbody>

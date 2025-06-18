@@ -43,14 +43,14 @@
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->kurang_angsuran, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->kurang_jasa, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->tunggakan, 0, ',', '.') }}</td>
-                        <td>
+                        <td class="p-3 whitespace-nowrap">
                             @if ($angsuran->unit_konsumsi->status == 'lunas')
-                                <button class="px-3 py-1 bg-green-500 text-white rounded ml-2">
+                                <button class="px-3 py-1 bg-green-500 text-white rounded">
                                     Lunas
                                 </button>
                             @else
                                 <a href="{{ route('admin.angsuran-unit-konsumsi.edit', $angsuran->id) }}">
-                                    <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
+                                    <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900">
                                         Bayar
                                     </button>
                                 </a>

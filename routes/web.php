@@ -106,9 +106,13 @@ Route::prefix('pengurus')->as('pengurus.')->middleware('pengurus', 'no-cache')->
     Route::get('/rekap-jkk', [SubJkkController::class, 'rekapJkk'])->name('rekap-jkk');
     Route::resource('simpanan', SubSimpananController::class)->only(['index']);
     Route::resource('pengajuan-pinjaman', SubPengajuanPinjamanController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+    Route::post('/setujui-pengajuan-pinjaman/{id}', [SubPengajuanPinjamanController::class, 'setujuiPinjaman'])->name('setujui-pengajuan-pinjaman');
+    Route::post('/tolak-pengajuan-pinjaman/{id}', [SubPengajuanPinjamanController::class, 'tolakPinjaman'])->name('tolak-pengajuan-pinjaman');
     Route::resource('pinjaman', SubPinjamanController::class)->only(['index']);
     Route::resource('angsuran', SubAngsuranController::class)->only(['index', 'edit', 'update']);
     Route::resource('pengajuan-unit-konsumsi', SubPengajuanUnitKonsumsiController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
+    Route::post('/setujui-pengajuan-unit-konsumsi/{id}', [SubPengajuanUnitKonsumsiController::class, 'setujuiUnitKonsumsi'])->name('setujui-pengajuan-unit-konsumsi');
+    Route::post('/tolak-pengajuan-unit-konsumsi/{id}', [SubPengajuanUnitKonsumsiController::class, 'tolakUnitKonsumsi'])->name('tolak-pengajuan-unit-konsumsi');
     Route::resource('unit-konsumsi', SubUnitKonsumsiController::class)->only(['index']);
     Route::resource('angsuran-unit-konsumsi', SubAngsuranUnitKonsumsiController::class)->only(['index', 'edit', 'update']);
     Route::resource('riwayat-transaksi', SubRiwayatTransaksiController::class)->only(['index']);

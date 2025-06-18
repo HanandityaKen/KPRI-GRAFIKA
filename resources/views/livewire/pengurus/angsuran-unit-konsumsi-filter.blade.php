@@ -1,3 +1,7 @@
+@php
+    $bendahara = auth()->guard('pengurus')->check() && auth()->guard('pengurus')->user()->jabatan === 'bendahara';
+    $pembantu_umum = auth()->guard('pengurus')->check() && auth()->guard('pengurus')->user()->jabatan === 'pembantu umum';
+@endphp
 <div>
     <div class="mb-8 flex justify-between items-center">
         <div class="relative w-1/3">
@@ -27,7 +31,9 @@
                     <th class="p-3 text-left whitespace-nowrap">Kurang Angsuran</th>
                     <th class="p-3 text-left whitespace-nowrap">Kurang Jasa</th>
                     <th class="p-3 text-left whitespace-nowrap">Tunggakan</th>
-                    <th class="p-3 text-left whitespace-nowrap">Action</th>
+                    @if ($bendahara || $pembantu_umum)
+                        <th class="p-3 text-left whitespace-nowrap">Action</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -43,17 +49,19 @@
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->kurang_angsuran, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->kurang_jasa, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->tunggakan, 0, ',', '.') }}</td>
-                        <td>
-                            @if ($angsuran->unit_konsumsi->status == 'lunas')
-                                <button class="px-3 py-1 bg-green-500 text-white rounded ml-2">
-                                    Lunas
-                                </button>
-                            @else
-                                <a href="{{ route('pengurus.angsuran-unit-konsumsi.edit', $angsuran->id) }}">
-                                    <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
-                                        Bayar
+                        <td class="p-3 whitespace-nowrap">
+                            @if ($bendahara || $pembantu_umum)
+                                @if ($angsuran->unit_konsumsi->status == 'lunas')
+                                    <button class="px-3 py-1 bg-green-500 text-white rounded">
+                                        Lunas
                                     </button>
-                                </a>
+                                @else
+                                    <a href="{{ route('pengurus.angsuran-unit-konsumsi.edit', $angsuran->id) }}">
+                                        <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900">
+                                            Bayar
+                                        </button>
+                                    </a>
+                                @endif
                             @endif
                         </td>
                     </tr>

@@ -1,3 +1,8 @@
+@php
+    $bendahara = auth()->guard('pengurus')->check() && auth()->guard('pengurus')->user()->jabatan === 'bendahara';
+    $pembantu_umum = auth()->guard('pengurus')->check() && auth()->guard('pengurus')->user()->jabatan === 'pembantu umum';
+    $pengawas = auth()->guard('pengurus')->check() && auth()->guard('pengurus')->user()->jabatan === 'pengawas';
+@endphp
 <div>
     <div class="mb-8 flex justify-between items-center">
         <div class="relative w-1/3">
@@ -8,10 +13,12 @@
             </div>
             <input type="text" wire:model.live="search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500" placeholder="Search">
         </div>
-        <a href="{{ route('pengurus.pengajuan-unit-konsumsi.create') }}" wire:ignore class="bg-green-800 text-white py-2 px-4 rounded-md flex items-center ml-4">
-            <i data-lucide="plus" class="mr-2"></i>
-            Tambah Pengajuan Unit Konsumsi
-        </a>
+        @if ($bendahara || $pembantu_umum || $pengawas)    
+            <a href="{{ route('pengurus.pengajuan-unit-konsumsi.create') }}" wire:ignore class="bg-green-800 text-white py-2 px-4 rounded-md flex items-center ml-4">
+                <i data-lucide="plus" class="mr-2"></i>
+                Tambah Pengajuan Unit Konsumsi
+            </a>
+        @endif
     </div>
 
     <div class="bg-white shadow rounded-lg border-[2px] border-[#6DA854] overflow-x-auto no-scrollbar">
@@ -28,7 +35,9 @@
                     <th class="p-3 text-left whitespace-nowrap">Jasa</th>
                     <th class="p-3 text-left whitespace-nowrap">Total</th>
                     <th class="p-3 text-left whitespace-nowrap">Status</th>
-                    <th class="p-3 text-left whitespace-nowrap">Action</th>
+                    @if ($bendahara || $pembantu_umum || $pengawas)
+                        <th class="p-3 text-left whitespace-nowrap">Action</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -54,22 +63,40 @@
                             <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Ditolak</span>
                             @endif
                         </td>
-                        <td class="whitespace-nowrap">
-                            @if ($pengajuanUnitKonsumsi->status == 'menunggu')
-                                <a href="{{ route('pengurus.pengajuan-unit-konsumsi.edit', $pengajuanUnitKonsumsi->id) }}">
-                                    <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
-                                        Edit
+                        <td class="p-3 whitespace-nowrap">
+                            @if ($bendahara || $pembantu_umum)
+                                @if ($pengajuanUnitKonsumsi->status == 'menunggu')
+                                    <a href="{{ route('pengurus.pengajuan-unit-konsumsi.edit', $pengajuanUnitKonsumsi->id) }}">
+                                        <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900">
+                                            Edit
+                                        </button>
+                                    </a>
+                                    <button 
+                                        class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                                        onclick="confirmDelete({{ $pengajuanUnitKonsumsi->id }})">
+                                            Hapus
                                     </button>
-                                </a>
-                                <button 
-                                    class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
-                                    onclick="confirmDelete({{ $pengajuanUnitKonsumsi->id }})">
-                                        Hapus
-                                </button>
-                                <form id="delete-form-{{ $pengajuanUnitKonsumsi->id }}" action="{{ route('pengurus.pengajuan-unit-konsumsi.destroy', $pengajuanUnitKonsumsi->id) }}" method="POST" style="display: none;">
-                                    @csrf
-                                    @method('DELETE')
-                                </form>
+                                    <form id="delete-form-{{ $pengajuanUnitKonsumsi->id }}" action="{{ route('pengurus.pengajuan-unit-konsumsi.destroy', $pengajuanUnitKonsumsi->id) }}" method="POST" style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                @endif
+                            @elseif ($pengawas)
+                                @if ($pengajuanUnitKonsumsi->status == 'menunggu')
+                                    <form action="{{ route('pengurus.setujui-pengajuan-unit-konsumsi', $pengajuanUnitKonsumsi->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900">
+                                            Disetujui
+                                        </button>
+                                    </form>
+                                
+                                    <form action="{{ route('pengurus.tolak-pengajuan-unit-konsumsi', $pengajuanUnitKonsumsi->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-500">
+                                            Ditolak
+                                        </button>
+                                    </form>
+                                @endif
                             @endif
                         </td>
                     </tr>

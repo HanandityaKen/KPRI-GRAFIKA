@@ -1,3 +1,6 @@
+@php
+    $bendahara = auth()->guard('pengurus')->check() && auth()->guard('pengurus')->user()->jabatan === 'bendahara';
+@endphp
 <div>
     <div class="mb-8 flex justify-between items-center">
         <div class="relative w-1/3">
@@ -8,10 +11,12 @@
             </div>
             <input type="text" wire:model.live="search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500" placeholder="Search">
         </div>
-        <a href="{{ route('pengurus.kas-harian.create') }}" wire:ignore class="bg-green-800 text-white py-2 px-4 rounded-md flex items-center ml-4">
-            <i data-lucide="plus" class="mr-2"></i>
-            Tambah Kas Harian
-        </a>
+        @if ($bendahara)
+            <a href="{{ route('pengurus.kas-harian.create') }}" wire:ignore class="bg-green-800 text-white py-2 px-4 rounded-md flex items-center ml-4">
+                <i data-lucide="plus" class="mr-2"></i>
+                Tambah Kas Harian
+            </a>
+        @endif
     </div>
     <div class="bg-white shadow rounded-lg border-[2px] border-[#6DA854] overflow-x-auto no-scrollbar">
         <table class="w-full mb-8">
@@ -22,7 +27,9 @@
                     <th class="p-3 text-left">Jenis Transaksi</th>
                     <th class="p-3 text-left">Tanggal</th>
                     <th class="p-3 text-left">Keterangan</th>
-                    <th class="p-3 text-left">Action</th>
+                    @if ($bendahara)
+                        <th class="p-3 text-left">Action</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -41,22 +48,24 @@
                             {{ \Carbon\Carbon::parse($kasHarian->tanggal)->translatedFormat('d-m-Y') }}
                         </td>
                         <td class="p-3">{{$kasHarian->keterangan}}</td>
-                        <td class="whitespace-nowrap">
-                            @if ($kasHarian->anggota && $kasHarian->js_admin == 0 && $kasHarian->hutang == 0 && $kasHarian->jasa == 0 && $kasHarian->angsuran == 0 && $kasHarian->barang_kons == 0)
-                                <a href="{{ route('pengurus.kas-harian.edit', $kasHarian->id) }}">
-                                    <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
-                                        Edit
+                        <td class="p-3 whitespace-nowrap">
+                            @if ($bendahara)
+                                @if ($kasHarian->anggota && $kasHarian->js_admin == 0 && $kasHarian->hutang == 0 && $kasHarian->jasa == 0 && $kasHarian->angsuran == 0 && $kasHarian->barang_kons == 0)
+                                    <a href="{{ route('pengurus.kas-harian.edit', $kasHarian->id) }}">
+                                        <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900">
+                                            Edit
+                                        </button>
+                                    </a>
+                                    <button 
+                                        class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                                        onclick="confirmDelete({{ $kasHarian->id }})">
+                                            Hapus
                                     </button>
-                                </a>
-                                <button 
-                                    class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
-                                    onclick="confirmDelete({{ $kasHarian->id }})">
-                                        Hapus
-                                </button>
-                                <form id="delete-form-{{ $kasHarian->id }}" action="{{ route('pengurus.kas-harian.destroy', $kasHarian->id) }}" method="POST" style="display: none;">
-                                    @csrf
-                                    @method('DELETE')
-                                </form>
+                                    <form id="delete-form-{{ $kasHarian->id }}" action="{{ route('pengurus.kas-harian.destroy', $kasHarian->id) }}" method="POST" style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                @endif
                             @endif
                         </td>
                     </tr>

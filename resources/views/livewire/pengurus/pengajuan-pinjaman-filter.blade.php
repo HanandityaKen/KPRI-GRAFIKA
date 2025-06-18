@@ -1,3 +1,7 @@
+@php
+    $bendahara = auth()->guard('pengurus')->check() && auth()->guard('pengurus')->user()->jabatan === 'bendahara';
+    $pengawas = auth()->guard('pengurus')->check() && auth()->guard('pengurus')->user()->jabatan === 'pengawas';
+@endphp
 <div>
     <div class="mb-8 flex justify-between items-center">
         <div class="relative w-1/3">
@@ -8,10 +12,12 @@
             </div>
             <input type="text" wire:model.live="search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500" placeholder="Search">
         </div>
-        <a href="{{ route('pengurus.pengajuan-pinjaman.create') }}" wire:ignore class="bg-green-800 text-white py-2 px-4 rounded-md flex items-center ml-4">
-            <i data-lucide="plus" class="mr-2"></i>
-            Tambah Pengajuan Pinjaman
-        </a>
+        @if ($bendahara)    
+            <a href="{{ route('pengurus.pengajuan-pinjaman.create') }}" wire:ignore class="bg-green-800 text-white py-2 px-4 rounded-md flex items-center ml-4">
+                <i data-lucide="plus" class="mr-2"></i>
+                Tambah Pengajuan Pinjaman
+            </a>
+        @endif
     </div>
 
     <div class="bg-white shadow rounded-lg border-[2px] border-[#6DA854] overflow-x-auto no-scrollbar">
@@ -23,7 +29,9 @@
                     <th class="p-3 text-left whitespace-nowrap">Tanggal</th>
                     <th class="text-left whitespace-nowrap">Nominal</th>
                     <th class="p-3 text-left whitespace-nowrap">Status</th>
-                    <th class="p-3 text-left whitespace-nowrap">Action</th>
+                    @if ($bendahara || $pengawas)
+                        <th class="p-3 text-left whitespace-nowrap">Action</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -45,21 +53,39 @@
                             @endif
                         </td>
                         <td class="whitespace-nowrap">
-                            @if ($pengajuanPinjaman->status == 'menunggu')
-                                <a href="{{ route('pengurus.pengajuan-pinjaman.edit', $pengajuanPinjaman->id) }}">
-                                    <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
-                                        Edit
+                            @if ($bendahara)
+                                @if ($pengajuanPinjaman->status == 'menunggu')
+                                    <a href="{{ route('pengurus.pengajuan-pinjaman.edit', $pengajuanPinjaman->id) }}">
+                                        <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
+                                            Edit
+                                        </button>
+                                    </a>
+                                    <button 
+                                        class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
+                                        onclick="confirmDelete({{ $pengajuanPinjaman->id }})">
+                                            Hapus
                                     </button>
-                                </a>
-                                <button 
-                                    class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 ml-2"
-                                    onclick="confirmDelete({{ $pengajuanPinjaman->id }})">
-                                        Hapus
-                                </button>
-                                <form id="delete-form-{{ $pengajuanPinjaman->id }}" action="{{ route('pengurus.pengajuan-pinjaman.destroy', $pengajuanPinjaman->id) }}" method="POST" style="display: none;">
-                                    @csrf
-                                    @method('DELETE')
-                                </form>
+                                    <form id="delete-form-{{ $pengajuanPinjaman->id }}" action="{{ route('pengurus.pengajuan-pinjaman.destroy', $pengajuanPinjaman->id) }}" method="POST" style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                @endif
+                            @elseif ($pengawas)
+                                @if ($pengajuanPinjaman->status == 'menunggu')   
+                                    <form action="{{ route('pengurus.setujui-pengajuan-pinjaman', $pengajuanPinjaman->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
+                                            Disetujui
+                                        </button>
+                                    </form>
+                                
+                                    <form action="{{ route('pengurus.tolak-pengajuan-pinjaman', $pengajuanPinjaman->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-500 ml-2">
+                                            Ditolak
+                                        </button>
+                                    </form>
+                                @endif
                             @endif
                         </td>
                     </tr>

@@ -245,9 +245,9 @@ class PengajuanPinjamanController extends Controller
             $jumlahPinjamanBaru = intval($pengajuanPinjaman->total_pinjaman - ($angsuranLama->kurang_angsuran ?? 0));
 
             if ($pinjaman) {
-                if ($pengajuanPinjaman->jumlah_pinjaman <= $angsuranLama->kurang_angsuran) {
-                    return back()->with(['error' => 'Jumlah pinjaman tidak boleh kurang dari atau sama dengan sisa angsuran']);
-                }
+                // if ($pengajuanPinjaman->jumlah_pinjaman <= $angsuranLama->kurang_angsuran) {
+                //     return back()->with(['error' => 'Jumlah pinjaman tidak boleh kurang dari atau sama dengan sisa angsuran']);
+                // }
     
                 $pinjaman->update([
                     'status' => 'lunas'

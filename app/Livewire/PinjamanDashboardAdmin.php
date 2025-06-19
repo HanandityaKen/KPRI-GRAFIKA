@@ -21,7 +21,14 @@ class PinjamanDashboardAdmin extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
+    public $anggotaList = [];
+
     protected $paginationTheme = 'tailwind';
+
+    public function mount()
+    {
+        $this->anggotaList = Anggota::where('posisi', 'pengurus')->pluck('nama', 'id')->toArray();
+    }
 
     /**
      * Render daftar pengajuan pinjaman yang masih berstatus "menunggu".

@@ -70,7 +70,7 @@
                                                 <div class="p-6 space-y-4">
                                                     <div>
                                                         <label class="block mb-2 text-sm font-medium text-gray-700">Disetujui Oleh</label>
-                                                        <select id="select_nama_setujui" name="reviewed_by" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 transition duration-200" required>
+                                                        <select id="select_nama_setujui" name="reviewed_by" class="select-nama-setujui bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 transition duration-200" required>
                                                             <option value="" disabled selected>Pilih Nama</option>
                                                             @foreach ($anggotaList as $id => $nama)
                                                                 <option value="{{ $nama }}" {{ old('anggota_id') == $nama ? 'selected' : '' }}>{{ $nama }}</option>
@@ -132,7 +132,7 @@
                                                 <div class="p-6 space-y-4">
                                                     <div>
                                                         <label class="block mb-2 text-sm font-medium text-gray-700">Ditolak Oleh</label>
-                                                        <select id="select_nama_tolak" name="reviewed_by" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 transition duration-200" required>
+                                                        <select id="select_nama_tolak" name="reviewed_by" class="select-nama-tolak bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 transition duration-200" required>
                                                             <option value="" disabled selected>Pilih Nama</option>
                                                             @foreach ($anggotaList as $id => $nama)
                                                                 <option value="{{ $nama }}" {{ old('anggota_id') == $nama ? 'selected' : '' }}>{{ $nama }}</option>
@@ -188,27 +188,23 @@
 </div>
 @push('scripts')
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            new TomSelect("#select_nama_setujui", {
-                create: false,
-                sortField: {
-                    field: "text",
-                    direction: "asc"
-                },
-                openOnFocus: true,
-                maxOptions: 10,
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('.select-nama-setujui').forEach(select => {
+                new TomSelect(select, {
+                    create: false,
+                    sortField: { field: "text", direction: "asc" },
+                    openOnFocus: true,
+                    maxOptions: 10,
+                });
             });
-        });
 
-        document.addEventListener("DOMContentLoaded", function() {
-            new TomSelect("#select_nama_tolak", {
-                create: false,
-                sortField: {
-                    field: "text",
-                    direction: "asc"
-                },
-                openOnFocus: true,
-                maxOptions: 10,
+            document.querySelectorAll('.select-nama-tolak').forEach(select => {
+                new TomSelect(select, {
+                    create: false,
+                    sortField: { field: "text", direction: "asc" },
+                    openOnFocus: true,
+                    maxOptions: 10,
+                });
             });
         });
     </script>

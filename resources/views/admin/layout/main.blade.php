@@ -6,7 +6,7 @@
   <title>{{ $namaKoperasi->nama }} - @yield('title', 'KPRI Grafika')</title>
   <link rel="icon" type="image/png" href="{{ asset('storage/logo-koperasi/' . $logoKoperasi->logo ) }}">
   {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
-  <link rel="stylesheet" href="{{ asset('build/assets/app-BGES5BSS.css') }}">
+  <link rel="stylesheet" href="{{ asset('build/assets/app-C_WtU24m.css') }}">
   <script src="{{ asset('build/assets/app-DA3rf8Wk.js') }}" defer></script>
   @livewireStyles
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -20,7 +20,6 @@
       height: 100vh;
       overflow-y: auto;
       width: 16rem;
-      z-index: 1000;
       transition: transform 0.3s ease-in-out;
     }
 

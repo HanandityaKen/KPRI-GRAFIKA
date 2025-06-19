@@ -3,7 +3,7 @@
         @csrf
         @method('PUT')
         <div class="grid grid-cols-2 gap-4">
-            <input type="text" name="pengurus_id" value="{{ auth()->guard('pengurus')->user()->id }}" hidden>
+            <input type="text" name="requested_by" value="{{ auth()->guard('pengurus')->user()->nama }}" hidden>
             <div class="mb-3">
                 <label class="block mb-1 text-sm font-medium text-gray-900">Nama</label>
                 <div wire:ignore>

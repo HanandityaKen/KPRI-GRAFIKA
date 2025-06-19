@@ -11,7 +11,7 @@ class PengajuanPinjaman extends Model
     protected $fillable = [
         'anggota_id',
         'nama_anggota',
-        'pengurus_id',
+        'requested_by',
         'jumlah_pinjaman',
         'biaya_admin',
         'total_pinjaman',
@@ -20,6 +20,7 @@ class PengajuanPinjaman extends Model
         'nominal_bunga',
         'nominal_angsuran',
         'status',
+        'reviewed_by',
     ];
 
     public function anggota()

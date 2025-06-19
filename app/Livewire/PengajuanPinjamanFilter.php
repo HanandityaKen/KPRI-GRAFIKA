@@ -29,8 +29,14 @@ class PengajuanPinjamanFilter extends Component
      * @var string
      */
     public $search = '';
+    public $anggotaList = [];
 
     protected $paginationTheme = 'tailwind';
+
+    public function mount()
+    {
+        $this->anggotaList = Anggota::where('posisi', 'pengurus')->pluck('nama', 'id')->toArray();
+    }
 
     /**
      * Reset halaman pagination ke awal saat pencarian diperbarui.

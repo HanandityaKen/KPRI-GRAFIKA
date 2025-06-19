@@ -48,9 +48,15 @@ class PengajuanPinjamanController extends Controller
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function setujuiPinjaman($id)
+    public function setujuiPinjaman(Request $request, $id)
     {
+        $request->validate([
+            'reviewed_by' => 'required'
+        ]);
+
         $pengajuanPinjaman = PengajuanPinjaman::find($id);
+
+        $reviewedBy = $request->reviewed_by;
 
         if (!$pengajuanPinjaman) {
             return back()->with(['error' => 'Pinjaman tidak ditemukan']);
@@ -212,9 +218,9 @@ class PengajuanPinjamanController extends Controller
             ]);
         }
         
-
         $pengajuanPinjaman->update([
-            'status' => 'disetujui'
+            'reviewed_by' => $reviewedBy,
+            'status' => 'disetujui',
         ]);
 
         return back()->with('success', 'Pengajuan Pinjaman berhasil disetujui');
@@ -232,9 +238,15 @@ class PengajuanPinjamanController extends Controller
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function tolakPinjaman($id)
+    public function tolakPinjaman(Request $request, $id)
     {
+        $request->validate([
+            'reviewed_by' => 'required'
+        ]);
+
         $pengajuanPinjaman = PengajuanPinjaman::find($id);
+
+        $reviewedBy = $request->reviewed_by;
 
         if (!$pengajuanPinjaman) {
             return back()->with(['error' => 'Pinjaman tidak ditemukan']);
@@ -245,10 +257,17 @@ class PengajuanPinjamanController extends Controller
         }
 
         $pengajuanPinjaman->update([
-            'status' => 'ditolak'
+            'reviewed_by' => $reviewedBy,
+            'status' => 'ditolak',
         ]);
 
         return back()->with('success', 'Pengajuan Pinjaman berhasil ditolak');
     }
 
+    public function detail($id)
+    {
+        $pengajuanPinjaman = PengajuanPinjaman::findOrFail($id);
+
+        return view('admin.pengajuan-pinjaman.detail-pengajuan-pinjaman', compact('pengajuanPinjaman'));
+    }
 }

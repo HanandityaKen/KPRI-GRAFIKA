@@ -1,4 +1,4 @@
-<header class="fixed top-0 bg-white w-full py-5 px-6 sm:px-3 flex z-50">
+<header class="fixed top-0 bg-white w-full py-5 px-6 sm:px-3 flex z-10">
   <div class="w-full flex justify-between items-center">
     <!-- Hamburger Menu Button -->
     <button class="mobile-menu-button p-2 focus:outline-none" title="Toggle Sidebar" onclick="toggleSidebar()">

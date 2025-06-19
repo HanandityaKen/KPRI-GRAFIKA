@@ -73,6 +73,7 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::resource('pengajuan-pinjaman', PengajuanPinjamanController::class)->only(['index']);
     Route::post('/setujui-pengajuan-pinjaman/{id}', [PengajuanPinjamanController::class, 'setujuiPinjaman'])->name('setujui-pengajuan-pinjaman');
     Route::post('/tolak-pengajuan-pinjaman/{id}', [PengajuanPinjamanController::class, 'tolakPinjaman'])->name('tolak-pengajuan-pinjaman');
+    Route::get('pengajuan-pinjaman/detail/{id}', [PengajuanPinjamanController::class, 'detail'])->name('detail-pengajuan-pinjaman');
     Route::resource('pinjaman', PinjamanController::class)->only(['index']);
     Route::resource('angsuran', AngsuranController::class)->only(['index', 'edit', 'update']);
     Route::resource('pengajuan-unit-konsumsi', PengajuanUnitKonsumsiController::class)->only(['index']);
@@ -81,7 +82,7 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::resource('unit-konsumsi', UnitKonsumsiController::class)->only(['index']);
     Route::resource('angsuran-unit-konsumsi', AngsuranUnitKonsumsiController::class)->only(['index', 'edit', 'update']);
     Route::resource('riwayat-transaksi', RiwayatTransaksiController::class)->only(['index']);
-    Route::get('/detail-riwayat-transaksi/{id}', [RiwayatTransaksiController::class, 'detail'])->name('detail-riwayat-transaksi');
+    Route::get('riwayat-transaksi/detail/{id}', [RiwayatTransaksiController::class, 'detail'])->name('detail-riwayat-transaksi');
     Route::resource('persentase', PersentaseController::class)->only(['index', 'create', 'store', 'edit', 'update']);
     Route::resource('saldo-koperasi', SaldoKoperasiController::class)->only(['index']);
     Route::resource('wajib', WajibController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
@@ -108,6 +109,7 @@ Route::prefix('pengurus')->as('pengurus.')->middleware('pengurus', 'no-cache')->
     Route::resource('pengajuan-pinjaman', SubPengajuanPinjamanController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::post('/setujui-pengajuan-pinjaman/{id}', [SubPengajuanPinjamanController::class, 'setujuiPinjaman'])->name('setujui-pengajuan-pinjaman');
     Route::post('/tolak-pengajuan-pinjaman/{id}', [SubPengajuanPinjamanController::class, 'tolakPinjaman'])->name('tolak-pengajuan-pinjaman');
+    Route::get('pengajuan-pinjaman/detail/{id}', [SubPengajuanPinjamanController::class, 'detail'])->name('detail-pengajuan-pinjaman');
     Route::resource('pinjaman', SubPinjamanController::class)->only(['index']);
     Route::resource('angsuran', SubAngsuranController::class)->only(['index', 'edit', 'update']);
     Route::resource('pengajuan-unit-konsumsi', SubPengajuanUnitKonsumsiController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
@@ -116,7 +118,7 @@ Route::prefix('pengurus')->as('pengurus.')->middleware('pengurus', 'no-cache')->
     Route::resource('unit-konsumsi', SubUnitKonsumsiController::class)->only(['index']);
     Route::resource('angsuran-unit-konsumsi', SubAngsuranUnitKonsumsiController::class)->only(['index', 'edit', 'update']);
     Route::resource('riwayat-transaksi', SubRiwayatTransaksiController::class)->only(['index']);
-    Route::get('/detail-riwayat-transaksi/{id}', [SubRiwayatTransaksiController::class, 'detail'])->name('detail-riwayat-transaksi');
+    Route::get('riwayat-transaksi/detail/{id}', [SubRiwayatTransaksiController::class, 'detail'])->name('detail-riwayat-transaksi');
     Route::resource('profile', SubProfileController::class)->only(['index', 'update']);
     Route::resource('anggota', SubAnggotaController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::post('/logout-pengurus', [AuthController::class, 'logoutPengurus'])->name('logout');

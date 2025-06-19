@@ -54,7 +54,7 @@ class PengajuanPinjamanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'pengurus_id' => 'required',
+            'requested_by' => 'required',
             'anggota_id' => 'required',
             'jumlah_pinjaman' => 'required',
             'lama_angsuran' => 'required',
@@ -79,7 +79,7 @@ class PengajuanPinjamanController extends Controller
         PengajuanPinjaman::create([
             'anggota_id' => $request->anggota_id,
             'nama_anggota' => $nama,
-            'pengurus_id' => $request->pengurus_id,
+            'requested_by' => $request->requested_by,
             'jumlah_pinjaman' => $jumlah_pinjaman,
             'lama_angsuran' => $lama_angsuran . ' bulan',
             'nominal_pokok' => $nominal_pokok,
@@ -136,7 +136,7 @@ class PengajuanPinjamanController extends Controller
         $pengajuanPinjaman = PengajuanPinjaman::findOrFail($id);
 
         $request->validate([
-            'pengurus_id' => 'required',
+            'requested_by' => 'required',
             'anggota_id' => 'required',
             'jumlah_pinjaman' => 'required',
             'lama_angsuran' => 'required',
@@ -163,7 +163,7 @@ class PengajuanPinjamanController extends Controller
         $pengajuanPinjaman->update([
             'anggota_id' => $request->anggota_id,
             'nama_anggota' => $nama,
-            'pengurus_id' => $request->pengurus_id,
+            'requested_by' => $request->requested_by,
             'jumlah_pinjaman' => $jumlah_pinjaman,
             'lama_angsuran' => $lama_angsuran . ' bulan',
             'nominal_pokok' => $nominal_pokok,
@@ -204,6 +204,8 @@ class PengajuanPinjamanController extends Controller
     public function setujuiPinjaman($id)
     {
         $pengajuanPinjaman = PengajuanPinjaman::find($id);
+        
+        $reviewedBy = auth()->guard('pengurus')->user()->nama;
 
         if (!$pengajuanPinjaman) {
             return back()->with(['error' => 'Pinjaman tidak ditemukan']);
@@ -365,9 +367,9 @@ class PengajuanPinjamanController extends Controller
             ]);
         }
         
-
         $pengajuanPinjaman->update([
-            'status' => 'disetujui'
+            'reviewed_by' => $reviewedBy,
+            'status' => 'disetujui',
         ]);
 
         return back()->with('success', 'Pengajuan Pinjaman berhasil disetujui');
@@ -389,6 +391,8 @@ class PengajuanPinjamanController extends Controller
     {
         $pengajuanPinjaman = PengajuanPinjaman::find($id);
 
+        $reviewedBy = auth()->guard('pengurus')->user()->nama;
+
         if (!$pengajuanPinjaman) {
             return back()->with(['error' => 'Pinjaman tidak ditemukan']);
         }
@@ -398,9 +402,17 @@ class PengajuanPinjamanController extends Controller
         }
 
         $pengajuanPinjaman->update([
-            'status' => 'ditolak'
+            'status' => 'ditolak',
+            'reviewed_by' => $reviewedBy
         ]);
 
         return back()->with('success', 'Pengajuan Pinjaman berhasil ditolak');
+    }
+
+    public function detail($id)
+    {
+        $pengajuanPinjaman = PengajuanPinjaman::findOrFail($id);
+
+        return view('pengurus.pengajuan-pinjaman.detail-pengajuan-pinjaman', compact('pengajuanPinjaman'));
     }
 }

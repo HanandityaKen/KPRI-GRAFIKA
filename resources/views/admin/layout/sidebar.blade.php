@@ -1,4 +1,4 @@
-<div class="w-56 bg-[#00B451] h-screen p-4 fixed-sidebar text-sm no-scrollbar">
+<div class="w-56 bg-[#00B451] h-screen p-4 fixed-sidebar text-sm no-scrollbar z-20">
   <!-- Logo and Brand -->
   <div class="flex items-center mt-2 mb-6">
     <img src="{{ asset('storage/logo-koperasi/' . $logoKoperasi->logo) }}" class="w-[40px] ml-1" alt="Logo" />

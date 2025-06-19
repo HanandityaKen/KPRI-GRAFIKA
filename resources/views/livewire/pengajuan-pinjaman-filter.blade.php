@@ -40,22 +40,138 @@
                             <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Ditolak</span>
                             @endif
                         </td>
-                        <td class="whitespace-nowrap">
-                            @if ($pengajuanPinjaman->status == 'menunggu')   
-                                <form action="{{ route('admin.setujui-pengajuan-pinjaman', $pengajuanPinjaman->id) }}" method="POST" class="inline">
-                                    @csrf
-                                    <button type="submit" class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
-                                        Disetujui
-                                    </button>
-                                </form>
-                            
-                                <form action="{{ route('admin.tolak-pengajuan-pinjaman', $pengajuanPinjaman->id) }}" method="POST" class="inline">
-                                    @csrf
-                                    <button type="submit" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-500 ml-2">
-                                        Ditolak
-                                    </button>
-                                </form>
+                        <td class="p-3 whitespace-nowrap">
+                            @if ($pengajuanPinjaman->status == 'menunggu')
+                                <button data-modal-target="setujui-modal-{{ $pengajuanPinjaman->id }}" data-modal-toggle="setujui-modal-{{ $pengajuanPinjaman->id }}" class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900" type="button">
+                                    Disetujui
+                                </button>
+
+                                {{-- setujui modal --}}
+                                <div id="setujui-modal-{{ $pengajuanPinjaman->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-gray-900 bg-opacity-40">
+                                    <div class="relative p-4 w-full max-w-md max-h-full">
+                                        <!-- Modal content -->
+                                        <div class="relative bg-white rounded-lg shadow-xl">
+                                            <!-- Modal header -->
+                                            <div class="flex items-center justify-between p-5 border-b border-gray-200">
+                                                <h3 class="text-xl font-semibold text-gray-900">
+                                                    Persetujuan Pinjaman
+                                                </h3>
+                                                <button type="button" class="text-gray-400 hover:bg-gray-100 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-hide="setujui-modal-{{ $pengajuanPinjaman->id }}">
+                                                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                    </svg>
+                                                    <span class="sr-only">Close modal</span>
+                                                </button>
+                                            </div>
+                                            
+                                            <form id="form-setujui" action="{{ route('admin.setujui-pengajuan-pinjaman', $pengajuanPinjaman->id) }}" method="POST" class="inline">
+                                                @csrf
+                                                <!-- Modal body -->
+                                                <div class="p-6 space-y-4">
+                                                    <div>
+                                                        <label class="block mb-2 text-sm font-medium text-gray-700">Disetujui Oleh</label>
+                                                        <select id="select_nama_setujui" name="reviewed_by" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 transition duration-200" required>
+                                                            <option value="" disabled selected>Pilih Nama</option>
+                                                            @foreach ($anggotaList as $id => $nama)
+                                                                <option value="{{ $nama }}" {{ old('anggota_id') == $nama ? 'selected' : '' }}>{{ $nama }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    
+                                                    <div class="flex items-start gap-3 p-4 bg-blue-50 rounded-lg border border-blue-100 text-sm text-blue-800">
+                                                        <svg class="w-5 h-5 mt-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                                        </svg>
+                                                        <p class="text-sm whitespace-normal leading-relaxed">Pastikan data pinjaman sudah benar sebelum menyetujui</p>
+                                                    </div>
+                                            
+                                                </div>
+                                                
+                                                <!-- Modal footer -->
+                                                <div class="flex items-center justify-end p-6 pt-0 space-x-3 border-t border-gray-200 rounded-b">
+                                                    <div class="mt-3">
+                                                        <button data-modal-hide="setujui-modal-{{ $pengajuanPinjaman->id }}" type="button" class="px-5 py-2.5 text-sm font-medium text-gray-700 bg-white hover:bg-gray-100 border border-gray-300 rounded-lg focus:outline-none transition duration-200">
+                                                            Batal
+                                                        </button>
+                                                        <button type="submit" class="px-5 py-2.5 text-sm font-medium text-white bg-green-800 hover:bg-green-900 rounded-lg transition duration-200">
+                                                            Setujui Pinjaman
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button data-modal-target="tolak-modal-{{ $pengajuanPinjaman->id }}" data-modal-toggle="tolak-modal-{{ $pengajuanPinjaman->id }}" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-500" type="button">
+                                    Ditolak
+                                </button>
+
+                                {{-- tolak modal --}}
+                                <div id="tolak-modal-{{ $pengajuanPinjaman->id }}" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full bg-gray-900 bg-opacity-40">
+                                    <div class="relative p-4 w-full max-w-md max-h-full">
+                                        <!-- Modal content -->
+                                        <div class="relative bg-white rounded-lg shadow-xl">
+                                            <!-- Modal header -->
+                                            <div class="flex items-center justify-between p-5 border-b border-gray-200">
+                                                <h3 class="text-xl font-semibold text-gray-900">
+                                                    Penolakan Pinjaman
+                                                </h3>
+                                                <button type="button" class="text-gray-400 hover:bg-gray-100 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-hide="tolak-modal-{{ $pengajuanPinjaman->id }}">
+                                                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                    </svg>
+                                                    <span class="sr-only">Close modal</span>
+                                                </button>
+                                            </div>
+                                            
+                                            <form id="form-tolak" action="{{ route('admin.tolak-pengajuan-pinjaman', $pengajuanPinjaman->id) }}" method="POST" class="inline">
+                                                @csrf
+                                                <!-- Modal body -->
+                                                <div class="p-6 space-y-4">
+                                                    <div>
+                                                        <label class="block mb-2 text-sm font-medium text-gray-700">Ditolak Oleh</label>
+                                                        <select id="select_nama_tolak" name="reviewed_by" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 transition duration-200" required>
+                                                            <option value="" disabled selected>Pilih Nama</option>
+                                                            @foreach ($anggotaList as $id => $nama)
+                                                                <option value="{{ $nama }}" {{ old('anggota_id') == $nama ? 'selected' : '' }}>{{ $nama }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    
+                                                    <div class="flex items-start gap-3 p-4 bg-blue-50 rounded-lg border border-blue-100 text-sm text-blue-800">
+                                                        <svg class="w-5 h-5 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                                        </svg>
+                                                        <p class="text-sm whitespace-normal leading-relaxed">Pastikan data pinjaman sudah benar</p>
+                                                    </div>
+                                            
+                                                </div>
+                                                
+                                                <!-- Modal footer -->
+                                                <div class="flex items-center justify-end p-6 pt-0 space-x-3 border-t border-gray-200 rounded-b">
+                                                    <div class="mt-3">
+                                                        <button data-modal-hide="tolak-modal-{{ $pengajuanPinjaman->id }}" type="button" class="px-5 py-2.5 text-sm font-medium text-gray-700 bg-white hover:bg-gray-100 border border-gray-300 rounded-lg focus:outline-none transition duration-200">
+                                                            Batal
+                                                        </button>
+                                                        <button type="submit" class="px-5 py-2.5 text-sm font-medium text-white bg-red-500 hover:bg-red-500 rounded-lg transition duration-200">
+                                                            Tolak Pinjaman
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             @endif
+
+                            <a href="{{ route('admin.detail-pengajuan-pinjaman', $pengajuanPinjaman->id) }}">
+                                <button class="px-3 py-1 bg-blue-700 text-white rounded hover:bg-blue-600">
+                                    Detail
+                                </button>
+                            </a>
                         </td>
                     </tr>
                 @empty
@@ -68,5 +184,32 @@
     </div>
     <div class="mt-3 pl-2 pr-4">
         {{ $pengajuanPinjamans->links() }}
-    </div>        
+    </div>
 </div>
+@push('scripts')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            new TomSelect("#select_nama_setujui", {
+                create: false,
+                sortField: {
+                    field: "text",
+                    direction: "asc"
+                },
+                openOnFocus: true,
+                maxOptions: 10,
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", function() {
+            new TomSelect("#select_nama_tolak", {
+                create: false,
+                sortField: {
+                    field: "text",
+                    direction: "asc"
+                },
+                openOnFocus: true,
+                maxOptions: 10,
+            });
+        });
+    </script>
+@endpush

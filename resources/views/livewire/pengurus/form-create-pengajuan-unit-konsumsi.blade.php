@@ -13,6 +13,7 @@
                     @endforeach
                 </select>
             </div>
+            <p class="text-red-500 text-xs mt-1">{{ $error_proses_pengajuan_unit_konsumsi }}</p>
             @if($unitKonsumsiAktif)
                     <p class="text-red-500 text-xs mt-1">* Anggota ini memiliki angsuran yang belum selesai.</p>
             @endif

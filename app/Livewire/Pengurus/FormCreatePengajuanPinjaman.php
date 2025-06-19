@@ -35,6 +35,8 @@ class FormCreatePengajuanPinjaman extends Component
     public $biaya_admin = '';
     public $total_pinjaman = '';
     public $pinjamanAktif = false;
+    public $error_proses_pengajuan_pinjaman = '';
+    public $disabled_proses_pengajuan_pinjaman = false;
     public $error_lama_angsuran = '';
     public $disabled_lama_angsuran = false;
     public $error_jumlah_pinjaman = '';
@@ -176,15 +178,24 @@ class FormCreatePengajuanPinjaman extends Component
     public function updatedAnggotaId()
     {
         if ($this->anggota_id) {
+            $pengajuanTerbaru = PengajuanPinjaman::where('anggota_id', $this->anggota_id)
+                ->where('status', 'menunggu')
+                ->orderBy('created_at', 'desc')
+                ->first();
+
+            if ($pengajuanTerbaru) {
+                $this->error_proses_pengajuan_pinjaman = '* Anggota ini memiliki pengajuan pinjaman yang belum diproses.';
+                $this->disabled_proses_pengajuan_pinjaman = true;
+            } else {
+                $this->error_proses_pengajuan_pinjaman = '';
+                $this->disabled_proses_pengajuan_pinjaman = false;
+            }
+
             $this->pinjamanAktif = Pinjaman::whereHas('pengajuan_pinjaman', function ($query) {
                     $query->where('anggota_id', $this->anggota_id);
                 })
                 ->where('status', 'dalam pembayaran')
                 ->exists();
-
-            $pengajuanPinjaman = PengajuanPinjaman::where('anggota_id', $this->anggota_id)
-                ->orderBy('created_at', 'desc')
-                ->value('total_pinjaman');
 
             $kurangAngsuran = Angsuran::whereHas('pinjaman.pengajuan_pinjaman', function ($query) {
                 $query->where('anggota_id', $this->anggota_id);
@@ -202,6 +213,7 @@ class FormCreatePengajuanPinjaman extends Component
         }
 
         $this->resetPerhitungan();
+        $this->disabled();
     }
 
     /**
@@ -210,7 +222,7 @@ class FormCreatePengajuanPinjaman extends Component
      */
     public function disabled()
     {
-        if ($this->disabled_lama_angsuran) {
+        if ($this->disabled_lama_angsuran || $this->disabled_proses_pengajuan_pinjaman) {
             $this->disabled = true;
         } else {
             $this->disabled = false;

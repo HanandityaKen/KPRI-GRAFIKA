@@ -5,6 +5,7 @@ namespace App\Livewire\Pengurus;
 use Livewire\Component;
 use App\Models\Anggota;
 use App\Models\Persentase;
+use App\Models\PengajuanUnitKonsumsi;
 use App\Models\UnitKonsumsi;
 
 /**
@@ -33,6 +34,8 @@ class FormCreatePengajuanUnitKonsumsi extends Component
     public $unitKonsumsiAktif = false;
     public $disabled_lama_angsuran = false;
     public $error_lama_angsuran = '';
+    public $error_proses_pengajuan_unit_konsumsi = '';
+    public $disabled_proses_pengajuan_unit_konsumsi = false;
     public $disabled = false;
 
     /**
@@ -130,6 +133,19 @@ class FormCreatePengajuanUnitKonsumsi extends Component
     public function updatedAnggotaId()
     {
         if ($this->anggota_id) {
+            $pengajuanTerbaru = PengajuanUnitKonsumsi::where('anggota_id', $this->anggota_id)
+                ->where('status', 'menunggu')
+                ->orderBy('created_at', 'desc')
+                ->first();
+
+            if ($pengajuanTerbaru) {
+                $this->error_proses_pengajuan_unit_konsumsi = '* Anggota ini memiliki pengajuan unit konsumsi yang belum diproses.';
+                $this->disabled_proses_pengajuan_unit_konsumsi = true;
+            } else {
+                $this->error_proses_pengajuan_unit_konsumsi = '';
+                $this->disabled_proses_pengajuan_unit_konsumsi = false;
+            }
+
             $this->unitKonsumsiAktif = UnitKonsumsi::whereHas('pengajuan_unit_konsumsi', function ($query) {
                     $query->where('anggota_id', $this->anggota_id);
                 })
@@ -165,7 +181,7 @@ class FormCreatePengajuanUnitKonsumsi extends Component
      */
     public function disabled()
     {
-        if ($this->unitKonsumsiAktif || $this->error_nominal || $this->error_lama_angsuran) {
+        if ($this->unitKonsumsiAktif || $this->error_nominal || $this->error_lama_angsuran || $this->disabled_proses_pengajuan_unit_konsumsi) {
             $this->disabled = true;
         } else {
             $this->disabled = false;

@@ -79,6 +79,7 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::resource('pengajuan-unit-konsumsi', PengajuanUnitKonsumsiController::class)->only(['index']);
     Route::post('/setujui-pengajuan-unit-konsumsi/{id}', [PengajuanUnitKonsumsiController::class, 'setujuiUnitKonsumsi'])->name('setujui-pengajuan-unit-konsumsi');
     Route::post('/tolak-pengajuan-unit-konsumsi/{id}', [PengajuanUnitKonsumsiController::class, 'tolakUnitKonsumsi'])->name('tolak-pengajuan-unit-konsumsi');
+    Route::get('pengajuan-unit-konsumsi/detail/{id}', [PengajuanUnitKonsumsiController::class, 'detail'])->name('detail-pengajuan-unit-konsumsi');
     Route::resource('unit-konsumsi', UnitKonsumsiController::class)->only(['index']);
     Route::resource('angsuran-unit-konsumsi', AngsuranUnitKonsumsiController::class)->only(['index', 'edit', 'update']);
     Route::resource('riwayat-transaksi', RiwayatTransaksiController::class)->only(['index']);
@@ -115,6 +116,7 @@ Route::prefix('pengurus')->as('pengurus.')->middleware('pengurus', 'no-cache')->
     Route::resource('pengajuan-unit-konsumsi', SubPengajuanUnitKonsumsiController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::post('/setujui-pengajuan-unit-konsumsi/{id}', [SubPengajuanUnitKonsumsiController::class, 'setujuiUnitKonsumsi'])->name('setujui-pengajuan-unit-konsumsi');
     Route::post('/tolak-pengajuan-unit-konsumsi/{id}', [SubPengajuanUnitKonsumsiController::class, 'tolakUnitKonsumsi'])->name('tolak-pengajuan-unit-konsumsi');
+    Route::get('pengajuan-unit-konsumsi/detail/{id}', [SubPengajuanUnitKonsumsiController::class, 'detail'])->name('detail-pengajuan-unit-konsumsi');
     Route::resource('unit-konsumsi', SubUnitKonsumsiController::class)->only(['index']);
     Route::resource('angsuran-unit-konsumsi', SubAngsuranUnitKonsumsiController::class)->only(['index', 'edit', 'update']);
     Route::resource('riwayat-transaksi', SubRiwayatTransaksiController::class)->only(['index']);

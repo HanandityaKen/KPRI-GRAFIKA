@@ -44,9 +44,15 @@ class PengajuanUnitKonsumsiController extends Controller
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function setujuiUnitKonsumsi($id)
+    public function setujuiUnitKonsumsi(Request $request, $id)
     {
+        $request->validate([
+            'reviewed_by' => 'required',
+        ]);
+
         $pengajuanUnitKonsumsi = PengajuanUnitKonsumsi::find($id);
+
+        $reviewedBy = $request->reviewed_by;
 
         if (!$pengajuanUnitKonsumsi) {
             return back()->with(['error' => 'Unit Konsumsi tidak ditemukan']);
@@ -130,7 +136,8 @@ class PengajuanUnitKonsumsiController extends Controller
         ]);
 
         $pengajuanUnitKonsumsi->update([
-            'status' => 'disetujui'
+            'reviewed_by' => $reviewedBy,
+            'status' => 'disetujui',
         ]);
 
         return back()->with('success', 'Pengajuan Unit Konsumsi berhasil disetujui');
@@ -148,9 +155,15 @@ class PengajuanUnitKonsumsiController extends Controller
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function tolakUnitKonsumsi($id)
+    public function tolakUnitKonsumsi(Request $request, $id)
     {
+        $request->validate([
+            'reviewed_by' => 'required',
+        ]);
+
         $pengajuanUnitKonsumsi = PengajuanUnitKonsumsi::find($id);
+
+        $reviewedBy = $request->reviewed_by;
 
         if (!$pengajuanUnitKonsumsi) {
             return back()->with(['error' => 'Unit Konsumsi tidak ditemukan']);
@@ -161,9 +174,17 @@ class PengajuanUnitKonsumsiController extends Controller
         }
 
         $pengajuanUnitKonsumsi->update([
-            'status' => 'ditolak'
+            'reviewed_by' => $reviewedBy,
+            'status' => 'ditolak',
         ]);
 
         return back()->with('success', 'Pengajuan Unit Konsumsi berhasil ditolak');
+    }
+
+    public function detail($id)
+    {
+        $pengajuanUnitKonsumsi = PengajuanUnitKonsumsi::find($id);
+
+        return view('admin.pengajuan-unit-konsumsi.detail-pengajuan-unit-konsumsi', compact('pengajuanUnitKonsumsi'));
     }
 }

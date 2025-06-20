@@ -13,7 +13,7 @@
             </div>
             <input type="text" wire:model.live="search" class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-green-500 focus:border-green-500" placeholder="Search">
         </div>
-        @if ($bendahara || $pembantu_umum || $pengawas)    
+        @if ($bendahara || $pembantu_umum)    
             <a href="{{ route('pengurus.pengajuan-unit-konsumsi.create') }}" wire:ignore class="bg-green-800 text-white py-2 px-4 rounded-md flex items-center ml-4">
                 <i data-lucide="plus" class="mr-2"></i>
                 Tambah Pengajuan Unit Konsumsi
@@ -97,6 +97,12 @@
                                         </button>
                                     </form>
                                 @endif
+
+                                <a href="{{ route('pengurus.detail-pengajuan-unit-konsumsi', $pengajuanUnitKonsumsi->id) }}">
+                                    <button class="px-3 py-1 bg-blue-700 text-white rounded hover:bg-blue-600">
+                                        Detail
+                                    </button>
+                                </a>
                             @endif
                         </td>
                     </tr>

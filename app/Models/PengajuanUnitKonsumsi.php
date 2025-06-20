@@ -11,14 +11,15 @@ class PengajuanUnitKonsumsi extends Model
     protected $fillable = [
         'anggota_id',
         'nama_anggota',
-        'pengurus_id',
         'nama_barang',
         'nominal',
         'lama_angsuran',
         'nominal_bunga',
         'nominal_pokok',
         'jumlah_nominal',
-        'status'
+        'requested_by',
+        'status',
+        'reviewed_by',
     ];
 
     public function anggota()

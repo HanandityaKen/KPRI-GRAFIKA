@@ -30,8 +30,14 @@ class PengajuanUnitKonsumsiFilter extends Component
      * @var string
      */
     public $search = '';
+    public $anggotaList = [];
 
     protected $paginationTheme = 'tailwind';
+
+    public function mount()
+    {
+        $this->anggotaList = Anggota::where('posisi', 'pengurus')->pluck('nama', 'id')->toArray();
+    }
 
     /**
      * Mereset halaman ke halaman pertama saat pencarian diperbarui.

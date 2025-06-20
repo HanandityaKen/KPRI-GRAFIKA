@@ -2,7 +2,7 @@
     <form action="{{ route('pengurus.pengajuan-unit-konsumsi.update', $pengajuanUnitKonsumsi->id) }}" method="POST">
         @csrf
         @method('PUT')
-        <input type="hidden" name="pengurus_id" value="{{ auth()->guard('pengurus')->user()->id }}"/>
+        <input type="hidden" name="requested_by" value="{{ auth()->guard('pengurus')->user()->nama }}"/>
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Nama</label>
             <div wire:ignore>

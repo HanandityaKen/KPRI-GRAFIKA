@@ -54,8 +54,8 @@ class PengajuanUnitKonsumsiController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'requested_by' => 'required',
             'anggota_id' => 'required',
-            'pengurus_id' => 'required',
             'nama_barang' => 'required',
             'nominal' => 'required',
             'lama_angsuran' => 'required',
@@ -76,7 +76,7 @@ class PengajuanUnitKonsumsiController extends Controller
         PengajuanUnitKonsumsi::create([
             'anggota_id' => $request->anggota_id,
             'nama_anggota' => $nama,
-            'pengurus_id' => $request->pengurus_id,
+            'requested_by' => $request->requested_by,
             'nama_barang' => $request->nama_barang,
             'nominal' => $nominal,
             'lama_angsuran' => $lama_angsuran . ' bulan',
@@ -128,7 +128,7 @@ class PengajuanUnitKonsumsiController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'pengurus_id' => 'required',
+            'requested_by' => 'required',
             'anggota_id' => 'required',
             'nama_barang' => 'required',
             'nominal' => 'required',
@@ -152,7 +152,7 @@ class PengajuanUnitKonsumsiController extends Controller
         $pengajuanUnitKonsumsi->update([
             'anggota_id' => $request->anggota_id,
             'nama_anggota' => $nama,
-            'pengurus_id' => $request->pengurus_id,
+            'requested_by' => $request->requested_by,
             'nama_barang' => $request->nama_barang,
             'nominal' => $nominal,
             'lama_angsuran' => $lama_angsuran . ' bulan',
@@ -192,6 +192,8 @@ class PengajuanUnitKonsumsiController extends Controller
     public function setujuiUnitKonsumsi($id)
     {
         $pengajuanUnitKonsumsi = PengajuanUnitKonsumsi::find($id);
+
+        $reviewedBy = auth()->guard('pengurus')->user()->nama;
 
         if (!$pengajuanUnitKonsumsi) {
             return back()->with(['error' => 'Unit Konsumsi tidak ditemukan']);
@@ -275,7 +277,8 @@ class PengajuanUnitKonsumsiController extends Controller
         ]);
 
         $pengajuanUnitKonsumsi->update([
-            'status' => 'disetujui'
+            'reviewed_by' => $reviewedBy,
+            'status' => 'disetujui',
         ]);
 
         return back()->with('success', 'Pengajuan Unit Konsumsi berhasil disetujui');
@@ -297,6 +300,8 @@ class PengajuanUnitKonsumsiController extends Controller
     {
         $pengajuanUnitKonsumsi = PengajuanUnitKonsumsi::find($id);
 
+        $reviewedBy = auth()->guard('pengurus')->user()->nama;
+
         if (!$pengajuanUnitKonsumsi) {
             return back()->with(['error' => 'Unit Konsumsi tidak ditemukan']);
         }
@@ -306,9 +311,17 @@ class PengajuanUnitKonsumsiController extends Controller
         }
 
         $pengajuanUnitKonsumsi->update([
-            'status' => 'ditolak'
+            'status' => 'ditolak',
+            'reviewed_by' => $reviewedBy,
         ]);
 
         return back()->with('success', 'Pengajuan Unit Konsumsi berhasil ditolak');
+    }
+
+    public function detail($id)
+    {
+        $pengajuanUnitKonsumsi = PengajuanUnitKonsumsi::find($id);
+
+        return view('pengurus.pengajuan-unit-konsumsi.detail-pengajuan-unit-konsumsi', compact('pengajuanUnitKonsumsi'));
     }
 }

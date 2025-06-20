@@ -71,6 +71,10 @@ class AngsuranUnitKonsumsiController extends Controller
 
         $bayarJasa = intval(str_replace(['Rp', '.', ' '], '', $request->jasa ?? '0'));
 
+        if ($bayarAngsuran === 0 && $bayarJasa === 0) {
+            return back()->withErrors(['error' => 'Angsuran dan jasa tidak boleh 0!'])->withInput();
+        }
+
         $angsuranUnitKonsumsi = AngsuranUnitKonsumsi::findOrFail($id);
 
         $anggota_id = $angsuranUnitKonsumsi->unit_konsumsi->pengajuan_unit_konsumsi->anggota_id;

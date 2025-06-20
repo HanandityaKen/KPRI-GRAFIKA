@@ -69,9 +69,12 @@ class AngsuranController extends Controller
             $clean = str_replace(['Rp', ' ', ','], '', $angsuranInput);
             $bayarAngsuran = intval(floatval($clean));
         }
-        
 
         $bayarJasa = intval(str_replace(['Rp', '.', ' '], '', $request->jasa ?? '0'));
+
+        if ($bayarAngsuran === 0 && $bayarJasa === 0) {
+            return back()->withErrors(['error' => 'Angsuran dan jasa tidak boleh 0!'])->withInput();
+        }
 
         $angsuran = Angsuran::findOrFail($id);
 

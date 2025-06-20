@@ -19,7 +19,14 @@ class UnitKonsumsiDashboardAdmin extends Component
 {
     use WithPagination, WithoutUrlPagination;
 
+    public $anggotaList = [];
+
     protected $paginationTheme = 'tailwind';
+
+    public function mount()
+    {
+        $this->anggotaList = Anggota::where('posisi', 'pengurus')->pluck('nama', 'id')->toArray();
+    }
 
     /**
      * Render daftar pengajuan unit konsumsi yang masih berstatus "menunggu".

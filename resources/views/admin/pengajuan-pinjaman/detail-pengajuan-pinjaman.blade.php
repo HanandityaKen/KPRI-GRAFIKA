@@ -22,7 +22,7 @@
                 <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                 </svg>
-                <a href="{{ route('admin.pengajuan-pinjaman.index') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Riwayat Transaksi</a>
+                <a href="{{ route('admin.pengajuan-pinjaman.index') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Pengajuan Pinjaman</a>
               </div>
             </li>
             <li>
@@ -30,7 +30,7 @@
                 <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
                 </svg>
-                <a href="{{ route('admin.detail-pengajuan-pinjaman', $pengajuanPinjaman->id) }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Detail Riwayat Transaksi</a>
+                <a href="{{ route('admin.detail-pengajuan-pinjaman', $pengajuanPinjaman->id) }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Detail Pengajuan Pinjaman</a>
               </div>
             </li>
           </ol>
@@ -38,7 +38,7 @@
       </div>
 
       <div class="flex justify-between items-center mb-6">
-        <h1 class="text-xl font-bold">Detail Riwayat Tansaksi</h1>
+        <h1 class="text-xl font-bold">Detail Pengajuan Pinjaman</h1>
       </div>
 
       <div>

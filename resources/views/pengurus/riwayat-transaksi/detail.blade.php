@@ -70,7 +70,33 @@
           </div>
         @endif
       @endforeach
-    
-    </div>
+          
+      @if ($riwayatTransaksi->jenis_transaksi === 'kas keluar' && $riwayatTransaksi->keterangan == 'Pinjaman')    
+        <hr class="my-2 border-t-[1px] border-green-800 opacity-20 mb-3"/>
 
+        <div class="grid grid-cols-2 gap-4">
+          <div class="mb-3">
+            <label class="block mb-1 text-sm font-medium text-gray-900">Diajukan Oleh</label>
+            <input type="text" id="requested_by" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Pengurus yang mengajukan" value="{{ $riwayatTransaksi->pinjaman->pengajuan_pinjaman->requested_by }}" readonly/>
+          </div>
+          <div class="mb-3">
+              <label class="block mb-1 text-sm font-medium text-gray-900">Disetujui Oleh</label>
+              <input type="text" id="reviewed_by" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Pengurus yang menyesetujui" value="{{ $riwayatTransaksi->pinjaman->pengajuan_pinjaman->reviewed_by }}" readonly/>
+          </div>
+        </div>
+      @elseif ($riwayatTransaksi->jenis_transaksi === 'kas keluar' && $riwayatTransaksi->keterangan == 'Unit atau Barang Konsumsi')
+        <hr class="my-2 border-t-[1px] border-green-800 opacity-20 mb-3"/>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div class="mb-3">
+            <label class="block mb-1 text-sm font-medium text-gray-900">Diajukan Oleh</label>
+            <input type="text" id="requested_by" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Pengurus yang mengajukan" value="{{ $riwayatTransaksi->unit_konsumsi->pengajuan_unit_konsumsi->requested_by }}" readonly/>
+          </div>
+          <div class="mb-3">
+              <label class="block mb-1 text-sm font-medium text-gray-900">Disetujui Oleh</label>
+              <input type="text" id="reviewed_by" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Pengurus yang menyesetujui" value="{{ $riwayatTransaksi->unit_konsumsi->pengajuan_unit_konsumsi->reviewed_by }}" readonly/>
+          </div>
+        </div>
+      @endif
+    </div>
 @endsection

@@ -209,6 +209,10 @@ class PengajuanPinjamanController extends Controller
                 'kas_harian_id' => $kasHarianKeluar->id,
                 'status' => 'dalam pembayaran'
             ]);
+
+            $kasHarianKeluar->update([
+                'pinjaman_id' => $pinjaman->id
+            ]);
             
             Angsuran::create([
                 'pinjaman_id' => $pinjaman->id,

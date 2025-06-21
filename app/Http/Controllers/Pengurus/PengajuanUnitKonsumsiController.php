@@ -267,6 +267,10 @@ class PengajuanUnitKonsumsiController extends Controller
             'status' => 'dalam pembayaran'
         ]);
 
+        $kasHarian->update([
+            'unit_konsumsi_id' => $unitKonsumsi->id
+        ]);
+
         $lama_angsuran = (int) preg_replace('/[^0-9]/', '', $pengajuanUnitKonsumsi->lama_angsuran);
 
         AngsuranUnitKonsumsi::create([

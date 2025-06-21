@@ -110,6 +110,8 @@ class AnggotaController extends Controller
 
         $user = Anggota::findOrFail($id);
 
+        $oldName = $user->nama;
+
         $user->no_anggota = $request->input('no_anggota');
         $user->nama = $request->input('nama');
         $user->jenis_pegawai = $request->input('jenis_pegawai');
@@ -135,6 +137,14 @@ class AnggotaController extends Controller
         PengajuanUnitKonsumsi::where('anggota_id', $user->id)->update([
             'nama_anggota' => $user->nama
         ]);
+
+        if ($oldName !== $user->nama) {
+            PengajuanPinjaman::where('reviewed_by', $oldName)->update(['reviewed_by' => $user->nama]);
+            PengajuanPinjaman::where('requested_by', $oldName)->update(['requested_by' => $user->nama]);
+        
+            PengajuanUnitKonsumsi::where('reviewed_by', $oldName)->update(['reviewed_by' => $user->nama]);
+            PengajuanUnitKonsumsi::where('requested_by', $oldName)->update(['requested_by' => $user->nama]);
+        }
 
         // Perbarui tabel simpanan dengan nama anggota yang baru
         Simpanan::where('anggota_id', $user->id)->update([

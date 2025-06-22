@@ -9,6 +9,7 @@ export default {
         './resources/**/*.js',
         './resources/**/*.vue',
     ],
+    darkMode: 'class', // aktifkan mode gelap manual via class
     theme: {
         extend: {
             fontFamily: {

@@ -46,28 +46,184 @@
             <label class="block mb-1 text-sm font-medium text-gray-900">Lain-Lain</label>
             <input wire:model.live="lain_lain" type="text" id="lain-lain" name="lain_lain" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Lain-Lain" inputmode="numeric" value="{{ old('lain_lain') }}" />
         </div>
-        @if ($bendahara)
-            <div class="mb-4">
-                <label class="block mb-1 text-sm font-medium text-gray-900">Beban Umum</label>
-                <input wire:model.live="b_umum" type="text" id="b_umum" name="b_umum" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Beban Umum" inputmode="numeric" value="{{ old('b_umum') }}" />
+        <div class="{{ $bendahara ? '' : 'hidden' }}">
+            {{-- Accordion --}}
+            <div wire:ignore class="mb-4">
+                <div id="accordion-collapse" data-accordion="open">
+                    <!-- Accordion Item 1 -->
+                    <div class="rounded-lg">
+                        <h2 id="accordion-collapse-heading-2">
+                        <button type="button" 
+                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 rounded-t-lg border border-gray-200 hover:bg-gray-100 transition-all duration-200" 
+                            data-accordion-target="#accordion-collapse-body-2" 
+                            aria-expanded="false" 
+                            aria-controls="accordion-collapse-body-2">
+                            <span class="flex items-center text-sm text-gray-900">
+                                Beban Umum
+                            </span>
+                            <div class="pr-0.5">
+                                <svg data-accordion-icon class="w-4 h-4 shrink-0 transition-transform duration-200 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        </h2>
+                        <div id="accordion-collapse-body-2" class="hidden" aria-labelledby="accordion-collapse-heading-2">
+                            <div class="p-5 border border-t-0 border-gray-200 bg-white">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="hari_lembur" class="block mb-2 text-sm font-medium text-gray-900">Hari Lembur</label>
+                                    <input wire:model.live="hari_lembur" type="text" id="hari_lembur" name="hari_lembur" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Hari Lembur" inputmode="numeric" value="{{ old('hari_lembur') }}" />
+                                </div>
+                                <div>
+                                    <label for="perjalanan_pengawas" class="block mb-2 text-sm font-medium text-gray-900">Perjalanan Pengawas</label>
+                                    <input wire:model.live="perjalanan_pengawas" type="text" id="perjalanan_pengawas" name="perjalanan_pengawas" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Perjalanan Pengawas" inputmode="numeric" value="{{ old('perjalanan_pengawas') }}" />
+                                </div>
+                                <div>
+                                    <label for="thr" class="block mb-2 text-sm font-medium text-gray-900">THR</label>
+                                    <input wire:model.live="thr" type="text" id="thr" name="thr" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal THR" inputmode="numeric" value="{{ old('thr') }}" />
+                                </div>
+                                <div>
+                                    <label for="admin" class="block mb-2 text-sm font-medium text-gray-900">Admin</label>
+                                    <input wire:model.live="admin" type="text" id="admin" name="admin" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Admin" inputmode="numeric" value="{{ old('admin') }}" />
+                                </div>
+                                <div>
+                                    <label for="iuran_dekopinda" class="block mb-2 text-sm font-medium text-gray-900">Iuran Dekopinda</label>
+                                    <input wire:model.live="iuran_dekopinda" type="text" id="iuran_dekopinda" name="iuran_dekopinda" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Iuran Dekopinda" inputmode="numeric" value="{{ old('iuran_dekopinda') }}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rounded-lg">
+                        <h2 id="accordion-collapse-heading-3">
+                        <button type="button" 
+                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200" 
+                            data-accordion-target="#accordion-collapse-body-3" 
+                            aria-expanded="false" 
+                            aria-controls="accordion-collapse-body-3">
+                            <span class="flex items-center text-sm text-gray-900">
+                                Beban Organisasi
+                            </span>
+                            <div class="pr-0.5">
+                                <svg data-accordion-icon class="w-4 h-4 shrink-0 transition-transform duration-200 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        </h2>
+                        <div id="accordion-collapse-body-3" class="hidden" aria-labelledby="accordion-collapse-heading-3">
+                            <div class="p-5 border border-t-0 border-gray-200 bg-white">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="rkrab" class="block mb-2 text-sm font-medium text-gray-900">RkRab</label>
+                                    <input wire:model.live="rkrab" type="text" id="rkrab" name="rkrab" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal RkRab" inputmode="numeric" value="{{ old('rkrab') }}" />
+                                </div>
+                                <div>
+                                    <label for="pembinaan" class="block mb-2 text-sm font-medium text-gray-900">Pembinaan</label>
+                                    <input wire:model.live="pembinaan" type="text" id="pembinaan" name="pembinaan" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Pembinaan" inputmode="numeric" value="{{ old('pembinaan') }}" />
+                                </div>
+                                <div>
+                                    <label for="harkop" class="block mb-2 text-sm font-medium text-gray-900">Harkop</label>
+                                    <input wire:model.live="harkop" type="text" id="harkop" name="harkop" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Harkop" inputmode="numeric" value="{{ old('harkop') }}" />
+                                </div>
+                                <div>
+                                    <label for="dandik" class="block mb-2 text-sm font-medium text-gray-900">Dandik</label>
+                                    <input wire:model.live="dandik" type="text" id="dandik" name="dandik" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Dandik" inputmode="numeric" value="{{ old('dandik') }}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rounded-lg">
+                        <h2 id="accordion-collapse-heading-4">
+                        <button type="button" 
+                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200" 
+                            data-accordion-target="#accordion-collapse-body-4" 
+                            aria-expanded="false" 
+                            aria-controls="accordion-collapse-body-4">
+                            <span class="flex items-center text-sm text-gray-900">
+                                Beban Opeasional
+                            </span>
+                            <div class="pr-0.5">
+                                <svg data-accordion-icon class="w-4 h-4 shrink-0 transition-transform duration-200 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        </h2>
+                        <div id="accordion-collapse-body-4" class="hidden" aria-labelledby="accordion-collapse-heading-4">
+                            <div class="p-5 border border-t-0 border-gray-200 bg-white">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="rapat" class="block mb-2 text-sm font-medium text-gray-900">Rapat</label>
+                                    <input wire:model.live="rapat" type="text" id="rapat" name="rapat" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Rapat" inputmode="numeric" value="{{ old('rapat') }}" />
+                                </div>
+                                <div>
+                                    <label for="jasa_manasuka" class="block mb-2 text-sm font-medium text-gray-900">Jasa Manasuka</label>
+                                    <input wire:model.live="jasa_manasuka" type="text" id="jasa_manasuka" name="jasa_manasuka" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Jasa Manasuka" inputmode="numeric" value="{{ old('jasa_manasuka') }}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rounded-lg">
+                        <h2 id="accordion-collapse-heading-1">
+                        <button type="button" 
+                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200" 
+                            data-accordion-target="#accordion-collapse-body-1" 
+                            aria-expanded="false" 
+                            aria-controls="accordion-collapse-body-1">
+                            <span class="flex items-center text-sm text-gray-900">
+                                Beban Lain
+                            </span>
+                            <div class="pr-0.5">
+                                <svg data-accordion-icon class="w-4 h-4 shrink-0 transition-transform duration-200 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                </svg>
+                            </div>
+                        </button>
+                        </h2>
+                        <div id="accordion-collapse-body-1" class="hidden" aria-labelledby="accordion-collapse-heading-1">
+                            <div class="p-5 border border-t-0 border-gray-200 bg-white">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="pajak" class="block mb-2 text-sm font-medium text-gray-900">Pajak</label>
+                                    <input wire:model.live="pajak" type="text" id="pajak" name="pajak" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Pajak" inputmode="numeric" value="{{ old('pajak') }}" />
+                                </div>
+                                <div>
+                                    <label for="tabungan_qurban" class="block mb-2 text-sm font-medium text-gray-900">Tabungan Qurban</label>
+                                    <input wire:model.live="tabungan_qurban" type="text" id="tabungan_qurban" name="tabungan_qurban" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Tabungan Qurban" inputmode="numeric" value="{{ old('tabungan_qurban') }}" />
+                                </div>
+                                <div>
+                                    <label for="dekopinda" class="block mb-2 text-sm font-medium text-gray-900">Dekopinda</label>
+                                    <input wire:model.live="dekopinda" type="text" id="dekopinda" name="dekopinda" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Dekopinda" inputmode="numeric" value="{{ old('dekopinda') }}" />
+                                </div>
+                                <div>
+                                    <label for="wajib_pkpri" class="block mb-2 text-sm font-medium text-gray-900">Wajib PKPRI</label>
+                                    <input wire:model.live="wajib_pkpri" type="text" id="wajib_pkpri" name="wajib_pkpri" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Wajib PKPRI" inputmode="numeric" value="{{ old('wajib_pkpri') }}" />
+                                </div>
+                                <div>
+                                    <label for="dansos" class="block mb-2 text-sm font-medium text-gray-900">Dansos</label>
+                                    <input wire:model.live="dansos" type="text" id="dansos" name="dansos" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Dansos" inputmode="numeric" value="{{ old('dansos') }}" />
+                                </div>
+                                <div>
+                                    <label for="shu" class="block mb-2 text-sm font-medium text-gray-900">SHU</label>
+                                    <input wire:model.live="shu" type="text" id="shu" name="shu" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal SHU" inputmode="numeric" value="{{ old('shu') }}" />
+                                </div>
+                                <div>
+                                    <label for="dana_pengurus" class="block mb-2 text-sm font-medium text-gray-900">Dana Pengurus</label>
+                                    <input wire:model.live="dana_pengurus" type="text" id="dana_pengurus" name="dana_pengurus" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Dana Pengurus" inputmode="numeric" value="{{ old('dana_pengurus') }}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
-            <div class="mb-4">
-                <label class="block mb-1 text-sm font-medium text-gray-900">Beban Organisasi</label>
-                <input wire:model.live="b_orgns" type="text" id="b_orgns" name="b_orgns" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Beban Organisasi" inputmode="numeric" value="{{ old('b_orgns') }}" />
-            </div>
-            <div class="mb-4">
-                <label class="block mb-1 text-sm font-medium text-gray-900">Beban Operasional</label>
-                <input wire:model.live="b_oprs" type="text" id="b_oprs" name="b_oprs" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Beban Operasional" inputmode="numeric" value="{{ old('b_oprs') }}" />
-            </div>
-            <div class="mb-4">
-                <label class="block mb-1 text-sm font-medium text-gray-900">Beban Lain</label>
-                <input wire:model.live="b_lain" type="text" id="b_lain" name="b_lain" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Beban Lain" inputmode="numeric" value="{{ old('b_lain') }}" />
-            </div>
-            <div class="mb-4">
+            {{-- End Accordion --}}
+            <div class="mb-4 mt-4">
                 <label class="block mb-1 text-sm font-medium text-gray-900">Tanah Kavling</label>
                 <input wire:model.live="tnh_kav" type="text" id="tnh_kav" name="tnh_kav" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Tanah Kavling" inputmode="numeric" value="{{ old('tnh_kav') }}" />
             </div>
-        @endif
+        </div>
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Keterangan</label>
             <input type="text" name="keterangan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Keterangan" value="{{ old('keterangan') }}"/>

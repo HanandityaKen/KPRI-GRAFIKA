@@ -27,10 +27,24 @@ class KasHarian extends Model
         'barang_kons',
         'piutang',
         'hutang',
-        'b_umum',
-        'b_orgns',
-        'b_oprs',
-        'b_lain',
+        'hari_lembur',
+        'perjalanan_pengawas',
+        'thr',
+        'admin',
+        'iuran_dekopinda',
+        'rkrab',
+        'pembinaan',
+        'harkop',
+        'dandik',
+        'rapat',
+        'jasa_manasuka',
+        'pajak',
+        'tabungan_qurban',
+        'dekopinda',
+        'wajib_pkpri',
+        'dansos',
+        'shu',
+        'dana_pengurus',
         'tnh_kav',
         'keterangan',
     ];
@@ -59,10 +73,24 @@ class KasHarian extends Model
                     ($kasHarian->barang_kons ?? 0) + 
                     ($kasHarian->piutang ?? 0) + 
                     ($kasHarian->hutang ?? 0) + 
-                    ($kasHarian->b_umum ?? 0) + 
-                    ($kasHarian->b_orgns ?? 0) + 
-                    ($kasHarian->b_oprs ?? 0) + 
-                    ($kasHarian->b_lain ?? 0) + 
+                    ($kasHarian->hari_lembur ?? 0) + 
+                    ($kasHarian->perjalanan_pengawas ?? 0) + 
+                    ($kasHarian->thr ?? 0) + 
+                    ($kasHarian->admin ?? 0) + 
+                    ($kasHarian->iuran_dekopinda ?? 0) + 
+                    ($kasHarian->rkrab ?? 0) + 
+                    ($kasHarian->pembinaan ?? 0) + 
+                    ($kasHarian->harkop ?? 0) + 
+                    ($kasHarian->dandik ?? 0) + 
+                    ($kasHarian->rapat ?? 0) + 
+                    ($kasHarian->jasa_manasuka ?? 0) + 
+                    ($kasHarian->pajak ?? 0) + 
+                    ($kasHarian->tabungan_qurban ?? 0) + 
+                    ($kasHarian->dekopinda ?? 0) + 
+                    ($kasHarian->wajib_pkpri ?? 0) + 
+                    ($kasHarian->dansos ?? 0) + 
+                    ($kasHarian->shu ?? 0) + 
+                    ($kasHarian->dana_pengurus ?? 0) +
                     ($kasHarian->tnh_kav ?? 0);
 
                 if ($kasHarian->jenis_transaksi === 'kas masuk') {

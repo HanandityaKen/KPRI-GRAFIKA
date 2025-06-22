@@ -51,7 +51,7 @@ class KasHarianController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
-    {   
+    {        
         $request->validate([
             'jenis_transaksi'   => 'required|in:kas masuk,kas keluar',
             'tanggal'           => 'required|date_format:d-m-Y',
@@ -68,10 +68,24 @@ class KasHarianController extends Controller
             'barang_kons'       => 'nullable|string',
             'piutang'           => 'nullable|string',
             'hutang'            => 'nullable|string',
-            'b_umum'            => 'nullable|string',
-            'b_orgns'           => 'nullable|string',
-            'b_oprs'            => 'nullable|string',
-            'b_lain'            => 'nullable|string',
+            'hari_lembur'       => 'nullable|string',
+            'perjalanan_pengawas' => 'nullable|string',
+            'thr'               => 'nullable|string',
+            'admin'             => 'nullable|string',
+            'iuran_dekopinda'   => 'nullable|string',
+            'rkrab'             => 'nullable|string',
+            'pembinaan'         => 'nullable|string',
+            'harkop'            => 'nullable|string',
+            'dandik'            => 'nullable|string',
+            'rapat'             => 'nullable|string',
+            'jasa_manasuka'     => 'nullable|string',
+            'pajak'             => 'nullable|string',
+            'tabungan_qurban'   => 'nullable|string',
+            'dekopinda'         => 'nullable|string',
+            'wajib_pkpri'       => 'nullable|string',
+            'dansos'            => 'nullable|string',
+            'shu'               => 'nullable|string',
+            'dana_pengurus'     => 'nullable|string',
             'tnh_kav'           => 'nullable|string',
             'keterangan'        => 'nullable|string',
         ]);
@@ -93,10 +107,24 @@ class KasHarianController extends Controller
         $barang_kons = intval(str_replace(['Rp', '.', ' '], '', $request->barang_kons));
         $piutang = intval(str_replace(['Rp', '.', ' '], '', $request->piutang));
         $hutang = intval(str_replace(['Rp', '.', ' '], '', $request->hutang));
-        $b_umum = intval(str_replace(['Rp', '.', ' '], '', $request->b_umum));
-        $b_orgns = intval(str_replace(['Rp', '.', ' '], '', $request->b_orgns));
-        $b_oprs = intval(str_replace(['Rp', '.', ' '], '', $request->b_oprs));
-        $b_lain = intval(str_replace(['Rp', '.', ' '], '', $request->b_lain));
+        $hari_lembur = intval(str_replace(['Rp', '.', ' '], '', $request->hari_lembur ?? 0));
+        $perjalanan_pengawas = intval(str_replace(['Rp', '.', ' '], '', $request->perjalanan_pengawas ?? 0));
+        $thr = intval(str_replace(['Rp', '.', ' '], '', $request->thr ?? 0));
+        $admin = intval(str_replace(['Rp', '.', ' '], '', $request->admin ?? 0));
+        $iuran_dekopinda = intval(str_replace(['Rp', '.', ' '], '', $request->iuran_dekopinda ?? 0));
+        $rkrab = intval(str_replace(['Rp', '.', ' '], '', $request->rkrab ?? 0));
+        $pembinaan = intval(str_replace(['Rp', '.', ' '], '', $request->pembinaan ?? 0));
+        $harkop = intval(str_replace(['Rp', '.', ' '], '', $request->harkop ?? 0));
+        $dandik = intval(str_replace(['Rp', '.', ' '], '', $request->dandik ?? 0));
+        $rapat = intval(str_replace(['Rp', '.', ' '], '', $request->rapat ?? 0));
+        $jasa_manasuka = intval(str_replace(['Rp', '.', ' '], '', $request->jasa_manasuka ?? 0));
+        $pajak = intval(str_replace(['Rp', '.', ' '], '', $request->pajak ?? 0));
+        $tabungan_qurban = intval(str_replace(['Rp', '.', ' '], '', $request->tabungan_qurban ?? 0));
+        $dekopinda = intval(str_replace(['Rp', '.', ' '], '', $request->dekopinda ?? 0));
+        $wajib_pkpri = intval(str_replace(['Rp', '.', ' '], '', $request->wajib_pkpri ?? 0));
+        $dansos = intval(str_replace(['Rp', '.', ' '], '', $request->dansos ?? 0));
+        $shu = intval(str_replace(['Rp', '.', ' '], '', $request->shu ?? 0));
+        $dana_pengurus = intval(str_replace(['Rp', '.', ' '], '', $request->dana_pengurus ?? 0));
         $tnh_kav = intval(str_replace(['Rp', '.', ' '], '', $request->tnh_kav));
 
         if ($request->jenis_transaksi === 'kas masuk') {
@@ -117,10 +145,24 @@ class KasHarianController extends Controller
                 'barang_kons'       => $barang_kons ?? 0,
                 'piutang'           => $piutang ?? 0,
                 'hutang'            => $hutang ?? 0,
-                'b_umum'            => $b_umum ?? 0,
-                'b_orgns'           => $b_orgns ?? 0,
-                'b_oprs'            => $b_oprs ?? 0,
-                'b_lain'            => $b_lain ?? 0,
+                'hari_lembur'       => $hari_lembur ?? 0,
+                'perjalanan_pengawas' => $perjalanan_pengawas ?? 0,
+                'thr'               => $thr ?? 0,
+                'admin'             => $admin ?? 0,
+                'iuran_dekopinda'   => $iuran_dekopinda ?? 0,
+                'rkrab'             => $rkrab ?? 0,
+                'pembinaan'         => $pembinaan ?? 0,
+                'harkop'            => $harkop ?? 0,
+                'dandik'            => $dandik ?? 0,
+                'rapat'             => $rapat ?? 0,
+                'jasa_manasuka'     => $jasa_manasuka ?? 0,
+                'pajak'             => $pajak ?? 0,
+                'tabungan_qurban'   => $tabungan_qurban ?? 0,
+                'dekopinda'         => $dekopinda ?? 0,
+                'wajib_pkpri'       => $wajib_pkpri ?? 0,
+                'dansos'            => $dansos ?? 0,
+                'shu'               => $shu ?? 0,
+                'dana_pengurus'     => $dana_pengurus ?? 0,
                 'tnh_kav'           => $tnh_kav ?? 0,
                 'keterangan'        => $request->keterangan ?? null,
             ]);
@@ -183,7 +225,7 @@ class KasHarianController extends Controller
                 }
             } 
 
-            $saldoKeluar = $pokok + $wajib + $manasuka + $wajib_pinjam + $qurban + $angsuran + $jasa + $js_admin + $lain_lain + $barang_kons + $piutang + $hutang + $b_umum + $b_orgns + $b_oprs + $b_lain + $tnh_kav;
+            $saldoKeluar = $pokok + $wajib + $manasuka + $wajib_pinjam + $qurban + $angsuran + $jasa + $js_admin + $lain_lain + $barang_kons + $piutang + $hutang + $hari_lembur + $perjalanan_pengawas + $thr + $admin + $iuran_dekopinda + $rkrab + $pembinaan + $harkop + $dandik + $rapat + $jasa_manasuka + $pajak + $tabungan_qurban + $dekopinda + $wajib_pkpri + $dansos + $shu + $dana_pengurus + $tnh_kav;
     
             $saldo = Saldo::first();
     
@@ -210,10 +252,24 @@ class KasHarianController extends Controller
                 'barang_kons'       => $barang_kons ?? 0,
                 'piutang'           => $piutang ?? 0,
                 'hutang'            => $hutang ?? 0,
-                'b_umum'            => $b_umum ?? 0,
-                'b_orgns'           => $b_orgns ?? 0,
-                'b_oprs'            => $b_oprs ?? 0,
-                'b_lain'            => $b_lain ?? 0,
+                'hari_lembur'       => $hari_lembur ?? 0,
+                'perjalanan_pengawas' => $perjalanan_pengawas ?? 0,
+                'thr'               => $thr ?? 0,
+                'admin'             => $admin ?? 0,
+                'iuran_dekopinda'   => $iuran_dekopinda ?? 0,
+                'rkrab'             => $rkrab ?? 0,
+                'pembinaan'         => $pembinaan ?? 0,
+                'harkop'            => $harkop ?? 0,
+                'dandik'            => $dandik ?? 0,
+                'rapat'             => $rapat ?? 0,
+                'jasa_manasuka'     => $jasa_manasuka ?? 0,
+                'pajak'             => $pajak ?? 0,
+                'tabungan_qurban'   => $tabungan_qurban ?? 0,
+                'dekopinda'         => $dekopinda ?? 0,
+                'wajib_pkpri'       => $wajib_pkpri ?? 0,
+                'dansos'            => $dansos ?? 0,
+                'shu'               => $shu ?? 0,
+                'dana_pengurus'     => $dana_pengurus ?? 0,
                 'tnh_kav'           => $tnh_kav ?? 0,
                 'keterangan'        => $request->keterangan ?? null,
             ]);
@@ -279,7 +335,7 @@ class KasHarianController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, string $id)
-    {
+    {        
         $request->validate([
             'jenis_transaksi'   => 'required|in:kas masuk,kas keluar',
             'tanggal'           => 'required|date_format:d-m-Y',
@@ -296,10 +352,24 @@ class KasHarianController extends Controller
             'barang_kons'       => 'nullable|string',
             'piutang'           => 'nullable|string',
             'hutang'            => 'nullable|string',
-            'b_umum'            => 'nullable|string',
-            'b_orgns'           => 'nullable|string',
-            'b_oprs'            => 'nullable|string',
-            'b_lain'            => 'nullable|string',
+            'hari_lembur'       => 'nullable|string',
+            'perjalanan_pengawas' => 'nullable|string',
+            'thr'               => 'nullable|string',
+            'admin'             => 'nullable|string',
+            'iuran_dekopinda'   => 'nullable|string',
+            'rkrab'             => 'nullable|string',
+            'pembinaan'         => 'nullable|string',
+            'harkop'            => 'nullable|string',
+            'dandik'            => 'nullable|string',
+            'rapat'             => 'nullable|string',
+            'jasa_manasuka'     => 'nullable|string',
+            'pajak'             => 'nullable|string',
+            'tabungan_qurban'   => 'nullable|string',
+            'dekopinda'         => 'nullable|string',
+            'wajib_pkpri'       => 'nullable|string',
+            'dansos'            => 'nullable|string',
+            'shu'               => 'nullable|string',
+            'dana_pengurus'     => 'nullable|string',
             'tnh_kav'           => 'nullable|string',
             'keterangan'        => 'nullable|string',
         ]);
@@ -318,10 +388,24 @@ class KasHarianController extends Controller
         $barang_kons = intval(str_replace(['Rp', '.', ' '], '', $request->barang_kons ?? '0'));
         $piutang = intval(str_replace(['Rp', '.', ' '], '', $request->piutang ?? '0'));
         $hutang = intval(str_replace(['Rp', '.', ' '], '', $request->hutang ?? '0'));
-        $b_umum = intval(str_replace(['Rp', '.', ' '], '', $request->b_umum ?? '0'));
-        $b_orgns = intval(str_replace(['Rp', '.', ' '], '', $request->b_orgns ?? '0'));
-        $b_oprs = intval(str_replace(['Rp', '.', ' '], '', $request->b_oprs ?? '0'));
-        $b_lain = intval(str_replace(['Rp', '.', ' '], '', $request->b_lain ?? '0'));
+        $hari_lembur = intval(str_replace(['Rp', '.', ' '], '', $request->hari_lembur ?? 0));
+        $perjalanan_pengawas = intval(str_replace(['Rp', '.', ' '], '', $request->perjalanan_pengawas ?? 0));
+        $thr = intval(str_replace(['Rp', '.', ' '], '', $request->thr ?? 0));
+        $admin = intval(str_replace(['Rp', '.', ' '], '', $request->admin ?? 0));
+        $iuran_dekopinda = intval(str_replace(['Rp', '.', ' '], '', $request->iuran_dekopinda ?? 0));
+        $rkrab = intval(str_replace(['Rp', '.', ' '], '', $request->rkrab ?? 0));
+        $pembinaan = intval(str_replace(['Rp', '.', ' '], '', $request->pembinaan ?? 0));
+        $harkop = intval(str_replace(['Rp', '.', ' '], '', $request->harkop ?? 0));
+        $dandik = intval(str_replace(['Rp', '.', ' '], '', $request->dandik ?? 0));
+        $rapat = intval(str_replace(['Rp', '.', ' '], '', $request->rapat ?? 0));
+        $jasa_manasuka = intval(str_replace(['Rp', '.', ' '], '', $request->jasa_manasuka ?? 0));
+        $pajak = intval(str_replace(['Rp', '.', ' '], '', $request->pajak ?? 0));
+        $tabungan_qurban = intval(str_replace(['Rp', '.', ' '], '', $request->tabungan_qurban ?? 0));
+        $dekopinda = intval(str_replace(['Rp', '.', ' '], '', $request->dekopinda ?? 0));
+        $wajib_pkpri = intval(str_replace(['Rp', '.', ' '], '', $request->wajib_pkpri ?? 0));
+        $dansos = intval(str_replace(['Rp', '.', ' '], '', $request->dansos ?? 0));
+        $shu = intval(str_replace(['Rp', '.', ' '], '', $request->shu ?? 0));
+        $dana_pengurus = intval(str_replace(['Rp', '.', ' '], '', $request->dana_pengurus ?? 0));
         $tnh_kav = intval(str_replace(['Rp', '.', ' '], '', $request->tnh_kav ?? '0'));
 
         $kasHarian = KasHarian::findOrFail($id);
@@ -330,9 +414,12 @@ class KasHarianController extends Controller
                         $kasHarian->wajib_pinjam + $kasHarian->qurban + 
                         $kasHarian->angsuran + $kasHarian->jasa + $kasHarian->js_admin + 
                         $kasHarian->lain_lain + $kasHarian->barang_kons +
-                        $kasHarian->b_umum + $kasHarian->b_orgns + $kasHarian->b_oprs +
-                        $kasHarian->b_lain + $kasHarian->tnh_kav;
-
+                        $kasHarian->hari_lembur + $kasHarian->perjalanan_pengawas + $kasHarian->thr +
+                        $kasHarian->admin + $kasHarian->iuran_dekopinda + $kasHarian->rkrab + $kasHarian->pembinaan +
+                        $kasHarian->harkop + $kasHarian->dandik + $kasHarian->rapat + $kasHarian->jasa_manasuka +
+                        $kasHarian->pajak + $kasHarian->tabungan_qurban + $kasHarian->dekopinda +
+                        $kasHarian->wajib_pkpri + $kasHarian->dansos + $kasHarian->shu + $kasHarian->dana_pengurus +
+                        $kasHarian->tnh_kav;
 
         $kasHarian->update([
             'anggota_id'        => $request->anggota_id,
@@ -350,10 +437,24 @@ class KasHarianController extends Controller
             'barang_kons'       => $barang_kons ?? 0,
             'piutang'           => $piutang ?? 0,
             'hutang'            => $hutang ?? 0,
-            'b_umum'            => $b_umum ?? 0,
-            'b_orgns'           => $b_orgns ?? 0,
-            'b_oprs'            => $b_oprs ?? 0,
-            'b_lain'            => $b_lain ?? 0,
+            'hari_lembur'       => $hari_lembur ?? 0,
+            'perjalanan_pengawas' => $perjalanan_pengawas ?? 0,
+            'thr'               => $thr ?? 0,
+            'admin'             => $admin ?? 0,
+            'iuran_dekopinda'   => $iuran_dekopinda ?? 0,
+            'rkrab'             => $rkrab ?? 0,
+            'pembinaan'         => $pembinaan ?? 0,
+            'harkop'            => $harkop ?? 0,
+            'dandik'            => $dandik ?? 0,
+            'rapat'             => $rapat ?? 0,
+            'jasa_manasuka'     => $jasa_manasuka ?? 0,
+            'pajak'             => $pajak ?? 0,
+            'tabungan_qurban'   => $tabungan_qurban ?? 0,
+            'dekopinda'         => $dekopinda ?? 0,
+            'wajib_pkpri'       => $wajib_pkpri ?? 0,
+            'dansos'            => $dansos ?? 0,
+            'shu'               => $shu ?? 0,
+            'dana_pengurus'     => $dana_pengurus ?? 0,
             'tnh_kav'           => $tnh_kav ?? 0,
             'keterangan'        => $request->keterangan ?? null,
         ]);
@@ -462,7 +563,10 @@ class KasHarianController extends Controller
 
                 $totalSesudahUpdate = $pokok + $wajib + $manasuka + $wajib_pinjam + $qurban + 
                                     $angsuran + $jasa + $js_admin + $lain_lain + $barang_kons +
-                                    $b_umum + $b_orgns + $b_oprs + $b_lain + $tnh_kav;
+                                    $hari_lembur + $perjalanan_pengawas + $thr + $admin + $iuran_dekopinda +
+                                    $rkrab + $pembinaan + $harkop + $dandik + $rapat + 
+                                    $jasa_manasuka + $pajak + $tabungan_qurban + $dekopinda + $wajib_pkpri +
+                                    $dansos + $shu + $dana_pengurus + $tnh_kav;
 
                 $selisihSaldo = $totalSesudahUpdate - $totalSebelumUpdate;
 

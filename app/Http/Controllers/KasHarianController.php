@@ -87,7 +87,7 @@ class KasHarianController extends Controller
             'shu'               => 'nullable|string',
             'dana_pengurus'     => 'nullable|string',
             'tnh_kav'           => 'nullable|string',
-            'keterangan'        => 'nullable|string',
+            'keterangan'        => 'required|string',
         ]);
 
         $no_anggota = Anggota::findOrFail($request->anggota_id)->no_anggota;
@@ -371,7 +371,7 @@ class KasHarianController extends Controller
             'shu'               => 'nullable|string',
             'dana_pengurus'     => 'nullable|string',
             'tnh_kav'           => 'nullable|string',
-            'keterangan'        => 'nullable|string',
+            'keterangan'        => 'required|string',
         ]);
 
         $tanggal = Carbon::createFromFormat('d-m-Y', $request->tanggal)->format('Y-m-d');

@@ -77,10 +77,24 @@ class RekapJkkFilter extends Component
                 SUM(lain_lain) + 
                 SUM(piutang) + 
                 SUM(hutang) + 
-                SUM(b_umum) + 
-                SUM(b_orgns) + 
-                SUM(b_oprs) + 
-                SUM(b_lain) + 
+                SUM(hari_lembur) +
+                SUM(perjalanan_pengawas) +
+                SUM(thr) +
+                SUM(admin) +
+                SUM(iuran_dekopinda) +
+                SUM(rkrab) +
+                SUM(pembinaan) +
+                SUM(harkop) +
+                SUM(dandik) +
+                SUM(rapat) +
+                SUM(jasa_manasuka) +
+                SUM(pajak) +
+                SUM(tabungan_qurban) +
+                SUM(dekopinda) +
+                SUM(wajib_pkpri) +
+                SUM(dansos) +
+                SUM(shu) +
+                SUM(dana_pengurus) +
                 SUM(tnh_kav) as total
             ')
             ->value('total');
@@ -106,12 +120,26 @@ class RekapJkkFilter extends Component
                 SUM(lain_lain) as total_lain_lain,
                 SUM(piutang) as total_piutang,
                 SUM(hutang) as total_hutang,
-                SUM(b_umum) as total_b_umum,
-                SUM(b_orgns) as total_b_orgns,
-                SUM(b_oprs) as total_b_oprs,
-                SUM(b_lain) as total_b_lain,
+                SUM(hari_lembur) as total_hari_lembur,
+                SUM(perjalanan_pengawas) as total_perjalanan_pengawas,
+                SUM(thr) as total_thr,
+                SUM(admin) as total_admin,
+                SUM(iuran_dekopinda) as total_iuran_dekopinda,
+                SUM(rkrab) as total_rkrab,
+                SUM(pembinaan) as total_pembinaan,
+                SUM(harkop) as total_harkop,
+                SUM(dandik) as total_dandik,
+                SUM(rapat) as total_rapat,
+                SUM(jasa_manasuka) as total_jasa_manasuka,
+                SUM(pajak) as total_pajak,
+                SUM(tabungan_qurban) as total_tabungan_qurban,
+                SUM(dekopinda) as total_dekopinda,
+                SUM(wajib_pkpri) as total_wajib_pkpri,
+                SUM(dansos) as total_dansos,
+                SUM(shu) as total_shu,
+                SUM(dana_pengurus) as total_dana_pengurus,
                 SUM(tnh_kav) as total_tnh_kav,
-                SUM(angsuran + pokok + wajib + manasuka + wajib_pinjam + qurban + lain_lain + piutang + hutang + b_umum + b_orgns + b_oprs + b_lain + tnh_kav) as total_jumlah
+                SUM(angsuran + pokok + wajib + manasuka + wajib_pinjam + qurban + lain_lain + piutang + hutang + hari_lembur + perjalanan_pengawas + thr + admin + iuran_dekopinda + rkrab + pembinaan + harkop + dandik + rapat + jasa_manasuka + pajak + tabungan_qurban + dekopinda + wajib_pkpri + dansos + shu + dana_pengurus + tnh_kav) as total_jumlah
             ')
             ->where('jenis_transaksi', 'kas keluar')
             ->whereYear('tanggal', $this->selectedYear)
@@ -139,10 +167,24 @@ class RekapJkkFilter extends Component
                     'total_lain_lain' => $jkks->get($monthNumber)->total_lain_lain ?? 0,
                     'total_piutang' => $jkks->get($monthNumber)->total_piutang ?? 0,
                     'total_hutang' => $jkks->get($monthNumber)->total_hutang ?? 0,
-                    'total_b_umum' => $jkks->get($monthNumber)->total_b_umum ?? 0,
-                    'total_b_orgns' => $jkks->get($monthNumber)->total_b_orgns ?? 0,
-                    'total_b_oprs' => $jkks->get($monthNumber)->total_b_oprs ?? 0,
-                    'total_b_lain' => $jkks->get($monthNumber)->total_b_lain ?? 0,
+                    'total_hari_lembur' => $jkks->get($monthNumber)->total_hari_lembur ?? 0,
+                    'total_perjalanan_pengawas' => $jkks->get($monthNumber)->total_perjalanan_pengawas ?? 0,
+                    'total_thr' => $jkks->get($monthNumber)->total_thr ?? 0,
+                    'total_admin' => $jkks->get($monthNumber)->total_admin ?? 0,
+                    'total_iuran_dekopinda' => $jkks->get($monthNumber)->total_iuran_dekopinda ?? 0,
+                    'total_rkrab' => $jkks->get($monthNumber)->total_rkrab ?? 0,
+                    'total_pembinaan' => $jkks->get($monthNumber)->total_pembinaan ?? 0,
+                    'total_harkop' => $jkks->get($monthNumber)->total_harkop ?? 0,
+                    'total_dandik' => $jkks->get($monthNumber)->total_dandik ?? 0,
+                    'total_rapat' => $jkks->get($monthNumber)->total_rapat ?? 0,
+                    'total_jasa_manasuka' => $jkks->get($monthNumber)->total_jasa_manasuka ?? 0,
+                    'total_pajak' => $jkks->get($monthNumber)->total_pajak ?? 0,
+                    'total_tabungan_qurban' => $jkks->get($monthNumber)->total_tabungan_qurban ?? 0,
+                    'total_dekopinda' => $jkks->get($monthNumber)->total_dekopinda ?? 0,
+                    'total_wajib_pkpri' => $jkks->get($monthNumber)->total_wajib_pkpri ?? 0,
+                    'total_dansos' => $jkks->get($monthNumber)->total_dansos ?? 0,
+                    'total_shu' => $jkks->get($monthNumber)->total_shu ?? 0,
+                    'total_dana_pengurus' => $jkks->get($monthNumber)->total_dana_pengurus ?? 0,
                     'total_tnh_kav' => $jkks->get($monthNumber)->total_tnh_kav ?? 0,
                     'total_jumlah' => $jkks->get($monthNumber)->total_jumlah ?? 0,
                 ];

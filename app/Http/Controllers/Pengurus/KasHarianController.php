@@ -629,6 +629,8 @@ class KasHarianController extends Controller
     {
         $kasHarian = KasHarian::findOrFail($id);
 
+        $noAnggota = Anggota::where('id', $kasHarian->anggota_id)->value('no_anggota');
+
         if ($kasHarian->jenis_transaksi === 'kas masuk') {
 
             $kasHarianAnggota = KasHarian::where('anggota_id', $kasHarian->anggota_id)
@@ -646,11 +648,12 @@ class KasHarianController extends Controller
             // Ambil total terakhir dari tabel Simpanan sebelum perubahan
             $simpanan = Simpanan::where('anggota_id', $kasHarian->anggota_id)->first();
 
-            $totalPokok       = $simpanan->pokok + $kasHarian->pokok;
-            $totalWajib       = $simpanan->wajib + $kasHarian->wajib;
-            $totalManasuka    = $simpanan->manasuka + $kasHarian->manasuka;
-            $totalWajibPinjam = $simpanan->wajib_pinjam + $kasHarian->wajib_pinjam;
-            $totalQurban      = $simpanan->qurban + $kasHarian->qurban;
+            $totalPokok       = ($simpanan->pokok ?? 0) + $kasHarian->pokok;
+            $totalWajib       = ($simpanan->wajib ?? 0) + $kasHarian->wajib;
+            $totalManasuka    = ($simpanan->manasuka ?? 0) + $kasHarian->manasuka;
+            $totalWajibPinjam = ($simpanan->wajib_pinjam ?? 0) + $kasHarian->wajib_pinjam;
+            $totalQurban      = ($simpanan->qurban ?? 0) + $kasHarian->qurban;
+        
         }
 
         // Hitung ulang total simpanan
@@ -660,6 +663,8 @@ class KasHarianController extends Controller
         Simpanan::updateOrCreate(
             ['anggota_id' => $kasHarian->anggota_id],
             [
+                'no_anggota'    => $noAnggota,
+                'nama_anggota'  => $kasHarian->nama_anggota,
                 'pokok'        => $totalPokok,
                 'wajib'        => $totalWajib,
                 'manasuka'     => $totalManasuka,

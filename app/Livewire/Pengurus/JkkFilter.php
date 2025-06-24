@@ -5,6 +5,8 @@ use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
 use App\Models\KasHarian;
 use Carbon\Carbon;
+use App\Exports\JkkExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 use Livewire\Component;
 
@@ -29,6 +31,14 @@ class JkkFilter extends Component
      */
     public $search = '';
 
+    public $selectedYear;
+
+    public $availableYears = [];
+
+    public $selectedMonth;
+
+    public $availableMonths = [];
+
     protected $paginationTheme = 'tailwind';
 
     /**
@@ -37,6 +47,56 @@ class JkkFilter extends Component
      * @return void
      */
     public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function mount()
+    {
+        $this->selectedYear = '';
+        $years = KasHarian::where('jenis_transaksi', 'kas keluar')
+            ->selectRaw('YEAR(tanggal) as year')
+            ->distinct()
+            ->orderBy('year', 'desc')
+            ->pluck('year')
+            ->toArray();
+
+        rsort($years);
+
+        $this->availableYears = $years;
+
+        $this->updateAvailableMonths();
+    }
+
+    public function updateAvailableMonths()
+    {
+        Carbon::setLocale('id');
+
+        $months = KasHarian::where('jenis_transaksi', 'kas keluar')
+            ->whereYear('tanggal', $this->selectedYear)
+            ->selectRaw('MONTH(tanggal) as month')
+            ->distinct()
+            ->orderBy('month', 'asc')
+            ->pluck('month')
+            ->toArray();
+
+        $this->availableMonths = array_map(function ($month) {
+            return [
+                'value' => $month,
+                'label' => \Carbon\Carbon::createFromFormat('m', $month)->translatedFormat('F')
+            ];
+        }, $months);
+
+        $this->selectedMonth = null;
+    }
+
+    public function updatedSelectedYear()
+    {
+        $this->resetPage();
+        $this->updateAvailableMonths();
+    }
+
+    public function updatedSelectedMonth()
     {
         $this->resetPage();
     }
@@ -99,12 +159,43 @@ class JkkFilter extends Component
                         
                     }
                 }
-            })
-            ->groupBy('kas_harian.nama_anggota', 'kas_harian.tanggal')
-            ->orderBy('kas_harian.tanggal', 'desc')
-            ->orderBy('kas_harian.nama_anggota', 'asc')
-            ->paginate(10);
+            });
+
+            if ($this->selectedYear) {
+                $jkks->whereYear('kas_harian.tanggal', $this->selectedYear);
+            }
+            
+            if ($this->selectedMonth) {
+                $jkks->whereMonth('kas_harian.tanggal', $this->selectedMonth);
+            }
+
+            $jkks = $jkks->groupBy('kas_harian.nama_anggota', 'kas_harian.tanggal')
+                ->orderBy('kas_harian.tanggal', 'desc')
+                ->orderBy('kas_harian.nama_anggota', 'asc')
+                ->paginate(10);
 
         return view('livewire.pengurus.jkk-filter', compact('jkks'));
+    }
+
+    public function exportExcel()
+    {
+        $monthName = $this->selectedMonth
+            ? Carbon::create(null, (int) $this->selectedMonth, 1)->locale('id')->isoFormat('MMMM')
+            : null;
+
+        $fileName = 'Jkk';
+
+        if ($monthName && $this->selectedYear) {
+            $fileName .= '_' . $monthName . '_' . $this->selectedYear;
+        } elseif ($this->selectedYear) {
+            $fileName .= '_' . $this->selectedYear;
+        }
+
+        $fileName .= '.xlsx';
+
+        return Excel::download(
+            new JkkExport($this->selectedYear, $this->selectedMonth),
+            $fileName
+        );
     }
 }

@@ -24,8 +24,16 @@
       <!-- Dropdown Menu -->
       <div id="userDropdownMenu" class="hidden absolute right-0 top-full mt-2 w-48 bg-white border rounded-lg shadow-lg z-10">
         <ul class="py-0">
+          <li>
             <a href="{{ route('pengurus.profile.index') }}" class="block px-4 py-2 hover:bg-gray-100 text-xs">Profile</a>
           </li>
+          @if (Auth::guard('pengurus')->user()->posisi === 'pengurus')
+            <li>
+              <a href="{{ route('pengurus.switch-to-anggota') }}" class="block px-4 py-2 hover:bg-gray-100 text-xs">
+                Dashboard Anggota
+              </a>
+            </li>
+          @endif
           <li>
             <form action="{{ route('pengurus.logout') }}" method="POST">
                 @csrf

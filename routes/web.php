@@ -44,6 +44,7 @@ use App\Http\Controllers\Anggota\AnggotaController as AnggotaAnggotaController;
 
 Route::get('/', [AuthController::class, 'showAnggotaLoginForm'])->name('anggota.login');
 Route::post('/anggota-login-proses', [AuthController::class, 'anggotaLoginProses'])->name('anggota.login.proses');
+
 Route::middleware('anggota', 'no-cache')->group(function () {
     Route::get('/dashboard', [AnggotaAnggotaController::class, 'index'])->name('dashboard');
     Route::get('/simpanan', [AnggotaAnggotaController::class, 'simpanan'])->name('simpanan');
@@ -53,6 +54,7 @@ Route::middleware('anggota', 'no-cache')->group(function () {
     Route::get('/profile', [AnggotaAnggotaController::class, 'profile'])->name('profile');
     Route::put('/update-profile', [AnggotaAnggotaController::class, 'updateProfile'])->name('update-profile');
     Route::post('/logout-anggota', [AuthController::class, 'logoutAnggota'])->name('logout');
+    Route::get('/switch-to-pengurus', [AuthController::class, 'switchToPengurus'])->name('switch-to-pengurus');
 });
 
 //Admin
@@ -124,6 +126,7 @@ Route::prefix('pengurus')->as('pengurus.')->middleware('pengurus', 'no-cache')->
     Route::resource('profile', SubProfileController::class)->only(['index', 'update']);
     Route::resource('anggota', SubAnggotaController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::post('/logout-pengurus', [AuthController::class, 'logoutPengurus'])->name('logout');
+    Route::get('/switch-to-anggota', [AuthController::class, 'switchToAnggota'])->name('switch-to-anggota');
 });
 
 

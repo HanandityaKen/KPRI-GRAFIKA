@@ -49,6 +49,13 @@
             Profile
           </a>
         </li>
+        @if (Auth::guard('anggota')->user()->posisi === 'pengurus')
+          <li>
+            <a href="{{ route('switch-to-pengurus') }}" class="block px-4 py-2 hover:bg-gray-100 text-xs">
+              Dashboard Pengurus
+            </a>
+          </li>
+        @endif
         <li>
           <form action="{{ route('logout') }}" method="POST" class="m-0 p-0">
             @csrf

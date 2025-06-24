@@ -192,4 +192,38 @@ class AuthController extends Controller
         return redirect()->route('admin.login');
     }
 
+    //dari anggota ke pengurus
+    public function switchToPengurus()
+    {
+        $anggota = Auth::guard('anggota')->user();
+
+        // Validasi: apakah user ini memang layak jadi pengurus?
+        if ($anggota && $anggota->posisi === 'pengurus') {
+            Auth::guard('anggota')->logout();
+
+            Auth::guard('pengurus')->loginUsingId($anggota->id);
+
+            return redirect()->route('pengurus.dashboard');
+        }
+
+        abort(403);
+    }
+
+    //dari pengurus ke anggota
+    public function switchToAnggota()
+    {
+        $pengurus = Auth::guard('pengurus')->user();
+
+        // Validasi: apakah user ini memang layak jadi anggota?
+        if ($pengurus && $pengurus->posisi === 'pengurus') {
+            Auth::guard('pengurus')->logout();
+
+            Auth::guard('anggota')->loginUsingId($pengurus->id);
+
+            return redirect()->route('dashboard');
+        }
+
+        abort(403);
+    }
+
 }

@@ -35,6 +35,22 @@ class RiwayatTable extends Component
             ->orderByDesc('created_at')
             ->paginate(10)
             ->through(function ($item) {
+                // Field yang jika ada isinya, transaksi akan dianggap tidak valid untuk ditampilkan
+                $excludeFields = [
+                    'hari_lembur', 'perjalanan_pengawas', 'thr', 'admin', 'iuran_dekopinda', 
+                    'rkrab', 'pembinaan', 'harkop', 'dandik', 'rapat', 'jasa_manasuka', 
+                    'pajak', 'tabungan_qurban', 'dekopinda', 'wajib_pkpri', 'dansos', 
+                    'shu', 'dana_pengurus', 'tnh_kav'
+                ];
+
+                foreach ($excludeFields as $field) {
+                    if (!empty($item->$field)) {
+                        // Tandai sebagai transaksi yang tidak valid agar bisa disaring di Blade
+                        $item->skip_render = true;
+                        return $item;
+                    }
+                }
+
                 $fields = [
                     'pokok' => 'Pokok',
                     'wajib' => 'Wajib',
@@ -48,11 +64,6 @@ class RiwayatTable extends Component
                     'barang_kons' => 'Pengajuan unit konsumsi',
                     'piutang' => 'Piutang',
                     'hutang' => 'Pengajuan pinjaman',
-                    'b_umum' => 'Biaya Umum',
-                    'b_orgns' => 'Biaya Organisasi',
-                    'b_oprs' => 'Biaya Operasional',
-                    'b_lain' => 'Biaya Lain',
-                    'tnh_kav' => 'Tanah Kavling'
                 ];
 
                 $transaksi = [];
@@ -60,7 +71,10 @@ class RiwayatTable extends Component
 
                 foreach ($fields as $field => $label) {
                     if (!empty($item->$field)) {
-                        if (in_array($field, ['wajib', 'wajib_pinjam', 'manasuka', 'qurban']) && $item->jenis_transaksi == 'kas keluar') {
+                        if (
+                            in_array($field, ['wajib', 'wajib_pinjam', 'manasuka', 'qurban']) &&
+                            $item->jenis_transaksi === 'kas keluar'
+                        ) {
                             $transaksi[] = $label;
                             $totalJumlah -= $item->$field;
                         } else {
@@ -72,17 +86,16 @@ class RiwayatTable extends Component
 
                 if (!empty($item->jasa) && !empty($item->angsuran)) {
                     $item->transaksi = 'Bayar angsuran pinjaman';
-                    $item->jumlah = $totalJumlah;
                 } elseif (!empty($item->jasa) && !empty($item->barang_kons)) {
                     $item->transaksi = 'Bayar angsuran unit konsumsi';
-                    $item->jumlah = $totalJumlah;
                 } elseif (!empty($item->jasa)) {
                     $item->transaksi = 'Bayar jasa';
-                    $item->jumlah = $totalJumlah;
                 } else {
                     $item->transaksi = implode(', ', $transaksi);
-                    $item->jumlah = $totalJumlah;
                 }
+
+                $item->jumlah = $totalJumlah;
+                $item->skip_render = false;
 
                 return $item;
             });

@@ -1,0 +1,112 @@
+@php
+    $bendahara = auth()->guard('pengurus')->check() && auth()->guard('pengurus')->user()->jabatan === 'bendahara';
+    $pengawas = auth()->guard('pengurus')->check() && auth()->guard('pengurus')->user()->jabatan === 'pengawas';
+@endphp
+<div>
+    <div class="bg-white shadow rounded-lg border-[2px] border-[#6DA854] overflow-x-auto no-scrollbar">
+        <table class="w-full mb-8">
+            <thead>
+                <tr>
+                    <th class="p-3 text-left text-[#6DA854]">No</th>
+                    <th class="p-3 text-left whitespace-nowrap">Nama</th>
+                    <th class="p-3 text-left whitespace-nowrap">Tanggal</th>
+                    <th class="text-left whitespace-nowrap">Nominal</th>
+                    <th class="p-3 text-left whitespace-nowrap">Status</th>
+                    @if ($bendahara || $pengawas)
+                        <th class="p-3 text-left whitespace-nowrap">Action</th>
+                    @endif
+                </tr>
+            </thead>
+            <tbody>
+                @forelse ($pengajuanPinjamans as $index => $pengajuanPinjaman)
+                    <tr class="border-b border-gray-200 hover:bg-gray-100">
+                        <td class="pl-5 text-[#6DA854]">{{ $pengajuanPinjamans->firstItem() + $index }}</td>
+                        <td class="p-3 whitespace-nowrap">{{ $pengajuanPinjaman->nama_anggota }}</td>
+                        <td class="p-3 whitespace-nowrap">
+                            {{ \Carbon\Carbon::parse($pengajuanPinjaman->created_at)->translatedFormat('d-m-Y') }}
+                        </td>
+                        <td class="whitespace-nowrap">Rp {{ number_format($pengajuanPinjaman->jumlah_pinjaman, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">
+                            @if ($pengajuanPinjaman->status == 'menunggu')
+                                <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-1.5 py-0.5 rounded-sm">Menunggu</span>
+                            @elseif ($pengajuanPinjaman->status == 'disetujui')
+                                <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Disetujui</span>
+                            @elseif ($pengajuanPinjaman->status == 'ditolak')
+                            <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Ditolak</span>
+                            @endif
+                        </td>
+                        <td class="p-3 whitespace-nowrap">
+                            @if ($bendahara)
+                                @if ($pengajuanPinjaman->status == 'menunggu')
+                                    <a href="{{ route('pengurus.pengajuan-pinjaman.edit', $pengajuanPinjaman->id) }}">
+                                        <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900">
+                                            Edit
+                                        </button>
+                                    </a>
+                                    <button 
+                                        class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                                        onclick="confirmDelete({{ $pengajuanPinjaman->id }})">
+                                            Hapus
+                                    </button>
+                                    <form id="delete-form-{{ $pengajuanPinjaman->id }}" action="{{ route('pengurus.pengajuan-pinjaman.destroy', $pengajuanPinjaman->id) }}" method="POST" style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                @endif
+                            @elseif ($pengawas)
+                                @if ($pengajuanPinjaman->status == 'menunggu')   
+                                    <form action="{{ route('pengurus.setujui-pengajuan-pinjaman', $pengajuanPinjaman->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900">
+                                            Disetujui
+                                        </button>
+                                    </form>
+                                
+                                    <form action="{{ route('pengurus.tolak-pengajuan-pinjaman', $pengajuanPinjaman->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-500">
+                                            Ditolak
+                                        </button>
+                                    </form>
+                                @endif
+    
+                                <a href="{{ route('pengurus.detail-pengajuan-pinjaman', $pengajuanPinjaman->id) }}">
+                                    <button class="px-3 py-1 bg-blue-700 text-white rounded hover:bg-blue-600">
+                                        Detail
+                                    </button>
+                                </a>
+                            @endif
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="6" class="text-center p-3">Tidak ada data pengajuan pinjaman.</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+    </div>
+</div>
+@push('scripts')
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll('.select-nama-setujui').forEach(select => {
+                new TomSelect(select, {
+                    create: false,
+                    sortField: { field: "text", direction: "asc" },
+                    openOnFocus: true,
+                    maxOptions: 10,
+                });
+            });
+
+            document.querySelectorAll('.select-nama-tolak').forEach(select => {
+                new TomSelect(select, {
+                    create: false,
+                    sortField: { field: "text", direction: "asc" },
+                    openOnFocus: true,
+                    maxOptions: 10,
+                });
+            });
+        });
+    </script>
+@endpush

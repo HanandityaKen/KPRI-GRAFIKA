@@ -12,6 +12,7 @@
                                 <th class="border border-green-200 px-4 py-2 text-left">Tanggal</th>
                                 <th class="border border-green-200 px-4 py-2 text-left">Transaksi</th>
                                 <th class="border border-green-200 px-4 py-2 text-left">Jumlah</th>
+                                <th class="border border-green-200 px-4 py-2 text-left">Detail</th>
                             </tr>
                             </thead>
                             <!-- Table Body -->
@@ -22,6 +23,13 @@
                                         <td class="px-4 py-2 text-sm">{{ $item->created_at->format('d-m-Y') }}</td>
                                         <td class="px-4 py-2 text-sm">{{ $item->transaksi }}</td>
                                         <td class="px-4 py-2 text-sm">Rp {{ number_format($item->jumlah, 0, ',', '.') }}</td>
+                                        <td class="px-4 py-2 text-sm">
+                                            <a href="{{ route('detail-riwayat', $item->id) }}">
+                                                <button class="px-3 py-1 bg-blue-700 text-white rounded hover:bg-blue-600">
+                                                    Detail
+                                                </button>
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endif
                             @endforeach

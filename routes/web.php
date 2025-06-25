@@ -51,6 +51,7 @@ Route::middleware('anggota', 'no-cache')->group(function () {
     Route::get('/pinjaman', [AnggotaAnggotaController::class, 'pinjaman'])->name('pinjaman');
     Route::get('/unit-konsumsi', [AnggotaAnggotaController::class, 'unitKonsumsi'])->name('unit-konsumsi');
     Route::get('/riwayat', [AnggotaAnggotaController::class, 'riwayat'])->name('riwayat');
+    Route::get('/riwayat/detail/{id}', [AnggotaAnggotaController::class, 'detailRiwayat'])->name('detail-riwayat');
     Route::get('/profile', [AnggotaAnggotaController::class, 'profile'])->name('profile');
     Route::put('/update-profile', [AnggotaAnggotaController::class, 'updateProfile'])->name('update-profile');
     Route::post('/logout-anggota', [AuthController::class, 'logoutAnggota'])->name('logout');

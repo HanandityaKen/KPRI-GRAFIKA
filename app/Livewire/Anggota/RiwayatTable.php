@@ -88,8 +88,10 @@ class RiwayatTable extends Component
                     $item->transaksi = 'Bayar angsuran pinjaman';
                 } elseif (!empty($item->jasa) && !empty($item->barang_kons)) {
                     $item->transaksi = 'Bayar angsuran unit konsumsi';
-                } elseif (!empty($item->jasa)) {
-                    $item->transaksi = 'Bayar jasa';
+                } elseif (!empty($item->jasa) && !empty($item->pinjaman_id)) {
+                    $item->transaksi = 'Bayar jasa pinjaman';
+                } elseif (!empty($item->jasa) && !empty($item->unit_konsumsi_id)) {
+                    $item->transaksi = 'Bayar jasa unit konsumsi';
                 } else {
                     $item->transaksi = implode(', ', $transaksi);
                 }

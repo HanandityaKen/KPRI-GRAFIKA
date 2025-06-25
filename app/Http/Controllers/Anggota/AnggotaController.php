@@ -189,6 +189,32 @@ class AnggotaController extends Controller
         return view('anggota.riwayat');
     }
 
+    public function detailRiwayat($id)
+    {
+        $anggotaId = Auth::guard('anggota')->user()->id;
+
+        $riwayat = KasHarian::where('anggota_id', $anggotaId)
+            ->where('id', $id)
+            ->firstOrFail();
+
+            $fields = [
+                'pokok' => 'Pokok',
+                'wajib' => 'Wajib',
+                'manasuka' => 'Manasuka',
+                'wajib_pinjam' => 'Wajib Pinjam',
+                'qurban' => 'Qurban',
+                'angsuran' => 'Angsuran',
+                'jasa' => 'Jasa',
+                'js_admin' => 'Jasa Admin',
+                'lain_lain' => 'Lain-lain',
+                'barang_kons' => 'Barang atau Unit Konsumsi',
+                'piutang' => 'Piutang',
+                'hutang' => 'Pinjaman',
+            ];
+
+        return view('anggota.detail-riwayat', compact('riwayat', 'fields'));
+    }
+
 
     /**
      * Menampilkan halaman profil untuk anggota.

@@ -1,6 +1,6 @@
 @extends('pengurus.layout.main')
 
-@section('title', 'Bayar Angsuran')
+@section('title', 'Bayar Angsuran Pinjaman')
 
 @section('content')
 
@@ -9,8 +9,8 @@
 
     {{-- Breadcrumb --}}
     <div class="mb-5">
-      <nav class="flex" aria-label="Breadcrumb">
-        <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+      <nav class="flex overflow-x-auto no-scrollbar" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse whitespace-nowrap">
           <li class="inline-flex items-center">
             <a href="{{ route('pengurus.dashboard') }}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-green-600">
               <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -24,7 +24,7 @@
               <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
               </svg>
-              <a href="{{ route('pengurus.angsuran.index') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Angsuran</a>
+              <a href="{{ route('pengurus.angsuran.index') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Angsuran Pinjaman</a>
             </div>
           </li>
           <li>
@@ -32,7 +32,7 @@
               <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
               </svg>
-              <a href="{{ route('pengurus.angsuran.edit', $angsuran->id) }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Bayar Angsuran</a>
+              <a href="{{ route('pengurus.angsuran.edit', $angsuran->id) }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Bayar Angsuran Pinjaman</a>
             </div>
           </li>
         </ol>
@@ -40,7 +40,7 @@
     </div>
 
     <div class="flex justify-between items-center mb-6">
-      <h1 class="text-xl font-bold">Bayar Angsuran</h1>
+      <h1 class="text-xl font-bold">Bayar Angsuran Pinjaman</h1>
     </div>
 
     @error('error')

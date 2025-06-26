@@ -35,7 +35,8 @@
                 <input type="text" wire:model.live="jumlah_pinjaman" id="jumlah_pinjaman" name="jumlah_pinjaman" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Pinjaman" inputmode="numeric" value="{{ old('jumlah_pinjaman') }}" oninput="formatRupiah(this)"/>
             </div>
             <div class="mb-3">
-                <label class="block mb-1 text-sm font-medium text-gray-900">Lama Angsuran (Kali/Bulan)</label>
+                <label class="block mb-1 text-sm font-medium text-gray-900 sm:hidden">Lama Angsuran</label>
+                <label class="hidden sm:block mb-1 text-sm font-medium text-gray-900">Lama Angsuran (Kali/Bulan)</label>
                 <input type="text" wire:model.live="lama_angsuran" id="lama_angsuran" name="lama_angsuran" class="format-bulan bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Lama Angsuran" inputmode="numeric" value="{{ old('lama_angsuran') }}"/>
                 <p class="text-red-500 text-xs mt-1">{{ $error_lama_angsuran }}</p>
             </div>

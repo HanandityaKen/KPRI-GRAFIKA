@@ -124,10 +124,16 @@
       <tfoot>
         <tr>
             <td colspan="12" style="padding: 8px; font-weight: bold">
-                Total JKK {{ $namaBulan ? $namaBulan . ' ' . $selectedYear : 'Tahun ' . $selectedYear }}:
+                @if ($namaBulan && $selectedYear)
+                    Total JKK {{ $namaBulan . ' ' . $selectedYear }}:
+                @elseif ($selectedYear)
+                    Total JKK Tahun {{ $selectedYear }}:
+                @else
+                    Total JKK Semua Periode:
+                @endif
                 - Rp {{ number_format($totalPerPeriode, 0, ',', '.') }}
             </td>
         </tr>
-      </tfoot>
+    </tfoot>    
   </table>
 </body>

@@ -122,10 +122,11 @@ class FormEditKasHarian extends Component
     public function getPokok()
     {
         if ($this->anggota_id) {
+            $anggota = Anggota::find($this->anggota_id); 
             $kasHarian = Simpanan::where('anggota_id', $this->anggota_id)->latest()->first();
             $pokok = Pokok::first();
     
-            if ($kasHarian && $kasHarian->pokok > 0) {
+            if (($kasHarian && $kasHarian->pokok > 0) || ($anggota && $anggota->jenis_pegawai === 'Dan lain-lain')  ) {
                 $this->pokok = 'Rp 0';
             } else {
                 $this->pokok = 'Rp ' . number_format($pokok->nominal, 0, ',', '.');
@@ -134,7 +135,7 @@ class FormEditKasHarian extends Component
             return;
         }
     
-        $this->pokok = 'Rp ' . number_format($pokok->nominal, 0, ',', '.');
+        $this->pokok = '';
     }
 
     /**

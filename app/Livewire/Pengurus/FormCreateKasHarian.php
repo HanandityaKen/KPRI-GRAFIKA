@@ -95,51 +95,6 @@ class FormCreateKasHarian extends Component
         $this->disabled();
     }
 
-    // public function getAngsuranJasa()
-    // {
-    //     // dd($this->anggota_id);
-    //     if ($this->anggota_id) {
-    //         $pengajuan = PengajuanPinjaman::where('anggota_id', $this->anggota_id)
-    //             ->where('status', 'disetujui')
-    //             ->latest()
-    //             ->first();
-
-    //         if ($pengajuan) {
-    //             $pinjaman = Pinjaman::where('pengajuan_pinjaman_id', $pengajuan->id)
-    //                 ->where('status', 'dalam pembayaran') // Pinjaman dalam proses
-    //                 ->first();
-
-    //             if ($pinjaman) {
-    //                 $angsuran = Angsuran::where('pinjaman_id', $pinjaman->id)
-    //                     ->where(function ($query) {
-    //                         $query->where('kurang_angsuran', '>', 0)
-    //                             ->orWhere('kurang_jasa', '>', 0);
-    //                     })
-    //                     ->exists();
-
-    //                     if ($angsuran) {
-    //                         $this->hasAngsuran = true;
-    //                         $this->angsuranList = [
-    //                             0 => "Rp 0",
-    //                             $pengajuan->nominal_angsuran => "Rp " . number_format($pengajuan->nominal_pokok, 0, ',', '.')
-    //                         ];
-    //                         $this->jasaList = [
-    //                             0 => "Rp 0",
-    //                             $pengajuan->nominal_bunga => "Rp " . number_format($pengajuan->nominal_bunga, 0, ',', '.')
-    //                         ];
-    //                         return;
-    //                     }
-    //             }
-    //         }
-    //     }
-
-    //     $this->hasAngsuran = false;
-    //     $this->angsuranList = [0 => "Rp 0"];
-    //     $this->jasaList = [0 => "Rp 0"];
-    //     $this->angsuran = 0;
-    //     $this->jasa = 0;
-    // }
-
     /**
      * Mengambil data wajib berdasarkan jenis pegawai anggota yang dipilih.
      *
@@ -170,10 +125,11 @@ class FormCreateKasHarian extends Component
     public function getPokok()
     {
         if ($this->anggota_id) {
+            $anggota = Anggota::find($this->anggota_id); 
             $kasHarian = Simpanan::where('anggota_id', $this->anggota_id)->latest()->first();
             $pokok = Pokok::first();
     
-            if ($kasHarian && $kasHarian->pokok > 0) {
+            if (($kasHarian && $kasHarian->pokok > 0) || ($anggota && $anggota->jenis_pegawai === 'Dan lain-lain' )) {
                 $this->pokok = 'Rp 0';
             } else {
                 $this->pokok = 'Rp ' . number_format($pokok->nominal, 0, ',', '.');
@@ -181,8 +137,8 @@ class FormCreateKasHarian extends Component
     
             return;
         }
-    
-        $this->pokok = 'Rp ' . number_format($pokok->nominal, 0, ',', '.');
+
+        $this->pokok = '';
     }
 
     /**

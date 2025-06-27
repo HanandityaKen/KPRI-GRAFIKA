@@ -421,48 +421,48 @@ class KasHarianController extends Controller
                         $kasHarian->wajib_pkpri + $kasHarian->dansos + $kasHarian->shu + $kasHarian->dana_pengurus +
                         $kasHarian->tnh_kav;
 
-        $kasHarian->update([
-            'anggota_id'        => $request->anggota_id,
-            'jenis_transaksi'   => $request->jenis_transaksi,
-            'tanggal'           => $tanggal,
-            'pokok'             => $pokok ?? 0,
-            'wajib'             => $wajib ?? 0,
-            'manasuka'          => $manasuka ?? 0,
-            'wajib_pinjam'      => $wajib_pinjam ?? 0,
-            'qurban'            => $qurban ?? 0,
-            'angsuran'          => $angsuran ?? 0,
-            'jasa'              => $jasa ?? 0,
-            'js_admin'          => $js_admin ?? 0,
-            'lain_lain'         => $lain_lain ?? 0,
-            'barang_kons'       => $barang_kons ?? 0,
-            'piutang'           => $piutang ?? 0,
-            'hutang'            => $hutang ?? 0,
-            'hari_lembur'       => $hari_lembur ?? 0,
-            'perjalanan_pengawas' => $perjalanan_pengawas ?? 0,
-            'thr'               => $thr ?? 0,
-            'admin'             => $admin ?? 0,
-            'iuran_dekopinda'   => $iuran_dekopinda ?? 0,
-            'rkrab'             => $rkrab ?? 0,
-            'pembinaan'         => $pembinaan ?? 0,
-            'harkop'            => $harkop ?? 0,
-            'dandik'            => $dandik ?? 0,
-            'rapat'             => $rapat ?? 0,
-            'jasa_manasuka'     => $jasa_manasuka ?? 0,
-            'pajak'             => $pajak ?? 0,
-            'tabungan_qurban'   => $tabungan_qurban ?? 0,
-            'dekopinda'         => $dekopinda ?? 0,
-            'wajib_pkpri'       => $wajib_pkpri ?? 0,
-            'dansos'            => $dansos ?? 0,
-            'shu'               => $shu ?? 0,
-            'dana_pengurus'     => $dana_pengurus ?? 0,
-            'tnh_kav'           => $tnh_kav ?? 0,
-            'keterangan'        => $request->keterangan ?? null,
-        ]);
-
         $bulan = strtolower(Carbon::createFromFormat('Y-m-d', $tanggal)->translatedFormat('F'));
         $tahun = Carbon::createFromFormat('Y-m-d', $tanggal)->format('Y');
 
         if ($request->jenis_transaksi === 'kas masuk') {
+
+            $kasHarian->update([
+                'anggota_id'        => $request->anggota_id,
+                'jenis_transaksi'   => $request->jenis_transaksi,
+                'tanggal'           => $tanggal,
+                'pokok'             => $pokok ?? 0,
+                'wajib'             => $wajib ?? 0,
+                'manasuka'          => $manasuka ?? 0,
+                'wajib_pinjam'      => $wajib_pinjam ?? 0,
+                'qurban'            => $qurban ?? 0,
+                'angsuran'          => $angsuran ?? 0,
+                'jasa'              => $jasa ?? 0,
+                'js_admin'          => $js_admin ?? 0,
+                'lain_lain'         => $lain_lain ?? 0,
+                'barang_kons'       => $barang_kons ?? 0,
+                'piutang'           => $piutang ?? 0,
+                'hutang'            => $hutang ?? 0,
+                'hari_lembur'       => $hari_lembur ?? 0,
+                'perjalanan_pengawas' => $perjalanan_pengawas ?? 0,
+                'thr'               => $thr ?? 0,
+                'admin'             => $admin ?? 0,
+                'iuran_dekopinda'   => $iuran_dekopinda ?? 0,
+                'rkrab'             => $rkrab ?? 0,
+                'pembinaan'         => $pembinaan ?? 0,
+                'harkop'            => $harkop ?? 0,
+                'dandik'            => $dandik ?? 0,
+                'rapat'             => $rapat ?? 0,
+                'jasa_manasuka'     => $jasa_manasuka ?? 0,
+                'pajak'             => $pajak ?? 0,
+                'tabungan_qurban'   => $tabungan_qurban ?? 0,
+                'dekopinda'         => $dekopinda ?? 0,
+                'wajib_pkpri'       => $wajib_pkpri ?? 0,
+                'dansos'            => $dansos ?? 0,
+                'shu'               => $shu ?? 0,
+                'dana_pengurus'     => $dana_pengurus ?? 0,
+                'tnh_kav'           => $tnh_kav ?? 0,
+                'keterangan'        => $request->keterangan ?? null,
+            ]);    
 
             $jkm = Jkm::where('kas_harian_id', $kasHarian->id)->first();
 
@@ -512,66 +512,135 @@ class KasHarianController extends Controller
 
         if ($request->jenis_transaksi === 'kas keluar') {
 
-                $jkk = Jkk::where('kas_harian_id', $kasHarian->id)->first();
+            $totalSesudahUpdate = $pokok + $wajib + $manasuka + $wajib_pinjam + $qurban + 
+                        $angsuran + $jasa + $js_admin + $lain_lain + $barang_kons +
+                        $hari_lembur + $perjalanan_pengawas + $thr + $admin + $iuran_dekopinda +
+                        $rkrab + $pembinaan + $harkop + $dandik + $rapat + 
+                        $jasa_manasuka + $pajak + $tabungan_qurban + $dekopinda + $wajib_pkpri +
+                        $dansos + $shu + $dana_pengurus + $tnh_kav;
 
-                if ($jkk) {
-                    $jkk->update([
-                        'bulan'         => $bulan,
-                        'tahun'         => $tahun,
-                        'keterangan'    => $request->keterangan,
-                    ]);
+            $selisihSaldo = $totalSesudahUpdate - $totalSebelumUpdate;
+
+            $saldo = Saldo::first();
+
+            if (!$saldo || $saldo->saldo < 0 || ($saldo->saldo - $selisihSaldo < 0)) {
+                return back()->withErrors(['error' => 'Saldo koperasi tidak cukup!']);
+            }
+
+            $simpanan = Simpanan::where('anggota_id', $request->anggota_id)->first();
+
+            $selisihPokok        = $pokok - $kasHarian->pokok;
+            $selisihWajib        = $wajib - $kasHarian->wajib;
+            $selisihManasuka     = $manasuka - $kasHarian->manasuka;
+            $selisihWajibPinjam  = $wajib_pinjam - $kasHarian->wajib_pinjam;
+            $selisihQurban       = $qurban - $kasHarian->qurban;
+
+            if ($simpanan) {
+                if ($selisihPokok > 0 && $simpanan->pokok < $selisihPokok) {
+                    return back()->withErrors(['error' => 'Saldo pokok tidak cukup untuk melakukan transaksi ini!']);
                 }
+                if ($selisihWajib > 0 && $simpanan->wajib < $selisihWajib) {
+                    return back()->withErrors(['error' => 'Saldo wajib tidak cukup untuk melakukan transaksi ini!']);
+                }
+                if ($selisihManasuka > 0 && $simpanan->manasuka < $selisihManasuka) {
+                    return back()->withErrors(['error' => 'Saldo manasuka tidak cukup untuk melakukan transaksi ini!']);
+                }
+                if ($selisihWajibPinjam > 0 && $simpanan->wajib_pinjam < $selisihWajibPinjam) {
+                    return back()->withErrors(['error' => 'Saldo wajib pinjam tidak cukup untuk melakukan transaksi ini!']);
+                }
+                if ($selisihQurban > 0 && $simpanan->qurban < $selisihQurban) {
+                    return back()->withErrors(['error' => 'Saldo qurban tidak cukup untuk melakukan transaksi ini!']);
+                }
+            }
 
-                $kasHarianAnggotaMasuk = KasHarian::where('anggota_id', $request->anggota_id)
-                    ->where('jenis_transaksi', 'kas masuk')
-                    ->get();
+            $kasHarian->update([
+                'anggota_id'        => $request->anggota_id,
+                'jenis_transaksi'   => $request->jenis_transaksi,
+                'tanggal'           => $tanggal,
+                'pokok'             => $pokok ?? 0,
+                'wajib'             => $wajib ?? 0,
+                'manasuka'          => $manasuka ?? 0,
+                'wajib_pinjam'      => $wajib_pinjam ?? 0,
+                'qurban'            => $qurban ?? 0,
+                'angsuran'          => $angsuran ?? 0,
+                'jasa'              => $jasa ?? 0,
+                'js_admin'          => $js_admin ?? 0,
+                'lain_lain'         => $lain_lain ?? 0,
+                'barang_kons'       => $barang_kons ?? 0,
+                'piutang'           => $piutang ?? 0,
+                'hutang'            => $hutang ?? 0,
+                'hari_lembur'       => $hari_lembur ?? 0,
+                'perjalanan_pengawas' => $perjalanan_pengawas ?? 0,
+                'thr'               => $thr ?? 0,
+                'admin'             => $admin ?? 0,
+                'iuran_dekopinda'   => $iuran_dekopinda ?? 0,
+                'rkrab'             => $rkrab ?? 0,
+                'pembinaan'         => $pembinaan ?? 0,
+                'harkop'            => $harkop ?? 0,
+                'dandik'            => $dandik ?? 0,
+                'rapat'             => $rapat ?? 0,
+                'jasa_manasuka'     => $jasa_manasuka ?? 0,
+                'pajak'             => $pajak ?? 0,
+                'tabungan_qurban'   => $tabungan_qurban ?? 0,
+                'dekopinda'         => $dekopinda ?? 0,
+                'wajib_pkpri'       => $wajib_pkpri ?? 0,
+                'dansos'            => $dansos ?? 0,
+                'shu'               => $shu ?? 0,
+                'dana_pengurus'     => $dana_pengurus ?? 0,
+                'tnh_kav'           => $tnh_kav ?? 0,
+                'keterangan'        => $request->keterangan ?? null,
+            ]);
 
-                $kasHarianAnggotaKeluar = KasHarian::where('anggota_id', $request->anggota_id)
-                    ->where('jenis_transaksi', 'kas keluar')
-                    ->get();
+            $jkk = Jkk::where('kas_harian_id', $kasHarian->id)->first();
 
-                $totalPokokMasuk = $kasHarianAnggotaMasuk->sum('pokok');
-                $totalWajibMasuk = $kasHarianAnggotaMasuk->sum('wajib');
-                $totalManasukaMasuk = $kasHarianAnggotaMasuk->sum('manasuka');
-                $totalWajibPinjamMasuk = $kasHarianAnggotaMasuk->sum('wajib_pinjam');
-                $totalQurbanMasuk = $kasHarianAnggotaMasuk->sum('qurban');
-            
-                $totalPokokKeluar = $kasHarianAnggotaKeluar->sum('pokok');
-                $totalWajibKeluar = $kasHarianAnggotaKeluar->sum('wajib');
-                $totalManasukaKeluar = $kasHarianAnggotaKeluar->sum('manasuka');
-                $totalWajibPinjamKeluar = $kasHarianAnggotaKeluar->sum('wajib_pinjam');
-                $totalQurbanKeluar = $kasHarianAnggotaKeluar->sum('qurban');
+            if ($jkk) {
+                $jkk->update([
+                    'bulan'         => $bulan,
+                    'tahun'         => $tahun,
+                    'keterangan'    => $request->keterangan,
+                ]);
+            }
 
-                $totalPokok = max(0, $totalPokokMasuk - $totalPokokKeluar);
-                $totalWajib = max(0, $totalWajibMasuk - $totalWajibKeluar);
-                $totalManasuka = max(0, $totalManasukaMasuk - $totalManasukaKeluar);
-                $totalWajibPinjam = max(0, $totalWajibPinjamMasuk - $totalWajibPinjamKeluar);
-                $totalQurban = max(0, $totalQurbanMasuk - $totalQurbanKeluar);
+            $kasHarianAnggotaMasuk = KasHarian::where('anggota_id', $request->anggota_id)
+                ->where('jenis_transaksi', 'kas masuk')
+                ->get();
 
-                $totalSimpanan = $totalPokok + $totalWajib + $totalManasuka + $totalWajibPinjam + $totalQurban;
-                Simpanan::updateOrCreate(
-                    ['anggota_id' => $request->anggota_id],
-                    [
-                        'pokok'         => $totalPokok,
-                        'wajib'         => $totalWajib,
-                        'manasuka'      => $totalManasuka,
-                        'wajib_pinjam'  => $totalWajibPinjam,
-                        'qurban'        => $totalQurban,
-                        'total'         => $totalSimpanan,
-                    ]
-                );
+            $kasHarianAnggotaKeluar = KasHarian::where('anggota_id', $request->anggota_id)
+                ->where('jenis_transaksi', 'kas keluar')
+                ->get();
 
-                $totalSesudahUpdate = $pokok + $wajib + $manasuka + $wajib_pinjam + $qurban + 
-                                    $angsuran + $jasa + $js_admin + $lain_lain + $barang_kons +
-                                    $hari_lembur + $perjalanan_pengawas + $thr + $admin + $iuran_dekopinda +
-                                    $rkrab + $pembinaan + $harkop + $dandik + $rapat + 
-                                    $jasa_manasuka + $pajak + $tabungan_qurban + $dekopinda + $wajib_pkpri +
-                                    $dansos + $shu + $dana_pengurus + $tnh_kav;
+            $totalPokokMasuk = $kasHarianAnggotaMasuk->sum('pokok');
+            $totalWajibMasuk = $kasHarianAnggotaMasuk->sum('wajib');
+            $totalManasukaMasuk = $kasHarianAnggotaMasuk->sum('manasuka');
+            $totalWajibPinjamMasuk = $kasHarianAnggotaMasuk->sum('wajib_pinjam');
+            $totalQurbanMasuk = $kasHarianAnggotaMasuk->sum('qurban');
+        
+            $totalPokokKeluar = $kasHarianAnggotaKeluar->sum('pokok');
+            $totalWajibKeluar = $kasHarianAnggotaKeluar->sum('wajib');
+            $totalManasukaKeluar = $kasHarianAnggotaKeluar->sum('manasuka');
+            $totalWajibPinjamKeluar = $kasHarianAnggotaKeluar->sum('wajib_pinjam');
+            $totalQurbanKeluar = $kasHarianAnggotaKeluar->sum('qurban');
 
-                $selisihSaldo = $totalSesudahUpdate - $totalSebelumUpdate;
+            $totalPokok = max(0, $totalPokokMasuk - $totalPokokKeluar);
+            $totalWajib = max(0, $totalWajibMasuk - $totalWajibKeluar);
+            $totalManasuka = max(0, $totalManasukaMasuk - $totalManasukaKeluar);
+            $totalWajibPinjam = max(0, $totalWajibPinjamMasuk - $totalWajibPinjamKeluar);
+            $totalQurban = max(0, $totalQurbanMasuk - $totalQurbanKeluar);
 
-                $saldo = Saldo::first();
-                $saldo->update(['saldo' => $saldo->saldo - $selisihSaldo]);
+            $totalSimpanan = $totalPokok + $totalWajib + $totalManasuka + $totalWajibPinjam + $totalQurban;
+            Simpanan::updateOrCreate(
+                ['anggota_id' => $request->anggota_id],
+                [
+                    'pokok'         => $totalPokok,
+                    'wajib'         => $totalWajib,
+                    'manasuka'      => $totalManasuka,
+                    'wajib_pinjam'  => $totalWajibPinjam,
+                    'qurban'        => $totalQurban,
+                    'total'         => $totalSimpanan,
+                ]
+            );
+
+            $saldo->update(['saldo' => $saldo->saldo - $selisihSaldo]);
         }
 
         return redirect()->route('admin.kas-harian.index')->with('success', 'Berhasil Mengubah Kas Harian');

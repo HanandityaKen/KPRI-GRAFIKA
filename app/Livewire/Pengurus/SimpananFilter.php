@@ -60,7 +60,7 @@ class SimpananFilter extends Component
                 })
                 ->selectRaw('anggota_id, no_anggota, nama_anggota, SUM(pokok) as total_pokok, SUM(wajib) as total_wajib, SUM(manasuka) as total_manasuka, SUM(wajib_pinjam) as total_wajib_pinjam, SUM(qurban) as total_qurban')
                 ->groupBy('anggota_id', 'no_anggota', 'nama_anggota')
-                ->orderBy('anggota_id', 'asc')
+                ->orderBy('no_anggota', 'asc')
                 ->paginate(10)
                 ->onEachSide(1)
         ]);

@@ -1,4 +1,4 @@
-<div>
+<div wire:poll.keep-alive.5s>
     <div class="mb-8 flex justify-between items-center">
         <div class="relative w-2/3 sm:w-1/3">
             <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">

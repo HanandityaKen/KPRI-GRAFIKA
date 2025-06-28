@@ -1,4 +1,4 @@
-<div>
+<div wire:poll.keep-alive.5s>
     <div class="container mx-auto px-6 md:px-20 mt-10 mb-10">
         <div class="bg-white shadow-md rounded-lg overflow-hidden">
             <div class="border border-green-200 rounded-lg">

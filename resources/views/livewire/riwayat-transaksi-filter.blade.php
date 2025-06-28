@@ -1,4 +1,4 @@
-<div>
+<div wire:poll.keep-alive.5s>
     <div class="mb-8 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
         <!-- Select Tahun & Bulan -->
         <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 w-full sm:w-auto">

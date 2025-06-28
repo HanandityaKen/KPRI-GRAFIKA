@@ -1,4 +1,4 @@
-<div>
+<div wire:poll.keep-alive.5s>
     <div class="mb-8 flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-4">
         <!-- KIRI: Search -->
         <div class="relative w-full sm:w-1/3">

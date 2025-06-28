@@ -1,4 +1,4 @@
-<div>
+<div wire:poll.keep-alive.5s>
     <div class="mb-8 flex justify-between items-center">
         <div class="flex items-center">
             <label for="yearFilter" class="mr-2">Tahun:</label>

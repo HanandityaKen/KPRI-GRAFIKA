@@ -125,8 +125,9 @@ class FormEditKasHarian extends Component
             $anggota = Anggota::find($this->anggota_id); 
             $kasHarian = Simpanan::where('anggota_id', $this->anggota_id)->latest()->first();
             $pokok = Pokok::first();
+            $wajib = Wajib::where('jenis_pegawai', $anggota->jenis_pegawai)->first();
     
-            if (($kasHarian && $kasHarian->pokok > 0) || ($anggota && $anggota->jenis_pegawai === 'Dan lain-lain')  ) {
+            if (($kasHarian && $kasHarian->pokok > 0) || ($wajib && $wajib->nominal == 0)  ) {
                 $this->pokok = 'Rp 0';
             } else {
                 $this->pokok = 'Rp ' . number_format($pokok->nominal, 0, ',', '.');

@@ -182,6 +182,7 @@ class RiwayatTransaksiFilter extends Component
                 $transaksi->thr ?? 0,
                 $transaksi->admin ?? 0,
                 $transaksi->iuran_dekopinda ?? 0,
+                $transaksi->honor_pengurus ?? 0,
                 $transaksi->rkrab ?? 0,
                 $transaksi->pembinaan ?? 0,
                 $transaksi->harkop ?? 0,
@@ -195,6 +196,8 @@ class RiwayatTransaksiFilter extends Component
                 $transaksi->dansos ?? 0,
                 $transaksi->shu ?? 0,
                 $transaksi->dana_pengurus ?? 0,
+                $transaksi->dana_kesejahteraan ?? 0,
+                $transaksi->pembayaran_listrik_dan_air ?? 0,
                 $transaksi->tnh_kav ?? 0,
             ]);
         }

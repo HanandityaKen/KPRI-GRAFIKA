@@ -16,7 +16,7 @@
                 <th rowspan="2">Hutang</th>
         
                 <!-- Beban Umum -->
-                <th colspan="5" style="text-align: center;">Beban Umum</th>
+                <th colspan="6" style="text-align: center;">Beban Umum</th>
         
                 <!-- Beban Organisasi -->
                 <th colspan="4" style="text-align: center;">Beban Organisasi</th>
@@ -25,7 +25,7 @@
                 <th colspan="2" style="text-align: center;">Beban Operasional</th>
         
                 <!-- Beban Lain -->
-                <th colspan="7" style="text-align: center;">Beban Lain</th>
+                <th colspan="9" style="text-align: center;">Beban Lain</th>
         
                 <th rowspan="2">Tanah Kavling</th>
                 <th rowspan="2">Jumlah</th>
@@ -37,6 +37,7 @@
                 <th>THR</th>
                 <th>Admin</th>
                 <th>Iuran Dekopinda</th>
+                <th>Honor Pengurus</th>
         
                 <!-- Subkolom Beban Organisasi -->
                 <th>RkRab</th>
@@ -56,6 +57,8 @@
                 <th>Dansos</th>
                 <th>SHU</th>
                 <th>Dana Pengurus</th>
+                <th>Dana Kesejahteraan</th>
+                <th>Pembayaran Listrik dan Air</th>
             </tr>
         </thead>
         <tbody>
@@ -76,6 +79,7 @@
                 <td>- Rp {{ number_format($jkk['total_thr'], 0, ',', '.') }}</td>
                 <td>- Rp {{ number_format($jkk['total_admin'], 0, ',', '.') }}</td>
                 <td>- Rp {{ number_format($jkk['total_iuran_dekopinda'], 0, ',', '.') }}</td>
+                <td>- Rp {{ number_format($jkk['total_honor_pengurus'], 0, ',', '.') }}</td>
                 <td>- Rp {{ number_format($jkk['total_rkrab'], 0, ',', '.') }}</td>
                 <td>- Rp {{ number_format($jkk['total_pembinaan'], 0, ',', '.') }}</td>
                 <td>- Rp {{ number_format($jkk['total_harkop'], 0, ',', '.') }}</td>
@@ -89,6 +93,8 @@
                 <td>- Rp {{ number_format($jkk['total_dansos'], 0, ',', '.') }}</td>
                 <td>- Rp {{ number_format($jkk['total_shu'], 0, ',', '.') }}</td>
                 <td>- Rp {{ number_format($jkk['total_dana_pengurus'], 0, ',', '.') }}</td>
+                <td>- Rp {{ number_format($jkk['total_dana_kesejahteraan'], 0, ',', '.') }}</td>
+                <td>- Rp {{ number_format($jkk['total_pembayaran_listrik_dan_air'], 0, ',', '.') }}</td>
                 <td>- Rp {{ number_format($jkk['total_tnh_kav'], 0, ',', '.') }}</td>
                 <td>- Rp {{ number_format($jkk['total_jumlah'], 0, ',', '.') }}</td>
             </tr>

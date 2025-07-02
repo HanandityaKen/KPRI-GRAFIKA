@@ -38,9 +38,9 @@ class JkkExport implements FromView, WithStyles
             angsuran + pokok + wajib + manasuka + wajib_pinjam +
             qurban + lain_lain + piutang + hutang + hari_lembur +
             perjalanan_pengawas + thr + admin + iuran_dekopinda +
-            rkrab + pembinaan + harkop + dandik + rapat +
+            honor_pengurus + rkrab + pembinaan + harkop + dandik + rapat +
             jasa_manasuka + pajak + tabungan_qurban + dekopinda +
-            wajib_pkpri + dansos + shu + dana_pengurus + tnh_kav
+            wajib_pkpri + dansos + shu + dana_pengurus + dana_kesejahteraan + pembayaran_listrik_dan_air + tnh_kav
         '));
     }
 
@@ -64,6 +64,7 @@ class JkkExport implements FromView, WithStyles
                 SUM(thr) as thr,
                 SUM(admin) as admin,
                 SUM(iuran_dekopinda) as iuran_dekopinda,
+                SUM(honor_pengurus) as honor_pengurus,
                 SUM(rkrab) as rkrab,
                 SUM(pembinaan) as pembinaan,
                 SUM(harkop) as harkop,
@@ -77,6 +78,8 @@ class JkkExport implements FromView, WithStyles
                 SUM(dansos) as dansos,
                 SUM(shu) as shu,
                 SUM(dana_pengurus) as dana_pengurus,
+                SUM(dana_kesejahteraan) as dana_kesejahteraan,
+                SUM(pembayaran_listrik_dan_air) as pembayaran_listrik_dan_air,
                 SUM(tnh_kav) as tnh_kav
             ')
             ->where('jenis_transaksi', 'kas keluar');
@@ -107,8 +110,8 @@ class JkkExport implements FromView, WithStyles
     {
         $lastRow = $sheet->getHighestRow();
 
-        // Merge judul utama dari A1 sampai AD1
-        $sheet->mergeCells('A1:AE1');
+        // Merge judul utama dari A1 sampai AH1
+        $sheet->mergeCells('A1:AH1');
         $sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
         $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14);
 
@@ -119,13 +122,13 @@ class JkkExport implements FromView, WithStyles
         }
 
         // Non-wrap agar teks tidak turun ke bawah
-        $sheet->getStyle('A1:AE' . $lastRow)->getAlignment()->setWrapText(false);
+        $sheet->getStyle('A1:AH' . $lastRow)->getAlignment()->setWrapText(false);
 
         // Tetapkan tinggi baris tetap
         $sheet->getDefaultRowDimension()->setRowHeight(20);
 
         // Style untuk header (baris ke-3 dan ke-4)
-        $sheet->getStyle('A3:AE4')->applyFromArray([
+        $sheet->getStyle('A3:AH4')->applyFromArray([
             'font' => ['bold' => true],
             'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
@@ -144,7 +147,7 @@ class JkkExport implements FromView, WithStyles
 
         // Border bawah antar baris data
         for ($row = 5; $row <= $lastRow; $row++) {
-            $sheet->getStyle("A{$row}:AE{$row}")->applyFromArray([
+            $sheet->getStyle("A{$row}:AH{$row}")->applyFromArray([
                 'borders' => [
                     'bottom' => [
                         'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,

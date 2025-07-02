@@ -30,10 +30,10 @@
                     <th class="p-3 text-center whitespace-nowrap" rowspan="2">Hutang</th>
             
                     <!-- Grup Header -->
-                    <th class="p-3 text-center whitespace-nowrap" colspan="5">Beban Umum</th>
+                    <th class="p-3 text-center whitespace-nowrap" colspan="6">Beban Umum</th>
                     <th class="p-3 text-center whitespace-nowrap" colspan="4">Beban Organisasi</th>
                     <th class="p-3 text-center whitespace-nowrap" colspan="2">Beban Operasional</th>
-                    <th class="p-3 text-center whitespace-nowrap" colspan="7">Beban Lain</th>
+                    <th class="p-3 text-center whitespace-nowrap" colspan="9">Beban Lain</th>
             
                     <!-- Kolom akhir -->
                     <th class="p-3 text-center whitespace-nowrap" rowspan="2">Tanah Kavling</th>
@@ -46,6 +46,7 @@
                     <th class="p-3 text-center whitespace-nowrap">THR</th>
                     <th class="p-3 text-center whitespace-nowrap">Admin</th>
                     <th class="p-3 text-center whitespace-nowrap">Iuran Dekopinda</th>
+                    <th class="p-3 text-center whitespace-nowrap">Honor Pengurus</th>
             
                     <!-- Subkolom Beban Organisasi -->
                     <th class="p-3 text-center whitespace-nowrap">RkRab</th>
@@ -65,6 +66,8 @@
                     <th class="p-3 text-center whitespace-nowrap">Dansos</th>
                     <th class="p-3 text-center whitespace-nowrap">SHU</th>
                     <th class="p-3 text-center whitespace-nowrap">Dana Pengurus</th>
+                    <th class="p-3 text-center whitespace-nowrap">Dana Kesejahteraan</th>
+                    <th class="p-3 text-center whitespace-nowrap">Pembayaran Listrik Dan Air</th>
                 </tr>
             </thead>
             <tbody>
@@ -85,6 +88,7 @@
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_thr'], 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_admin'], 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_iuran_dekopinda'], 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_honor_pengurus'], 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_rkrab'], 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_pembinaan'], 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_harkop'], 0, ',', '.') }}</td>
@@ -98,6 +102,8 @@
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_dansos'], 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_shu'], 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_dana_pengurus'], 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_dana_kesejahteraan'], 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_pembayaran_listrik_dan_air'], 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk['total_tnh_kav'], 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap font-bold">- Rp {{ number_format($jkk['total_jumlah'], 0, ',', '.') }}</td>
                     </tr>

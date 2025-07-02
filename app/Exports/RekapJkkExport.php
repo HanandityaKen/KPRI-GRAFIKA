@@ -36,6 +36,7 @@ class RekapJkkExport implements FromView, WithStyles
                 SUM(thr) +
                 SUM(admin) +
                 SUM(iuran_dekopinda) +
+                SUM(honor_pengurus) +
                 SUM(rkrab) +
                 SUM(pembinaan) +
                 SUM(harkop) +
@@ -49,6 +50,8 @@ class RekapJkkExport implements FromView, WithStyles
                 SUM(dansos) +
                 SUM(shu) +
                 SUM(dana_pengurus) +
+                SUM(dana_kesejahteraan) +
+                SUM(pembayaran_listrik_dan_air) +
                 SUM(tnh_kav) as total
             ')
             ->value('total');
@@ -72,6 +75,7 @@ class RekapJkkExport implements FromView, WithStyles
                 SUM(thr) as total_thr,
                 SUM(admin) as total_admin,
                 SUM(iuran_dekopinda) as total_iuran_dekopinda,
+                SUM(honor_pengurus) as total_honor_pengurus,
                 SUM(rkrab) as total_rkrab,
                 SUM(pembinaan) as total_pembinaan,
                 SUM(harkop) as total_harkop,
@@ -85,8 +89,10 @@ class RekapJkkExport implements FromView, WithStyles
                 SUM(dansos) as total_dansos,
                 SUM(shu) as total_shu,
                 SUM(dana_pengurus) as total_dana_pengurus,
+                SUM(dana_kesejahteraan) as total_dana_kesejahteraan,
+                SUM(pembayaran_listrik_dan_air) as total_pembayaran_listrik_dan_air,
                 SUM(tnh_kav) as total_tnh_kav,
-                SUM(angsuran + pokok + wajib + manasuka + wajib_pinjam + qurban + lain_lain + piutang + hutang + hari_lembur + perjalanan_pengawas + thr + admin + iuran_dekopinda + rkrab + pembinaan + harkop + dandik + rapat + jasa_manasuka + pajak + tabungan_qurban + dekopinda + wajib_pkpri + dansos + shu + dana_pengurus + tnh_kav) as total_jumlah
+                SUM(angsuran + pokok + wajib + manasuka + wajib_pinjam + qurban + lain_lain + piutang + hutang + hari_lembur + perjalanan_pengawas + thr + admin + iuran_dekopinda + honor_pengurus + rkrab + pembinaan + harkop + dandik + rapat + jasa_manasuka + pajak + tabungan_qurban + dekopinda + wajib_pkpri + dansos + shu + dana_pengurus + dana_kesejahteraan + pembayaran_listrik_dan_air + tnh_kav) as total_jumlah
             ')
             ->where('jenis_transaksi', 'kas keluar')
             ->whereYear('tanggal', $this->selectedYear)
@@ -119,6 +125,7 @@ class RekapJkkExport implements FromView, WithStyles
                     'total_thr' => $jkks->get($monthNumber)->total_thr ?? 0,
                     'total_admin' => $jkks->get($monthNumber)->total_admin ?? 0,
                     'total_iuran_dekopinda' => $jkks->get($monthNumber)->total_iuran_dekopinda ?? 0,
+                    'total_honor_pengurus' => $jkks->get($monthNumber)->total_honor_pengurus ?? 0,
                     'total_rkrab' => $jkks->get($monthNumber)->total_rkrab ?? 0,
                     'total_pembinaan' => $jkks->get($monthNumber)->total_pembinaan ?? 0,
                     'total_harkop' => $jkks->get($monthNumber)->total_harkop ?? 0,
@@ -132,6 +139,8 @@ class RekapJkkExport implements FromView, WithStyles
                     'total_dansos' => $jkks->get($monthNumber)->total_dansos ?? 0,
                     'total_shu' => $jkks->get($monthNumber)->total_shu ?? 0,
                     'total_dana_pengurus' => $jkks->get($monthNumber)->total_dana_pengurus ?? 0,
+                    'total_dana_kesejahteraan' => $jkks->get($monthNumber)->total_dana_kesejahteraan ?? 0,
+                    'total_pembayaran_listrik_dan_air' => $jkks->get($monthNumber)->total_pembayaran_listrik_dan_air ?? 0,
                     'total_tnh_kav' => $jkks->get($monthNumber)->total_tnh_kav ?? 0,
                     'total_jumlah' => $jkks->get($monthNumber)->total_jumlah ?? 0,
                 ];
@@ -148,8 +157,8 @@ class RekapJkkExport implements FromView, WithStyles
     {
         $lastRow = $sheet->getHighestRow();
 
-        // Merge judul utama dari A1 sampai AD1
-        $sheet->mergeCells('A1:AD1');
+        // Merge judul utama dari A1 sampai AG1
+        $sheet->mergeCells('A1:AG1');
         $sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
         $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14);
 
@@ -160,13 +169,13 @@ class RekapJkkExport implements FromView, WithStyles
         }
 
         // Non-wrap agar teks tidak turun ke bawah
-        $sheet->getStyle('A1:AD' . $lastRow)->getAlignment()->setWrapText(false);
+        $sheet->getStyle('A1:AG' . $lastRow)->getAlignment()->setWrapText(false);
 
         // Tetapkan tinggi baris tetap
         $sheet->getDefaultRowDimension()->setRowHeight(20);
 
         // Style untuk header (baris ke-3 dan ke-4)
-        $sheet->getStyle('A3:AD4')->applyFromArray([
+        $sheet->getStyle('A3:AG4')->applyFromArray([
             'font' => ['bold' => true],
             'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
@@ -185,7 +194,7 @@ class RekapJkkExport implements FromView, WithStyles
 
         // Border bawah antar baris data
         for ($row = 5; $row <= $lastRow; $row++) {
-            $sheet->getStyle("A{$row}:AD{$row}")->applyFromArray([
+            $sheet->getStyle("A{$row}:AG{$row}")->applyFromArray([
                 'borders' => [
                     'bottom' => [
                         'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,

@@ -36,7 +36,7 @@
             <thead>
                 <tr>
                     <th class="p-3 text-left text-[#6DA854]">No</th>
-                    <th class="p-3 text-left whitespace-nowrap">No Anggota</th>
+                    <th class="p-3 text-center whitespace-nowrap">No Anggota</th>
                     <th class="p-3 text-left whitespace-nowrap">Nama</th>
                     <th class="p-3 text-center whitespace-nowrap">Jenis Pegawai</th>
                     <th class="p-3 text-left whitespace-nowrap">Telepon</th>

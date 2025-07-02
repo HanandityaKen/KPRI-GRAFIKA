@@ -130,6 +130,7 @@ class JkkFilter extends Component
             ->selectRaw('SUM(kas_harian.thr) as total_thr')
             ->selectRaw('SUM(kas_harian.admin) as total_admin')
             ->selectRaw('SUM(kas_harian.iuran_dekopinda) as total_iuran_dekopinda')
+            ->selectRaw('SUM(kas_harian.honor_pengurus) as total_honor_pengurus')
             ->selectRaw('SUM(kas_harian.rkrab) as total_rkrab')
             ->selectRaw('SUM(kas_harian.pembinaan) as total_pembinaan')
             ->selectRaw('SUM(kas_harian.harkop) as total_harkop')
@@ -143,8 +144,10 @@ class JkkFilter extends Component
             ->selectRaw('SUM(kas_harian.dansos) as total_dansos')
             ->selectRaw('SUM(kas_harian.shu) as total_shu')
             ->selectRaw('SUM(kas_harian.dana_pengurus) as total_dana_pengurus')
+            ->selectRaw('SUM(kas_harian.dana_kesejahteraan) as total_dana_kesejahteraan')
+            ->selectRaw('SUM(kas_harian.pembayaran_listrik_dan_air) as total_pembayaran_listrik_dan_air')
             ->selectRaw('SUM(kas_harian.tnh_kav) as total_tnh_kav')
-            ->selectRaw('SUM(kas_harian.angsuran + kas_harian.pokok + kas_harian.wajib + kas_harian.manasuka + kas_harian.wajib_pinjam + kas_harian.qurban + kas_harian.lain_lain + kas_harian.piutang + kas_harian.hutang + kas_harian.hari_lembur + kas_harian.perjalanan_pengawas + kas_harian.thr + kas_harian.admin + kas_harian.iuran_dekopinda + kas_harian.rkrab + kas_harian.pembinaan + kas_harian.harkop + kas_harian.dandik + kas_harian.rapat + kas_harian.jasa_manasuka + kas_harian.pajak + kas_harian.tabungan_qurban + kas_harian.dekopinda + kas_harian.wajib_pkpri + kas_harian.dansos + kas_harian.shu + kas_harian.dana_pengurus + kas_harian.tnh_kav) as total_jumlah')
+            ->selectRaw('SUM(kas_harian.angsuran + kas_harian.pokok + kas_harian.wajib + kas_harian.manasuka + kas_harian.wajib_pinjam + kas_harian.qurban + kas_harian.lain_lain + kas_harian.piutang + kas_harian.hutang + kas_harian.hari_lembur + kas_harian.perjalanan_pengawas + kas_harian.thr + kas_harian.admin + kas_harian.iuran_dekopinda + kas_harian.honor_pengurus + kas_harian.rkrab + kas_harian.pembinaan + kas_harian.harkop + kas_harian.dandik + kas_harian.rapat + kas_harian.jasa_manasuka + kas_harian.pajak + kas_harian.tabungan_qurban + kas_harian.dekopinda + kas_harian.wajib_pkpri + kas_harian.dansos + kas_harian.shu + kas_harian.dana_pengurus + kas_harian.dana_kesejahteraan + kas_harian.pembayaran_listrik_dan_air + kas_harian.tnh_kav) as total_jumlah')
             ->where('kas_harian.jenis_transaksi', 'kas keluar')
             ->where(function ($query) {
                 $query->where('kas_harian.nama_anggota', 'like', '%' . $this->search . '%');

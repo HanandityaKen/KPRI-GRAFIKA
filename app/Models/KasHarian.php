@@ -32,6 +32,7 @@ class KasHarian extends Model
         'thr',
         'admin',
         'iuran_dekopinda',
+        'honor_pengurus',
         'rkrab',
         'pembinaan',
         'harkop',
@@ -45,6 +46,8 @@ class KasHarian extends Model
         'dansos',
         'shu',
         'dana_pengurus',
+        'dana_kesejahteraan',
+        'pembayaran_listrik_dan_air',
         'tnh_kav',
         'keterangan',
     ];
@@ -78,6 +81,7 @@ class KasHarian extends Model
                     ($kasHarian->thr ?? 0) + 
                     ($kasHarian->admin ?? 0) + 
                     ($kasHarian->iuran_dekopinda ?? 0) + 
+                    ($kasHarian->honor_pengurus ?? 0) + 
                     ($kasHarian->rkrab ?? 0) + 
                     ($kasHarian->pembinaan ?? 0) + 
                     ($kasHarian->harkop ?? 0) + 
@@ -91,6 +95,8 @@ class KasHarian extends Model
                     ($kasHarian->dansos ?? 0) + 
                     ($kasHarian->shu ?? 0) + 
                     ($kasHarian->dana_pengurus ?? 0) +
+                    ($kasHarian->dana_kesejahteraan ?? 0) +
+                    ($kasHarian->pembayaran_listrik_dan_air ?? 0) +
                     ($kasHarian->tnh_kav ?? 0);
 
                 if ($kasHarian->jenis_transaksi === 'kas masuk') {

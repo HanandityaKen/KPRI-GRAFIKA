@@ -82,6 +82,7 @@ class RekapJkkFilter extends Component
                 SUM(thr) +
                 SUM(admin) +
                 SUM(iuran_dekopinda) +
+                SUM(honor_pengurus) +
                 SUM(rkrab) +
                 SUM(pembinaan) +
                 SUM(harkop) +
@@ -95,6 +96,8 @@ class RekapJkkFilter extends Component
                 SUM(dansos) +
                 SUM(shu) +
                 SUM(dana_pengurus) +
+                SUM(dana_kesejahteraan) +
+                SUM(pembayaran_listrik_dan_air) +
                 SUM(tnh_kav) as total
             ')
             ->value('total');
@@ -125,6 +128,7 @@ class RekapJkkFilter extends Component
                 SUM(thr) as total_thr,
                 SUM(admin) as total_admin,
                 SUM(iuran_dekopinda) as total_iuran_dekopinda,
+                SUM(honor_pengurus) as total_honor_pengurus,
                 SUM(rkrab) as total_rkrab,
                 SUM(pembinaan) as total_pembinaan,
                 SUM(harkop) as total_harkop,
@@ -138,8 +142,10 @@ class RekapJkkFilter extends Component
                 SUM(dansos) as total_dansos,
                 SUM(shu) as total_shu,
                 SUM(dana_pengurus) as total_dana_pengurus,
+                SUM(dana_kesejahteraan) as total_dana_kesejahteraan,
+                SUM(pembayaran_listrik_dan_air) as total_pembayaran_listrik_dan_air,
                 SUM(tnh_kav) as total_tnh_kav,
-                SUM(angsuran + pokok + wajib + manasuka + wajib_pinjam + qurban + lain_lain + piutang + hutang + hari_lembur + perjalanan_pengawas + thr + admin + iuran_dekopinda + rkrab + pembinaan + harkop + dandik + rapat + jasa_manasuka + pajak + tabungan_qurban + dekopinda + wajib_pkpri + dansos + shu + dana_pengurus + tnh_kav) as total_jumlah
+                SUM(angsuran + pokok + wajib + manasuka + wajib_pinjam + qurban + lain_lain + piutang + hutang + hari_lembur + perjalanan_pengawas + thr + admin + iuran_dekopinda + honor_pengurus + rkrab + pembinaan + harkop + dandik + rapat + jasa_manasuka + pajak + tabungan_qurban + dekopinda + wajib_pkpri + dansos + shu + dana_pengurus + dana_kesejahteraan + pembayaran_listrik_dan_air + tnh_kav) as total_jumlah
             ')
             ->where('jenis_transaksi', 'kas keluar')
             ->whereYear('tanggal', $this->selectedYear)
@@ -172,6 +178,7 @@ class RekapJkkFilter extends Component
                     'total_thr' => $jkks->get($monthNumber)->total_thr ?? 0,
                     'total_admin' => $jkks->get($monthNumber)->total_admin ?? 0,
                     'total_iuran_dekopinda' => $jkks->get($monthNumber)->total_iuran_dekopinda ?? 0,
+                    'total_honor_pengurus' => $jkks->get($monthNumber)->total_honor_pengurus ?? 0,
                     'total_rkrab' => $jkks->get($monthNumber)->total_rkrab ?? 0,
                     'total_pembinaan' => $jkks->get($monthNumber)->total_pembinaan ?? 0,
                     'total_harkop' => $jkks->get($monthNumber)->total_harkop ?? 0,
@@ -185,6 +192,8 @@ class RekapJkkFilter extends Component
                     'total_dansos' => $jkks->get($monthNumber)->total_dansos ?? 0,
                     'total_shu' => $jkks->get($monthNumber)->total_shu ?? 0,
                     'total_dana_pengurus' => $jkks->get($monthNumber)->total_dana_pengurus ?? 0,
+                    'total_dana_kesejahteraan' => $jkks->get($monthNumber)->total_dana_kesejahteraan ?? 0,
+                    'total_pembayaran_listrik_dan_air' => $jkks->get($monthNumber)->total_pembayaran_listrik_dan_air ?? 0,
                     'total_tnh_kav' => $jkks->get($monthNumber)->total_tnh_kav ?? 0,
                     'total_jumlah' => $jkks->get($monthNumber)->total_jumlah ?? 0,
                 ];

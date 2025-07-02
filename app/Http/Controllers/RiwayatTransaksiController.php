@@ -47,6 +47,7 @@ class RiwayatTransaksiController extends Controller
             'thr' => 'THR',
             'admin' => 'Admin',
             'iuran_dekopinda' => 'Iuran Dekopinda',
+            'honor_pengurus' => 'Honor Pengurus',
             'rkrab' => 'RkRab',
             'pembinaan' => 'Pembinaan',
             'harkop' => 'Harkop',
@@ -60,6 +61,8 @@ class RiwayatTransaksiController extends Controller
             'dansos' => 'Dansos',
             'shu' => 'SHU',
             'dana_pengurus' => 'Dana Pengurus',
+            'dana_kesejahteraan' => 'Dana Kesejahteraan',
+            'pembayaran_listrik_dan_air' => 'Pembayaran Listrik dan Air',
             'tnh_kav' => 'Tanah Kavling',
         ];
 

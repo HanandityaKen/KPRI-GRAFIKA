@@ -61,6 +61,7 @@ class FormEditKasHarianKeluar extends Component
     public $thr = '';
     public $admin = '';
     public $iuran_dekopinda = '';
+    public $honor_pengurus = '';
     public $rkrab = '';
     public $pembinaan = '';
     public $harkop = '';
@@ -74,8 +75,10 @@ class FormEditKasHarianKeluar extends Component
     public $dansos = '';
     public $shu = '';
     public $dana_pengurus = '';
+    public $dana_kesejahteraan = '';
+    public $pembayaran_listrik_dan_air = '';
     public $tnh_kav = '';
-
+    
     public $error_qurban;
     public $error_manasuka;
     public $disabled = false;
@@ -105,6 +108,7 @@ class FormEditKasHarianKeluar extends Component
         $this->thr                 = $this->kasHarian->thr;
         $this->admin               = $this->kasHarian->admin;
         $this->iuran_dekopinda     = $this->kasHarian->iuran_dekopinda;
+        $this->honor_pengurus      = $this->kasHarian->honor_pengurus;
         $this->rkrab               = $this->kasHarian->rkrab;
         $this->pembinaan           = $this->kasHarian->pembinaan;
         $this->harkop              = $this->kasHarian->harkop;
@@ -118,6 +122,8 @@ class FormEditKasHarianKeluar extends Component
         $this->dansos              = $this->kasHarian->dansos;
         $this->shu                 = $this->kasHarian->shu;
         $this->dana_pengurus       = $this->kasHarian->dana_pengurus;
+        $this->dana_kesejahteraan  = $this->kasHarian->dana_kesejahteraan;
+        $this->pembayaran_listrik_dan_air  = $this->kasHarian->pembayaran_listrik_dan_air;
         $this->tnh_kav             = $this->kasHarian->tnh_kav;
 
         $anggota = Anggota::find($this->anggota_id);
@@ -239,6 +245,11 @@ class FormEditKasHarianKeluar extends Component
         $this->checkDisabled();
     }
 
+    public function updatedHonorPengurus()
+    {
+        $this->checkDisabled();
+    }
+
     public function updatedRkrab()
     {
         $this->checkDisabled();
@@ -304,6 +315,16 @@ class FormEditKasHarianKeluar extends Component
         $this->checkDisabled();
     }
 
+    public function updatedDanaKesejahteraan()
+    {
+        $this->checkDisabled();
+    }
+
+    public function updatedPembayaranListrikDanAir()
+    {
+        $this->checkDisabled();
+    }
+
     /**
      * Validasi real-time saat tanah kavling diubah.
      */
@@ -331,6 +352,7 @@ class FormEditKasHarianKeluar extends Component
         $thr                 = (int) str_replace(['Rp', '.', ','], '', $this->thr);
         $admin               = (int) str_replace(['Rp', '.', ','], '', $this->admin);
         $iuran_dekopinda     = (int) str_replace(['Rp', '.', ','], '', $this->iuran_dekopinda);
+        $honor_pengurus      = (int) str_replace(['Rp', '.', ','], '', $this->honor_pengurus);
         $rkrab               = (int) str_replace(['Rp', '.', ','], '', $this->rkrab);
         $pembinaan           = (int) str_replace(['Rp', '.', ','], '', $this->pembinaan);
         $harkop              = (int) str_replace(['Rp', '.', ','], '', $this->harkop);
@@ -344,6 +366,8 @@ class FormEditKasHarianKeluar extends Component
         $dansos              = (int) str_replace(['Rp', '.', ','], '', $this->dansos);
         $shu                 = (int) str_replace(['Rp', '.', ','], '', $this->shu);
         $dana_pengurus       = (int) str_replace(['Rp', '.', ','], '', $this->dana_pengurus);
+        $dana_kesejahteraan  = (int) str_replace(['Rp', '.', ','], '', $this->dana_kesejahteraan);
+        $pembayaran_listrik_dan_air  = (int) str_replace(['Rp', '.', ','], '', $this->pembayaran_listrik_dan_air);
         $tnh_kav             = (int) str_replace(['Rp', '.', ','], '', $this->tnh_kav);
 
         $hasValidationError = $this->disabled_qurban || $this->disabled_manasuka;
@@ -358,6 +382,7 @@ class FormEditKasHarianKeluar extends Component
                         $thr === 0 &&
                         $admin === 0 &&
                         $iuran_dekopinda === 0 &&
+                        $honor_pengurus === 0 &&
                         $rkrab === 0 &&
                         $pembinaan === 0 &&
                         $harkop === 0 &&
@@ -371,6 +396,8 @@ class FormEditKasHarianKeluar extends Component
                         $dansos === 0 &&
                         $shu === 0 &&
                         $dana_pengurus === 0 &&
+                        $dana_kesejahteraan === 0 &&
+                        $pembayaran_listrik_dan_air === 0 &&
                         $tnh_kav === 0
                     ));
 

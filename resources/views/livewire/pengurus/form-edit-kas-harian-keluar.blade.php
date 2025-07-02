@@ -72,21 +72,21 @@
                     <div class="rounded-lg">
                         <h2 id="accordion-collapse-heading-2">
                         <button type="button" 
-                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 rounded-t-lg border border-gray-200 hover:bg-gray-100 transition-all duration-200 {{ ($hari_lembur || $perjalanan_pengawas || $thr || $admin || $iuran_dekopinda) ? 'bg-gray-100 border-gray-300' : 'border-gray-200 hover:bg-gray-100' }}" 
+                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 rounded-t-lg border transition-all duration-200 {{ ($hari_lembur > 0 || $perjalanan_pengawas > 0 || $thr > 0 || $admin > 0 || $iuran_dekopinda > 0 || $honor_pengurus > 0) ? 'bg-gray-100 border-gray-300' : 'border-gray-200 hover:bg-gray-100' }}"
                             data-accordion-target="#accordion-collapse-body-2" 
-                            aria-expanded="{{ ($hari_lembur || $perjalanan_pengawas || $thr || $admin || $iuran_dekopinda) ? 'true' : 'false' }}"
+                            aria-expanded="{{ ($hari_lembur > 0 || $perjalanan_pengawas > 0 || $thr > 0 || $admin > 0 || $iuran_dekopinda > 0 || $honor_pengurus > 0) ? 'true' : 'false' }}"
                             aria-controls="accordion-collapse-body-2">
                             <span class="flex items-center text-sm text-gray-900">
                                 Beban Umum
                             </span>
                             <div class="pr-0.5">
-                                <svg data-accordion-icon class="w-4 h-4 shrink-0 transition-transform duration-200 {{ (!$hari_lembur && !$perjalanan_pengawas && !$thr && !$admin && !$iuran_dekopinda) ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <svg data-accordion-icon class="w-4 h-4 shrink-0 transition-transform duration-200 {{ !($hari_lembur > 0 || $perjalanan_pengawas > 0 || $thr > 0 || $admin > 0 || $iuran_dekopinda > 0 || $honor_pengurus > 0) ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                </svg>                                
+                                </svg>      
                             </div>
                         </button>
                         </h2>
-                        <div id="accordion-collapse-body-2" class="hidden" aria-labelledby="accordion-collapse-heading-2">
+                        <div id="accordion-collapse-body-2" class="{{ ($hari_lembur > 0 || $perjalanan_pengawas > 0 || $thr > 0 || $admin > 0 || $iuran_dekopinda > 0 || $honor_pengurus > 0) ? '' : 'hidden' }}" aria-labelledby="accordion-collapse-heading-2">
                             <div class="p-5 border border-t-0 border-gray-200 bg-white">
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
@@ -109,6 +109,10 @@
                                         <label for="iuran_dekopinda" class="block mb-2 text-sm font-medium text-gray-900">Iuran Dekopinda</label>
                                         <input wire:model.live="iuran_dekopinda" type="text" id="iuran_dekopinda" name="iuran_dekopinda" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Iuran Dekopinda" inputmode="numeric" value="{{ old('iuran_dekopinda') }}" />
                                     </div>
+                                    <div>
+                                        <label for="honor_pengurus" class="block mb-2 text-sm font-medium text-gray-900">Honor Pengurus</label>
+                                        <input wire:model.live="honor_pengurus" type="text" id="honor_pengurus" name="honor_pengurus" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Honor Pengurus" inputmode="numeric" value="{{ old('honor_pengurus') }}" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -116,21 +120,21 @@
                     <div class="rounded-lg">
                         <h2 id="accordion-collapse-heading-3">
                         <button type="button" 
-                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200 {{ ($rkrab || $pembinaan || $harkop || $dandik) ? 'bg-gray-100 border-gray-300' : 'border-gray-200 hover:bg-gray-100' }}" 
+                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200 {{ ($rkrab > 0 || $pembinaan > 0 || $harkop > 0 || $dandik > 0) ? 'bg-gray-100 border-gray-300' : 'border-gray-200 hover:bg-gray-100' }}" 
                             data-accordion-target="#accordion-collapse-body-3" 
-                            aria-expanded="{{ ($rkrab || $pembinaan || $harkop || $dandik) ? 'true' : 'false' }}" 
+                            aria-expanded="{{ ($rkrab > 0 || $pembinaan > 0 || $harkop > 0 || $dandik > 0) ? 'true' : 'false' }}" 
                             aria-controls="accordion-collapse-body-3">
                             <span class="flex items-center text-sm text-gray-900">
                                 Beban Organisasi
                             </span>
                             <div class="pr-0.5">
-                                <svg data-accordion-icon class="w-4 h-4 shrink-0 transition-transform duration-200 {{ (!$rkrab && !$pembinaan && !$harkop && !$dandik) ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <svg data-accordion-icon class="w-4 h-4 shrink-0 transition-transform duration-200 {{ !($rkrab > 0 || $pembinaan > 0 || $harkop > 0 || $dandik > 0) ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                                 </svg> 
                             </div>
                         </button>
                         </h2>
-                        <div id="accordion-collapse-body-3" class="hidden" aria-labelledby="accordion-collapse-heading-3">
+                        <div id="accordion-collapse-body-3" class="{{ ($rkrab > 0 || $pembinaan > 0 || $harkop > 0 || $dandik > 0) ? '' : 'hidden' }}" aria-labelledby="accordion-collapse-heading-3">
                             <div class="p-5 border border-t-0 border-gray-200 bg-white">
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
@@ -156,21 +160,21 @@
                     <div class="rounded-lg">
                         <h2 id="accordion-collapse-heading-4">
                         <button type="button" 
-                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200 {{ ($rapat || $jasa_manasuka) ? 'bg-gray-100 border-gray-300' : 'border-gray-200 hover:bg-gray-100' }}" 
+                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200 {{ ($rapat > 0 || $jasa_manasuka > 0) ? 'bg-gray-100 border-gray-300' : 'border-gray-200 hover:bg-gray-100' }}" 
                             data-accordion-target="#accordion-collapse-body-4" 
-                            aria-expanded="{{ ($rapat || $jasa_manasuka) ? 'true' : 'false' }}" 
+                            aria-expanded="{{ ($rapat > 0 || $jasa_manasuka > 0) ? 'true' : 'false' }}" 
                             aria-controls="accordion-collapse-body-4">
                             <span class="flex items-center text-sm text-gray-900">
-                                Beban Opeasional
+                                Beban Operasional
                             </span>
                             <div class="pr-0.5">
-                                <svg data-accordion-icon class="w-4 h-4 shrink-0 transition-transform duration-200 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                <svg data-accordion-icon class="w-4 h-4 shrink-0 transition-transform duration-200 {{ !($rapat > 0 || $jasa_manasuka > 0) ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                                 </svg>
                             </div>
                         </button>
                         </h2>
-                        <div id="accordion-collapse-body-4" class="hidden" aria-labelledby="accordion-collapse-heading-4">
+                        <div id="accordion-collapse-body-4" class="{{ ($rapat > 0 || $jasa_manasuka > 0) ? '' : 'hidden' }}" aria-labelledby="accordion-collapse-heading-4">
                             <div class="p-5 border border-t-0 border-gray-200 bg-white">
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
@@ -188,21 +192,21 @@
                     <div class="rounded-lg">
                         <h2 id="accordion-collapse-heading-1">
                         <button type="button" 
-                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200 {{ ($pajak || $tabungan_qurban || $dekopinda || $wajib_pkpri || $dansos || $shu || $dana_pengurus) ? 'bg-gray-100 border-gray-300' : 'border-gray-200 hover:bg-gray-100' }}" 
+                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200 {{ ($pajak > 0 || $tabungan_qurban > 0 || $dekopinda > 0 || $wajib_pkpri > 0 || $dansos > 0 || $shu > 0 || $dana_pengurus > 0 || $dana_kesejahteraan > 0 || $pembayaran_listrik_dan_air > 0) ? 'bg-gray-100 border-gray-300' : 'border-gray-200 hover:bg-gray-100' }}" 
                             data-accordion-target="#accordion-collapse-body-1" 
-                            aria-expanded="{{ ($pajak || $tabungan_qurban || $dekopinda || $wajib_pkpri || $dansos || $shu || $dana_pengurus) ? 'true' : 'false' }}" 
+                            aria-expanded="{{ ($pajak > 0 || $tabungan_qurban > 0 || $dekopinda > 0 || $wajib_pkpri > 0 || $dansos > 0 || $shu > 0 || $dana_pengurus > 0 || $dana_kesejahteraan > 0 || $pembayaran_listrik_dan_air > 0) ? 'true' : 'false' }}" 
                             aria-controls="accordion-collapse-body-1">
                             <span class="flex items-center text-sm text-gray-900">
                                 Beban Lain
                             </span>
                             <div class="pr-0.5">
-                                <svg data-accordion-icon class="w-4 h-4 shrink-0 transition-transform duration-200 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                <svg data-accordion-icon class="w-4 h-4 shrink-0 transition-transform duration-200 {{ !($pajak > 0 || $tabungan_qurban > 0 || $dekopinda > 0 || $wajib_pkpri > 0 || $dansos > 0 || $shu > 0 || $dana_pengurus > 0 || $dana_kesejahteraan > 0 || $pembayaran_listrik_dan_air > 0) ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                                 </svg>
                             </div>
                         </button>
                         </h2>
-                        <div id="accordion-collapse-body-1" class="hidden" aria-labelledby="accordion-collapse-heading-1">
+                        <div id="accordion-collapse-body-1" class="{{ ($pajak > 0 || $tabungan_qurban > 0 || $dekopinda > 0 || $wajib_pkpri > 0 || $dansos > 0 || $shu > 0 || $dana_pengurus > 0 || $dana_kesejahteraan > 0 || $pembayaran_listrik_dan_air > 0) ? '' : 'hidden' }}" aria-labelledby="accordion-collapse-heading-1">
                             <div class="p-5 border border-t-0 border-gray-200 bg-white">
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div>
@@ -233,12 +237,19 @@
                                         <label for="dana_pengurus" class="block mb-2 text-sm font-medium text-gray-900">Dana Pengurus</label>
                                         <input wire:model.live="dana_pengurus" type="text" id="dana_pengurus" name="dana_pengurus" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Dana Pengurus" inputmode="numeric" value="{{ old('dana_pengurus') }}" />
                                     </div>
+                                    <div>
+                                        <label for="dana_kesejahteraan" class="block mb-2 text-sm font-medium text-gray-900">Dana Kesejahteraan</label>
+                                        <input wire:model.live="dana_kesejahteraan" type="text" id="dana_kesejahteraan" name="dana_kesejahteraan" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Dana Kesejahteraan" inputmode="numeric" value="{{ old('dana_kesejahteraan') }}" />
+                                    </div>
+                                    <div>
+                                        <label for="pembayaran_listrik_dan_air" class="block mb-2 text-sm font-medium text-gray-900">Pembayaran Listrik dan Air</label>
+                                        <input wire:model.live="pembayaran_listrik_dan_air" type="text" id="pembayaran_listrik_dan_air" name="pembayaran_listrik_dan_air" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Pembayaran Listrik dan Air" inputmode="numeric" value="{{ old('pembayaran_listrik_dan_air') }}" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                
+                </div>             
             </div>
             {{-- End Accordion --}}
 

@@ -91,6 +91,10 @@
                                         <label for="iuran_dekopinda" class="block mb-2 text-sm font-medium text-gray-900">Iuran Dekopinda</label>
                                         <input wire:model.live="iuran_dekopinda" type="text" id="iuran_dekopinda" name="iuran_dekopinda" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Iuran Dekopinda" inputmode="numeric" value="{{ old('iuran_dekopinda') }}" />
                                     </div>
+                                    <div>
+                                        <label for="honor_pengurus" class="block mb-2 text-sm font-medium text-gray-900">Honor Pengurus</label>
+                                        <input wire:model.live="honor_pengurus" type="text" id="honor_pengurus" name="honor_pengurus" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Honor Pengurus" inputmode="numeric" value="{{ old('honor_pengurus') }}" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -143,7 +147,7 @@
                                 aria-expanded="false" 
                                 aria-controls="accordion-collapse-body-4">
                                 <span class="flex items-center text-sm text-gray-900">
-                                    Beban Opeasional
+                                    Beban Operasional
                                 </span>
                                 <div class="pr-0.5">
                                     <svg data-accordion-icon class="w-4 h-4 shrink-0 transition-transform duration-200 rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -214,6 +218,14 @@
                                     <div>
                                         <label for="dana_pengurus" class="block mb-2 text-sm font-medium text-gray-900">Dana Pengurus</label>
                                         <input wire:model.live="dana_pengurus" type="text" id="dana_pengurus" name="dana_pengurus" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Dana Pengurus" inputmode="numeric" value="{{ old('dana_pengurus') }}" />
+                                    </div>
+                                    <div>
+                                        <label for="dana_kesejahteraan" class="block mb-2 text-sm font-medium text-gray-900">Dana Kesejahteraan</label>
+                                        <input wire:model.live="dana_kesejahteraan" type="text" id="dana_kesejahteraan" name="dana_kesejahteraan" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Dana Kesejahteraan" inputmode="numeric" value="{{ old('dana_kesejahteraan') }}" />
+                                    </div>
+                                    <div>
+                                        <label for="pembayaran_listrik_dan_air" class="block mb-2 text-sm font-medium text-gray-900">Pembayaran Listrik dan Air</label>
+                                        <input wire:model.live="pembayaran_listrik_dan_air" type="text" id="pembayaran_listrik_dan_air" name="pembayaran_listrik_dan_air" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Pembayaran Listrik dan Air" inputmode="numeric" value="{{ old('pembayaran_listrik_dan_air') }}" />
                                     </div>
                                 </div>
                             </div>

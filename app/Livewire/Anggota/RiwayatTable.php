@@ -37,10 +37,10 @@ class RiwayatTable extends Component
             ->through(function ($item) {
                 // Field yang jika ada isinya, transaksi akan dianggap tidak valid untuk ditampilkan
                 $excludeFields = [
-                    'hari_lembur', 'perjalanan_pengawas', 'thr', 'admin', 'iuran_dekopinda', 
+                    'hari_lembur', 'perjalanan_pengawas', 'thr', 'admin', 'iuran_dekopinda', 'honor_pengurus', 
                     'rkrab', 'pembinaan', 'harkop', 'dandik', 'rapat', 'jasa_manasuka', 
                     'pajak', 'tabungan_qurban', 'dekopinda', 'wajib_pkpri', 'dansos', 
-                    'shu', 'dana_pengurus', 'tnh_kav'
+                    'shu', 'dana_pengurus', 'dana_kesejahteraan', 'pembayaran_listrik_dan_air', 'tnh_kav'
                 ];
 
                 foreach ($excludeFields as $field) {

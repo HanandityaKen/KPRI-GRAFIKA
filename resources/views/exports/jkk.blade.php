@@ -30,7 +30,7 @@
               <th rowspan="2">Hutang</th>
       
               <!-- Beban Umum -->
-              <th colspan="5" style="text-align: center;">Beban Umum</th>
+              <th colspan="6" style="text-align: center;">Beban Umum</th>
       
               <!-- Beban Organisasi -->
               <th colspan="4" style="text-align: center;">Beban Organisasi</th>
@@ -39,7 +39,7 @@
               <th colspan="2" style="text-align: center;">Beban Operasional</th>
       
               <!-- Beban Lain -->
-              <th colspan="7" style="text-align: center;">Beban Lain</th>
+              <th colspan="9" style="text-align: center;">Beban Lain</th>
       
               <th rowspan="2">Tanah Kavling</th>
               <th rowspan="2">Jumlah</th>
@@ -51,6 +51,7 @@
               <th>THR</th>
               <th>Admin</th>
               <th>Iuran Dekopinda</th>
+              <th>Honor Pengurus</th>
       
               <!-- Subkolom Beban Organisasi -->
               <th>RkRab</th>
@@ -70,6 +71,8 @@
               <th>Dansos</th>
               <th>SHU</th>
               <th>Dana Pengurus</th>
+              <th>Dana Kesejahteraan</th>
+              <th>Pembayaran Listrik dan Air</th>
           </tr>
       </thead>
       <tbody>
@@ -91,6 +94,7 @@
               <td>- Rp {{ number_format($jkk->thr, 0, ',', '.') }}</td>
               <td>- Rp {{ number_format($jkk->admin, 0, ',', '.') }}</td>
               <td>- Rp {{ number_format($jkk->iuran_dekopinda, 0, ',', '.') }}</td>
+              <td>- Rp {{ number_format($jkk->honor_pengurus, 0, ',', '.') }}</td>
               <td>- Rp {{ number_format($jkk->rkrab, 0, ',', '.') }}</td>
               <td>- Rp {{ number_format($jkk->pembinaan, 0, ',', '.') }}</td>
               <td>- Rp {{ number_format($jkk->harkop, 0, ',', '.') }}</td>
@@ -104,16 +108,18 @@
               <td>- Rp {{ number_format($jkk->dansos, 0, ',', '.') }}</td>
               <td>- Rp {{ number_format($jkk->shu, 0, ',', '.') }}</td>
               <td>- Rp {{ number_format($jkk->dana_pengurus, 0, ',', '.') }}</td>
+              <td>- Rp {{ number_format($jkk->dana_kesejahteraan, 0, ',', '.') }}</td>
+              <td>- Rp {{ number_format($jkk->pembayaran_listrik_dan_air, 0, ',', '.') }}</td>
               <td>- Rp {{ number_format($jkk->tnh_kav, 0, ',', '.') }}</td>
               <td>
                 - Rp {{
                     number_format(
                         $jkk->angsuran + $jkk->pokok + $jkk->wajib + $jkk->manasuka + $jkk->wajib_pinjam +
                         $jkk->qurban + $jkk->lain_lain + $jkk->piutang + $jkk->hutang + $jkk->hari_lembur +
-                        $jkk->perjalanan_pengawas + $jkk->thr + $jkk->admin + $jkk->iuran_dekopinda +
+                        $jkk->perjalanan_pengawas + $jkk->thr + $jkk->admin + $jkk->iuran_dekopinda + $jkk->honor_pengurus +
                         $jkk->rkrab + $jkk->pembinaan + $jkk->harkop + $jkk->dandik + $jkk->rapat +
                         $jkk->jasa_manasuka + $jkk->pajak + $jkk->tabungan_qurban + $jkk->dekopinda +
-                        $jkk->wajib_pkpri + $jkk->dansos + $jkk->shu + $jkk->dana_pengurus + $jkk->tnh_kav,
+                        $jkk->wajib_pkpri + $jkk->dansos + $jkk->shu + $jkk->dana_pengurus + $jkk->dana_kesejahteraan + $jkk->pembayaran_listrik_dan_air + $jkk->tnh_kav,
                         0, ',', '.'
                     )
                 }}

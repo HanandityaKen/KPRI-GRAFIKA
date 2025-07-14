@@ -119,7 +119,7 @@ class PengajuanPinjamanController extends Controller
             'anggota_id' => $pengajuanPinjaman->anggota_id,
             'nama_anggota' => $pengajuanPinjaman->nama_anggota,
             'jenis_transaksi' => 'kas masuk',
-            'tanggal' => $pengajuanPinjaman->created_at->format('Y-m-d'),
+            'tanggal' => $pengajuanPinjaman->tanggal,
             'angsuran' => ($angsuranLama && $angsuranLama->kurang_angsuran > 0 && $pengajuanPinjaman->jumlah_pinjaman >= 5000000) ? $angsuranLama->kurang_angsuran : 0,
             'js_admin' => $pengajuanPinjaman->biaya_admin,
 
@@ -159,7 +159,7 @@ class PengajuanPinjamanController extends Controller
             'anggota_id' => $pengajuanPinjaman->anggota_id,
             'nama_anggota' => $pengajuanPinjaman->nama_anggota,
             'jenis_transaksi' => 'kas keluar',
-            'tanggal' => $pengajuanPinjaman->created_at->format('Y-m-d'),
+            'tanggal' => $pengajuanPinjaman->tanggal,
             'hutang' => $jumlahPinjamanBaru,
 
             'pokok'             => 0,

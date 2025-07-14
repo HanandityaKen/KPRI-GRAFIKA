@@ -15,11 +15,12 @@ class AngsuranPinjamanExport implements FromView, WithStyles
 {
     public function view(): View
     {
-        $angsurans = Angsuran::with(['pinjaman.pengajuan_pinjaman'])
-            ->whereHas('pinjaman', function ($query) {
-                $query->where('status', 'dalam pembayaran');
-            })
-            ->orderBy('created_at', 'desc')
+        $angsurans = Angsuran::select('angsuran_pinjaman.*')
+            ->join('pinjaman', 'pinjaman.id', '=', 'angsuran_pinjaman.pinjaman_id')
+            ->join('pengajuan_pinjaman', 'pengajuan_pinjaman.id', '=', 'pinjaman.pengajuan_pinjaman_id')
+            ->where('pinjaman.status', 'dalam pembayaran')
+            ->orderBy('pengajuan_pinjaman.tanggal', 'desc')
+            ->with(['pinjaman.pengajuan_pinjaman'])
             ->get();
 
         return view('exports.angsuran-pinjaman', compact('angsurans'));

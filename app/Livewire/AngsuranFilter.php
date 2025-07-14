@@ -59,18 +59,17 @@ class AngsuranFilter extends Component
     public function render()
     {
         return view('livewire.angsuran-filter', [
-            'angsurans' => Angsuran::with(['pinjaman.pengajuan_pinjaman'])
+            'angsurans' => Angsuran::select('angsuran_pinjaman.*')
+                ->join('pinjaman', 'pinjaman.id', '=', 'angsuran_pinjaman.pinjaman_id')
+                ->join('pengajuan_pinjaman', 'pengajuan_pinjaman.id', '=', 'pinjaman.pengajuan_pinjaman_id')
                 ->where(function ($query) {
-                    $query->whereHas('pinjaman.pengajuan_pinjaman', function ($q) {
-                        $q->where('nama_anggota', 'like', '%' . $this->search . '%');
-                    })
-                    ->orWhereHas('pinjaman', function ($q) {
-                        $q->where('status', 'like', '%' . $this->search . '%');
-                    });
+                    $query->where('pengajuan_pinjaman.nama_anggota', 'like', '%' . $this->search . '%')
+                            ->orWhere('pinjaman.status', 'like', '%' . $this->search . '%');
                 })
-                ->orderBy('created_at', 'desc')
+                ->orderByDesc('pengajuan_pinjaman.tanggal')
+                ->with(['pinjaman.pengajuan_pinjaman'])
                 ->paginate(10)
-                ->onEachSide(1)
+                ->onEachSide(1),
         ]);
     }
 

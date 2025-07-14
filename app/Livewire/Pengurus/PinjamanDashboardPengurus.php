@@ -35,7 +35,7 @@ class PinjamanDashboardPengurus extends Component
     {
         return view('livewire.pengurus.pinjaman-dashboard-pengurus', [
             'pengajuanPinjamans' => PengajuanPinjaman::where('status', 'menunggu') 
-                ->orderByDesc('created_at')
+                ->orderByDesc('tanggal')
                 ->paginate(10)
                 ->onEachSide(1)
         ]);

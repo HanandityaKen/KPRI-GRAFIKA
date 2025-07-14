@@ -69,7 +69,7 @@ class KasHarianFilter extends Component
                         }
                     });
                 })
-                ->orderByDesc('created_at')
+                ->orderByDesc('tanggal')
                 ->paginate(10)
                 ->onEachSide(1)
         ]);        

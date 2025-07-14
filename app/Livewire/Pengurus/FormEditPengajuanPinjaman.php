@@ -62,6 +62,7 @@ class FormEditPengajuanPinjaman extends Component
     public $pinjaman;
     public $namaList = [];
     public $anggota_id = '';
+    public $tanggal;
     public $jumlah_pinjaman = '';
     public $lama_angsuran = '';
     public $nominal_pokok = '';
@@ -88,6 +89,7 @@ class FormEditPengajuanPinjaman extends Component
         $this->pinjaman = PengajuanPinjaman::findOrFail($id);
         $this->namaList = Anggota::pluck('nama', 'id')->toArray();
         $this->anggota_id = $this->pinjaman->anggota_id;
+        $this->tanggal = $this->pinjaman->tanggal ? \Carbon\Carbon::parse($this->pinjaman->tanggal)->format('d-m-Y') : \Carbon\Carbon::now()->format('d-m-Y');
         $this->jumlah_pinjaman = "Rp " . number_format($this->pinjaman->jumlah_pinjaman, 0, ',', '.');
         preg_match('/\d+/', $this->pinjaman->lama_angsuran, $matches);
         $this->lama_angsuran = $matches[0] ?? null;

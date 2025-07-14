@@ -52,9 +52,10 @@ class PengajuanPinjamanController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
-    {
+    {        
         $request->validate([
             'requested_by' => 'required',
+            'tanggal' => 'required|date_format:d-m-Y',
             'anggota_id' => 'required',
             'jumlah_pinjaman' => 'required',
             'lama_angsuran' => 'required',
@@ -64,6 +65,8 @@ class PengajuanPinjamanController extends Controller
             'biaya_admin' => 'required',
             'total_pinjaman' => 'required',
         ]);
+
+        $tanggal = Carbon::createFromFormat('d-m-Y', $request->tanggal)->format('Y-m-d');
 
         $nama = Anggota::findOrFail($request->anggota_id)->nama;
 
@@ -78,6 +81,7 @@ class PengajuanPinjamanController extends Controller
 
         PengajuanPinjaman::create([
             'anggota_id' => $request->anggota_id,
+            'tanggal' => $tanggal,
             'nama_anggota' => $nama,
             'requested_by' => $request->requested_by,
             'jumlah_pinjaman' => $jumlah_pinjaman,
@@ -138,6 +142,7 @@ class PengajuanPinjamanController extends Controller
         $request->validate([
             'requested_by' => 'required',
             'anggota_id' => 'required',
+            'tanggal' => 'required|date_format:d-m-Y',
             'jumlah_pinjaman' => 'required',
             'lama_angsuran' => 'required',
             'nominal_pokok' => 'required',
@@ -146,6 +151,8 @@ class PengajuanPinjamanController extends Controller
             'biaya_admin' => 'required',
             'total_pinjaman' => 'required',
         ]);
+
+        $tanggal = Carbon::createFromFormat('d-m-Y', $request->tanggal)->format('Y-m-d');
 
         $nama = Anggota::findOrFail($request->anggota_id)->nama;
 
@@ -162,6 +169,7 @@ class PengajuanPinjamanController extends Controller
 
         $pengajuanPinjaman->update([
             'anggota_id' => $request->anggota_id,
+            'tanggal' => $tanggal,
             'nama_anggota' => $nama,
             'requested_by' => $request->requested_by,
             'jumlah_pinjaman' => $jumlah_pinjaman,
@@ -268,7 +276,7 @@ class PengajuanPinjamanController extends Controller
             'anggota_id' => $pengajuanPinjaman->anggota_id,
             'nama_anggota' => $pengajuanPinjaman->nama_anggota,
             'jenis_transaksi' => 'kas masuk',
-            'tanggal' => $pengajuanPinjaman->created_at->format('Y-m-d'),
+            'tanggal' => $pengajuanPinjaman->tanggal,
             'angsuran' => ($angsuranLama && $angsuranLama->kurang_angsuran > 0 && $pengajuanPinjaman->jumlah_pinjaman >= 5000000) ? $angsuranLama->kurang_angsuran : 0,
             'js_admin' => $pengajuanPinjaman->biaya_admin,
 
@@ -308,7 +316,7 @@ class PengajuanPinjamanController extends Controller
             'anggota_id' => $pengajuanPinjaman->anggota_id,
             'nama_anggota' => $pengajuanPinjaman->nama_anggota,
             'jenis_transaksi' => 'kas keluar',
-            'tanggal' => $pengajuanPinjaman->created_at->format('Y-m-d'),
+            'tanggal' => $pengajuanPinjaman->tanggal,
             'hutang' => $jumlahPinjamanBaru,
 
             'pokok'             => 0,

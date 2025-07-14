@@ -54,14 +54,16 @@ class PinjamanFilter extends Component
     public function render()
     {
         return view('livewire.pengurus.pinjaman-filter', [
-            'pinjamans' => Pinjaman::with('pengajuan_pinjaman')
-                ->whereHas('pengajuan_pinjaman', function ($query) {
-                    $query->where('nama_anggota', 'like', '%' . $this->search . '%');
+            'pinjamans' => Pinjaman::select('pinjaman.*')
+                ->join('pengajuan_pinjaman', 'pengajuan_pinjaman.id', '=', 'pinjaman.pengajuan_pinjaman_id')
+                ->where(function ($query) {
+                    $query->where('pengajuan_pinjaman.nama_anggota', 'like', '%' . $this->search . '%')
+                        ->orWhere('pinjaman.status', 'like', '%' . $this->search . '%');
                 })
-                ->orWhere('status', 'like', '%' . $this->search . '%')
-                ->orderByDesc('created_at')
+                ->orderByDesc('pengajuan_pinjaman.tanggal')
+                ->with('pengajuan_pinjaman')
                 ->paginate(10)
-                ->onEachSide(1)
+                ->onEachSide(1),
         ]);
     }
 }

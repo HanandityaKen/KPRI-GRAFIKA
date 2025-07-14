@@ -41,7 +41,7 @@
                         <td class="pl-5 text-[#6DA854]">{{ $pengajuanPinjamans->firstItem() + $index }}</td>
                         <td class="p-3 whitespace-nowrap">{{ $pengajuanPinjaman->nama_anggota }}</td>
                         <td class="p-3 whitespace-nowrap">
-                            {{ \Carbon\Carbon::parse($pengajuanPinjaman->created_at)->translatedFormat('d-m-Y') }}
+                            {{ \Carbon\Carbon::parse($pengajuanPinjaman->tanggal)->translatedFormat('d-m-Y') }}
                         </td>
                         <td class="whitespace-nowrap">Rp {{ number_format($pengajuanPinjaman->jumlah_pinjaman, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">

@@ -6,6 +6,8 @@ use Livewire\Component;
 use App\Models\Anggota;
 use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
+use App\Exports\AnggotaExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * Komponen Livewire untuk memfilter dan menampilkan data anggota dengan fitur pencarian dan paginasi.
@@ -65,5 +67,13 @@ class AnggotaFilter extends Component
             ->paginate(10)
             ->onEachSide(1)
         ]);
+    }
+
+    public function exportExcel()
+    {
+        $tanggal = date('d-m-Y');
+        $filename = "daftar_anggota_{$tanggal}.xlsx";
+
+        return Excel::download(new AnggotaExport, $filename);
     }
 }

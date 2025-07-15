@@ -5,6 +5,7 @@ namespace App\Livewire\Pengurus;
 use Livewire\Component;
 use App\Models\KasHarian;
 use App\Models\Angsuran;
+use Carbon\Carbon;
 
 class FormBayarAngsuran extends Component
 {
@@ -13,10 +14,11 @@ class FormBayarAngsuran extends Component
     public $error_angsuran_manual;
     public $disabled = false;
     public $jasa = 0;
-
+    public $tanggal;
 
     public function mount($id)
     {
+        $this->tanggal = now()->format('d-m-Y');
         $this->angsuran = Angsuran::findOrFail($id);
         $this->cekJasa();
     }
@@ -38,15 +40,24 @@ class FormBayarAngsuran extends Component
         }
     }
 
+    public function updatedTanggal()
+    {
+        $this->cekJasa();
+    }
+
     public function cekJasa()
     {   
         $pinjamanId = $this->angsuran->pinjaman->id;
 
+        $selectedTanggal = Carbon::createFromFormat('d-m-Y', $this->tanggal);
+        $bulan = $selectedTanggal->month;
+        $tahun = $selectedTanggal->year;
+
         $cekKasHarian = KasHarian::where('pinjaman_id', $pinjamanId)
             ->where('jenis_transaksi', 'kas masuk')
             ->where('keterangan', 'Bayar Angsuran Pinjaman')
-            ->whereMonth('tanggal', now()->month)
-            ->whereYear('tanggal', now()->year)
+            ->whereMonth('tanggal', $bulan)
+            ->whereYear('tanggal', $tahun)
             ->first();
     
         if ($cekKasHarian) {

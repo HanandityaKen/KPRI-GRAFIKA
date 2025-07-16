@@ -145,8 +145,8 @@ class PengajuanPinjamanController extends Controller
             'saldo' => $saldoTerakhir->saldo + $pengajuanPinjaman->biaya_admin + (($angsuranLama && $angsuranLama->kurang_angsuran > 0 && $pengajuanPinjaman->jumlah_pinjaman >= 5000000) ? $angsuranLama->kurang_angsuran : 0)
         ]);
 
-        $bulan = strtolower($pengajuanPinjaman->created_at->translatedFormat('F'));
-        $tahun = $pengajuanPinjaman->created_at->format('Y'); 
+        $bulan = strtolower(Carbon::parse($pengajuanPinjaman->tanggal)->translatedFormat('F'));
+        $tahun = Carbon::parse($pengajuanPinjaman->tanggal)->format('Y');
 
         Jkm::create([
             'kas_harian_id' => $kasHarianMasuk->id,

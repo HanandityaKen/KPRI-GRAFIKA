@@ -45,6 +45,7 @@ class FormEditPengajuanUnitKonsumsi extends Component
     public $pengajuanUnitKonsumsi;
     public $namaList = [];
     public $anggota_id = '';
+    public $tanggal;
     public $nominal = '';
     public $nama_barang = '';
     public $lama_angsuran = '';
@@ -63,6 +64,7 @@ class FormEditPengajuanUnitKonsumsi extends Component
         $this->pengajuanUnitKonsumsi = PengajuanUnitKonsumsi::findOrFail($id);
         $this->namaList = Anggota::pluck('nama', 'id')->toArray();
         $this->anggota_id = $this->pengajuanUnitKonsumsi->anggota_id;
+        $this->tanggal = $this->pengajuanUnitKonsumsi->tanggal ? \Carbon\Carbon::parse($this->pengajuanUnitKonsumsi->tanggal)->format('d-m-Y') : \Carbon\Carbon::now()->format('d-m-Y');
         $this->nama_barang = $this->pengajuanUnitKonsumsi->nama_barang;
         $this->nominal = "Rp " . number_format($this->pengajuanUnitKonsumsi->nominal, 0, ',', '.');
         preg_match('/\d+/', $this->pengajuanUnitKonsumsi->lama_angsuran, $matches);

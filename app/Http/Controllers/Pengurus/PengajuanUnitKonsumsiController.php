@@ -56,6 +56,7 @@ class PengajuanUnitKonsumsiController extends Controller
         $request->validate([
             'requested_by' => 'required',
             'anggota_id' => 'required',
+            'tanggal' => 'required|date:d-m-Y',
             'nama_barang' => 'required',
             'nominal' => 'required',
             'lama_angsuran' => 'required',
@@ -63,6 +64,8 @@ class PengajuanUnitKonsumsiController extends Controller
             'nominal_bunga' => 'required',
             'jumlah_nominal' => 'required',
         ]);
+
+        $tanggal = Carbon::createFromFormat('d-m-Y', $request->tanggal)->format('Y-m-d');
 
         $nama = Anggota::findOrFail($request->anggota_id)->nama;
 
@@ -75,6 +78,7 @@ class PengajuanUnitKonsumsiController extends Controller
 
         PengajuanUnitKonsumsi::create([
             'anggota_id' => $request->anggota_id,
+            'tanggal' => $tanggal,
             'nama_anggota' => $nama,
             'requested_by' => $request->requested_by,
             'nama_barang' => $request->nama_barang,
@@ -130,6 +134,7 @@ class PengajuanUnitKonsumsiController extends Controller
         $request->validate([
             'requested_by' => 'required',
             'anggota_id' => 'required',
+            'tanggal' => 'required|date:d-m-Y',
             'nama_barang' => 'required',
             'nominal' => 'required',
             'lama_angsuran' => 'required',
@@ -137,6 +142,8 @@ class PengajuanUnitKonsumsiController extends Controller
             'nominal_bunga' => 'required',
             'jumlah_nominal' => 'required',
         ]);
+
+        $tanggal = Carbon::createFromFormat('d-m-Y', $request->tanggal)->format('Y-m-d');
 
         $nama = Anggota::findOrFail($request->anggota_id)->nama;
 
@@ -151,6 +158,7 @@ class PengajuanUnitKonsumsiController extends Controller
 
         $pengajuanUnitKonsumsi->update([
             'anggota_id' => $request->anggota_id,
+            'tanggal' => $tanggal,
             'nama_anggota' => $nama,
             'requested_by' => $request->requested_by,
             'nama_barang' => $request->nama_barang,
@@ -225,7 +233,7 @@ class PengajuanUnitKonsumsiController extends Controller
             'anggota_id' => $pengajuanUnitKonsumsi->anggota_id,
             'nama_anggota' => $pengajuanUnitKonsumsi->nama_anggota,
             'jenis_transaksi' => 'kas keluar',
-            'tanggal' => $pengajuanUnitKonsumsi->created_at->format('Y-m-d'),
+            'tanggal' => $pengajuanUnitKonsumsi->tanggal,
             'barang_kons' => $nominalUnitKonsumsi,
 
             'pokok'             => 0,
@@ -249,10 +257,10 @@ class PengajuanUnitKonsumsiController extends Controller
 
         $saldoTerakhir->update([
             'saldo' => $saldoTerakhir->saldo - $nominalUnitKonsumsi
-        ]);
+        ]); 
 
-        $bulan = strtolower($pengajuanUnitKonsumsi->created_at->translatedFormat('F'));
-        $tahun = $pengajuanUnitKonsumsi->created_at->format('Y'); 
+        $bulan = strtolower(Carbon::parse($pengajuanUnitKonsumsi->tanggal)->translatedFormat('F'));
+        $tahun = Carbon::parse($pengajuanUnitKonsumsi->tanggal)->format('Y');
 
         Jkk::create([
             'kas_harian_id' => $kasHarian->id,

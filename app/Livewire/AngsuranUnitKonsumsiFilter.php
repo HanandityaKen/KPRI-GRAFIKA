@@ -60,15 +60,18 @@ class AngsuranUnitKonsumsiFilter extends Component
     public function render()
     {
         return view('livewire.angsuran-unit-konsumsi-filter', [
-            'angsurans' => AngsuranUnitKonsumsi::with(['unit_konsumsi.pengajuan_unit_konsumsi.anggota'])
-                ->whereHas('unit_konsumsi.pengajuan_unit_konsumsi', function ($query) {
-                    $query->where('nama_anggota', 'like', '%' . $this->search . '%')
-                        ->orWhere('nama_barang', 'like', '%' . $this->search . '%')
-                        ->orWhere('status', 'like', '%' . $this->search . '%');
+            'angsurans' => AngsuranUnitKonsumsi::select('angsuran_unit_konsumsi.*')
+                ->join('unit_konsumsi', 'unit_konsumsi.id', '=', 'angsuran_unit_konsumsi.unit_konsumsi_id')
+                ->join('pengajuan_unit_konsumsi', 'pengajuan_unit_konsumsi.id', '=', 'unit_konsumsi.pengajuan_unit_konsumsi_id')
+                ->where(function ($query) {
+                    $query->where('pengajuan_unit_konsumsi.nama_anggota', 'like', '%' . $this->search . '%')
+                            ->orWhere('pengajuan_unit_konsumsi.nama_barang', 'like', '%' . $this->search . '%')
+                            ->orWhere('unit_konsumsi.status', 'like', '%' . $this->search . '%');
                 })
-                ->orderByDesc('created_at')
+                ->orderByDesc('pengajuan_unit_konsumsi.tanggal')
+                ->with(['unit_konsumsi.pengajuan_unit_konsumsi'])
                 ->paginate(10)
-                ->onEachSide(1)
+                ->onEachSide(1),
         ]);
     }
 

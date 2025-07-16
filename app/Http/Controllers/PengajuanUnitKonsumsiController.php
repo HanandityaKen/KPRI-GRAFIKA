@@ -84,7 +84,7 @@ class PengajuanUnitKonsumsiController extends Controller
             'anggota_id' => $pengajuanUnitKonsumsi->anggota_id,
             'nama_anggota' => $pengajuanUnitKonsumsi->nama_anggota,
             'jenis_transaksi' => 'kas keluar',
-            'tanggal' => $pengajuanUnitKonsumsi->created_at->format('Y-m-d'),
+            'tanggal' => $pengajuanUnitKonsumsi->tanggal,
             'barang_kons' => $nominalUnitKonsumsi,
 
             'pokok'             => 0,
@@ -110,8 +110,8 @@ class PengajuanUnitKonsumsiController extends Controller
             'saldo' => $saldoTerakhir->saldo - $nominalUnitKonsumsi
         ]);
 
-        $bulan = strtolower($pengajuanUnitKonsumsi->created_at->translatedFormat('F'));
-        $tahun = $pengajuanUnitKonsumsi->created_at->format('Y'); 
+        $bulan = strtolower(Carbon::parse($pengajuanUnitKonsumsi->tanggal)->translatedFormat('F'));
+        $tahun = Carbon::parse($pengajuanUnitKonsumsi->tanggal)->format('Y');
 
         Jkk::create([
             'kas_harian_id' => $kasHarian->id,

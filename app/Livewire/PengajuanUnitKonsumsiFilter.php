@@ -67,17 +67,17 @@ class PengajuanUnitKonsumsiFilter extends Component
                         ->orWhere('status', 'like', '%' . $this->search . '%');
                     try {
                         $date = Carbon::createFromFormat('d-m-Y', $this->search, 'Asia/Jakarta')->format('Y-m-d');
-                        $query->orWhereDate('created_at', $date);
+                        $query->orWhereDate('tanggal', $date);
                     } catch (\Exception $e) {
                         try {
                             $date = Carbon::createFromFormat('d-m', $this->search, 'Asia/Jakarta')->format('m-d');
-                            $query->orWhereRaw("DATE_FORMAT(created_at, '%m-%d') = ?", [$date]);
+                            $query->orWhereRaw("DATE_FORMAT(tanggal, '%m-%d') = ?", [$date]);
                         } catch (\Exception $e) {
 
                         }
                     }
                 })
-                ->orderByDesc('created_at')
+                ->orderByDesc('tanggal')
                 ->paginate(10)
                 ->onEachSide(1)
         ]);

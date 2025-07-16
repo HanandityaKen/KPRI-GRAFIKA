@@ -28,7 +28,7 @@
                         <td class="pl-5 text-[#6DA854]">{{ $unit_konsumsis->firstItem() + $index }}</td>
                         <td class="p-3 whitespace-nowrap">{{ $unit_konsumsi->pengajuan_unit_konsumsi->nama_anggota  }}</td>
                         <td class="p-3 whitespace-nowrap">
-                            {{ \Carbon\Carbon::parse($unit_konsumsi->pengajuan_unit_konsumsi->created_at)->translatedFormat('d-m-Y') }}
+                            {{ \Carbon\Carbon::parse($unit_konsumsi->pengajuan_unit_konsumsi->tanggal)->translatedFormat('d-m-Y') }}
                         </td>
                         <td class="p-3 whitespace-nowrap">{{ ucwords($unit_konsumsi->pengajuan_unit_konsumsi->nama_barang)  }}</td>
                         <td class="whitespace-nowrap">Rp {{ number_format($unit_konsumsi->pengajuan_unit_konsumsi->nominal, 0, ',', '.') }}</td>

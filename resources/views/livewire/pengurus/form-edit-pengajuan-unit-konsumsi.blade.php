@@ -3,6 +3,17 @@
         @csrf
         @method('PUT')
         <input type="hidden" name="requested_by" value="{{ auth()->guard('pengurus')->user()->nama }}"/>
+        <div class="mb-3">
+            <label class="block mb-1 text-sm font-medium text-gray-900">Tanggal</label>
+            <div class="relative w-full">
+                <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                    <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z"/>
+                    </svg>
+                </div>
+                <input wire:model="tanggal" id="datepicker-pengajuan-unit-konsumsi" name="tanggal" type="text" class="tanggal bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full ps-10 p-2.5" value="{{ old('tanggal', \Carbon\Carbon::now()->format('d-m-Y')) }}" placeholder="Pilih Tanggal" required>
+            </div>
+        </div>
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Nama</label>
             <div wire:ignore>
@@ -57,3 +68,15 @@
         </div>
     </form>
 </div>
+@push('scripts')
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            flatpickr("#datepicker-pengajuan-unit-konsumsi", {
+                dateFormat: "d-m-Y",
+                allowInput: true,
+                position: "below",
+                locale: "id"
+            });
+        });
+    </script>
+@endpush

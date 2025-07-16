@@ -10,6 +10,7 @@ class PengajuanUnitKonsumsi extends Model
 
     protected $fillable = [
         'anggota_id',
+        'tanggal',
         'nama_anggota',
         'nama_barang',
         'nominal',

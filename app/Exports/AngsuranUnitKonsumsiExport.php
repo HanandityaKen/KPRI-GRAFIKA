@@ -15,14 +15,15 @@ class AngsuranUnitKonsumsiExport implements FromView, WithStyles
 {
     public function view(): View
     {
-        $angsurans = AngsuranUnitKonsumsi::with(['unit_konsumsi.pengajuan_unit_konsumsi'])
-            ->whereHas('unit_konsumsi', function ($query) {
-                $query->where('status', 'dalam pembayaran');
-            })
-            ->orderBy('created_at', 'desc')
+        $angsurans = AngsuranUnitKonsumsi::select('angsuran_unit_konsumsi.*')
+            ->join('unit_konsumsi', 'unit_konsumsi.id', '=', 'angsuran_unit_konsumsi.unit_konsumsi_id')
+            ->join('pengajuan_unit_konsumsi', 'pengajuan_unit_konsumsi.id', '=', 'unit_konsumsi.pengajuan_unit_konsumsi_id')
+            ->where('unit_konsumsi.status', 'dalam pembayaran')
+            ->orderBy('pengajuan_unit_konsumsi.tanggal', 'desc')
+            ->with(['unit_konsumsi.pengajuan_unit_konsumsi'])
             ->get();
 
-            return view('exports.angsuran-unit-konsumsi', compact('angsurans'));
+        return view('exports.angsuran-unit-konsumsi', compact('angsurans'));
     }
 
     public function styles(Worksheet $sheet)

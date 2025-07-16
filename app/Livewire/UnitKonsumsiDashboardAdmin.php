@@ -40,7 +40,7 @@ class UnitKonsumsiDashboardAdmin extends Component
     {
         return view('livewire.unit-konsumsi-dashboard-admin', [
             'pengajuanUnitKonsumsis' => PengajuanUnitKonsumsi::where('status', 'menunggu') 
-                ->orderByDesc('created_at')
+                ->orderByDesc('tanggal')
                 ->paginate(10)
                 ->onEachSide(1)
         ]);

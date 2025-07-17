@@ -30,7 +30,7 @@
       </div>
 
       <div class="flex justify-between items-center mb-6">
-        <h1 class="text-xl font-bold">Riwayat Tansaksi</h1>
+        <h1 class="text-xl font-bold">Riwayat Transaksi</h1>
       </div>
     
       @livewire('pengurus.riwayat-transaksi-filter')

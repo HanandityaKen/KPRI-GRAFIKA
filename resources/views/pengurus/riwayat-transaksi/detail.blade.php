@@ -38,7 +38,7 @@
       </div>
 
       <div class="flex justify-between items-center mb-6">
-        <h1 class="text-xl font-bold">Detail Riwayat Tansaksi</h1>
+        <h1 class="text-xl font-bold">Detail Riwayat Transaksi</h1>
       </div>
 
       <div class="mb-4">

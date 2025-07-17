@@ -5,6 +5,7 @@ namespace App\Livewire\Pengurus;
 use Livewire\Component;
 use App\Models\KasHarian;
 use App\Models\AngsuranUnitKonsumsi;
+use Carbon\Carbon;
 
 class FormBayarAngsuranUnitKonsumsi extends Component
 {
@@ -13,9 +14,11 @@ class FormBayarAngsuranUnitKonsumsi extends Component
     public $error_angsuran_manual;
     public $disabled = false;
     public $jasa = 0;
+    public $tanggal;
 
     public function mount($id)
     {
+        $this->tanggal = now()->format('d-m-Y');
         $this->angsuran = AngsuranUnitKonsumsi::findOrFail($id);
         $this->cekJasa();
     }
@@ -37,6 +40,11 @@ class FormBayarAngsuranUnitKonsumsi extends Component
         $this->cekJasa();
     }
 
+    public function updatedTanggal()
+    {
+        $this->cekJasa();
+    }
+
     public function cekJasa()
     {
         $angsuranManual = (int) str_replace(['Rp', '.', ','], '', $this->angsuranManual);
@@ -45,11 +53,15 @@ class FormBayarAngsuranUnitKonsumsi extends Component
 
         $unitKonsumsiId = $this->angsuran->unit_konsumsi->id;
 
+        $selectedTanggal = Carbon::createFromFormat('d-m-Y', $this->tanggal);
+        $bulan = $selectedTanggal->month;
+        $tahun = $selectedTanggal->year;
+
         $cekKasHarian = KasHarian::where('unit_konsumsi_id', $unitKonsumsiId)
             ->where('jenis_transaksi', 'kas masuk')
             ->where('keterangan', 'Bayar Angsuran Unit atau Barang Konsumsi')
-            ->whereMonth('tanggal', now()->month)
-            ->whereYear('tanggal', now()->year)
+            ->whereMonth('tanggal', $bulan)
+            ->whereYear('tanggal', $tahun)
             ->first();
 
         if ($cekKasHarian) {

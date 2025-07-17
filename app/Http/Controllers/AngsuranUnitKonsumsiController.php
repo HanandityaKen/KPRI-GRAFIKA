@@ -7,6 +7,7 @@ use App\Models\AngsuranUnitKonsumsi;
 use App\Models\KasHarian;
 use App\Models\Jkm;
 use App\Models\Saldo;
+use Carbon\Carbon;
 
 class AngsuranUnitKonsumsiController extends Controller
 {
@@ -51,10 +52,13 @@ class AngsuranUnitKonsumsiController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
+            'tanggal' => 'required|date_format:d-m-Y',
             'angsuran' => 'nullable|string',
             'angsuran_manual' => 'nullable|string',
             'jasa' => 'required|string',
         ]);
+
+        $tanggal = Carbon::createFromFormat('d-m-Y', $request->tanggal)->format('Y-m-d');
 
         $angsuranInput = ($request->angsuran ?? $request->angsuran_manual ?? 0);
 
@@ -134,7 +138,7 @@ class AngsuranUnitKonsumsiController extends Controller
             'nama_anggota' => $nama,
             'unit_konsumsi_id' => $unit_konsumsi_id,
             'jenis_transaksi' => 'kas masuk',
-            'tanggal' => $angsuranUnitKonsumsi->updated_at->format('Y-m-d'),
+            'tanggal' => $tanggal,
             'barang_kons' => $bayarAngsuran,
             'jasa' => $bayarJasa,
             
@@ -156,8 +160,8 @@ class AngsuranUnitKonsumsiController extends Controller
             'keterangan'        => 'Bayar Angsuran Unit atau Barang Konsumsi'
         ]);
 
-        $bulan = strtolower($kasHarian->created_at->translatedFormat('F'));
-        $tahun = $kasHarian->created_at->format('Y'); 
+        $bulan = strtolower(Carbon::createFromFormat('Y-m-d', $tanggal)->translatedFormat('F'));
+        $tahun = Carbon::createFromFormat('Y-m-d', $tanggal)->format('Y');
 
         Jkm::create([
             'kas_harian_id' => $kasHarian->id,
@@ -165,7 +169,6 @@ class AngsuranUnitKonsumsiController extends Controller
             'bulan' => $bulan,
             'tahun' => $tahun,
         ]);
-
         
         $saldoMasuk = $bayarAngsuran + $bayarJasa;
 

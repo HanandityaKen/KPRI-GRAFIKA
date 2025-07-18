@@ -40,12 +40,6 @@
               </option>  
             @endif
 
-            {{-- @if ($angsuran->tunggakan > 0)
-              <option value="{{ $angsuran->kurang_angsuran }}" {{ old('angsuran', $angsuran->angsuran) == $angsuran->kurang_angsuran ? 'selected' : '' }}>
-                  Rp {{ number_format($angsuran->kurang_angsuran, 0, ',', '.') }}
-              </option>
-            @endif --}}
-            
               <option value="0">Rp 0</option>            
               <option value="">Masukan Manual</option>            
           </select>
@@ -58,9 +52,19 @@
         </div>
         <p class="text-red-500 text-xs mt-1">{{ $error_angsuran_manual }}</p>
     </div>
-    <div class="mb-4">
+    {{-- <div class="mb-4">
         <label class="block mb-1 text-sm font-medium text-gray-900">Jasa</label>
         <input wire:model="jasa" type="text" name="jasa" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" readonly/>
+    </div> --}}
+    <div class="mb-4">
+        <label class="block mb-1 text-sm font-medium text-gray-900">Jasa</label>
+        <select name="jasa" id="jasa_select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" onchange="toggleManualJasaInput(this)">
+            <option value="{{ $jasa }}">{{ $jasa }}</option>
+            <option value="">Masukan Manual</option>            
+        </select>
+        <div id="manual_input_jasa_container" class="hidden mt-4">
+            <input type="text" name="jasa_manual" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Jasa" value="{{ old('jasa')}}" inputmode="numeric"/>
+        </div>
     </div>
     <div class="flex justify-start">
       <button type="submit" class="bg-green-800 text-white py-2 px-4 rounded-md" @if ($disabled) disabled @endif> 
@@ -103,6 +107,18 @@
           manualInputContainer.classList.add('hidden');
           manualInput.value = ''; // Hapus isi input manual saat disembunyikan
           manualInput.dispatchEvent(new Event('input')); // trigger input event untuk memperbarui nilai livewire
+      }
+  }
+
+  function toggleManualJasaInput(select) {
+      const manualInputContainer = document.getElementById('manual_input_jasa_container');
+      const manualInput = manualInputContainer.querySelector('input');
+
+      if (select.value === '') {
+          manualInputContainer.classList.remove('hidden');
+      } else {
+          manualInputContainer.classList.add('hidden');
+          manualInput.value = ''; // Hapus isi input manual saat disembunyikan
       }
   }
 </script>

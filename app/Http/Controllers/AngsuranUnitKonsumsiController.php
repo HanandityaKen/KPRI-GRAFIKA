@@ -55,7 +55,8 @@ class AngsuranUnitKonsumsiController extends Controller
             'tanggal' => 'required|date_format:d-m-Y',
             'angsuran' => 'nullable|string',
             'angsuran_manual' => 'nullable|string',
-            'jasa' => 'required|string',
+            'jasa' => 'nullable|string',
+            'jasa_manual' => 'nullable|string',
         ]);
 
         $tanggal = Carbon::createFromFormat('d-m-Y', $request->tanggal)->format('Y-m-d');
@@ -73,7 +74,18 @@ class AngsuranUnitKonsumsiController extends Controller
             $bayarAngsuran = intval(floatval($clean));
         }
 
-        $bayarJasa = intval(str_replace(['Rp', '.', ' '], '', $request->jasa ?? '0'));
+        $jasaInput = ($request->jasa ?? $request->jasa_manual ?? 0);
+
+        if (strpos($jasaInput, 'Rp') !== false) {
+            // Format Rp dengan titik ribuan, hapus Rp, spasi, titik, lalu ubah koma jadi titik jika ada
+            $clean = str_replace(['Rp', ' ', '.'], '', $jasaInput);
+            $clean = str_replace(',', '.', $clean);
+            $bayarJasa = intval(floatval($clean));
+        } else {
+            // Format angka biasa dengan titik sebagai desimal, jangan hapus titik
+            $clean = str_replace(['Rp', ' ', ','], '', $jasaInput);
+            $bayarJasa = intval(floatval($clean));
+        }
 
         if ($bayarAngsuran === 0 && $bayarJasa === 0) {
             return back()->withErrors(['error' => 'Angsuran dan jasa tidak boleh 0!'])->withInput();

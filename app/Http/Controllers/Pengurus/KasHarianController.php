@@ -63,8 +63,10 @@ class KasHarianController extends Controller
             'anggota_id'        => 'required|string',
             'pokok'             => 'nullable|string',
             'wajib'             => 'nullable|string',
+            'wajib_manual'      => 'nullable|string',
             'manasuka'          => 'nullable|string',
             'wajib_pinjam'      => 'nullable|string',
+            'wajib_pinjam_manual' => 'nullable|string',
             'qurban'            => 'nullable|string',
             'angsuran'          => 'nullable|string',
             'jasa'              => 'nullable|string',
@@ -104,9 +106,41 @@ class KasHarianController extends Controller
         $tanggal = Carbon::createFromFormat('d-m-Y', $request->tanggal)->format('Y-m-d');
 
         $pokok = intval(str_replace(['Rp', '.', ' '], '', $request->pokok));
-        $wajib = intval(str_replace(['Rp', '.', ' '], '', $request->wajib));
+
+        //wajib
+        if ($request->wajib === 'manual') {
+            $wajibInput = $request->wajib_manual;
+        } else {
+            $wajibInput = $request->wajib ?? $request->wajib_manual ?? 0;
+        }
+
+        if (is_string($wajibInput) && strpos($wajibInput, 'Rp') !== false) {
+            $clean = str_replace(['Rp', ' ', '.'], '', $wajibInput);
+            $clean = str_replace(',', '.', $clean);
+            $wajib = intval(floatval($clean));
+        } else {
+            $clean = str_replace(['Rp', ' ', ',', '.'], '', $wajibInput);
+            $wajib = intval(floatval($clean));
+        }
+
         $manasuka = intval(str_replace(['Rp', '.', ' '], '', $request->manasuka));
-        $wajib_pinjam = intval(str_replace(['Rp', '.', ' '], '', $request->wajib_pinjam));
+
+        //wajib pinjam
+        if ($request->wajib_pinjam === 'manual') {
+            $wajibPinjamInput = $request->wajib_pinjam_manual;
+        } else {
+            $wajibPinjamInput = $request->wajib_pinjam ?? 0;
+        }
+        
+        if (is_string($wajibPinjamInput) && strpos($wajibPinjamInput, 'Rp') !== false) {
+            $clean = str_replace(['Rp', ' ', '.'], '', $wajibPinjamInput);
+            $clean = str_replace(',', '.', $clean);
+            $wajib_pinjam = intval(floatval($clean));
+        } else {
+            $clean = str_replace([',', ' ', '.'], '', $wajibPinjamInput);
+            $wajib_pinjam = intval(floatval($clean));
+        }
+        
         $qurban = intval(str_replace(['Rp', '.', ' '], '', $request->qurban));
         $angsuran = intval(str_replace(['Rp', '.', ' '], '', $request->angsuran));
         $jasa = intval(str_replace(['Rp', '.', ' '], '', $request->jasa));
@@ -388,8 +422,10 @@ class KasHarianController extends Controller
             'anggota_id'        => 'required|string',
             'pokok'             => 'nullable|string',
             'wajib'             => 'nullable|string',
+            'wajib_manual'      => 'nullable|string',
             'manasuka'          => 'nullable|string',
             'wajib_pinjam'      => 'nullable|string',
+            'wajib_pinjam_manual' => 'nullable|string',
             'qurban'            => 'nullable|string',
             'angsuran'          => 'nullable|string',
             'jasa'              => 'nullable|string',
@@ -426,9 +462,41 @@ class KasHarianController extends Controller
         $tanggal = Carbon::createFromFormat('d-m-Y', $request->tanggal)->format('Y-m-d');
 
         $pokok = intval(str_replace(['Rp', '.', ' '], '', $request->pokok ?? '0'));
-        $wajib = intval(str_replace(['Rp', '.', ' '], '', $request->wajib ?? '0'));
+
+        //wajib
+        if ($request->wajib === 'manual') {
+            $wajibInput = $request->wajib_manual;
+        } else {
+            $wajibInput = $request->wajib ?? $request->wajib_manual ?? 0;
+        }
+
+        if (is_string($wajibInput) && strpos($wajibInput, 'Rp') !== false) {
+            $clean = str_replace(['Rp', ' ', '.'], '', $wajibInput);
+            $clean = str_replace(',', '.', $clean);
+            $wajib = intval(floatval($clean));
+        } else {
+            $clean = str_replace(['Rp', ' ', ',', '.'], '', $wajibInput);
+            $wajib = intval(floatval($clean));
+        }
+
         $manasuka = intval(str_replace(['Rp', '.', ' '], '', $request->manasuka ?? '0'));
-        $wajib_pinjam = intval(str_replace(['Rp', '.', ' '], '', $request->wajib_pinjam ?? '0'));
+
+        //wajib pinjam
+        if ($request->wajib_pinjam === 'manual') {
+            $wajibPinjamInput = $request->wajib_pinjam_manual;
+        } else {
+            $wajibPinjamInput = $request->wajib_pinjam ?? 0;
+        }
+        
+        if (is_string($wajibPinjamInput) && strpos($wajibPinjamInput, 'Rp') !== false) {
+            $clean = str_replace(['Rp', ' ', '.'], '', $wajibPinjamInput);
+            $clean = str_replace(',', '.', $clean);
+            $wajib_pinjam = intval(floatval($clean));
+        } else {
+            $clean = str_replace([',', ' ', '.'], '', $wajibPinjamInput);
+            $wajib_pinjam = intval(floatval($clean));
+        }
+
         $qurban = intval(str_replace(['Rp', '.', ' '], '', $request->qurban ?? '0'));
         $angsuran = intval(str_replace(['Rp', '.', ' '], '', $request->angsuran ?? '0'));
         $jasa = intval(str_replace(['Rp', '.', ' '], '', $request->jasa ?? '0'));

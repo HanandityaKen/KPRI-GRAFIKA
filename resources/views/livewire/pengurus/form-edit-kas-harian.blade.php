@@ -46,14 +46,18 @@
         </div>
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Wajib</label>
-            <select wire:model.live="selectedWajib" name="wajib" id="wajib" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2">
+            <select wire:model.live="selectedWajib" name="wajib" id="wajib" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" onchange="toggleManualInputWajib(this)">
                 <option value="0">Pilih Nominal Wajib</option>
                 @foreach($wajibOptions as $wajib)
                     <option value="{{ $wajib }}" {{ old('wajib', $kasHarian->wajib) == $wajib ? 'selected' : '' }}>
                         Rp {{ number_format($wajib, 0, ',', '.') }}
                     </option>
                 @endforeach
+                <option value="manual">Masukan Manual</option>            
             </select>
+            <div wire:ignore id="manual_input_wajib" class="hidden mt-4">
+                <input wire:model.live="wajibManual" type="text" name="wajib_manual" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Wajib" value="{{ old('wajib')}}" inputmode="numeric"/>
+            </div>
         </div>
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Manasuka</label>
@@ -61,14 +65,18 @@
         </div>
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Wajib Pinjam</label>
-            <select wire:model.live="selectedWajibPinjam" name="wajib_pinjam" id="wajib_pinjam" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2">
-                <option value="">Pilih Nominal Wajib Pinjam</option>
+            <select wire:model.live="selectedWajibPinjam" name="wajib_pinjam" id="wajib_pinjam" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" onchange="toggleManualInputWajibPinjam(this)">
+                <option value="">Rp 0</option>
                 @foreach ($wajibPinjamList as $id => $nominal)
                     <option value="{{ $nominal }}" {{ old('wajib_pinjam', $kasHarian->wajib_pinjam) == $nominal ? 'selected' : '' }}>
                         Rp {{ number_format($nominal, 0, ',', '.') }}
                     </option>
                 @endforeach
+                <option value="manual">Masukan Manual</option>            
             </select>
+            <div wire:ignore id="manual_input_wajib_pinjam" class="hidden mt-4">
+                <input wire:model.live="wajibPinjamManual" type="text" name="wajib_pinjam_manual" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Wajib" value="{{ old('wajib_pinjam')}}" inputmode="numeric"/>
+            </div>   
         </div>
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Qurban</label>
@@ -89,3 +97,28 @@
         </div>
     </form>
 </div>
+<script>
+    function toggleManualInputWajib(select) {
+        const manualInputContainer = document.getElementById('manual_input_wajib');
+        const manualInput = manualInputContainer.querySelector('input');
+
+        if (select.value === 'manual') {
+            manualInputContainer.classList.remove('hidden');
+        } else {
+            manualInputContainer.classList.add('hidden');
+            manualInput.value = ''; // Hapus isi input manual saat disembunyikan
+        }
+    }
+
+    function toggleManualInputWajibPinjam(select) {
+        const manualInputContainer = document.getElementById('manual_input_wajib_pinjam');
+        const manualInput = manualInputContainer.querySelector('input');
+
+        if (select.value === 'manual') {
+            manualInputContainer.classList.remove('hidden');
+        } else {
+            manualInputContainer.classList.add('hidden');
+            manualInput.value = ''; // Hapus isi input manual saat disembunyikan
+        }
+    }
+</script>

@@ -50,14 +50,18 @@ class FormCreateKasHarian extends Component
     public $manasuka = '';
     public $qurban = '';
     public $wajibPinjam = '';
+    public $wajibPinjamManual = '';
     public $wajib = '';
+    public $wajibManual = '';
     public $lain_lain = '';
 
     public $disabled = false;
     public $disabled_pokok = false;
     public $disabled_wajib = false;
+    public $disabled_wajib_manual = false;
     public $disabled_manasuka = false;
     public $disabled_wajibPinjam = false;
+    public $disabled_wajibPinjam_manual = false;
     public $disabled_qurban = false;
     public $disabled_lain_lain = false;
 
@@ -180,6 +184,19 @@ class FormCreateKasHarian extends Component
         $this->disabled();
     }
 
+    public function updatedWajibManual()
+    {
+        $wajibManual = (int) str_replace(['Rp', '.', ','], '', $this->wajibManual);
+
+        if ($wajibManual === 0) {
+            $this->disabled_wajib_manual = true;
+        } else {
+            $this->disabled_wajib_manual = false;
+        }
+
+        $this->disabled();
+    }
+
     /**
      * Validasi inputan saat manasuka diubah.
      * Jika manasuka bernilai 0, set disabled_manasuka ke true.
@@ -213,6 +230,19 @@ class FormCreateKasHarian extends Component
             $this->disabled_wajibPinjam = true;
         } else {
             $this->disabled_wajibPinjam = false;
+        }
+
+        $this->disabled();
+    }
+
+    public function updatedWajibPinjamManual()
+    {
+        $wajibPinjamManual = (int) str_replace(['Rp', '.', ','], '', $this->wajibPinjamManual);
+
+        if ($wajibPinjamManual === 0) {
+            $this->disabled_wajibPinjam_manual = true;
+        } else {
+            $this->disabled_wajibPinjam_manual = false;
         }
 
         $this->disabled();
@@ -266,14 +296,16 @@ class FormCreateKasHarian extends Component
     {
         $pokok = (int) str_replace(['Rp', '.', ','], '', $this->pokok);
         $wajib = (int) str_replace(['Rp', '.', ','], '', $this->wajib);
+        $wajibManual = (int) str_replace(['Rp', '.', ','], '', $this->wajibManual);
         $manasuka = (int) str_replace(['Rp', '.', ','], '', $this->manasuka);
         $wajibPinjam = (int) str_replace(['Rp', '.', ','], '', $this->wajibPinjam);
+        $wajibPinjamManual = (int) str_replace(['Rp', '.', ','], '', $this->wajibPinjamManual);
         $qurban = (int) str_replace(['Rp', '.', ','], '', $this->qurban);
         $lain_lain = (int) str_replace(['Rp', '.', ','], '', $this->lain_lain);
 
         // dd($pokok, $manasuka, $wajib, $wajibPinjam, $qurban, $lain_lain);
 
-        if ($pokok === 0 && $manasuka === 0 && $wajib === 0 && $wajibPinjam === 0 && $qurban === 0 && $lain_lain === 0) {
+        if ($pokok === 0 && $manasuka === 0 && $wajib === 0 && $wajibManual === 0 && $wajibPinjam === 0 && $wajibPinjamManual === 0 && $qurban === 0 && $lain_lain === 0) {
             $this->disabled = true;
         } else {
             $this->disabled = false;

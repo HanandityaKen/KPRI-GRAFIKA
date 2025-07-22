@@ -48,7 +48,9 @@ class FormEditKasHarian extends Component
     public $wajibOptions = [];
     public $wajibPinjamList = [];
     public $selectedWajib = '';
+    public $wajibManual = '';
     public $selectedWajibPinjam = '';
+    public $wajibPinjamManual = '';
     public $qurban = '';
     public $manasuka = '';
     public $lain_lain = '';
@@ -68,7 +70,9 @@ class FormEditKasHarian extends Component
 
         $this->pokok = $this->kasHarian->pokok;
         $this->selectedWajib = $this->kasHarian->wajib;
+        $this->wajibManual = $this->kasHarian->wajib;
         $this->selectedWajibPinjam = $this->kasHarian->wajib_pinjam;
+        $this->wajibPinjamManual = $this->kasHarian->wajib_pinjam;
         $this->qurban = $this->kasHarian->qurban;
         $this->manasuka = $this->kasHarian->manasuka;
         $this->lain_lain = $this->kasHarian->lain_lain;
@@ -148,14 +152,16 @@ class FormEditKasHarian extends Component
     public function disabled()
     {
         $wajib = (int) str_replace(['Rp', '.', ','], '', $this->selectedWajib);
+        $wajibManual = (int) str_replace(['Rp', '.', ','], '', $this->wajibManual);
         $manasuka = (int) str_replace(['Rp', '.', ','], '', $this->manasuka);
         $wajibPinjam = (int) str_replace(['Rp', '.', ','], '', $this->selectedWajibPinjam);
+        $wajibPinjamManual = (int) str_replace(['Rp', '.', ','], '', $this->wajibPinjamManual);
         $qurban = (int) str_replace(['Rp', '.', ','], '', $this->qurban);
         $lain_lain = (int) str_replace(['Rp', '.', ','], '', $this->lain_lain);
 
         // dd($pokok, $manasuka, $wajib, $wajibPinjam, $qurban, $lain_lain);
 
-        if ($manasuka === 0 && $wajib === 0 && $wajibPinjam === 0 && $qurban === 0 && $lain_lain === 0) {
+        if ($manasuka === 0 && $wajib === 0 && $wajibManual === 0 && $wajibPinjam === 0 && $wajibPinjamManual === 0 && $qurban === 0 && $lain_lain === 0) {
             $this->disabled = true;
         } else {
             $this->disabled = false;

@@ -41,14 +41,21 @@
             </div>
         </div>
         <div class="mb-4">
-            <label class="block mb-1 text-sm font-medium text-gray-900">Wajib</label>
-            <select wire:model.live="selectedWajib" name="wajib" id="wajib" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2">
-                @foreach($wajibOption as $wajib)
-                    <option value="{{ $wajib }}" {{ old('wajib', $kasHarian->wajib) == $wajib ? 'selected' : '' }}>
-                        Rp {{ number_format($wajib, 0, ',', '.') }}
+            <label class="block mb-1 text-sm font-medium text-gray-900">Wajib Pinjam</label>
+            <select wire:model.live="selectedWajibPinjam" name="wajib_pinjam" id="wajib_pinjam" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2">
+                @foreach($wajibPinjamOption as $wajib_pinjam)
+                    <option value="{{ $wajib_pinjam }}" {{ old('wajib_pinjam', $kasHarian->wajib_pinjam) == $wajib_pinjam ? 'selected' : '' }}>
+                        Rp {{ number_format($wajib_pinjam, 0, ',', '.') }}
                     </option>
                 @endforeach
+                <option value="manual">Masukan Manual</option>
             </select>
+            @if ($selectedWajibPinjam === 'manual')
+                <div class="mt-4">
+                    <input wire:model.live="wajib_pinjam_manual" type="text" id="wajib_pinjam_manual" name="wajib_pinjam_manual" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2 mt-2" placeholder="Masukan Nominal Wajib Pinjam" inputmode="numeric" value="{{ old('wajib_pinjam_manual') }}" />
+                </div>
+                <p class="text-red-500 text-xs mt-1">{{ $error_wajib_pinjam_manual }}</p>
+            @endif
         </div>
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Manasuka</label>

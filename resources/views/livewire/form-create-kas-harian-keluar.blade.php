@@ -25,12 +25,19 @@
             </div>
         </div>
         <div class="mb-4">
-            <label class="block mb-1 text-sm font-medium text-gray-900">Wajib</label>
-            <select wire:model.live="selectedWajib" name="wajib" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2">
-                @foreach($wajibOptions as $option)
+            <label class="block mb-1 text-sm font-medium text-gray-900">Wajib Pinjam</label>
+            <select wire:model.live="selectedWajibPinjam" name="wajib_pinjam" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2">
+                @foreach($wajibPinjamOptions as $option)
                     <option value="{{ $option }}">Rp {{ number_format($option, 0, ',', '.') }}</option>
                 @endforeach
+                <option value="manual">Masukan Manual</option>            
             </select>
+            @if($selectedWajibPinjam === 'manual')
+                <div class="mt-4">
+                    <input wire:model.live="wajibPinjamManual" type="text" name="wajib_pinjam_manual" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Wajib" inputmode="numeric"/>
+                </div>
+                <p class="text-red-500 text-xs mt-1">{{ $error_wajib_pinjam_manual }}</p>
+            @endif 
         </div>
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Manasuka</label>

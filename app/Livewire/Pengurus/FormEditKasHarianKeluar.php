@@ -51,7 +51,8 @@ class FormEditKasHarianKeluar extends Component
     public $anggota_id = '';
     public $bendahara = false;
 
-    public $selectedWajib = '';
+    public $selectedWajibPinjam = '';
+    public $wajib_pinjam_manual = '';
     public $manasuka = '';
     public $qurban = '';
     public $lain_lain = '';
@@ -81,11 +82,13 @@ class FormEditKasHarianKeluar extends Component
     
     public $error_qurban;
     public $error_manasuka;
+    public $error_wajib_pinjam_manual;
     public $disabled = false;
     public $disabled_qurban = false;
     public $disabled_manasuka = false;
+    public $disabled_wajib_pinjam_manual = false;
 
-    public $wajibOption = [];
+    public $wajibPinjamOption = [];
 
     /**
      * Lifecycle hook untuk inisialisasi data awal.
@@ -98,7 +101,8 @@ class FormEditKasHarianKeluar extends Component
         $this->namaList = Anggota::pluck('nama', 'id')->toArray();
         $this->anggota_id = $this->kasHarian->anggota_id;
 
-        $this->selectedWajib = $this->kasHarian->wajib;
+        $this->selectedWajibPinjam = $this->kasHarian->wajib_pinjam;
+        $this->wajib_pinjam_manual = "Rp " . number_format($this->kasHarian->wajib_pinjam, 0, ',', '.');
         $this->manasuka = $this->kasHarian->manasuka;
         $this->qurban = $this->kasHarian->qurban;
         $this->lain_lain = $this->kasHarian->lain_lain;
@@ -129,7 +133,7 @@ class FormEditKasHarianKeluar extends Component
         $anggota = Anggota::find($this->anggota_id);
         $this->bendahara = $anggota && $anggota->jabatan === 'bendahara';
 
-        $this->wajibOption = [0, $this->kasHarian->wajib];
+        $this->wajibPinjamOption = [0, $this->kasHarian->wajib_pinjam];
         
         $this->checkDisabled();
     }
@@ -163,8 +167,26 @@ class FormEditKasHarianKeluar extends Component
     /**
      * Validasi real-time saat wajib diubah.
      */
-    public function updatedSelectedWajib()
+    public function updatedSelectedWajibPinjam()
     {
+        $this->checkDisabled();
+    }
+
+    public function updatedWajibPinjamManual()
+    {
+        $wajibPinjamManual = (int) str_replace(['Rp', '.', ','], '', $this->wajib_pinjam_manual);
+        $totalWajibPinjam = Simpanan::where('anggota_id', $this->anggota_id)->value('wajib_pinjam');
+
+        $totalWajibPinjam = $totalWajibPinjam + (int) $this->kasHarian->wajib_pinjam;
+
+        if ($wajibPinjamManual > $totalWajibPinjam) {
+            $this->error_wajib_pinjam_manual = '* Simpanan wajib pinjam tidak cukup!';
+            $this->disabled_wajib_pinjam_manual = true;
+        } else {
+            $this->error_wajib_pinjam_manual = '';
+            $this->disabled_wajib_pinjam_manual = false;
+        }
+
         $this->checkDisabled();
     }
 
@@ -344,7 +366,8 @@ class FormEditKasHarianKeluar extends Component
         $qurban     = (int) str_replace(['Rp', '.', ','], '', $this->qurban);
         $manasuka   = (int) str_replace(['Rp', '.', ','], '', $this->manasuka);
         $lain_lain  = (int) str_replace(['Rp', '.', ','], '', $this->lain_lain);
-        $wajib      = (int) $this->selectedWajib;
+        $wajib_pinjam      = (int) $this->selectedWajibPinjam;
+        $wajib_pinjam_manual = (int) str_replace(['Rp', '.', ','], '', $this->wajib_pinjam_manual);
 
         // Biaya tambahan khusus bendahara
         $hari_lembur         = (int) str_replace(['Rp', '.', ','], '', $this->hari_lembur);
@@ -370,12 +393,13 @@ class FormEditKasHarianKeluar extends Component
         $pembayaran_listrik_dan_air  = (int) str_replace(['Rp', '.', ','], '', $this->pembayaran_listrik_dan_air);
         $tnh_kav             = (int) str_replace(['Rp', '.', ','], '', $this->tnh_kav);
 
-        $hasValidationError = $this->disabled_qurban || $this->disabled_manasuka;
+        $hasValidationError = $this->disabled_qurban || $this->disabled_manasuka || $this->disabled_wajib_pinjam_manual;
 
         $isAllZero = $qurban === 0 &&
                     $manasuka === 0 &&
                     $lain_lain === 0 &&
-                    $wajib === 0 &&
+                    $wajib_pinjam === 0 &&
+                    $wajib_pinjam_manual === 0 &&
                     (!$this->bendahara || (
                         $hari_lembur === 0 &&
                         $perjalanan_pengawas === 0 &&

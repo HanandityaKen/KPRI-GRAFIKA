@@ -15,7 +15,7 @@
     </div>
 
     <!-- Anggota Table -->
-    <div class="bg-white shadow rounded-lg border-[2px] border-[#6DA854] overflow-x-auto">
+    <div class="bg-white shadow rounded-lg border-[2px] border-[#6DA854] overflow-x-auto no-scrollbar">
         <table class="w-full">
             <thead>
                 <tr>

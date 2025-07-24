@@ -20,6 +20,7 @@ class AngsuranPinjamanExport implements FromView, WithStyles
             ->join('pengajuan_pinjaman', 'pengajuan_pinjaman.id', '=', 'pinjaman.pengajuan_pinjaman_id')
             ->where('pinjaman.status', 'dalam pembayaran')
             ->orderBy('pengajuan_pinjaman.tanggal', 'desc')
+            ->orderBy('pengajuan_pinjaman.created_at', 'desc')
             ->with(['pinjaman.pengajuan_pinjaman'])
             ->get();
 

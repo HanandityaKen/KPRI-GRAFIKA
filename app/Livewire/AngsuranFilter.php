@@ -67,6 +67,7 @@ class AngsuranFilter extends Component
                             ->orWhere('pinjaman.status', 'like', '%' . $this->search . '%');
                 })
                 ->orderByDesc('pengajuan_pinjaman.tanggal')
+                ->orderByDesc('pengajuan_pinjaman.created_at')
                 ->with(['pinjaman.pengajuan_pinjaman'])
                 ->paginate(10)
                 ->onEachSide(1),

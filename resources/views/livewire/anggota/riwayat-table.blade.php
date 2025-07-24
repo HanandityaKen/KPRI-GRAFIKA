@@ -20,7 +20,7 @@
                             @foreach($riwayat as $item)
                                 @if (!$item->skip_render)
                                     <tr class="border-b border-green-200">
-                                        <td class="px-4 py-2 text-sm">{{ $item->created_at->format('d-m-Y') }}</td>
+                                        <td class="px-4 py-2 text-sm">{{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}</td>
                                         <td class="px-4 py-2 text-sm">{{ $item->transaksi }}</td>
                                         <td class="px-4 py-2 text-sm">Rp {{ number_format($item->jumlah, 0, ',', '.') }}</td>
                                         <td class="px-4 py-2 text-sm">

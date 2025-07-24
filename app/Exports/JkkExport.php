@@ -95,7 +95,7 @@ class JkkExport implements FromView, WithStyles
         $transaksi = $query
             ->groupBy('nama_anggota', 'tanggal')
             ->orderByDesc('tanggal')
-            ->orderBy('nama_anggota')
+            ->orderByDesc('created_at')
             ->get();
 
         return view('exports.jkk', [

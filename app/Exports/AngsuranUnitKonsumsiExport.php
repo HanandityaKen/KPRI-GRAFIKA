@@ -20,6 +20,7 @@ class AngsuranUnitKonsumsiExport implements FromView, WithStyles
             ->join('pengajuan_unit_konsumsi', 'pengajuan_unit_konsumsi.id', '=', 'unit_konsumsi.pengajuan_unit_konsumsi_id')
             ->where('unit_konsumsi.status', 'dalam pembayaran')
             ->orderBy('pengajuan_unit_konsumsi.tanggal', 'desc')
+            ->orderBy('pengajuan_unit_konsumsi.created_at', 'desc')
             ->with(['unit_konsumsi.pengajuan_unit_konsumsi'])
             ->get();
 

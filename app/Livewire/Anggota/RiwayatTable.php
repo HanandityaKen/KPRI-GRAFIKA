@@ -33,6 +33,7 @@ class RiwayatTable extends Component
 
         $riwayat = KasHarian::where('anggota_id', $anggotaId)
             ->orderByDesc('tanggal')
+            ->orderByDesc('created_at')
             ->paginate(10)
             ->through(function ($item) {
                 // Field yang jika ada isinya, transaksi akan dianggap tidak valid untuk ditampilkan

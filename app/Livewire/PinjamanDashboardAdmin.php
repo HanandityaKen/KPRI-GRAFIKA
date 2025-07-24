@@ -43,6 +43,7 @@ class PinjamanDashboardAdmin extends Component
         return view('livewire.pinjaman-dashboard-admin', [
             'pengajuanPinjamans' => PengajuanPinjaman::where('status', 'menunggu') 
                 ->orderByDesc('tanggal')
+                ->orderByDesc('created_at')
                 ->paginate(10)
                 ->onEachSide(1)
         ]);

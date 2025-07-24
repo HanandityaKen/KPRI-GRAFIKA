@@ -59,6 +59,7 @@ class UnitKonsumsiFilter extends Component
                         ->orWhere('unit_konsumsi.status', 'like', '%' . $this->search . '%');
                 })
                 ->orderByDesc('pengajuan_unit_konsumsi.tanggal')
+                ->orderByDesc('pengajuan_unit_konsumsi.created_at')
                 ->with('pengajuan_unit_konsumsi')
                 ->paginate(10)
                 ->onEachSide(1),

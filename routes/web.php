@@ -12,6 +12,7 @@ use App\Http\Controllers\SimpananController;
 use App\Http\Controllers\PengajuanPinjamanController;
 use App\Http\Controllers\PersentaseController;
 use App\Http\Controllers\SaldoKoperasiController;
+use App\Http\Controllers\RiwayatSaldoController;
 use App\Http\Controllers\AngsuranController;
 use App\Http\Controllers\PinjamanController;
 use App\Http\Controllers\PengajuanUnitKonsumsiController;
@@ -87,6 +88,7 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::resource('angsuran-unit-konsumsi', AngsuranUnitKonsumsiController::class)->only(['index', 'edit', 'update']);
     Route::resource('riwayat-transaksi', RiwayatTransaksiController::class)->only(['index']);
     Route::get('riwayat-transaksi/detail/{id}', [RiwayatTransaksiController::class, 'detail'])->name('detail-riwayat-transaksi');
+    Route::resource('riwayat-saldo', RiwayatSaldoController::class)->only(['index']);
     Route::resource('persentase', PersentaseController::class)->only(['index', 'create', 'store', 'edit', 'update']);
     Route::get('/saldo-koperasi', [SaldoKoperasiController::class, 'index'])->name('saldo-koperasi-index');
     Route::put('/saldo-koperasi-update', [SaldoKoperasiController::class, 'update'])->name('saldo-koperasi-update');

@@ -126,7 +126,7 @@
       </li>
       <li>
         <button type="button"
-            class="flex items-center w-full p-2 text-white mb-1 transition duration-75 rounded-lg group hover:bg-[#009348] {{ request()->is('admin/saldo-koperasi*') || request()->is('admin/persentase*') || request()->is('admin/pokok*') || request()->is('admin/wajib*') || request()->is('admin/wajib-pinjam*') || request()->is('admin/nama-koperasi') | request()->is('admin/logo-koperasi') ? 'bg-[#009348]' : '' }}"
+            class="flex items-center w-full p-2 text-white mb-1 transition duration-75 rounded-lg group hover:bg-[#009348] {{ request()->is('admin/saldo-koperasi*') || request()->is('admin/riwayat-saldo*')  || request()->is('admin/persentase*') || request()->is('admin/pokok*') || request()->is('admin/wajib*') || request()->is('admin/wajib-pinjam*') || request()->is('admin/nama-koperasi') | request()->is('admin/logo-koperasi') ? 'bg-[#009348]' : '' }}"
             aria-controls="dropdown-master-settings" data-collapse-toggle="dropdown-master-settings">
             <i data-lucide="settings" class="text-white mr-3 group-hover:text-white"></i>
             <span class="flex-1 text-left whitespace-nowrap font-medium group-hover:text-white">Master Settings</span>
@@ -136,9 +136,12 @@
                     d="m1 1 4 4 4-4" />
             </svg>
         </button>
-        <ul id="dropdown-master-settings" class="{{ request()->is('admin/saldo-koperasi*') || request()->is('admin/persentase*') || request()->is('admin/pokok*') || request()->is('admin/wajib*') || request()->is('admin/wajib-pinjam*') || request()->is('admin/nama-koperasi') | request()->is('admin/logo-koperasi') ? '' : 'hidden' }} space-y-1">
+        <ul id="dropdown-master-settings" class="{{ request()->is('admin/saldo-koperasi*') || request()->is('admin/riwayat-saldo*') || request()->is('admin/persentase*') || request()->is('admin/pokok*') || request()->is('admin/wajib*') || request()->is('admin/wajib-pinjam*') || request()->is('admin/nama-koperasi') | request()->is('admin/logo-koperasi') ? '' : 'hidden' }} space-y-1">
           <li>
               <a href="{{ route('admin.saldo-koperasi-index') }}" class="flex item-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/saldo-koperasi*') ? 'bg-[#009348]' : '' }}">Saldo Koperasi</a>
+          </li>
+          <li>
+              <a href="{{ route('admin.riwayat-saldo.index') }}" class="flex item-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/riwayat-saldo*') ? 'bg-[#009348]' : '' }}">Riwayat Saldo Koperasi</a>
           </li>
           <li>
               <a href="{{ route('admin.persentase.index') }}" class="flex item-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/persentase*') ? 'bg-[#009348]' : '' }}">Persentase</a>

@@ -264,7 +264,7 @@ class PengajuanPinjamanController extends Controller
             
             if ($angsuranLama) {
                 $angsuranLama->update([
-                    'kurang_angsuran' => 0,
+                    // 'kurang_angsuran' => 0,
                     'kurang_jasa' => 0,
                     'sisa_angsuran' => 0
                 ]);
@@ -351,9 +351,17 @@ class PengajuanPinjamanController extends Controller
 
         $lama_angsuran = (int) preg_replace('/[^0-9]/', '', $pengajuanPinjaman->lama_angsuran);
         $kurangJasa = intval($pengajuanPinjaman->nominal_bunga * $lama_angsuran);
-        $kurangAngsuran = intval($pengajuanPinjaman->nominal_pokok * $lama_angsuran);
+        // $kurangAngsuran = intval($pengajuanPinjaman->nominal_pokok * $lama_angsuran);
 
         if ($pengajuanPinjaman->jumlah_pinjaman < 5000000 && $pinjaman) {
+            $oldAngsuran = Angsuran::whereHas('pinjaman.pengajuan_pinjaman', function ($query) use ($pengajuanPinjaman) {
+                $query->where('anggota_id', $pengajuanPinjaman->anggota_id);
+            })
+            ->orderBy('created_at', 'desc')
+            ->value('kurang_angsuran');
+
+            $kurangAngsuran = intval($pengajuanPinjaman->jumlah_pinjaman + $oldAngsuran);
+
             $angsuranLama->update([
                 'kurang_jasa' => $kurangJasa,
                 'kurang_angsuran' => $kurangAngsuran,
@@ -361,6 +369,18 @@ class PengajuanPinjamanController extends Controller
                 'angsuran_ke' => 0
             ]);
         } else {
+            $oldAngsuran = Angsuran::whereHas('pinjaman.pengajuan_pinjaman', function ($query) use ($pengajuanPinjaman) {
+                $query->where('anggota_id', $pengajuanPinjaman->anggota_id);
+            })
+            ->orderBy('created_at', 'desc')
+            ->value('kurang_angsuran');
+
+            $kurangAngsuran = intval(($pengajuanPinjaman->jumlah_pinjaman / $lama_angsuran) * $lama_angsuran) + $oldAngsuran;
+
+            $angsuranLama->update([
+                'kurang_angsuran' => 0,
+            ]);
+
             $pinjaman = Pinjaman::create([
                 'pengajuan_pinjaman_id' => $pengajuanPinjaman->id,
                 'kas_harian_id' => $kasHarianKeluar->id,

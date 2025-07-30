@@ -21,7 +21,7 @@
             <tr>
                 <td>{{ $key + 1 }}</td>
                 <td>{{ $angsuran->pinjaman->pengajuan_pinjaman->nama_anggota }}</td>
-                <td>Rp {{ number_format($angsuran->pinjaman->pengajuan_pinjaman->jumlah_pinjaman, 0, ',', '.') }}</td>
+                <td>Rp {{ number_format($angsuran->pinjaman->jumlah_pinjaman, 0, ',', '.') }}</td>
                 <td>{{ ucwords($angsuran->pinjaman->pengajuan_pinjaman->lama_angsuran) }}</td>
                 <td>Rp {{ number_format($angsuran->pinjaman->pengajuan_pinjaman->nominal_angsuran, 0, ',', '.') }}</td>
                 <td>Rp {{ number_format($angsuran->pinjaman->pengajuan_pinjaman->nominal_pokok, 0, ',', '.') }}</td>

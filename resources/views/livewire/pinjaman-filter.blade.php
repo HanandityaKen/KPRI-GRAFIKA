@@ -29,7 +29,7 @@
                         <td class="p-3 whitespace-nowrap">
                             {{ \Carbon\Carbon::parse($pinjaman->pengajuan_pinjaman->tanggal)->translatedFormat('d-m-Y') }}
                         </td>
-                        <td class="whitespace-nowrap">Rp {{ number_format($pinjaman->pengajuan_pinjaman->jumlah_pinjaman, 0, ',', '.') }}</td>
+                        <td class="whitespace-nowrap">Rp {{ number_format($pinjaman->jumlah_pinjaman, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">
                             @if ($pinjaman->status == 'dalam pembayaran')
                                 <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-md border border-blue-400">Dalam Pembayaran</span>

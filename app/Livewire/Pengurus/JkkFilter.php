@@ -80,10 +80,25 @@ class JkkFilter extends Component
             ->pluck('month')
             ->toArray();
 
-        $this->availableMonths = array_map(function ($month) {
+        $monthNames = [
+            1 => 'Januari',
+            2 => 'Februari', 
+            3 => 'Maret',
+            4 => 'April',
+            5 => 'Mei',
+            6 => 'Juni',
+            7 => 'Juli',
+            8 => 'Agustus',
+            9 => 'September',
+            10 => 'Oktober',
+            11 => 'November',
+            12 => 'Desember'
+        ];
+
+        $this->availableMonths = array_map(function ($month) use ($monthNames) {
             return [
                 'value' => $month,
-                'label' => \Carbon\Carbon::createFromFormat('m', $month)->translatedFormat('F')
+                'label' => $monthNames[$month] ?? 'Unknown'
             ];
         }, $months);
 

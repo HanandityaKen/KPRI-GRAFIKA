@@ -69,8 +69,8 @@
         </div>
         <div class="{{ $bendahara ? '' : 'hidden' }}">
             <div class="mb-4">
-                <label class="block mb-1 text-sm font-medium text-gray-900">Lain-Lain</label>
-                <input wire:model.live="lain_lain" type="text" id="lain_lain" name="lain_lain" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Lain-Lain" inputmode="numeric" value="{{ old('lain_lain', $kasHarian->lain_lain) }}" />
+                <label class="block mb-1 text-sm font-medium text-gray-900">Beban Lain</label>
+                <input wire:model.live="lain_lain" type="text" id="lain_lain" name="lain_lain" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Beban Lain" inputmode="numeric" value="{{ old('lain_lain', $kasHarian->lain_lain) }}" />
             </div>
             {{-- Accordion --}}
             <div class="mb-4">
@@ -204,7 +204,7 @@
                             aria-expanded="{{ ($pajak > 0 || $tabungan_qurban > 0 || $dekopinda > 0 || $wajib_pkpri > 0 || $dansos > 0 || $shu > 0 || $dana_pengurus > 0 || $dana_kesejahteraan > 0 || $pembayaran_listrik_dan_air > 0) ? 'true' : 'false' }}" 
                             aria-controls="accordion-collapse-body-1">
                             <span class="flex items-center text-sm text-gray-900">
-                                Beban Lain
+                                Lain-Lain
                             </span>
                             <div class="pr-0.5">
                                 <svg data-accordion-icon class="w-4 h-4 shrink-0 transition-transform duration-200 {{ !($pajak > 0 || $tabungan_qurban > 0 || $dekopinda > 0 || $wajib_pkpri > 0 || $dansos > 0 || $shu > 0 || $dana_pengurus > 0 || $dana_kesejahteraan > 0 || $pembayaran_listrik_dan_air > 0) ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">

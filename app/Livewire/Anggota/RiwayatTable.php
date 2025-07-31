@@ -44,6 +44,10 @@ class RiwayatTable extends Component
                     'shu', 'dana_pengurus', 'dana_kesejahteraan', 'pembayaran_listrik_dan_air', 'tnh_kav'
                 ];
 
+                if ($item->jenis_transaksi === 'kas keluar') {
+                    $excludeFields[] = 'lain_lain';
+                }
+
                 foreach ($excludeFields as $field) {
                     if (!empty($item->$field)) {
                         // Tandai sebagai transaksi yang tidak valid agar bisa disaring di Blade

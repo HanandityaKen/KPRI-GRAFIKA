@@ -39,7 +39,7 @@ class RiwayatTransaksiController extends Controller
             'angsuran' => 'Angsuran',
             'jasa' => 'Jasa',
             'js_admin' => 'Jasa Admin',
-            'lain_lain' => 'Lain-lain',
+            'lain_lain' => $riwayatTransaksi->jenis_transaksi === 'kas keluar' ? 'Beban Lain' : 'Lain-lain',
             'barang_kons' => 'Barang atau Unit Konsumsi',
             'piutang' => 'Piutang',
             'hutang' => 'Pinjaman',

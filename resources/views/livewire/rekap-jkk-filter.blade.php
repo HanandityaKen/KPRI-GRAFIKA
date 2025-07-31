@@ -25,7 +25,7 @@
                     <th class="p-3 text-center whitespace-nowrap" rowspan="2">M.Suka</th>
                     <th class="p-3 text-center whitespace-nowrap" rowspan="2">SWP</th>
                     <th class="p-3 text-center whitespace-nowrap" rowspan="2">Qurban</th>
-                    <th class="p-3 text-center whitespace-nowrap" rowspan="2">Lain-lain</th>
+                    <th class="p-3 text-center whitespace-nowrap" rowspan="2">Beban Lain</th>
                     <th class="p-3 text-center whitespace-nowrap" rowspan="2">Piutang</th>
                     <th class="p-3 text-center whitespace-nowrap" rowspan="2">Hutang</th>
             
@@ -33,7 +33,7 @@
                     <th class="p-3 text-center whitespace-nowrap" colspan="6">Beban Umum</th>
                     <th class="p-3 text-center whitespace-nowrap" colspan="4">Beban Organisasi</th>
                     <th class="p-3 text-center whitespace-nowrap" colspan="2">Beban Operasional</th>
-                    <th class="p-3 text-center whitespace-nowrap" colspan="9">Beban Lain</th>
+                    <th class="p-3 text-center whitespace-nowrap" colspan="9">Lain-Lain</th>
             
                     <!-- Kolom akhir -->
                     <th class="p-3 text-center whitespace-nowrap" rowspan="2">Tanah Kavling</th>

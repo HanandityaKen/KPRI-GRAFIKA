@@ -11,7 +11,7 @@
                 <th rowspan="2">Manasuka</th>
                 <th rowspan="2">Wajib Pinjam</th>
                 <th rowspan="2">Qurban</th>
-                <th rowspan="2">Lain-lain</th>
+                <th rowspan="2">Beban Lain</th>
                 <th rowspan="2">Piutang</th>
                 <th rowspan="2">Hutang</th>
         
@@ -25,7 +25,7 @@
                 <th colspan="2" style="text-align: center;">Beban Operasional</th>
         
                 <!-- Beban Lain -->
-                <th colspan="9" style="text-align: center;">Beban Lain</th>
+                <th colspan="9" style="text-align: center;">Lain-Lain</th>
         
                 <th rowspan="2">Tanah Kavling</th>
                 <th rowspan="2">Jumlah</th>

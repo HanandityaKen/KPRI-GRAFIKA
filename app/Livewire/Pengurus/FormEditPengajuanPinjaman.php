@@ -220,8 +220,8 @@ class FormEditPengajuanPinjaman extends Component
                 $this->biaya_admin = ceil(($jumlahPinjaman * $biaya_admin_persen) / 100) * 100;
                 $this->total_pinjaman = ceil(($jumlahPinjaman - $this->biaya_admin) / 100) * 100;
             } else {
-                $this->biaya_admin = ceil(($kompen * $biaya_admin_persen) / 100) * 100;
-                $this->total_pinjaman = ceil(($kompen - $this->biaya_admin - $kurangAngsuran) / 100) * 100;
+                $this->biaya_admin = ceil(($jumlahPinjaman * $biaya_admin_persen) / 100) * 100;
+                $this->total_pinjaman = ceil(($jumlahPinjaman - $this->biaya_admin) / 100) * 100;
             }
 
             $this->nominal_pokok = "Rp " . number_format($this->nominal_pokok, 0, ',', '.');

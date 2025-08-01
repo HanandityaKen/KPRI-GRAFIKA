@@ -243,41 +243,14 @@ class PengajuanPinjamanController extends Controller
             $query->where('anggota_id', $pengajuanPinjaman->anggota_id);
         })->orderBy('id', 'desc')->first();
 
-        if ($pengajuanPinjaman->jumlah_pinjaman < 5000000) {
-            // Jika jumlah pinjaman kurang dari 5 juta
-            $jumlahPinjamanBaru = intval($pengajuanPinjaman->jumlah_pinjaman);
-        } else {
-            // Jika jumlah pinjaman lebih dari atau sama dengan 5 juta
-
-            // Hitung sisa jumlah pinjaman hasil dari pengajuan pinjaman dikurangi angsuran lama
-            $jumlahPinjamanBaru = intval($pengajuanPinjaman->total_pinjaman - ($angsuranLama->kurang_angsuran ?? 0));
-
-            if ($pinjaman) {
-                // if ($pengajuanPinjaman->jumlah_pinjaman <= $angsuranLama->kurang_angsuran) {
-                //     return back()->with(['error' => 'Jumlah pinjaman tidak boleh kurang dari atau sama dengan sisa angsuran']);
-                // }
-    
-                $pinjaman->update([
-                    'status' => 'lunas'
-                ]);
-            }
-            
-            if ($angsuranLama) {
-                $angsuranLama->update([
-                    // 'kurang_angsuran' => 0,
-                    'kurang_jasa' => 0,
-                    'sisa_angsuran' => 0
-                ]);
-                
-            }
-        }            
+        $jumlahPinjamanBaru = intval($pengajuanPinjaman->jumlah_pinjaman); 
 
         $kasHarianMasuk = KasHarian::create([
             'anggota_id' => $pengajuanPinjaman->anggota_id,
             'nama_anggota' => $pengajuanPinjaman->nama_anggota,
             'jenis_transaksi' => 'kas masuk',
             'tanggal' => $pengajuanPinjaman->tanggal,
-            'angsuran' => ($angsuranLama && $angsuranLama->kurang_angsuran > 0 && $pengajuanPinjaman->jumlah_pinjaman >= 5000000) ? $angsuranLama->kurang_angsuran : 0,
+            'angsuran' => 0,
             'js_admin' => $pengajuanPinjaman->biaya_admin,
 
             'pokok'             => 0,
@@ -295,11 +268,11 @@ class PengajuanPinjamanController extends Controller
             'b_oprs'            => 0,
             'b_lain'            => 0,
             'tnh_kav'           => 0,
-            'keterangan'        => ($angsuranLama && $angsuranLama->kurang_angsuran > 0 && $pengajuanPinjaman->jumlah_pinjaman >= 5000000) ? 'Biaya Admin dan Bayar Angsuran Sebelumnya' : 'Biaya Admin',
+            'keterangan'        => 'Biaya Admin',
         ]);
         
         $saldoTerakhir->update([
-            'saldo' => $saldoTerakhir->saldo + $pengajuanPinjaman->biaya_admin + (($angsuranLama && $angsuranLama->kurang_angsuran > 0 && $pengajuanPinjaman->jumlah_pinjaman >= 5000000) ? $angsuranLama->kurang_angsuran : 0)
+            'saldo' => $saldoTerakhir->saldo + $pengajuanPinjaman->biaya_admin
         ]);
 
         $bulan = strtolower(Carbon::parse($pengajuanPinjaman->tanggal)->translatedFormat('F'));
@@ -351,44 +324,29 @@ class PengajuanPinjamanController extends Controller
 
         $lama_angsuran = (int) preg_replace('/[^0-9]/', '', $pengajuanPinjaman->lama_angsuran);
         $kurangJasa = intval($pengajuanPinjaman->nominal_bunga * $lama_angsuran);
-        // $kurangAngsuran = intval($pengajuanPinjaman->nominal_pokok * $lama_angsuran);
 
-        if ($pengajuanPinjaman->jumlah_pinjaman < 5000000 && $pinjaman) {
-            $oldAngsuran = Angsuran::whereHas('pinjaman.pengajuan_pinjaman', function ($query) use ($pengajuanPinjaman) {
-                $query->where('anggota_id', $pengajuanPinjaman->anggota_id);
-            })
-            ->orderBy('created_at', 'desc')
-            ->value('kurang_angsuran');
+        $oldAngsuran = Angsuran::whereHas('pinjaman.pengajuan_pinjaman', function ($query) use ($pengajuanPinjaman) {
+            $query->where('anggota_id', $pengajuanPinjaman->anggota_id);
+        })
+        ->orderBy('created_at', 'desc')
+        ->value('kurang_angsuran');
 
-            $kurangAngsuran = intval($pengajuanPinjaman->jumlah_pinjaman + $oldAngsuran);
+        $oldAngsuran = $oldAngsuran ?? 0;
+        $kurangAngsuran = intval($pengajuanPinjaman->jumlah_pinjaman + $oldAngsuran);
 
-            if ($angsuranLama) {
-                $angsuranLama->update([
-                    'kurang_jasa' => $kurangJasa,
-                    'kurang_angsuran' => $kurangAngsuran,
-                    'sisa_angsuran' => $lama_angsuran,
-                    'angsuran_ke' => 0
-                ]);
-            }
+        if ($angsuranLama) {
+            $angsuranLama->update([
+                'kurang_jasa' => $kurangJasa,
+                'kurang_angsuran' => $kurangAngsuran,
+                'sisa_angsuran' => $lama_angsuran,
+            ]);
+        }
 
+        if ($pinjaman) {
             $pinjaman->update([
                 'jumlah_pinjaman' => $kurangAngsuran,
             ]);     
         } else {
-            $oldAngsuran = Angsuran::whereHas('pinjaman.pengajuan_pinjaman', function ($query) use ($pengajuanPinjaman) {
-                $query->where('anggota_id', $pengajuanPinjaman->anggota_id);
-            })
-            ->orderBy('created_at', 'desc')
-            ->value('kurang_angsuran');
-
-            $kurangAngsuran = intval(($pengajuanPinjaman->jumlah_pinjaman / $lama_angsuran) * $lama_angsuran) + $oldAngsuran;
-
-            if ($angsuranLama) {
-                $angsuranLama->update([
-                    'kurang_angsuran' => 0,
-                ]);
-            }
-
             $pinjaman = Pinjaman::create([
                 'pengajuan_pinjaman_id' => $pengajuanPinjaman->id,
                 'kas_harian_id' => $kasHarianKeluar->id,
@@ -396,9 +354,6 @@ class PengajuanPinjamanController extends Controller
                 'status' => 'dalam pembayaran'
             ]);
 
-            $kasHarianKeluar->update([
-                'pinjaman_id' => $pinjaman->id
-            ]);
             
             Angsuran::create([
                 'pinjaman_id' => $pinjaman->id,
@@ -408,6 +363,10 @@ class PengajuanPinjamanController extends Controller
             ]);
         }
         
+        $kasHarianKeluar->update([
+            'pinjaman_id' => $pinjaman->id
+        ]);
+
         $pengajuanPinjaman->update([
             'reviewed_by' => $reviewedBy,
             'status' => 'disetujui',

@@ -10,6 +10,7 @@ use App\Models\Pinjaman;
 use App\Models\PengajuanUnitKonsumsi;
 use App\Models\UnitKonsumsi;
 use App\Models\Simpanan;
+use App\Models\Saldo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -194,19 +195,29 @@ class AnggotaController extends Controller
         }
 
         // Mengambil manasuka, wajib, dan qurban dari simpanan anggota
-        $totalManasuka = Simpanan::where('anggota_id', $user->id)->value('manasuka');
+        $totalPokok   = Simpanan::where('anggota_id', $user->id)->value('pokok');
         $totalWajib    = Simpanan::where('anggota_id', $user->id)->value('wajib');
+        $totalManasuka = Simpanan::where('anggota_id', $user->id)->value('manasuka');
+        $totalWajibPinjam = Simpanan::where('anggota_id', $user->id)->value('wajib_pinjam');
         $totalQurban   = Simpanan::where('anggota_id', $user->id)->value('qurban');
 
+        $saldo = Saldo::first();
+
+        if ($saldo->saldo < ($totalPokok + $totalWajib + $totalManasuka + $totalWajibPinjam + $totalQurban)) {
+            return back()->with('error', 'Saldo tidak mencukupi untuk mengembalikan dana simpanan anggota yang dihapus.');
+        }
+
         // Proses pengembalian dana simpanan anggota yang dihapus
-        if ($totalManasuka > 0 || $totalWajib > 0 || $totalQurban > 0) {
+        if ($totalPokok > 0 || $totalWajib > 0 || $totalManasuka > 0 || $totalWajibPinjam > 0 || $totalQurban > 0) {
             KasHarian::create([
                 'anggota_id'      => $user->id,
                 'nama_anggota'    => $user->nama,
                 'jenis_transaksi' => 'kas keluar',
                 'tanggal'         => now()->format('Y-m-d'),
-                'manasuka'        => $totalManasuka,
+                'pokok'           => $totalPokok,
                 'wajib'           => $totalWajib,
+                'manasuka'        => $totalManasuka,
+                'wajib_pinjam'    => $totalWajibPinjam,
                 'qurban'          => $totalQurban,
                 'keterangan'      => 'Pengembalian dana simpanan anggota yang dihapus',
             ]);
@@ -214,6 +225,10 @@ class AnggotaController extends Controller
 
         // Hapus simpanan anggota dari tabel simpanan
         Simpanan::where('anggota_id', $user->id)->delete();
+
+        $saldo->update([
+            'saldo' => $saldo->saldo - ($totalPokok + $totalWajib + $totalManasuka + $totalWajibPinjam + $totalQurban)
+        ]);
 
         //Hapus anggota dari tabel anggota
         $user->delete();

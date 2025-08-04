@@ -1,5 +1,5 @@
 <div>
-  <form action="{{ route('pengurus.angsuran.update', $angsuran->id) }}" method="POST">
+  <form id="angsuranForm" action="{{ route('pengurus.angsuran.update', $angsuran->id) }}" method="POST">
     @csrf
     @method('PUT')
     <div class="mb-3">
@@ -66,7 +66,7 @@
         </div>
     </div>
     <div class="flex justify-start">
-      <button type="submit" class="bg-green-800 text-white py-2 px-4 rounded-md" @if ($disabled) disabled @endif>
+      <button id="submit-btn" type="submit" class="bg-green-800 text-white py-2 px-4 rounded-md" @if ($disabled) disabled @endif>
           Simpan
       </button>
     </div>
@@ -93,6 +93,23 @@
           allowInput: true,
           position: "below",
           locale: "id"
+      });
+
+      const form = document.getElementById('angsuranForm');
+      const submitBtn = document.getElementById('submit-btn');
+
+      let formSubmitted = false;
+
+      form.addEventListener('submit', function (e) {
+          if (formSubmitted) {
+              e.preventDefault();
+              return;
+          }
+
+          e.preventDefault();
+          formSubmitted = true;
+          submitBtn.disabled = true;
+          form.submit();
       });
   });
 

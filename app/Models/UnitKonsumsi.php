@@ -11,6 +11,7 @@ class UnitKonsumsi extends Model
     protected $fillable = [
         'pengajuan_unit_konsumsi_id',
         'kas_harian_id',
+        'jumlah_unit_konsumsi',
         'status',
     ];
 

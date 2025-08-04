@@ -123,6 +123,7 @@ class PengajuanUnitKonsumsiController extends Controller
         $unitKonsumsi = UnitKonsumsi::create([
             'pengajuan_unit_konsumsi_id' => $pengajuanUnitKonsumsi->id,
             'kas_harian_id' => $kasHarian->id,
+            'jumlah_unit_konsumsi' => $pengajuanUnitKonsumsi->nominal,
             'status' => 'dalam pembayaran'
         ]);
 
@@ -135,7 +136,7 @@ class PengajuanUnitKonsumsiController extends Controller
         AngsuranUnitKonsumsi::create([
             'unit_konsumsi_id' => $unitKonsumsi->id,
             'kurang_jasa' => intval($pengajuanUnitKonsumsi->nominal_bunga * $lama_angsuran),
-            'kurang_angsuran' => intval($pengajuanUnitKonsumsi->nominal_pokok * $lama_angsuran),
+            'kurang_angsuran' => intval($pengajuanUnitKonsumsi->nominal),
             'sisa_angsuran' => $lama_angsuran
         ]);
 

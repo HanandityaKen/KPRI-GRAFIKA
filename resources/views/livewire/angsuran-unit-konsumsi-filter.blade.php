@@ -19,7 +19,7 @@
                 <tr>
                     <th class="p-3 text-left text-[#6DA854]">No</th>
                     <th class="p-3 text-left whitespace-nowrap">Nama</th>
-                    <th class="p-3 text-left whitespace-nowrap">Nama Baramg</th>
+                    <th class="p-3 text-left whitespace-nowrap">Nama Barang</th>
                     <th class="p-3 text-left whitespace-nowrap">Nominal</th>
                     <th class="p-3 text-left whitespace-nowrap">Lama Angsuran</th>
                     <th class="p-3 text-left whitespace-nowrap">Nominal Pokok</th>

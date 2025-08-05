@@ -155,6 +155,11 @@ class KasHarian extends Model
         return $this->belongsTo(UnitKonsumsi::class, 'unit_konsumsi_id');
     }
 
+    public function riwayatTabunganQurban()
+    {
+        return $this->hasMany(RiwayatTabunganQurban::class);
+    }
+
     // public function unit_konsumsi()
     // {
     //     return $this->hasMany(UnitKonsumsi::class);

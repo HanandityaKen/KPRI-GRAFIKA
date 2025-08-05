@@ -9,6 +9,7 @@ use App\Models\Jkk;
 use App\Models\Simpanan;
 use App\Models\Saldo;
 use App\Models\Anggota;
+use App\Models\RiwayatTabunganQurban;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -276,10 +277,10 @@ class KasHarianController extends Controller
                 return back()->withErrors(['error' => 'Saldo koperasi tidak cukup!']);
             }
             
-            $saldo->update(['saldo' => $saldo->saldo - $saldoKeluar]);
+            $saldo->update(['saldo' => $saldo->saldo - $saldoKeluar]);    
 
             $kasHarian = KasHarian::create([
-                'anggota_id'        => $request->anggota_id,
+                'anggota_id'        => $request->anggota_id ,
                 'nama_anggota'      => $nama,
                 'jenis_transaksi'   => $request->jenis_transaksi,
                 'tanggal'           => $tanggal,
@@ -319,6 +320,21 @@ class KasHarianController extends Controller
                 'tnh_kav'           => $tnh_kav ?? 0,
                 'keterangan'        => $request->keterangan ?? null,
             ]);
+
+            if ($tabungan_qurban > 0) {
+                $anggotaSimpanan = Simpanan::where('qurban', '>', 0)->get();
+
+                foreach ($anggotaSimpanan as $anggota) {
+                    RiwayatTabunganQurban::create([
+                        'anggota_id' => $anggota->anggota_id,
+                        'kas_harian_id' => $kasHarian->id,
+                        'jumlah' => $anggota->qurban,
+                        'tanggal' => $tanggal,
+                    ]);
+                }
+
+                Simpanan::query()->update(['qurban' => 0]);
+            }        
     
             $bulan = strtolower(Carbon::createFromFormat('Y-m-d', $tanggal)->translatedFormat('F'));
             $tahun = Carbon::createFromFormat('Y-m-d', $tanggal)->format('Y');    
@@ -803,7 +819,18 @@ class KasHarianController extends Controller
             $totalWajibPinjam = ($simpanan->wajib_pinjam ?? 0) + $kasHarian->wajib_pinjam;
             $totalQurban      = ($simpanan->qurban ?? 0) + $kasHarian->qurban;
         
+            if ($kasHarian->tabungan_qurban > 0) {
+                // Ambil hanya data dari transaksi kas_harian yang sedang diproses
+                $riwayat = RiwayatTabunganQurban::where('kas_harian_id', $kasHarian->id)->get();
+    
+                foreach ($riwayat as $entry) {
+                    Simpanan::where('anggota_id', $entry->anggota_id)->increment('qurban', $entry->jumlah);
+                }
+    
+                RiwayatTabunganQurban::where('kas_harian_id', $kasHarian->id)->delete();
+            }
         }
+
 
         // Hitung ulang total simpanan
         $totalSimpanan = $totalPokok + $totalWajib + $totalManasuka + $totalWajibPinjam + $totalQurban;
@@ -822,7 +849,6 @@ class KasHarianController extends Controller
                 'total'        => $totalSimpanan,
             ]
         );
-
 
         $kasHarian->delete();
 

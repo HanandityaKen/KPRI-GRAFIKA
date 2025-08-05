@@ -13,6 +13,7 @@ use App\Models\Anggota;
 use App\Models\PengajuanPinjaman;
 use App\Models\Pinjaman;
 use App\Models\Angsuran;
+use App\Models\RiwayatTabunganQurban;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -353,6 +354,21 @@ class KasHarianController extends Controller
                 'tnh_kav'           => $tnh_kav ?? 0,
                 'keterangan'        => $request->keterangan ?? null,
             ]);
+
+            if ($tabungan_qurban > 0) {
+                $anggotaSimpanan = Simpanan::where('qurban', '>', 0)->get();
+
+                foreach ($anggotaSimpanan as $anggota) {
+                    RiwayatTabunganQurban::create([
+                        'anggota_id' => $anggota->anggota_id,
+                        'kas_harian_id' => $kasHarian->id,
+                        'jumlah' => $anggota->qurban,
+                        'tanggal' => $tanggal,
+                    ]);
+                }
+
+                Simpanan::query()->update(['qurban' => 0]);
+            }        
     
             $bulan = strtolower(Carbon::createFromFormat('Y-m-d', $tanggal)->translatedFormat('F'));
             $tahun = Carbon::createFromFormat('Y-m-d', $tanggal)->format('Y');    
@@ -816,6 +832,16 @@ class KasHarianController extends Controller
             $totalWajibPinjam = ($simpanan->wajib_pinjam ?? 0) + $kasHarian->wajib_pinjam;
             $totalQurban      = ($simpanan->qurban ?? 0) + $kasHarian->qurban;
         
+            if ($kasHarian->tabungan_qurban > 0) {
+                // Ambil hanya data dari transaksi kas_harian yang sedang diproses
+                $riwayat = RiwayatTabunganQurban::where('kas_harian_id', $kasHarian->id)->get();
+    
+                foreach ($riwayat as $entry) {
+                    Simpanan::where('anggota_id', $entry->anggota_id)->increment('qurban', $entry->jumlah);
+                }
+    
+                RiwayatTabunganQurban::where('kas_harian_id', $kasHarian->id)->delete();
+            }
         }
 
         // Hitung ulang total simpanan
@@ -835,7 +861,6 @@ class KasHarianController extends Controller
                 'total'        => $totalSimpanan,
             ]
         );
-
 
         $kasHarian->delete();
 

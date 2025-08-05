@@ -222,7 +222,7 @@
                                     </div>
                                     <div>
                                         <label for="tabungan_qurban" class="block mb-2 text-sm font-medium text-gray-900">Tabungan Qurban</label>
-                                        <input wire:model.live="tabungan_qurban" type="text" id="tabungan_qurban" name="tabungan_qurban" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Tabungan Qurban" inputmode="numeric" value="{{ old('tabungan_qurban') }}" />
+                                        <input wire:model.live="tabungan_qurban" type="text" id="tabungan_qurban" name="tabungan_qurban" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Tabungan Qurban" inputmode="numeric" value="{{ old('tabungan_qurban') }}" @if($this->shouldTabunganQurbanBeReadonly()) readonly @endif/>
                                     </div>
                                     <div>
                                         <label for="dekopinda" class="block mb-2 text-sm font-medium text-gray-900">Dekopinda</label>

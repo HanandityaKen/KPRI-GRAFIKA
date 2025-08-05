@@ -18,13 +18,17 @@
                             <!-- Table Body -->
                             <tbody>
                             @foreach($riwayat as $item)
-                                @if (!$item->skip_render)
+                                @if (!isset($item->skip_render) || !$item->skip_render)
                                     <tr class="border-b border-green-200">
                                         <td class="px-4 py-2 text-sm">{{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}</td>
                                         <td class="px-4 py-2 text-sm">{{ $item->transaksi }}</td>
                                         <td class="px-4 py-2 text-sm">Rp {{ number_format($item->jumlah, 0, ',', '.') }}</td>
                                         <td class="px-4 py-2 text-sm">
-                                            <a href="{{ route('detail-riwayat', $item->id) }}">
+                                            @if($item->type == 'kas')
+                                                <a href="{{ route('detail-riwayat', $item->id) }}">
+                                            @else
+                                                <a href="{{ route('detail-riwayat', $item->id) }}">
+                                            @endif
                                                 <button class="px-3 py-1 bg-blue-700 text-white rounded hover:bg-blue-600">
                                                     Detail
                                                 </button>

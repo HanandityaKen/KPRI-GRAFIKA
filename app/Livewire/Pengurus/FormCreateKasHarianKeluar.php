@@ -69,6 +69,7 @@ class FormCreateKasHarianKeluar extends Component
     public $jasa_manasuka = '';
     public $pajak = '';
     public $tabungan_qurban = '';
+    public $tabungan_qurban_options = [];
     public $dekopinda = '';
     public $wajib_pkpri = '';
     public $dansos = '';
@@ -94,6 +95,7 @@ class FormCreateKasHarianKeluar extends Component
     public function mount()
     {
         $this->namaList = Anggota::pluck('nama', 'id');
+        $this->tabungan_qurban_options = Simpanan::sum('qurban');
     }
 
     /**

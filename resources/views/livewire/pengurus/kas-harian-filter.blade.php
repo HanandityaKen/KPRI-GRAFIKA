@@ -52,11 +52,13 @@
                         <td class="p-3 whitespace-nowrap">
                             @if ($bendahara)
                                 @if ($kasHarian->anggota && $kasHarian->js_admin == 0 && $kasHarian->hutang == 0 && $kasHarian->jasa == 0 && $kasHarian->angsuran == 0 && $kasHarian->barang_kons == 0)
-                                    <a href="{{ route('pengurus.kas-harian.edit', $kasHarian->id) }}">
-                                        <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900">
-                                            Edit
-                                        </button>
-                                    </a>
+                                    @if ($kasHarian->tabungan_qurban <= 0)    
+                                        <a href="{{ route('pengurus.kas-harian.edit', $kasHarian->id) }}">
+                                            <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900">
+                                                Edit
+                                            </button>
+                                        </a>
+                                    @endif
                                     <button 
                                         class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
                                         onclick="confirmDelete({{ $kasHarian->id }})">

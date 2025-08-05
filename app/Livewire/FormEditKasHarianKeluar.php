@@ -355,6 +355,47 @@ class FormEditKasHarianKeluar extends Component
         $this->checkDisabled(); 
     }
 
+    public function shouldTabunganQurbanBeReadonly()
+    {
+        $fields = [
+            'qurban',
+            'manasuka',
+            'lain_lain',
+            'wajib_pinjam',
+            'wajib_pinjam_manual',
+            'hari_lembur',
+            'perjalanan_pengawas',
+            'thr',
+            'admin',
+            'iuran_dekopinda',
+            'honor_pengurus',
+            'rkrab',
+            'pembinaan',
+            'harkop',
+            'dandik',
+            'rapat',
+            'jasa_manasuka',
+            'pajak',
+            'dekopinda',
+            'wajib_pkpri',
+            'dansos',
+            'shu',
+            'dana_pengurus',
+            'dana_kesejahteraan',
+            'pembayaran_listrik_dan_air',
+            'tnh_kav',
+        ];
+        
+        foreach ($fields as $field) {
+            $value = (int) str_replace(['Rp', '.', ','], '', $this->$field);
+            if ($value > 0) {
+                return true;
+            }
+        }
+        
+        return false;
+    }
+
     /**
      * Cek apakah semua inputan sudah diisi dan tidak ada yang kosong.
      * Jika ada yang kosong, set disabled ke true.

@@ -15,7 +15,7 @@ class RiwayatTabunganQurban extends Model
         'tanggal',
     ];
 
-    public function kasHarian()
+    public function kas_harian()
     {
         return $this->belongsTo(KasHarian::class);
     }

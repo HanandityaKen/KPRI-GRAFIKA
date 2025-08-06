@@ -162,16 +162,8 @@ class RiwayatTable extends Component
 
                 foreach ($fields as $field => $label) {
                     if (!empty($item->$field)) {
-                        if (
-                            in_array($field, ['wajib', 'wajib_pinjam', 'manasuka', 'qurban']) &&
-                            $item->jenis_transaksi === 'kas keluar'
-                        ) {
-                            $transaksi[] = $label;
-                            $totalJumlah -= $item->$field;
-                        } else {
-                            $transaksi[] = $label;
-                            $totalJumlah += $item->$field;
-                        }
+                        $transaksi[] = $label;
+                        $totalJumlah += $item->$field;
                     }
                 }
 
@@ -201,7 +193,7 @@ class RiwayatTable extends Component
             ->get()
             ->map(function ($item) {
                 $item->transaksi = 'Penarikan Tabungan Qurban';
-                $item->jumlah = -abs($item->jumlah);
+                $item->jumlah = $item->jumlah;
                 $item->tanggal = $item->tanggal;
                 $item->type = 'qurban';
                 $item->skip_render = false;

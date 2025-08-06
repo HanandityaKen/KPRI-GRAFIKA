@@ -22,12 +22,20 @@
                                     <tr class="border-b border-green-200">
                                         <td class="px-4 py-2 text-sm">{{ \Carbon\Carbon::parse($item->tanggal)->format('d-m-Y') }}</td>
                                         <td class="px-4 py-2 text-sm">{{ $item->transaksi }}</td>
-                                        <td class="px-4 py-2 text-sm">Rp {{ number_format($item->jumlah, 0, ',', '.') }}</td>
+                                        @if ($item->jenis_transaksi === 'kas masuk')
+                                            <td class="px-4 py-2 text-sm">Rp {{ number_format($item->jumlah, 0, ',', '.') }}</td>
+                                        @elseif ($item->jenis_transaksi === 'kas keluar' || $item->kas_harian->jenis_transaksi === 'kas keluar')
+                                            @if ($item->js_admin > 0 || $item->hutang > 0 || $item->barang_kons > 0)
+                                                <td class="px-4 py-2 text-sm">Rp {{ number_format($item->jumlah, 0, ',', '.') }}</td>
+                                            @else
+                                                <td class="px-4 py-2 text-sm">- Rp {{ number_format($item->jumlah, 0, ',', '.') }}</td>
+                                            @endif
+                                        @endif
                                         <td class="px-4 py-2 text-sm">
                                             @if($item->type == 'kas')
                                                 <a href="{{ route('detail-riwayat', $item->id) }}">
                                             @else
-                                                <a href="{{ route('detail-riwayat', $item->id) }}">
+                                                <a href="{{ route('detail-tabungan-qurban', $item->id) }}">
                                             @endif
                                                 <button class="px-3 py-1 bg-blue-700 text-white rounded hover:bg-blue-600">
                                                     Detail

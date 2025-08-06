@@ -27,13 +27,33 @@
               @if ($riwayat->$key > 0)
                 <div class="mb-4">
                   <label for="{{ $key }}" class="block mb-1 text-sm font-medium text-gray-900">{{ $label }}</label>
-                  <input 
-                    type="text" 
-                    id="{{ $key }}" 
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" 
-                    value="Rp {{ number_format($riwayat->$key, 0, ',', '.') }}" 
-                    readonly
-                  />
+                  @if ($riwayat->jenis_transaksi === 'kas masuk')    
+                    <input 
+                      type="text" 
+                      id="{{ $key }}" 
+                      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" 
+                      value="Rp {{ number_format($riwayat->$key, 0, ',', '.') }}" 
+                      readonly
+                    />
+                  @elseif($riwayat->jenis_transaksi === 'kas keluar')
+                    @if ($riwayat->js_admin > 0 || $riwayat->hutang > 0 || $riwayat->barang_kons > 0)
+                      <input 
+                        type="text" 
+                        id="{{ $key }}" 
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" 
+                        value="Rp {{ number_format($riwayat->$key, 0, ',', '.') }}" 
+                        readonly
+                      />
+                    @else
+                      <input 
+                        type="text" 
+                        id="{{ $key }}" 
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" 
+                        value="-Rp {{ number_format($riwayat->$key, 0, ',', '.') }}" 
+                        readonly
+                      />
+                    @endif
+                  @endif
                 </div>
               @endif
             @endforeach
@@ -69,5 +89,4 @@
         </div>
       </div>
     </div>
-    
 @endsection

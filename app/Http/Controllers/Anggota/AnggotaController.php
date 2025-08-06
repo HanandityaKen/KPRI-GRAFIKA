@@ -14,6 +14,7 @@ use App\Models\PengajuanUnitKonsumsi;
 use App\Models\UnitKonsumsi;
 use App\Models\AngsuranUnitKonsumsi;
 use App\Models\Saldo;
+use App\Models\RiwayatTabunganQurban;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -213,6 +214,21 @@ class AnggotaController extends Controller
             ];
 
         return view('anggota.detail-riwayat', compact('riwayat', 'fields'));
+    }
+
+    public function detailTabunganQurban($id)
+    {
+        $anggotaId = Auth::guard('anggota')->user()->id;
+
+        $riwayat = RiwayatTabunganQurban::where('anggota_id', $anggotaId)
+            ->where('id', $id)
+            ->firstOrFail();
+
+        $fields = [
+            'jumlah' => 'Qurban',
+        ];
+
+        return view('anggota.detail-tabungan-qurban', compact('riwayat', 'fields'));
     }
 
 

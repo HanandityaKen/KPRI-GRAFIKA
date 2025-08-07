@@ -20,7 +20,7 @@
                 <!-- Jika ada angsuranPinjaman -->
                 <div class="flex justify-between py-3">
                   <span class="text-green-700 text-sm">Total Pinjam</span>
-                  <span class="text-green-700 text-sm">Rp {{ number_format($angsuranPinjaman->pinjaman->pengajuan_pinjaman->jumlah_pinjaman, 0, ',', '.') }}</span>
+                  <span class="text-green-700 text-sm">Rp {{ number_format($angsuranPinjaman->pinjaman->jumlah_pinjaman, 0, ',', '.') }}</span>
                 </div>
                 <div class="flex justify-between py-3">
                   <span class="text-green-700 text-sm">Sisa Angsuran</span>

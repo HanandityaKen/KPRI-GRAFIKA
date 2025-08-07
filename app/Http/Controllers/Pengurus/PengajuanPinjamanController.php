@@ -344,7 +344,7 @@ class PengajuanPinjamanController extends Controller
 
         if ($pinjaman) {
             $pinjaman->update([
-                'jumlah_pinjaman' => $kurangAngsuran,
+                'jumlah_pinjaman' => $pengajuanPinjaman->jumlah_pinjaman + $pinjaman->jumlah_pinjaman,
             ]);     
         } else {
             $pinjaman = Pinjaman::create([

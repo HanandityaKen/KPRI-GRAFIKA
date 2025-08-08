@@ -50,6 +50,9 @@ class FormEditKasHarianKeluar extends Component
     public $namaList = [];
     public $anggota_id = '';
     public $bendahara = false;
+    public $sekretaris = false;
+    public $pembantuUmum = false;
+    public $pengawas = false;
 
     public $selectedWajibPinjam = '';
     public $wajib_pinjam_manual = '';
@@ -134,7 +137,10 @@ class FormEditKasHarianKeluar extends Component
         $this->bendahara = $anggota && $anggota->jabatan === 'bendahara';
 
         $this->wajibPinjamOption = [0, $this->kasHarian->wajib_pinjam];
-        
+        $this->getBendahara();
+        $this->getSekretaris();
+        $this->getPembantuUmum();
+        $this->getPengawas();
         $this->checkDisabled();
     }
 
@@ -145,6 +151,9 @@ class FormEditKasHarianKeluar extends Component
     {
         if ($propertyName === 'anggota_id') {
             $this->getBendahara();
+            $this->getSekretaris();
+            $this->getPembantuUmum();
+            $this->getPengawas();
         }
 
         $this->checkDisabled();
@@ -161,6 +170,39 @@ class FormEditKasHarianKeluar extends Component
             $this->bendahara = $anggota && $anggota->jabatan === 'bendahara';
         } else {
             $this->bendahara = false;
+        }
+    }
+
+    public function getSekretaris()
+    {
+        if ($this->anggota_id) {
+            $anggota = Anggota::find($this->anggota_id);
+
+            $this->sekretaris = $anggota && $anggota->jabatan === 'sekretaris';
+        } else {
+            $this->sekretaris = false;
+        }
+    }
+
+    public function getPembantuUmum()
+    {
+        if ($this->anggota_id) {
+            $anggota = Anggota::find($this->anggota_id);
+
+            $this->pembantuUmum = $anggota && $anggota->jabatan === 'pembantu umum';
+        } else {
+            $this->pembantuUmum = false;
+        }
+    }
+
+    public function getPengawas()
+    {
+        if ($this->anggota_id) {
+            $anggota = Anggota::find($this->anggota_id);
+
+            $this->pengawas = $anggota && $anggota->jabatan === 'pengawas';
+        } else {
+            $this->pengawas = false;
         }
     }
 
@@ -361,7 +403,7 @@ class FormEditKasHarianKeluar extends Component
             'qurban',
             'manasuka',
             'lain_lain',
-            'wajib_pinjam',
+            'selectedWajibPinjam',
             'wajib_pinjam_manual',
             'hari_lembur',
             'perjalanan_pengawas',
@@ -441,6 +483,7 @@ class FormEditKasHarianKeluar extends Component
                     $lain_lain === 0 &&
                     $wajib_pinjam === 0 &&
                     $wajib_pinjam_manual === 0 &&
+                    $dansos === 0 &&
                     (!$this->bendahara || (
                         $hari_lembur === 0 &&
                         $perjalanan_pengawas === 0 &&
@@ -458,12 +501,29 @@ class FormEditKasHarianKeluar extends Component
                         $tabungan_qurban === 0 &&
                         $dekopinda === 0 &&
                         $wajib_pkpri === 0 &&
-                        $dansos === 0 &&
                         $shu === 0 &&
                         $dana_pengurus === 0 &&
                         $dana_kesejahteraan === 0 &&
                         $pembayaran_listrik_dan_air === 0 &&
                         $tnh_kav === 0
+                    )) &&
+                    (!$this->sekretaris || (
+                        $hari_lembur === 0 &&
+                        $perjalanan_pengawas === 0 &&
+                        $honor_pengurus === 0 &&
+                        $dana_pengurus === 0
+                    )) &&
+                    (!$this->pembantuUmum || (
+                        $hari_lembur === 0 &&
+                        $perjalanan_pengawas === 0 &&
+                        $honor_pengurus === 0 &&
+                        $dana_pengurus === 0
+                    )) &&
+                    (!$this->pengawas || (
+                        $hari_lembur === 0 &&
+                        $perjalanan_pengawas === 0 &&
+                        $honor_pengurus === 0 &&
+                        $dana_pengurus === 0
                     ));
 
         $this->disabled = $hasValidationError || $isAllZero;

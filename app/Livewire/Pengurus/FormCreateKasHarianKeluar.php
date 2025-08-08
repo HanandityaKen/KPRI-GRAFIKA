@@ -47,6 +47,9 @@ class FormCreateKasHarianKeluar extends Component
     public $namaList = [];
     public $anggota_id = '';
     public $bendahara = false;
+    public $sekretaris = false;
+    public $pembantuUmum = false;
+    public $pengawas = false;
     public $wajibPinjamOptions = [0];
     public $selectedWajibPinjam = 0;
     public $wajibPinjamManual = '';
@@ -106,6 +109,9 @@ class FormCreateKasHarianKeluar extends Component
     {
         if ($propertyName === 'anggota_id') {
             $this->getBendahara();
+            $this->getSekretaris();
+            $this->getPembantuUmum();
+            $this->getPengawas();
             $this->getWajibPinjamOptions();
         }
     }
@@ -121,6 +127,45 @@ class FormCreateKasHarianKeluar extends Component
             $this->bendahara = $anggota && $anggota->jabatan === 'bendahara';
         } else {
             $this->bendahara = false;
+        }
+
+        $this->checkDisabled();
+    }
+
+    public function getSekretaris()
+    {
+        if ($this->anggota_id) {
+            $anggota = Anggota::find($this->anggota_id);
+
+            $this->sekretaris = $anggota && $anggota->jabatan === 'sekretaris';
+        } else {
+            $this->sekretaris = false;
+        }
+
+        $this->checkDisabled();
+    }
+
+    public function getPembantuUmum()
+    {
+        if ($this->anggota_id) {
+            $anggota = Anggota::find($this->anggota_id);
+
+            $this->pembantuUmum = $anggota && $anggota->jabatan === 'pembantu umum';
+        } else {
+            $this->pembantuUmum = false;
+        }
+
+        $this->checkDisabled();
+    }
+
+    public function getPengawas()
+    {
+        if ($this->anggota_id) {
+            $anggota = Anggota::find($this->anggota_id);
+
+            $this->pengawas = $anggota && $anggota->jabatan === 'pengawas';
+        } else {
+            $this->pengawas = false;
         }
 
         $this->checkDisabled();
@@ -375,6 +420,7 @@ class FormCreateKasHarianKeluar extends Component
                     $lain_lain === 0 &&
                     $wajibPinjam === 0 &&
                     $wajibPinjamManual === 0 &&
+                    $dansos === 0 &&
                     (!$this->bendahara || (
                         $hari_lembur === 0 &&
                         $perjalanan_pengawas === 0 &&
@@ -392,12 +438,29 @@ class FormCreateKasHarianKeluar extends Component
                         $tabungan_qurban === 0 &&
                         $dekopinda === 0 &&
                         $wajib_pkpri === 0 &&
-                        $dansos === 0 &&
                         $shu === 0 &&
                         $dana_pengurus === 0 &&
                         $dana_kesejahteraan === 0 &&
                         $pembayaran_listrik_dan_air === 0 &&
                         $tnh_kav === 0
+                    )) &&
+                    (!$this->sekretaris || (
+                        $hari_lembur === 0 &&
+                        $perjalanan_pengawas === 0 &&
+                        $honor_pengurus === 0 &&
+                        $dana_pengurus === 0
+                    )) &&
+                    (!$this->pembantuUmum || (
+                        $hari_lembur === 0 &&
+                        $perjalanan_pengawas === 0 &&
+                        $honor_pengurus === 0 &&
+                        $dana_pengurus === 0
+                    )) &&
+                    (!$this->pengawas || (
+                        $hari_lembur === 0 &&
+                        $perjalanan_pengawas === 0 &&
+                        $honor_pengurus === 0 &&
+                        $dana_pengurus === 0
                     ));
 
         $this->disabled = $hasValidationError || $isAllZero;

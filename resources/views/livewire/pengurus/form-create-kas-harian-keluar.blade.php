@@ -49,6 +49,30 @@
             <input wire:model.live="qurban" type="text" id="qurban" name="qurban" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Qurban" inputmode="numeric" value="{{ old('qurban') }}" />
             <p class="text-red-500 text-xs mt-1">{{ $error_qurban }}</p>
         </div>
+        @if (!$bendahara)
+            <div class="mb-4">
+                <label class="block mb-1 text-sm font-medium text-gray-900">Dansos</label>
+                <input wire:model.live="dansos" type="text" id="dansos" name="dansos" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Dansos" inputmode="numeric" value="{{ old('dansos') }}" />
+            </div>
+        @endif
+        @if ($sekretaris || $pembantuUmum || $pengawas)
+            <div class="mb-4">
+                <label for="hari_lembur" class="block mb-1 text-sm font-medium text-gray-900">Hari Lembur</label>
+                <input wire:model.live="hari_lembur" type="text" id="hari_lembur" name="hari_lembur" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Hari Lembur" inputmode="numeric" value="{{ old('hari_lembur') }}" />
+            </div>
+            <div class="mb-4">
+                <label for="perjalanan_pengawas" class="block mb-1 text-sm font-medium text-gray-900">Perjalanan Pengawas</label>
+                <input wire:model.live="perjalanan_pengawas" type="text" id="perjalanan_pengawas" name="perjalanan_pengawas" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Perjalanan Pengawas" inputmode="numeric" value="{{ old('perjalanan_pengawas') }}" />
+            </div>
+            <div class="mb-4">
+                <label for="honor_pengurus" class="block mb-1 text-sm font-medium text-gray-900">Honor Pengurus</label>
+                <input wire:model.live="honor_pengurus" type="text" id="honor_pengurus" name="honor_pengurus" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Honor Pengurus" inputmode="numeric" value="{{ old('honor_pengurus') }}" />
+            </div>
+            <div class="mb-4">
+                <label for="dana_pengurus" class="block mb-1 text-sm font-medium text-gray-900">Dana Pengurus</label>
+                <input wire:model.live="dana_pengurus" type="text" id="dana_pengurus" name="dana_pengurus" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Dana Pengurus" inputmode="numeric" value="{{ old('dana_pengurus') }}" />
+            </div>
+        @endif
         <div class="{{ $bendahara ? '' : 'hidden' }}">
             <div class="mb-4">
                 <label class="block mb-1 text-sm font-medium text-gray-900">Beban Lain</label>

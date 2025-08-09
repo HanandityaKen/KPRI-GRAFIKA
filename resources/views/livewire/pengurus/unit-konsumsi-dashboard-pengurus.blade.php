@@ -1,4 +1,5 @@
 @php
+    $ketua = auth()->guard('pengurus')->check() && auth()->guard('pengurus')->user()->jabatan === 'ketua';
     $bendahara = auth()->guard('pengurus')->check() && auth()->guard('pengurus')->user()->jabatan === 'bendahara';
     $pembantu_umum = auth()->guard('pengurus')->check() && auth()->guard('pengurus')->user()->jabatan === 'pembantu umum';
     $pengawas = auth()->guard('pengurus')->check() && auth()->guard('pengurus')->user()->jabatan === 'pengawas';
@@ -14,7 +15,7 @@
                     <th class="p-3 text-left whitespace-nowrap">Barang</th>
                     <th class="p-3 text-left whitespace-nowrap">Nominal Barang</th>
                     <th class="p-3 text-left whitespace-nowrap">Status</th>
-                    @if ($bendahara || $pembantu_umum || $pengawas)
+                    @if ($bendahara || $pembantu_umum || $pengawas || $ketua)
                         <th class="p-3 text-left whitespace-nowrap">Action</th>
                     @endif
                 </tr>
@@ -56,7 +57,7 @@
                                         @method('DELETE')
                                     </form>
                                 @endif
-                            @elseif ($pengawas)
+                            @elseif ($pengawas || $ketua)
                                 @if ($pengajuanUnitKonsumsi->status == 'menunggu')
                                     <form action="{{ route('pengurus.setujui-pengajuan-unit-konsumsi', $pengajuanUnitKonsumsi->id) }}" method="POST" class="inline">
                                         @csrf

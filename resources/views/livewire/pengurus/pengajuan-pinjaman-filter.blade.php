@@ -1,4 +1,5 @@
 @php
+    $ketua = auth()->guard('pengurus')->check() && auth()->guard('pengurus')->user()->jabatan === 'ketua';
     $bendahara = auth()->guard('pengurus')->check() && auth()->guard('pengurus')->user()->jabatan === 'bendahara';
     $pengawas = auth()->guard('pengurus')->check() && auth()->guard('pengurus')->user()->jabatan === 'pengawas';
 @endphp
@@ -71,7 +72,7 @@
                                         @method('DELETE')
                                     </form>
                                 @endif
-                            @elseif ($pengawas)
+                            @elseif ($pengawas || $ketua)
                                 @if ($pengajuanPinjaman->status == 'menunggu')   
                                     <form action="{{ route('pengurus.setujui-pengajuan-pinjaman', $pengajuanPinjaman->id) }}" method="POST" class="inline">
                                         @csrf

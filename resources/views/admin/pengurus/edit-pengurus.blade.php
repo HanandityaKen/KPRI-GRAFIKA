@@ -80,6 +80,10 @@
       <input type="hidden" name="jabatan" value="{{ $user->jabatan }}">
       <select name="jabatan" class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
         <option value="" selected>Pilih Jabatan</option>
+        <option value="ketua" {{ old('jabatan', $user->jabatan) == 'ketua' ? 'selected' : '' }} 
+            @if ($user->jabatan !== 'ketua' && $jumlahKetua >= 1) disabled @endif>
+            Ketua
+        </option>
         <option value="sekretaris" {{ old('jabatan', $user->jabatan) == 'sekretaris' ? 'selected' : '' }} 
             @if ($user->jabatan !== 'sekretaris' && $jumlahSekretaris >= 1) disabled @endif>
             Sekretaris
@@ -97,6 +101,9 @@
           Pengawas
         </option>
       </select>
+      @if ($jumlahKetua >= 1 && $user->jabatan !== 'ketua')
+          <p class="text-red-500 text-xs mt-1">* Jumlah ketua sudah 1 orang</p>
+      @endif
       @if ($jumlahSekretaris >= 1 && $user->jabatan !== 'sekretaris')
           <p class="text-red-500 text-xs mt-1">* Jumlah sekretaris sudah 1 orang</p>
       @endif

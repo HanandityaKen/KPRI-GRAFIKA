@@ -33,7 +33,7 @@
     </div>
   </div>
 
-  @if (Auth::guard('pengurus')->user()->jabatan === 'pengawas')
+  @if (Auth::guard('pengurus')->user()->jabatan === 'pengawas' || Auth::guard('pengurus')->user()->jabatan === 'ketua')
     @if (session('success'))
       <script>
           document.addEventListener('DOMContentLoaded', function () {

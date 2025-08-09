@@ -31,6 +31,8 @@ class PengurusController extends Controller
         $anggotaList = Anggota::where('posisi', 'anggota')->pluck('nama', 'id');
         
         // Menghitung jumlah anggota berdasarkan jabatan
+        $jumlahKetua = Anggota::where('jabatan', 'ketua')->count();
+
         $jumlahSekretaris = Anggota::where('jabatan', 'sekretaris')->count();
 
         $jumlahBendahara = Anggota::where('jabatan', 'bendahara')->count();
@@ -39,7 +41,7 @@ class PengurusController extends Controller
         
         $jumlahPengawas = Anggota::where('jabatan', 'pengawas')->count();
 
-        return view('admin.pengurus.create-pengurus', compact('anggotaList', 'jumlahSekretaris', 'jumlahBendahara', 'jumlahPengawas', 'jumlahPembantuUmum'));
+        return view('admin.pengurus.create-pengurus', compact('anggotaList', 'jumlahKetua', 'jumlahSekretaris', 'jumlahBendahara', 'jumlahPengawas', 'jumlahPembantuUmum'));
     }
 
     /**
@@ -53,7 +55,7 @@ class PengurusController extends Controller
         $request->validate([
             'anggota_id'      => 'required|exists:anggota,id',
             'posisi'      => 'required|in:pengurus',
-            'jabatan'      => 'required|in:pengawas,bendahara,sekretaris,pembantu umum',
+            'jabatan'      => 'required|in:pengawas,bendahara,sekretaris,pembantu umum,ketua',
         ]);
 
         $anggota = Anggota::find($request->anggota_id);
@@ -80,6 +82,8 @@ class PengurusController extends Controller
             ->orWhere('id', $id)
             ->pluck('nama', 'id');
 
+        $jumlahKetua = Anggota::where('jabatan', 'ketua')->count();
+
         $jumlahSekretaris = Anggota::where('jabatan', 'sekretaris')->count();
 
         $jumlahBendahara = Anggota::where('jabatan', 'bendahara')->count();
@@ -88,7 +92,7 @@ class PengurusController extends Controller
         
         $jumlahPengawas = Anggota::where('jabatan', 'pengawas')->count();
 
-        return view('admin.pengurus.edit-pengurus', compact('user', 'anggotaList', 'jumlahBendahara', 'jumlahSekretaris', 'jumlahPengawas', 'jumlahPembantuUmum'));
+        return view('admin.pengurus.edit-pengurus', compact('user', 'anggotaList', 'jumlahKetua', 'jumlahBendahara', 'jumlahSekretaris', 'jumlahPengawas', 'jumlahPembantuUmum'));
     }
 
     /**
@@ -103,7 +107,7 @@ class PengurusController extends Controller
         $request->validate([
             'nama'      => 'required|string',
             'posisi'      => 'required|in:pengurus',
-            'jabatan'      => 'required|in:pengawas,bendahara,sekretaris,pembantu umum',
+            'jabatan'      => 'required|in:pengawas,bendahara,sekretaris,pembantu umum,ketua',
         ]);
 
         $user = Anggota::findOrFail($id);
@@ -136,6 +140,4 @@ class PengurusController extends Controller
 
         return redirect()->route('admin.pengurus.index')->with('success', 'Berhasil Menghapus Pengurus');
     }
-
-
 }

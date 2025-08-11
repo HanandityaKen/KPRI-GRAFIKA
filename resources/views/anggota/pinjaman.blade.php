@@ -23,17 +23,17 @@
                   <span class="text-green-700 text-sm">Rp {{ number_format($angsuranPinjaman->pinjaman->jumlah_pinjaman, 0, ',', '.') }}</span>
                 </div>
                 <div class="flex justify-between py-3">
-                  <span class="text-green-700 text-sm">Sisa Angsuran</span>
-                  <span class="text-green-700 text-sm">{{ $angsuranPinjaman->sisa_angsuran }} Kali</span>
+                  <span class="text-green-700 text-sm">Angsuran Masuk</span>
+                  <span class="text-green-700 text-sm">Rp {{ number_format($angsuranPinjaman->pinjaman->jumlah_pinjaman - $angsuranPinjaman->kurang_angsuran, 0, ',', '.') }}</span>
                 </div>
                 <div class="flex justify-between py-3">
                   <span class="text-green-700 text-sm">Kurang Angsuran</span>
                   <span class="text-green-700 text-sm">Rp {{ number_format($angsuranPinjaman->kurang_angsuran, 0, ',', '.') }}</span>
                 </div>
-                <div class="flex justify-between py-3">
-                  <span class="text-green-700 text-sm">Kurang Jasa</span>
-                  <span class="text-green-700 text-sm">Rp {{ number_format($angsuranPinjaman->kurang_jasa, 0, ',', '.') }}</span>
-                </div>
+                {{-- <div class="flex justify-between py-3">
+                  <span class="text-green-700 text-sm">Tunggakan</span>
+                  <span class="text-green-700 text-sm">Rp {{ number_format($angsuranPinjaman->tunggakan, 0, ',', '.') }}</span>
+                </div> --}}
               @else
                 <!-- Jika tidak ada angsuranPinjaman -->
                 <div class="flex justify-center items-center py-10">

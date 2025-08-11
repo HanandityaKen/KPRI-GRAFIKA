@@ -20,12 +20,14 @@
                     <th class="p-3 text-left text-[#6DA854]">No</th>
                     <th class="p-3 text-left whitespace-nowrap">Nama</th>
                     <th class="p-3 text-left whitespace-nowrap">Total Pinjam</th>
-                    <th class="p-3 text-left whitespace-nowrap">Lama Angsuran</th>
+                    <th class="p-3 text-left whitespace-nowrap">Angsuran Masuk</th>
+                    <th class="p-3 text-left whitespace-nowrap">Kurang Angsuran</th>
+                    {{-- <th class="p-3 text-left whitespace-nowrap">Lama Angsuran</th>
                     <th class="p-3 text-left whitespace-nowrap">Nominal Angsuran</th>
                     <th class="p-3 text-left whitespace-nowrap">Nominal Pokok</th>
                     <th class="p-3 text-left whitespace-nowrap">Nominal Jasa</th>
                     <th class="p-3 text-left whitespace-nowrap">Kurang Angsuran</th>
-                    <th class="p-3 text-left whitespace-nowrap">Kurang Jasa</th>
+                    <th class="p-3 text-left whitespace-nowrap">Kurang Jasa</th> --}}
                     <th class="p-3 text-left whitespace-nowrap">Tunggakan</th>
                     <th class="p-3 text-left whitespace-nowrap">Action</th>
                 </tr>
@@ -36,12 +38,14 @@
                         <td class="pl-5 text-[#6DA854]">{{ $angsurans->firstItem() + $index }}</td>
                         <td class="p-3 whitespace-nowrap">{{ $angsuran->pinjaman->pengajuan_pinjaman->nama_anggota }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->pinjaman->jumlah_pinjaman, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ ucwords($angsuran->pinjaman->pengajuan_pinjaman->lama_angsuran) }}</td>
+                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->pinjaman->jumlah_pinjaman - $angsuran->kurang_angsuran, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->kurang_angsuran, 0, ',', '.') }}</td>
+                        {{-- <td class="p-3 whitespace-nowrap">{{ ucwords($angsuran->pinjaman->pengajuan_pinjaman->lama_angsuran) }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->pinjaman->pengajuan_pinjaman->nominal_angsuran, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->pinjaman->pengajuan_pinjaman->nominal_pokok, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->pinjaman->pengajuan_pinjaman->nominal_bunga, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->kurang_angsuran, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->kurang_jasa, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->kurang_jasa, 0, ',', '.') }}</td> --}}
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->tunggakan, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">
                             @if ($angsuran->pinjaman->status == 'lunas')

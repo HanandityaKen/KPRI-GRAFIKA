@@ -21,11 +21,13 @@
                     <th class="p-3 text-left whitespace-nowrap">Nama</th>
                     <th class="p-3 text-left whitespace-nowrap">Nama Barang</th>
                     <th class="p-3 text-left whitespace-nowrap">Nominal</th>
-                    <th class="p-3 text-left whitespace-nowrap">Lama Angsuran</th>
+                    <th class="p-3 text-left whitespace-nowrap">Angsuran Masuk</th>
+                    <th class="p-3 text-left whitespace-nowrap">Kurang Angsuran</th>
+                    {{-- <th class="p-3 text-left whitespace-nowrap">Lama Angsuran</th>
                     <th class="p-3 text-left whitespace-nowrap">Nominal Pokok</th>
                     <th class="p-3 text-left whitespace-nowrap">Nominal Jasa</th>
                     <th class="p-3 text-left whitespace-nowrap">Kurang Angsuran</th>
-                    <th class="p-3 text-left whitespace-nowrap">Kurang Jasa</th>
+                    <th class="p-3 text-left whitespace-nowrap">Kurang Jasa</th> --}}
                     <th class="p-3 text-left whitespace-nowrap">Tunggakan</th>
                     <th class="p-3 text-left whitespace-nowrap">Action</th>
                 </tr>
@@ -37,11 +39,13 @@
                         <td class="p-3 whitespace-nowrap">{{ $angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nama_anggota }}</td>
                         <td class="p-3 whitespace-nowrap">{{ $angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nama_barang }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ ucwords($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->lama_angsuran) }}</td>
+                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal - $angsuran->kurang_angsuran, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->kurang_angsuran, 0, ',', '.') }}</td>
+                        {{-- <td class="p-3 whitespace-nowrap">{{ ucwords($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->lama_angsuran) }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal_pokok, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal_bunga, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->kurang_angsuran, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->kurang_jasa, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->kurang_jasa, 0, ',', '.') }}</td> --}}
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->tunggakan, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">
                             @if ($angsuran->unit_konsumsi->status == 'lunas')

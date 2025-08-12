@@ -30,18 +30,18 @@ class AngsuranUnitKonsumsiExport implements FromView, WithStyles
     public function styles(Worksheet $sheet)
     {
         // **Gabungkan sel untuk judul agar tidak mempengaruhi auto-size kolom**
-        $sheet->mergeCells('A1:J1'); // Sesuaikan sampai kolom J
+        $sheet->mergeCells('A1:G1'); // Sesuaikan sampai kolom J
         $sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
         $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14);
 
         // **Auto-fit lebar kolom berdasarkan isi header**
-        foreach (range('A', 'J') as $col) {
+        foreach (range('A', 'G') as $col) {
             $sheet->getColumnDimension($col)->setAutoSize(true);
         }
 
         // **Menentukan range tabel untuk border (hanya di pinggir)**
         $lastRow = $sheet->getHighestRow();
-        $borderRange = 'A3:J' . $lastRow; // Sesuaikan sampai kolom J
+        $borderRange = 'A3:G' . $lastRow; // Sesuaikan sampai kolom J
 
         $sheet->getStyle($borderRange)->applyFromArray([
             'borders' => [
@@ -52,7 +52,7 @@ class AngsuranUnitKonsumsiExport implements FromView, WithStyles
         ]);
 
         // **Header diberi background abu-abu dan bold**
-        $sheet->getStyle('A3:J3')->applyFromArray([ // Sesuaikan sampai kolom J
+        $sheet->getStyle('A3:G3')->applyFromArray([ // Sesuaikan sampai kolom J
             'font' => ['bold' => true],
             'fill' => [
                 'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
@@ -61,7 +61,7 @@ class AngsuranUnitKonsumsiExport implements FromView, WithStyles
         ]);
 
         // **Tambahkan border horizontal di antara header dan data**
-        $sheet->getStyle('A3:J3')->applyFromArray([ // Sesuaikan sampai kolom J
+        $sheet->getStyle('A3:G3')->applyFromArray([ // Sesuaikan sampai kolom J
             'borders' => [
                 'bottom' => [
                     'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
@@ -71,7 +71,7 @@ class AngsuranUnitKonsumsiExport implements FromView, WithStyles
 
         // **Tambahkan border antar data (hanya garis bawah antar baris data)**
         for ($row = 4; $row <= $lastRow; $row++) {
-            $sheet->getStyle("A{$row}:J{$row}")->applyFromArray([ // Sesuaikan sampai kolom J
+            $sheet->getStyle("A{$row}:G{$row}")->applyFromArray([ // Sesuaikan sampai kolom J
                 'borders' => [
                     'bottom' => [
                         'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,

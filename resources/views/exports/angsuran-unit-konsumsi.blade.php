@@ -8,11 +8,13 @@
             <th>Nama</th>
             <th>Nama Barang</th>
             <th>Nominal</th>
-            <th>Lama Angsuran</th>
+            <th>Angsuran Masuk</th>
+            <th>Kurang Angsuran</th>
+            {{-- <th>Lama Angsuran</th>
             <th>Nominal Pokok</th>
             <th>Nominal Jasa</th>
             <th>Kurang Angsuran</th>
-            <th>Kurang Jasa</th>
+            <th>Kurang Jasa</th> --}}
             <th>Tunggakan</th>
         </tr>
     </thead>
@@ -23,11 +25,13 @@
                 <td>{{ $angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nama_anggota }}</td>
                 <td>{{ $angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nama_barang }}</td>
                 <td>Rp {{ number_format($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal, 0, ',', '.') }}</td>
-                <td>{{ ucwords($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->lama_angsuran) }}</td>
+                <td>Rp {{ number_format($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal - $angsuran->kurang_angsuran, 0, ',', '.') }}</td>
+                <td>Rp {{ number_format($angsuran->kurang_angsuran, 0, ',', '.') }}</td>
+                {{-- <td>{{ ucwords($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->lama_angsuran) }}</td>
                 <td>Rp {{ number_format($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal_pokok, 0, ',', '.') }}</td>
                 <td>Rp {{ number_format($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal_bunga, 0, ',', '.') }}</td>
                 <td>Rp {{ number_format($angsuran->kurang_angsuran, 0, ',', '.') }}</td>
-                <td>Rp {{ number_format($angsuran->kurang_jasa, 0, ',', '.') }}</td>
+                <td>Rp {{ number_format($angsuran->kurang_jasa, 0, ',', '.') }}</td> --}}
                 <td>Rp {{ number_format($angsuran->tunggakan, 0, ',', '.') }}</td>
             </tr>
         @endforeach

@@ -26,16 +26,12 @@
                   <span class="text-green-700 text-sm">Rp {{ number_format($angsuranUnitKonsumsi->unit_konsumsi->pengajuan_unit_konsumsi->nominal, 0, ',', '.') }}</span>
                 </div>
                 <div class="flex justify-between py-3">
-                  <span class="text-green-700 text-sm">Sisa Angsuran</span>
-                  <span class="text-green-700 text-sm">{{ $angsuranUnitKonsumsi->sisa_angsuran }} Kali</span>
+                  <span class="text-green-700 text-sm">Angsuran Masuk</span>
+                  <span class="text-green-700 text-sm">Rp {{ number_format($angsuranUnitKonsumsi->unit_konsumsi->pengajuan_unit_konsumsi->nominal - $angsuranUnitKonsumsi->kurang_angsuran, 0, ',', '.') }}</span>
                 </div>
                 <div class="flex justify-between py-3">
                   <span class="text-green-700 text-sm">Kurang Angsuran</span>
                   <span class="text-green-700 text-sm">Rp {{ number_format($angsuranUnitKonsumsi->kurang_angsuran, 0, ',', '.') }}</span>
-                </div>
-                <div class="flex justify-between py-3">
-                  <span class="text-green-700 text-sm">Kurang Jasa</span>
-                  <span class="text-green-700 text-sm">Rp {{ number_format($angsuranUnitKonsumsi->kurang_jasa, 0, ',', '.') }}</span>
                 </div>
               @else
                 <div class="flex justify-center items-center py-10">

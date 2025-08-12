@@ -167,9 +167,9 @@ class RiwayatTable extends Component
                     }
                 }
 
-                if (!empty($item->jasa) && !empty($item->angsuran)) {
+                if ((!empty($item->jasa) && !empty($item->angsuran)) || !empty($item->angsuran)) {
                     $item->transaksi = 'Bayar angsuran pinjaman';
-                } elseif (!empty($item->jasa) && !empty($item->barang_kons)) {
+                } elseif ((!empty($item->jasa) && !empty($item->barang_kons)) || (!empty($item->barang_kons) && $item->jenis_transaksi === 'kas masuk')) {
                     $item->transaksi = 'Bayar angsuran unit konsumsi';
                 } elseif (!empty($item->jasa) && !empty($item->pinjaman_id)) {
                     $item->transaksi = 'Bayar jasa pinjaman';

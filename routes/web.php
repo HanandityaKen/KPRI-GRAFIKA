@@ -25,6 +25,7 @@ use App\Http\Controllers\PokokController;
 use App\Http\Controllers\NamaKoperasiController;
 use App\Http\Controllers\LogoKoperasiController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ShuController;
 
 use App\Http\Controllers\Pengurus\PengurusController as SubPengurusController;
 use App\Http\Controllers\Pengurus\KasHarianController as SubKasHarianController;
@@ -102,6 +103,10 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::put('/logo-koperasi-update', [LogoKoperasiController::class, 'update'])->name('logo-koperasi-update');
     Route::resource('profile', ProfileController::class)->only(['index', 'update']);
     Route::post('/logout-admin', [AuthController::class, 'logoutAdmin'])->name('logout');
+    Route::get('/shu/realisasi-kegiatan-usaha', [ShuController::class, 'indexRealisasiKegiatanUsaha'])->name('shu.index-realisasi-kegiatan-usaha');
+    Route::get('/shu/create', [ShuController::class, 'createRealisasiKegiatanUsaha'])->name('shu.create-realisasi-kegiatan-usaha');
+    Route::post('/shu/store', [ShuController::class, 'storeRealisasiKegiatanUsaha'])->name('shu.store-realisasi-kegiatan-usaha');
+    Route::delete('/shu/destroy/{id}', [ShuController::class, 'destroyRealisasiKegiatanUsaha'])->name('shu.destroy-realisasi-kegiatan-usaha');
 });
 
 Route::get('/pengurus', [AuthController::class, 'showPengurusLoginForm'])->name('pengurus.login');

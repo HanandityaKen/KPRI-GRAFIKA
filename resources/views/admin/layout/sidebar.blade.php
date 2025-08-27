@@ -118,6 +118,30 @@
         </ul>
       </li>
       <li>
+        <button type="button"
+            class="flex items-center w-full p-2 text-white mb-1 transition duration-75 rounded-lg group hover:bg-[#009348] {{ request()->is('admin/shu*') ? 'bg-[#009348]' : '' }}"
+            aria-controls="dropdown-shu" data-collapse-toggle="dropdown-shu">
+            <i data-lucide="building-2" class="text-white mr-3 group-hover:text-white"></i>
+            <span class="flex-1 text-left whitespace-nowrap font-medium group-hover:text-white">SHU</span>
+            <svg class="w-3 h-3 text-white group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 4 4 4-4" />
+            </svg>
+        </button>
+        <ul id="dropdown-shu" class="space-y-1 {{ request()->is('admin/shu*') ? '' : 'hidden' }}">
+            <li>
+                <a href="{{ route('admin.shu.index-realisasi-kegiatan-usaha') }}" class="flex item-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/shu/realisasi-kegiatan-usaha') || Request::is('admin/shu/create') ? 'bg-[#009348]' : '' }}">Realisasi Kegiatan Usaha</a>
+            </li>
+            <li>
+                <a href="" class="flex item-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/unit-konsumsi*') ? 'bg-[#009348]' : '' }}">Rencana Perhitungan SHU</a>
+            </li>
+            <li>
+                <a href="" class="flex item-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/unit-konsumsi*') ? 'bg-[#009348]' : '' }}">Pembagian SHU</a>
+            </li>
+        </ul>
+      </li>
+      <li>
           <a href="{{ route('admin.riwayat-transaksi.index') }}"
               class="flex items-center p-2 text-white rounded-lg hover:bg-[#009348] group {{ Request::is('admin/riwayat-transaksi*') ? 'bg-[#009348]' : '' }}">
               <i data-lucide="history" class="text-white mr-3 group-hover:text-white"></i>

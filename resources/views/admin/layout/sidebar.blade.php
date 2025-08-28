@@ -134,7 +134,7 @@
                 <a href="{{ route('admin.shu.index-realisasi-kegiatan-usaha') }}" class="flex item-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/shu/realisasi-kegiatan-usaha') || Request::is('admin/shu/create') ? 'bg-[#009348]' : '' }}">Realisasi Kegiatan Usaha</a>
             </li>
             <li>
-                <a href="" class="flex item-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/unit-konsumsi*') ? 'bg-[#009348]' : '' }}">Rencana Perhitungan SHU</a>
+                <a href="{{ route('admin.shu.index-rencana-perhitungan-shu') }}" class="flex item-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/shu/rencana-perhitungan-shu') ? 'bg-[#009348]' : '' }}">Rencana Perhitungan SHU</a>
             </li>
             <li>
                 <a href="" class="flex item-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/unit-konsumsi*') ? 'bg-[#009348]' : '' }}">Pembagian SHU</a>

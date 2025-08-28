@@ -116,4 +116,9 @@ class ShuController extends Controller
 
         return redirect()->route('admin.shu.index-realisasi-kegiatan-usaha')->with('success', 'Berhasil Menghapus SHU');
     }
+
+    public function indexRencanaPerhitunganShu()
+    {
+        return view('admin.shu.index-rencana-perhitungan-shu');
+    }
 }

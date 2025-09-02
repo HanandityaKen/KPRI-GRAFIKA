@@ -108,6 +108,7 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::post('/shu/store', [ShuController::class, 'storeRealisasiKegiatanUsaha'])->name('shu.store-realisasi-kegiatan-usaha');
     Route::delete('/shu/destroy/{id}', [ShuController::class, 'destroyRealisasiKegiatanUsaha'])->name('shu.destroy-realisasi-kegiatan-usaha');
     Route::get('/shu/rencana-perhitungan-shu', [ShuController::class, 'indexRencanaPerhitunganShu'])->name('shu.index-rencana-perhitungan-shu');
+    Route::get('/shu/pembagian-shu', [ShuController::class, 'indexPembagianShu'])->name('shu.index-pembagian-shu');
 });
 
 Route::get('/pengurus', [AuthController::class, 'showPengurusLoginForm'])->name('pengurus.login');

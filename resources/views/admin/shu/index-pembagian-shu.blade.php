@@ -1,7 +1,7 @@
 @extends('admin.layout.main')
 
-@section('title', 'Rencana Perhitungan SHU')
-    
+@section('title', 'Pembagian SHU')
+
 @section('content')
   <div>
     <hr class="my-5 border-t-[2px] border-green-800 opacity-20 mb-5" />
@@ -22,7 +22,7 @@
               <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
               </svg>
-              <a href="{{ route('admin.shu.index-rencana-perhitungan-shu') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Rencana Perhitungan SHU</a>
+              <a href="{{ route('admin.shu.index-pembagian-shu') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-green-600 md:ms-2">Pembagian SHU</a>
             </div>
           </li>
         </ol>
@@ -30,7 +30,7 @@
     </div>
 
     <div class="flex justify-between items-center mb-6">
-      <h1 class="text-xl font-bold">Rencana Perhitungan SHU</h1>
+      <h1 class="text-xl font-bold">Pembagian SHU</h1>
     </div>
 
     @if (session('success'))
@@ -49,6 +49,6 @@
         </script>
     @endif
 
-    @livewire('rencana-perhitungan-shu-filter')
+    @livewire('pembagian-shu-filter')
   </div>
 @endsection

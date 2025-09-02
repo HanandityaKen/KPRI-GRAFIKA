@@ -121,4 +121,9 @@ class ShuController extends Controller
     {
         return view('admin.shu.index-rencana-perhitungan-shu');
     }
+
+    public function indexPembagianShu()
+    {
+        return view('admin.shu.index-pembagian-shu');
+    }
 }

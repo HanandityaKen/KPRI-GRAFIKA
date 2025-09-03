@@ -62,7 +62,7 @@ class ShuController extends Controller
         ]);
 
         $request->validate([
-            'tahun'              => 'required|digits:4|integer|min:2020|max:' . date('Y'),
+            'tahun'              => 'required|digits:4|integer|min:2020',
             'jasa_dari_anggota'  => 'required|integer|min:0',
             'unit_konsumsi'      => 'required|integer|min:0',
             'jasa_skpb'          => 'required|integer|min:0',

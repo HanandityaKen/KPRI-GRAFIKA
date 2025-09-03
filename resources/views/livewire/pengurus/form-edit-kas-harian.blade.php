@@ -47,10 +47,12 @@
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Wajib</label>
             <select wire:model.live="selectedWajib" name="wajib" id="wajib" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" onchange="toggleManualInputWajib(this)">
-                <option value="0">Pilih Nominal Wajib</option>
-                @foreach($wajibOptions as $wajib)
-                    <option value="{{ $wajib }}" {{ old('wajib', $kasHarian->wajib) == $wajib ? 'selected' : '' }}>
-                        Rp {{ number_format($wajib, 0, ',', '.') }}
+                @foreach($wajibOptions as $wajibOption)
+                    @if ($wajib != $wajibOption)
+                        <option value="{{ $wajib }}">Rp {{ number_format($wajib, 0, ',', '.') }}</option>
+                    @endif
+                    <option value="{{ $wajibOption }}" {{ old('wajib', $kasHarian->wajib) == $wajibOption ? 'selected' : '' }}>
+                        Rp {{ number_format($wajibOption, 0, ',', '.') }}
                     </option>
                 @endforeach
                 <option value="manual">Masukan Manual</option>            
@@ -66,7 +68,9 @@
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Wajib Pinjam</label>
             <select wire:model.live="selectedWajibPinjam" name="wajib_pinjam" id="wajib_pinjam" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" onchange="toggleManualInputWajibPinjam(this)">
-                <option value="">Rp 0</option>
+                @if (!in_array($wajibPinjam, $wajibPinjamList))
+                    <option value="{{ $wajibPinjam }}">Rp {{ number_format($wajibPinjam, 0, ',', '.') }}</option>
+                @endif
                 @foreach ($wajibPinjamList as $id => $nominal)
                     <option value="{{ $nominal }}" {{ old('wajib_pinjam', $kasHarian->wajib_pinjam) == $nominal ? 'selected' : '' }}>
                         Rp {{ number_format($nominal, 0, ',', '.') }}

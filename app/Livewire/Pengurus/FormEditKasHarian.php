@@ -45,12 +45,17 @@ class FormEditKasHarian extends Component
     public $namaList = [];
     public $anggota_id = '';
     public $pokok = '';
+
+    public $wajib = '';
     public $wajibOptions = [];
-    public $wajibPinjamList = [];
     public $selectedWajib = '';
     public $wajibManual = '';
+    
+    public $wajibPinjam = '';
+    public $wajibPinjamList = [];
     public $selectedWajibPinjam = '';
     public $wajibPinjamManual = '';
+
     public $qurban = '';
     public $manasuka = '';
     public $lain_lain = '';
@@ -69,10 +74,16 @@ class FormEditKasHarian extends Component
         $this->anggota_id = $this->kasHarian->anggota_id;
 
         $this->pokok = $this->kasHarian->pokok;
+
+
+        $this->wajib = $this->kasHarian->wajib;
         $this->selectedWajib = $this->kasHarian->wajib;
         $this->wajibManual = $this->kasHarian->wajib;
+
+        $this->wajibPinjam = $this->kasHarian->wajib_pinjam;
         $this->selectedWajibPinjam = $this->kasHarian->wajib_pinjam;
         $this->wajibPinjamManual = $this->kasHarian->wajib_pinjam;
+
         $this->qurban = $this->kasHarian->qurban;
         $this->manasuka = $this->kasHarian->manasuka;
         $this->lain_lain = $this->kasHarian->lain_lain;

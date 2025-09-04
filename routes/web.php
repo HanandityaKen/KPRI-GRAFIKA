@@ -26,6 +26,7 @@ use App\Http\Controllers\NamaKoperasiController;
 use App\Http\Controllers\LogoKoperasiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShuController;
+use App\Http\Controllers\JasaManasukaController;
 
 use App\Http\Controllers\Pengurus\PengurusController as SubPengurusController;
 use App\Http\Controllers\Pengurus\KasHarianController as SubKasHarianController;
@@ -109,6 +110,7 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::delete('/shu/destroy/{id}', [ShuController::class, 'destroyRealisasiKegiatanUsaha'])->name('shu.destroy-realisasi-kegiatan-usaha');
     Route::get('/shu/rencana-perhitungan-shu', [ShuController::class, 'indexRencanaPerhitunganShu'])->name('shu.index-rencana-perhitungan-shu');
     Route::get('/shu/pembagian-shu', [ShuController::class, 'indexPembagianShu'])->name('shu.index-pembagian-shu');
+    Route::resource('jasa-manasuka', JasaManasukaController::class)->only(['index']);
 });
 
 Route::get('/pengurus', [AuthController::class, 'showPengurusLoginForm'])->name('pengurus.login');

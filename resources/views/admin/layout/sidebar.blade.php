@@ -142,6 +142,13 @@
         </ul>
       </li>
       <li>
+        <a href="{{ route('admin.jasa-manasuka.index') }}"
+            class="flex items-center p-2 text-white rounded-lg hover:bg-[#009348] group {{ Request::is('admin/jasa-manasuka') ? 'bg-[#009348]' : '' }}">
+            <i data-lucide="receipt-text" class="text-white mr-3 group-hover:text-white"></i>
+            <span class="font-medium group-hover:text-white">Jasa Manasuka</span>
+        </a>
+      </li>
+      <li>
           <a href="{{ route('admin.riwayat-transaksi.index') }}"
               class="flex items-center p-2 text-white rounded-lg hover:bg-[#009348] group {{ Request::is('admin/riwayat-transaksi*') ? 'bg-[#009348]' : '' }}">
               <i data-lucide="history" class="text-white mr-3 group-hover:text-white"></i>

@@ -321,6 +321,10 @@ class AnggotaController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Profil berhasil diperbarui');
+    }
 
+    public function shu()
+    {
+        return view('anggota.shu');
     }
 }

@@ -15,6 +15,8 @@ class PembagianShuFilter extends Component
 {   
     use WithPagination, WithoutUrlPagination;
 
+    public $search = '';
+
     public $selectedYear;
 
     public $availableYears = [];
@@ -50,6 +52,12 @@ class PembagianShuFilter extends Component
         $this->updateShu();
     }
 
+    public function updatedSearch()
+    {
+        $this->resetPage();
+        $this->updateShu();
+    }
+
     private function updateShu()
     {
         if (!$this->selectedYear) return collect();
@@ -77,7 +85,7 @@ class PembagianShuFilter extends Component
         $totalJasa = $anggotaData->sum('total_jasa');
 
         // Hitung proporsi simpanan, partisipasi, dan total SHU
-        return $anggotaData->map(function($item) use ($totalSimpanan, $totalJasa, $jasaSimpanan, $jasaPartisipasi) {
+        $result = $anggotaData->map(function($item) use ($totalSimpanan, $totalJasa, $jasaSimpanan, $jasaPartisipasi) {
             $item->partisipasi = $totalJasa > 0
                 ? ($item->total_jasa / $totalJasa) * $jasaPartisipasi
                 : 0;
@@ -90,6 +98,15 @@ class PembagianShuFilter extends Component
 
             return $item;
         });
+
+        // Filter Search
+        if ($this->search) {
+            $result = $result->filter(function ($item) {
+                return stripos($item->nama_anggota, $this->search) !== false;
+            });
+        }
+    
+        return $result;
     }
 
     public function render()

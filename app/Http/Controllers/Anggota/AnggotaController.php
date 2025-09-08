@@ -327,4 +327,9 @@ class AnggotaController extends Controller
     {
         return view('anggota.shu');
     }
+
+    public function jasaManasuka()
+    {
+        return view('anggota.jasa-manasuka');
+    }
 }

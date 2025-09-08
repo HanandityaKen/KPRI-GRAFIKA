@@ -54,6 +54,7 @@ Route::middleware('anggota', 'no-cache')->group(function () {
     Route::get('/pinjaman', [AnggotaAnggotaController::class, 'pinjaman'])->name('pinjaman');
     Route::get('/unit-konsumsi', [AnggotaAnggotaController::class, 'unitKonsumsi'])->name('unit-konsumsi');
     Route::get('/shu', [AnggotaAnggotaController::class, 'shu'])->name('shu');
+    Route::get('/jasa-manasuka', [AnggotaAnggotaController::class, 'jasaManasuka'])->name('jasa-manasuka');
     Route::get('/riwayat', [AnggotaAnggotaController::class, 'riwayat'])->name('riwayat');
     Route::get('/riwayat/detail/{id}', [AnggotaAnggotaController::class, 'detailRiwayat'])->name('detail-riwayat');
     Route::get('/riwayat/detail-tabungan-qurban/{id}', [AnggotaAnggotaController::class, 'detailTabunganQurban'])->name('detail-tabungan-qurban');

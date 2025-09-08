@@ -8,6 +8,18 @@
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
     <link rel="stylesheet" href="{{ asset('build/assets/app-qzaV8ZHb.css') }}">
     <script src="{{ asset('build/assets/app-DA3rf8Wk.js') }}" defer></script>
+    <style>
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      .no-scrollbar::-webkit-scrollbar {
+          display: none;
+      }
+
+      /* Hide scrollbar for IE, Edge and Firefox */
+      .no-scrollbar {
+          -ms-overflow-style: none;  /* IE and Edge */
+          scrollbar-width: none;  /* Firefox */
+      }
+    </style>
   </head>
   <body class="bg-gray-100">
     <!-- Navbar -->

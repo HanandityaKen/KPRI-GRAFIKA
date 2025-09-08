@@ -15,7 +15,7 @@
       <li><a href="{{ route('pinjaman') }}" class="text-base font-semibold {{ Request::is('pinjaman') ? 'text-green-800' : 'text-gray-600 hover:text-green-800' }}">Pinjaman</a></li>
       <li><a href="{{ route('unit-konsumsi') }}" class="text-base font-semibold {{ Request::is('unit-konsumsi') ? 'text-green-800' : 'text-gray-600 hover:text-green-800' }}">Unit Konsumsi</a></li>
       <li><a href="{{ route('shu') }}" class="text-base font-semibold {{ Request::is('shu') ? 'text-green-800' : 'text-gray-600 hover:text-green-800' }}">SHU</a></li>
-      {{-- <li><a href="" class="text-base font-semibold {{ Request::is('unit-konsumsi') ? 'text-green-800' : 'text-gray-600 hover:text-green-800' }}">Jasa Manasuka</a></li> --}}
+      <li><a href="{{ route('jasa-manasuka') }}" class="text-base font-semibold {{ Request::is('jasa-manasuka') ? 'text-green-800' : 'text-gray-600 hover:text-green-800' }}">Jasa Manasuka</a></li>
       <li><a href="{{ route('riwayat') }}" class="text-base font-semibold {{ Request::is('riwayat*') ? 'text-green-800' : 'text-gray-600 hover:text-green-800' }}">Riwayat</a></li>
     </ul>
   </div>
@@ -27,7 +27,7 @@
     <li><a href="{{ route('pinjaman') }}" class="text-sm font-semibold {{ Request::is('pinjaman') ? 'text-green-800' : 'text-gray-600 hover:text-green-800' }}">Pinjaman</a></li>
     <li><a href="{{ route('unit-konsumsi') }}" class="text-sm font-semibold {{ Request::is('unit-konsumsi') ? 'text-green-800' : 'text-gray-600 hover:text-green-800' }}">Unit Konsumsi</a></li>
     <li><a href="{{ route('shu') }}" class="text-sm font-semibold {{ Request::is('shu') ? 'text-green-800' : 'text-gray-600 hover:text-green-800' }}">SHU</a></li>
-    {{-- <li><a href="" class="text-sm font-semibold {{ Request::is('unit-konsumsi') ? 'text-green-800' : 'text-gray-600 hover:text-green-800' }}">Jasa Manasuka</a></li> --}}
+    <li><a href="{{ route('jasa-manasuka') }}" class="text-sm font-semibold {{ Request::is('jasa-manasuka') ? 'text-green-800' : 'text-gray-600 hover:text-green-800' }}">Jasa Manasuka</a></li>
     <li><a href="{{ route('riwayat') }}" class="text-sm font-semibold {{ Request::is('riwayat*') ? 'text-green-800' : 'text-gray-600 hover:text-green-800' }}">Riwayat</a></li>
   </ul>
 

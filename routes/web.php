@@ -27,6 +27,7 @@ use App\Http\Controllers\LogoKoperasiController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShuController;
 use App\Http\Controllers\JasaManasukaController;
+use App\Http\Controllers\NeracaController;
 
 use App\Http\Controllers\Pengurus\PengurusController as SubPengurusController;
 use App\Http\Controllers\Pengurus\KasHarianController as SubKasHarianController;
@@ -113,6 +114,10 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::get('/shu/rencana-perhitungan-shu', [ShuController::class, 'indexRencanaPerhitunganShu'])->name('shu.index-rencana-perhitungan-shu');
     Route::get('/shu/pembagian-shu', [ShuController::class, 'indexPembagianShu'])->name('shu.index-pembagian-shu');
     Route::resource('jasa-manasuka', JasaManasukaController::class)->only(['index']);
+    Route::get('/neraca/perhitungan-neraca', [NeracaController::class, 'indexPerhitunganNeraca'])->name('neraca.index-perhitungan-neraca');
+    Route::get('/neraca/create', [NeracaController::class, 'createPerhitunganNeraca'])->name('neraca.create-perhitungan-neraca');
+    Route::post('/neraca/store', [NeracaController::class, 'storePerhitunganNeraca'])->name('neraca.store-perhitungan-neraca');
+    Route::delete('/neraca/destroy/{id}', [NeracaController::class, 'destroyPerhitunganNeraca'])->name('neraca.destroy-perhitungan-neraca');
 });
 
 Route::get('/pengurus', [AuthController::class, 'showPengurusLoginForm'])->name('pengurus.login');

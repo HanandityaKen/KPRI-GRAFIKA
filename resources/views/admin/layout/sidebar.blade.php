@@ -149,6 +149,30 @@
         </a>
       </li>
       <li>
+        <button type="button"
+            class="flex items-center w-full p-2 text-white mb-1 transition duration-75 rounded-lg group hover:bg-[#009348] {{ request()->is('admin/neraca*') ? 'bg-[#009348]' : '' }}"
+            aria-controls="dropdown-neraca" data-collapse-toggle="dropdown-neraca">
+            <i data-lucide="scale" class="text-white mr-3 group-hover:text-white"></i>
+            <span class="flex-1 text-left whitespace-nowrap font-medium group-hover:text-white">Neraca</span>
+            <svg class="w-3 h-3 text-white group-hover:text-white" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 10 6">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 4 4 4-4" />
+            </svg>
+        </button>
+        <ul id="dropdown-neraca" class="space-y-1 {{ request()->is('admin/neraca*') ? '' : 'hidden' }}">
+            <li>
+                <a href="{{ route('admin.neraca.index-perhitungan-neraca') }}" class="flex item-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/neraca/perhitungan-neraca') || Request::is('admin/neraca/create') ? 'bg-[#009348]' : '' }}">Perhitungan Neraca</a>
+            </li>
+            <li>
+                <a href="" class="flex item-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/shu/rencana-perhitungan-shu') ? 'bg-[#009348]' : '' }}">Tabel Neraca</a>
+            </li>
+            <li>
+                <a href="" class="flex item-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/shu/rencana-perhitungan-shu') ? 'bg-[#009348]' : '' }}">Perbandingan Neraca</a>
+            </li>
+        </ul>
+      </li>
+      <li>
           <a href="{{ route('admin.riwayat-transaksi.index') }}"
               class="flex items-center p-2 text-white rounded-lg hover:bg-[#009348] group {{ Request::is('admin/riwayat-transaksi*') ? 'bg-[#009348]' : '' }}">
               <i data-lucide="history" class="text-white mr-3 group-hover:text-white"></i>

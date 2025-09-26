@@ -777,7 +777,7 @@ class FormCreatePerhitunganNeraca extends Component
             'tabungan_qurban', 'simpanan_khusus_swp', 'simpanan_manasuka',
             'donasi', 'simpanan_pokok_anggota', 'simpanan_wajib_anggota',
             'cadangan', 'shu', 'jasa_dari_anggota', 'jasa_administrasi',
-            'pembelian', 'penjualan', 'hpp_penjualan', 'beban_organisasi',
+            'pembelian', 'penjualan', 'hpp_penjualan', 'beban_organisasi','beban_operasional',
             'beban_umum', 'beban_lain_lain', 'jasa_unit_konsumsi',
             'pendapatan_lain_lain', 'pendapatan_tanah_kavling',
             'piutang_khusus', 'beban_pajak_belum_dibayar', 'pajak',

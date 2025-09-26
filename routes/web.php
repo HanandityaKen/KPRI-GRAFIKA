@@ -117,6 +117,8 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::get('/neraca/perhitungan-neraca', [NeracaController::class, 'indexPerhitunganNeraca'])->name('neraca.index-perhitungan-neraca');
     Route::get('/neraca/create', [NeracaController::class, 'createPerhitunganNeraca'])->name('neraca.create-perhitungan-neraca');
     Route::post('/neraca/store', [NeracaController::class, 'storePerhitunganNeraca'])->name('neraca.store-perhitungan-neraca');
+    Route::get('/neraca/edit/{id}', [NeracaController::class, 'editPerhitunganNeraca'])->name('neraca.edit-perhitungan-neraca');
+    Route::put('/neraca/update/{id}', [NeracaController::class, 'updatePerhitunganNeraca'])->name('neraca.update-perhitungan-neraca');
     Route::delete('/neraca/destroy/{id}', [NeracaController::class, 'destroyPerhitunganNeraca'])->name('neraca.destroy-perhitungan-neraca');
 });
 

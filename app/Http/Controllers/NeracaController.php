@@ -187,6 +187,148 @@ class NeracaController extends Controller
         return redirect()->route('admin.neraca.index-perhitungan-neraca')->with('success', 'Data Perhitungan Neraca Berhasil Disimpan.');
     }
 
+    public function editPerhitunganNeraca(string $id)
+    {
+        $perhitunganNeraca = PerhitunganNeraca::findOrFail($id);
+
+        return view('admin.neraca.edit-perhitungan-neraca', compact('perhitunganNeraca'));
+    }
+
+    public function updatePerhitunganNeraca(Request $request, string $id)
+    {
+        $perhitunganNeraca = PerhitunganNeraca::findOrFail($id);
+
+        $data = $request->all();
+
+        // clean format rupiah
+        foreach ($data as $key => $value) {
+            if (
+                Str::startsWith($key, 'neraca_awal_d_') ||
+                Str::startsWith($key, 'neraca_awal_k_') ||
+                Str::startsWith($key, 'n_perubahan_d_') ||
+                Str::startsWith($key, 'n_perubahan_k_') ||
+                Str::startsWith($key, 'a_penyesuaian_d_') ||
+                Str::startsWith($key, 'a_penyesuaian_k_') ||
+                Str::startsWith($key, 'rugi_dan_laba_d_') ||
+                Str::startsWith($key, 'rugi_dan_laba_k_')
+            ) {
+                $data[$key] = (int) str_replace(['Rp', '.', ','], '', $value);
+            }
+        }
+
+        // validasi semua input
+        $rules = [];
+        foreach ($data as $key => $value) {
+            if (
+                Str::startsWith($key, 'neraca_awal_d_') ||
+                Str::startsWith($key, 'neraca_awal_k_') ||
+                Str::startsWith($key, 'n_perubahan_d_') ||
+                Str::startsWith($key, 'n_perubahan_k_') ||
+                Str::startsWith($key, 'a_penyesuaian_d_') ||
+                Str::startsWith($key, 'a_penyesuaian_k_') ||
+                Str::startsWith($key, 'rugi_dan_laba_d_') ||
+                Str::startsWith($key, 'rugi_dan_laba_k_')
+            ) {
+                $rules[$key] = 'required|integer|min:0';
+            }
+        }
+
+        // validasi setelah input dibersihkan
+        $validated = validator($data, $rules)->validate();
+
+        $cleanNeracaAwalD     = [];
+        $cleanNeracaAwalK     = [];
+        $cleanNPerubahanD     = [];
+        $cleanNPerubahanK     = [];
+        $cleanAPenyesuaianD  = [];
+        $cleanAPenyesuaianK  = [];
+        $cleanRugiDanLabaD    = [];
+        $cleanRugiDanLabaK    = [];
+
+        foreach ($validated as $key => $value) {
+            $val = (int) $value;
+
+            if (Str::startsWith($key, 'neraca_awal_d_')) {
+                $cleanNeracaAwalD[$key] = $val;
+            } elseif (Str::startsWith($key, 'neraca_awal_k_')) {
+                $cleanNeracaAwalK[$key] = $val;
+            } elseif (Str::startsWith($key, 'n_perubahan_d_')) {
+                $cleanNPerubahanD[$key] = $val;
+            } elseif (Str::startsWith($key, 'n_perubahan_k_')) {
+                $cleanNPerubahanK[$key] = $val;
+            } elseif (Str::startsWith($key, 'a_penyesuaian_d_')) {
+                $cleanAPenyesuaianD[$key] = $val;
+            } elseif (Str::startsWith($key, 'a_penyesuaian_k_')) {
+                $cleanAPenyesuaianK[$key] = $val;
+            } elseif (Str::startsWith($key, 'rugi_dan_laba_d_')) {
+                $cleanRugiDanLabaD[$key] = $val;
+            } elseif (Str::startsWith($key, 'rugi_dan_laba_k_')) {
+                $cleanRugiDanLabaK[$key] = $val;
+            }
+        }
+        // Update tabel perhitungan_neraca
+        $perhitunganNeraca->update([
+            'jumlah_neraca_awal_d' => array_sum($cleanNeracaAwalD),
+            'jumlah_neraca_awal_k' => array_sum($cleanNeracaAwalK),
+            'jumlah_n_perubahan_d' => array_sum($cleanNPerubahanD),
+            'jumlah_n_perubahan_k' => array_sum($cleanNPerubahanK),
+            'jumlah_a_penyesuaian_d' => array_sum($cleanAPenyesuaianD),
+            'jumlah_a_penyesuaian_k' => array_sum($cleanAPenyesuaianK),
+            'jumlah_rugi_dan_laba_d' => array_sum($cleanRugiDanLabaD),
+            'jumlah_rugi_dan_laba_k' => array_sum($cleanRugiDanLabaK),
+        ]);
+
+        // Update tabel neraca_awal_d
+        $perhitunganNeraca->neracaAwalD->update([
+            ...$cleanNeracaAwalD,
+            'jumlah' => array_sum($cleanNeracaAwalD),
+        ]);
+        
+        // update neraca_awal_k
+        $perhitunganNeraca->neracaAwalK->update([
+            ...$cleanNeracaAwalK,
+            'jumlah' => array_sum($cleanNeracaAwalK),
+        ]);
+        
+        // update n_perubahan_d
+        $perhitunganNeraca->nPerubahanD->update([
+            ...$cleanNPerubahanD,
+            'jumlah' => array_sum($cleanNPerubahanD),
+        ]);
+        
+        // update n_perubahan_k
+        $perhitunganNeraca->nPerubahanK->update([
+            ...$cleanNPerubahanK,
+            'jumlah' => array_sum($cleanNPerubahanK),
+        ]);
+
+        // update a_penyesuaian_d
+        $perhitunganNeraca->aPenyesuaianD->update([
+            ...$cleanAPenyesuaianD,
+            'jumlah' => array_sum($cleanAPenyesuaianD),
+        ]);
+
+        // update a_penyesuaian_k
+        $perhitunganNeraca->aPenyesuaianK->update([
+            ...$cleanAPenyesuaianK,
+            'jumlah' => array_sum($cleanAPenyesuaianK),
+        ]);
+        
+        // update rugi_dan_laba_d
+        $perhitunganNeraca->rugiDanLabaD->update([
+            ...$cleanRugiDanLabaD,
+            'jumlah' => array_sum($cleanRugiDanLabaD),
+        ]);
+        
+        // update rugi_dan_laba_k
+        $perhitunganNeraca->rugiDanLabaK->update([
+            ...$cleanRugiDanLabaK,
+            'jumlah' => array_sum($cleanRugiDanLabaK),
+        ]);
+
+        return redirect()->route('admin.neraca.index-perhitungan-neraca')->with('success', 'Data Perhitungan Neraca Berhasil Diperbarui.');
+    }
+
     public function destroyPerhitunganNeraca($id)
     {
         $perhitunganNeraca = PerhitunganNeraca::findOrFail($id);

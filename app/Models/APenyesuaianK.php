@@ -54,6 +54,7 @@ class APenyesuaianK extends Model
         'a_penyesuaian_k_penjualan',
         'a_penyesuaian_k_hpp_penjualan',
         'a_penyesuaian_k_beban_organisasi',
+        'a_penyesuaian_k_beban_operasional',
         'a_penyesuaian_k_beban_umum',
         'a_penyesuaian_k_beban_lain_lain',
         'a_penyesuaian_k_jasa_unit_konsumsi',

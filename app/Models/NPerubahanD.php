@@ -54,6 +54,7 @@ class NPerubahanD extends Model
         'n_perubahan_d_penjualan',
         'n_perubahan_d_hpp_penjualan',
         'n_perubahan_d_beban_organisasi',
+        'n_perubahan_d_beban_operasional',
         'n_perubahan_d_beban_umum',
         'n_perubahan_d_beban_lain_lain',
         'n_perubahan_d_jasa_unit_konsumsi',

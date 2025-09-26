@@ -54,6 +54,7 @@ class NeracaAwalK extends Model
         'neraca_awal_k_penjualan',
         'neraca_awal_k_hpp_penjualan',
         'neraca_awal_k_beban_organisasi',
+        'neraca_awal_k_beban_operasional',
         'neraca_awal_k_beban_umum',
         'neraca_awal_k_beban_lain_lain',
         'neraca_awal_k_jasa_unit_konsumsi',

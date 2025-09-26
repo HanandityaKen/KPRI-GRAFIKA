@@ -54,6 +54,7 @@ class RugiDanLabaD extends Model
         'rugi_dan_laba_d_penjualan',
         'rugi_dan_laba_d_hpp_penjualan',
         'rugi_dan_laba_d_beban_organisasi',
+        'rugi_dan_laba_d_beban_operasional',
         'rugi_dan_laba_d_beban_umum',
         'rugi_dan_laba_d_beban_lain_lain',
         'rugi_dan_laba_d_jasa_unit_konsumsi',

@@ -348,4 +348,10 @@ class NeracaController extends Controller
 
         return redirect()->route('admin.neraca.index-perhitungan-neraca')->with('success', 'Data Perhitungan Neraca Berhasil Dihapus.');
     }
+
+    //Tabel Neraca
+    public function indexTabelNeraca() 
+    {
+        return view('admin.neraca.index-tabel-neraca');
+    }
 }

@@ -120,6 +120,7 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::get('/neraca/edit/{id}', [NeracaController::class, 'editPerhitunganNeraca'])->name('neraca.edit-perhitungan-neraca');
     Route::put('/neraca/update/{id}', [NeracaController::class, 'updatePerhitunganNeraca'])->name('neraca.update-perhitungan-neraca');
     Route::delete('/neraca/destroy/{id}', [NeracaController::class, 'destroyPerhitunganNeraca'])->name('neraca.destroy-perhitungan-neraca');
+    Route::get('/neraca/tabel-neraca', [NeracaController::class, 'indexTabelNeraca'])->name('neraca.index-tabel-neraca');
 });
 
 Route::get('/pengurus', [AuthController::class, 'showPengurusLoginForm'])->name('pengurus.login');

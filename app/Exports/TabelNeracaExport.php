@@ -1,55 +1,30 @@
 <?php
 
-namespace App\Livewire;
+namespace App\Exports;
 
-use Livewire\Component;
 use App\Models\PerhitunganNeraca;
-use App\Exports\TabelNeracaExport;
-use Maatwebsite\Excel\Facades\Excel;
+use App\Models\neracaAwalD;
+use App\Models\neracaAwalK;
+use App\Models\nPerubahanD;
+use App\Models\nPerubahanK;
+use App\Models\aPenyesuaianD;
+use App\Models\aPenyesuaianK;
+use App\Models\rugiDanLabaD;
+use App\Models\rugiDanLabaK;
+use Maatwebsite\Excel\Concerns\FromView;
+use Illuminate\Contracts\View\View;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class TabelNeracaFilter extends Component
+class TabelNeracaExport implements FromView, WithStyles
 {
-    public $selectedYear;
+    protected $selectedYear;
+    protected $tahunNeracaAwal = '';
+    protected $data = [];
 
-    public $availableYears = [];
-
-    public $tahunNeracaAwal = '';
-
-    public $data = [];
-
-    public function mount()
-    {   
-        $this->availableYears = PerhitunganNeraca::select('tahun')
-        ->distinct()
-        ->orderBy('tahun', 'desc')
-        ->pluck('tahun')
-        ->toArray();
-    
-        $currentYear = now()->format('Y');
-    
-        // kalau tahun sekarang ada di database, pakai itu
-        if (in_array($currentYear, $this->availableYears)) {
-            $this->selectedYear = $currentYear;
-        } else {
-            // fallback ke tahun terbaru di database (karena orderBy desc, jadi [0])
-            $this->selectedYear = $this->availableYears[0] ?? null;
-        }
-    
-        $this->getTahunNeracaAwal();
-
-        $this->getPerhitunganNeraca();
-    }
-
-    public function updatedSelectedYear()
+    public function __construct($selectedYear)
     {
-        $this->getTahunNeracaAwal();
-
-        $this->getPerhitunganNeraca();
-    }
-
-    private function getTahunNeracaAwal()
-    {
-        $this->tahunNeracaAwal = $this->selectedYear - 1;
+        $this->selectedYear = $selectedYear;
     }
 
     public $fields = [
@@ -72,8 +47,15 @@ class TabelNeracaFilter extends Component
         'jasa_simp_mana_suka',
     ];
 
-    private function getPerhitunganNeraca()
+    private function getTahunNeracaAwal()
     {
+        $this->tahunNeracaAwal = $this->selectedYear - 1;
+    }
+
+    public function view(): View
+    {
+        $this->getTahunNeracaAwal();
+
         $perhitungan = PerhitunganNeraca::with([
             'neracaAwalD', 'neracaAwalK',
             'nPerubahanD', 'nPerubahanK',
@@ -155,18 +137,75 @@ class TabelNeracaFilter extends Component
 
             $this->data['jumlah'] = $totals;
         }
+
+        return view('exports.tabel-neraca', [
+            'fields'          => $this->fields,
+            'selectedYear'    => $this->selectedYear,
+            'tahunNeracaAwal' => $this->tahunNeracaAwal,
+            'data'            => $this->data,
+        ]);
     }
 
-    public function exportExcel(){
-        $selectedYear = $this->selectedYear;
-
-        $filename = "NERACA_{$selectedYear}.xlsx";
-
-        return Excel::download(new TabelNeracaExport($selectedYear), $filename);
-    }
-
-    public function render()
+    public function styles(Worksheet $sheet)
     {
-        return view('livewire.tabel-neraca-filter');
+        $lastRow = $sheet->getHighestRow();
+
+        // Merge judul
+        $sheet->mergeCells('A1:R1');
+        $sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14);
+
+        // AutoSize setiap kolom secara dinamis
+        foreach ($sheet->getColumnIterator() as $column) {
+            $colIndex = $column->getColumnIndex();
+            $sheet->getColumnDimension($colIndex)->setAutoSize(true);
+        }
+
+        // Non-wrap agar teks tidak turun ke bawah
+        $sheet->getStyle('A1:R' . $lastRow)->getAlignment()->setWrapText(false);
+
+        // Tetapkan tinggi baris tetap
+        $sheet->getDefaultRowDimension()->setRowHeight(20);
+
+        // Style untuk header (baris ke-3 dan ke-4)
+        $sheet->getStyle('A3:R4')->applyFromArray([
+            'font' => ['bold' => true],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                ],
+            ],
+        ]);
+
+        // Border bawah antar baris data
+        for ($row = 5; $row <= $lastRow; $row++) {
+            $sheet->getStyle("A{$row}:R{$row}")->applyFromArray([
+                'borders' => [
+                    'allBorders' => [ 
+                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                        'color' => ['argb' => 'FF000000'],
+                    ],
+                ],
+            ]);
+        }
+
+        // Rata tengah A1 - A58
+        $sheet->getStyle('A1:A58')->getAlignment()->setHorizontal(
+            \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER
+        );
+
+        // Rata kanan C5 sampai R59
+        $sheet->getStyle('C5:R59')->getAlignment()->setHorizontal(
+            \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT
+        );
+        
+        // Jumlah A59
+        $sheet->getStyle('A59')->getAlignment()->setHorizontal(
+            \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER
+        );
     }
 }

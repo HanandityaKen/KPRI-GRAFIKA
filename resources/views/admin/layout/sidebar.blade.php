@@ -168,7 +168,7 @@
                 <a href="{{ route('admin.neraca.index-tabel-neraca') }}" class="flex item-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/neraca/tabel-neraca') ? 'bg-[#009348]' : '' }}">Tabel Neraca</a>
             </li>
             <li>
-                <a href="" class="flex item-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/shu/rencana-perhitungan-shu') ? 'bg-[#009348]' : '' }}">Perbandingan Neraca</a>
+                <a href="{{ route('admin.neraca.index-perbandingan-neraca') }}" class="flex item-center w-full p-1 text-white transition duration-75 rounded-lg pl-11 group hover:bg-[#009348] hover:text-white text-sm {{ Request::is('admin/neraca/perbandingan-neraca') ? 'bg-[#009348]' : '' }}">Perbandingan Neraca</a>
             </li>
         </ul>
       </li>

@@ -121,6 +121,7 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::put('/neraca/update/{id}', [NeracaController::class, 'updatePerhitunganNeraca'])->name('neraca.update-perhitungan-neraca');
     Route::delete('/neraca/destroy/{id}', [NeracaController::class, 'destroyPerhitunganNeraca'])->name('neraca.destroy-perhitungan-neraca');
     Route::get('/neraca/tabel-neraca', [NeracaController::class, 'indexTabelNeraca'])->name('neraca.index-tabel-neraca');
+    Route::get('/neraca/perbandingan-neraca', [NeracaController::class, 'indexPerbandinganNeraca'])->name('neraca.index-perbandingan-neraca');
 });
 
 Route::get('/pengurus', [AuthController::class, 'showPengurusLoginForm'])->name('pengurus.login');
@@ -152,5 +153,3 @@ Route::prefix('pengurus')->as('pengurus.')->middleware('pengurus', 'no-cache')->
     Route::post('/logout-pengurus', [AuthController::class, 'logoutPengurus'])->name('logout');
     Route::get('/switch-to-anggota', [AuthController::class, 'switchToAnggota'])->name('switch-to-anggota');
 });
-
-

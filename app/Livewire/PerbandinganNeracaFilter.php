@@ -5,6 +5,8 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\PerhitunganNeraca;
 use App\Models\Neraca;
+use App\Exports\PerbandinganNeracaExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PerbandinganNeracaFilter extends Component
 {
@@ -301,6 +303,14 @@ class PerbandinganNeracaFilter extends Component
         $this->tahunSebelumnya = $this->selectedYear - 1;
     }
 
+    public function exportExcel()
+    {
+        $selectedYear = $this->selectedYear;
+
+        $filename = "PERBANDINGAN_NERACA_{$selectedYear}.xlsx";
+
+        return Excel::download(new PerbandinganNeracaExport($selectedYear), $filename);
+    }
 
     public function render()
     {

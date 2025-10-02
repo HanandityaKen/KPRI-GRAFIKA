@@ -153,7 +153,10 @@ class TabelNeracaExport implements FromView, WithStyles
         // Merge judul
         $sheet->mergeCells('A1:R1');
         $sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
-        $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14);
+        $sheet->getStyle('A1')->getFont()
+            ->setBold(true)
+            ->setSize(14)
+            ->setName('Times New Roman');
 
         // AutoSize setiap kolom secara dinamis
         foreach ($sheet->getColumnIterator() as $column) {
@@ -167,9 +170,20 @@ class TabelNeracaExport implements FromView, WithStyles
         // Tetapkan tinggi baris tetap
         $sheet->getDefaultRowDimension()->setRowHeight(20);
 
+        // Font Times Roman
+        $sheet->getParent()->getDefaultStyle()->getFont()->setName('Times New Roman')->setSize(12);
+
         // Style untuk header (baris ke-3 dan ke-4)
         $sheet->getStyle('A3:R4')->applyFromArray([
-            'font' => ['bold' => true],
+            'font' => [
+                'bold' => true,
+                'name' => 'Times New Roman', 
+                'size' => 13, 
+            ],
+            'fill' => [
+                'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+                'startColor' => ['rgb' => 'E0E0E0'],
+            ],
             'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                 'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,

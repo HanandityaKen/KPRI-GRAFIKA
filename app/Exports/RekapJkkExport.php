@@ -160,7 +160,10 @@ class RekapJkkExport implements FromView, WithStyles
         // Merge judul utama dari A1 sampai AG1
         $sheet->mergeCells('A1:AG1');
         $sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
-        $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14);
+        $sheet->getStyle('A1')->getFont()
+            ->setBold(true)
+            ->setSize(14)
+            ->setName('Times New Roman');
 
         // AutoSize setiap kolom secara dinamis
         foreach ($sheet->getColumnIterator() as $column) {
@@ -174,9 +177,16 @@ class RekapJkkExport implements FromView, WithStyles
         // Tetapkan tinggi baris tetap
         $sheet->getDefaultRowDimension()->setRowHeight(20);
 
+        // Font Times Roman
+        $sheet->getParent()->getDefaultStyle()->getFont()->setName('Times New Roman')->setSize(12);
+
         // Style untuk header (baris ke-3 dan ke-4)
         $sheet->getStyle('A3:AG4')->applyFromArray([
-            'font' => ['bold' => true],
+            'font' => [
+                'bold' => true,
+                'name' => 'Times New Roman', 
+                'size' => 13, 
+            ],
             'alignment' => [
                 'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
                 'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
@@ -196,11 +206,29 @@ class RekapJkkExport implements FromView, WithStyles
         for ($row = 5; $row <= $lastRow; $row++) {
             $sheet->getStyle("A{$row}:AG{$row}")->applyFromArray([
                 'borders' => [
-                    'bottom' => [
+                    'allBorders' => [ 
                         'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                        'color' => ['argb' => 'FF000000'],
                     ],
                 ],
             ]);
         }
+
+        // Rata kanan
+        $sheet->getStyle("B5:AG{$lastRow}")->getAlignment()
+            ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT)
+            ->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+
+        // Footer
+        $sheet->getStyle("A{$lastRow}:AG{$lastRow}")->applyFromArray([
+            'font' => [
+                'name' => 'Times New Roman',
+                'size' => 13,
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+                'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+            ],
+        ]);
     }
 }

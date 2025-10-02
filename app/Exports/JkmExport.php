@@ -83,41 +83,48 @@ class JkmExport implements FromView, WithStyles
 
     public function styles(Worksheet $sheet)
     {
+        $lastRow = $sheet->getHighestRow();
+
         // **Gabungkan sel untuk judul agar tidak mempengaruhi auto-size kolom**
         $sheet->mergeCells('A1:M1'); // Sesuaikan sampai kolom I
         $sheet->getStyle('A1')->getAlignment()->setHorizontal('center');
-        $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14);
+        $sheet->getStyle('A1')->getFont()
+            ->setBold(true)
+            ->setSize(14)
+            ->setName('Times New Roman');
 
-        // **Auto-fit lebar kolom berdasarkan isi header**
-        foreach (range('A', 'M') as $col) {
-            $sheet->getColumnDimension($col)->setAutoSize(true);
+        // AutoSize setiap kolom secara dinamis
+        foreach ($sheet->getColumnIterator() as $column) {
+            $colIndex = $column->getColumnIndex();
+            $sheet->getColumnDimension($colIndex)->setAutoSize(true);
         }
 
-        // **Menentukan range tabel untuk border (hanya di pinggir)**
-        $lastRow = $sheet->getHighestRow();
-        $borderRange = 'A3:M' . $lastRow; // Sesuaikan sampai kolom I
+        // Non-wrap agar teks tidak turun ke bawah
+        $sheet->getStyle('A1:H' . $lastRow)->getAlignment()->setWrapText(false);
 
-        $sheet->getStyle($borderRange)->applyFromArray([
-            'borders' => [
-                'outline' => [ // Hanya border luar (atas, bawah, kanan, kiri)
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                ],
-            ],
-        ]);
+        // Tetapkan tinggi baris tetap
+        $sheet->getDefaultRowDimension()->setRowHeight(20);
+
+        // Font Times Roman
+        $sheet->getParent()->getDefaultStyle()->getFont()->setName('Times New Roman')->setSize(12);
 
         // **Header diberi background abu-abu dan bold**
         $sheet->getStyle('A3:M3')->applyFromArray([ // Sesuaikan sampai kolom I
-            'font' => ['bold' => true],
+            'font' => [
+                'bold' => true,
+                'name' => 'Times New Roman', 
+                'size' => 13, 
+            ],
             'fill' => [
                 'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
                 'startColor' => ['rgb' => 'E0E0E0'],
             ],
-        ]);
-
-        // **Tambahkan border horizontal di antara header dan data**
-        $sheet->getStyle('A3:M3')->applyFromArray([ // Sesuaikan sampai kolom I
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+            ],
             'borders' => [
-                'bottom' => [
+                'allBorders' => [
                     'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
                 ],
             ],
@@ -125,13 +132,36 @@ class JkmExport implements FromView, WithStyles
 
         // **Tambahkan border antar data (hanya garis bawah antar baris data)**
         for ($row = 4; $row <= $lastRow; $row++) {
-            $sheet->getStyle("A{$row}:M{$row}")->applyFromArray([ // Sesuaikan sampai kolom I
+            $sheet->getStyle("A{$row}:M{$row}")->applyFromArray([
                 'borders' => [
-                    'bottom' => [
+                    'allBorders' => [ 
                         'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                        'color' => ['argb' => 'FF000000'],
                     ],
                 ],
             ]);
         }
+
+        // Rata tengah untuk kolom B baris 4 sampai baris terakhir
+        $sheet->getStyle("B4:B{$lastRow}")->getAlignment()
+            ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER)
+            ->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+
+        // Rata kanan untuk kolom C sampai M dari baris 4 sampai baris terakhir
+        $sheet->getStyle("C4:M{$lastRow}")->getAlignment()
+            ->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT)
+            ->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+
+        // Terapkan font Times New Roman juga di footer
+        $sheet->getStyle("A{$lastRow}:M{$lastRow}")->applyFromArray([
+            'font' => [
+                'name' => 'Times New Roman',
+                'size' => 13,
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+                'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+            ],
+        ]);
     }
 }

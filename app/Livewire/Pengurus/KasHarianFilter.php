@@ -71,7 +71,7 @@ class KasHarianFilter extends Component
                 })
                 ->orderByDesc('tanggal')
                 ->orderByDesc('created_at')
-                ->paginate(10)
+                ->paginate(20)
                 ->onEachSide(1)
         ]);        
         

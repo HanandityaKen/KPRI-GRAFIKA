@@ -45,97 +45,97 @@
         <table class="w-full mb-8">
             <thead>
                 <tr>
-                    <th class="p-3 text-left text-[#6DA854]" rowspan="2">No</th>
-                    <th class="p-3 text-left whitespace-nowrap" rowspan="2">Uraian</th>
-                    <th class="p-3 text-left whitespace-nowrap" rowspan="2">Tanggal</th>
-                    <th class="p-3 text-center whitespace-nowrap" rowspan="2">Angsuran</th>
-                    <th class="p-3 text-center whitespace-nowrap" rowspan="2">Pokok</th>
-                    <th class="p-3 text-center whitespace-nowrap" rowspan="2">Wajib</th>
-                    <th class="p-3 text-center whitespace-nowrap" rowspan="2">M.Suka</th>
-                    <th class="p-3 text-center whitespace-nowrap" rowspan="2">SWP</th>
-                    <th class="p-3 text-center whitespace-nowrap" rowspan="2">Qurban</th>
-                    <th class="p-3 text-center whitespace-nowrap" rowspan="2">Beban Lain</th>
-                    <th class="p-3 text-center whitespace-nowrap" rowspan="2">Piutang</th>
-                    <th class="p-3 text-center whitespace-nowrap" rowspan="2">Hutang</th>
+                    <th class="p-3 text-center text-[#6DA854] border-r border-b border-[#6DA854]" rowspan="2">No</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]" rowspan="2">Uraian</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]" rowspan="2">Tanggal</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]" rowspan="2">Angsuran</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]" rowspan="2">Pokok</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]" rowspan="2">Wajib</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]" rowspan="2">M.Suka</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]" rowspan="2">SWP</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]" rowspan="2">Qurban</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]" rowspan="2">Beban Lain</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]" rowspan="2">Piutang</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]" rowspan="2">Hutang</th>
             
                     <!-- Header Gabungan -->
-                    <th class="p-3 text-center whitespace-nowrap" colspan="6">Beban Umum</th>
-                    <th class="p-3 text-center whitespace-nowrap" colspan="4">Beban Organisasi</th>
-                    <th class="p-3 text-center whitespace-nowrap" colspan="2">Beban Operasional</th>
-                    <th class="p-3 text-center whitespace-nowrap" colspan="9">Lain-Lain</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]" colspan="6">Beban Umum</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]" colspan="4">Beban Organisasi</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]" colspan="2">Beban Operasional</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]" colspan="9">Lain-Lain</th>
             
-                    <th class="p-3 text-center whitespace-nowrap" rowspan="2">Tanah Kavling</th>
-                    <th class="p-3 text-center whitespace-nowrap" rowspan="2">Jumlah</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]" rowspan="2">Tanah Kavling</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]" rowspan="2">Jumlah</th>
                 </tr>
                 <tr>
                     <!-- Beban Umum -->
-                    <th class="p-3 text-center whitespace-nowrap">Hari Lembur</th>
-                    <th class="p-3 text-center whitespace-nowrap">Perjalanan Pengawas</th>
-                    <th class="p-3 text-center whitespace-nowrap">THR</th>
-                    <th class="p-3 text-center whitespace-nowrap">Admin</th>
-                    <th class="p-3 text-center whitespace-nowrap">Iuran Dekopinda</th>
-                    <th class="p-3 text-center whitespace-nowrap">Honor Pengurus</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Hari Lembur</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Perjalanan Pengawas</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">THR</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Admin</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Iuran Dekopinda</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Honor Pengurus</th>
             
                     <!-- Beban Organisasi -->
-                    <th class="p-3 text-center whitespace-nowrap">RkRab</th>
-                    <th class="p-3 text-center whitespace-nowrap">Pembinaan</th>
-                    <th class="p-3 text-center whitespace-nowrap">Harkop</th>
-                    <th class="p-3 text-center whitespace-nowrap">Dandik</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">RkRab</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Pembinaan</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Harkop</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Dandik</th>
             
                     <!-- Beban Operasional -->
-                    <th class="p-3 text-center whitespace-nowrap">Rapat</th>
-                    <th class="p-3 text-center whitespace-nowrap">Jasa Manasuka</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Rapat</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Jasa Manasuka</th>
             
                     <!-- Beban Lain -->
-                    <th class="p-3 text-center whitespace-nowrap">Pajak</th>
-                    <th class="p-3 text-center whitespace-nowrap">Tabungan Qurban</th>
-                    <th class="p-3 text-center whitespace-nowrap">Dekopinda</th>
-                    <th class="p-3 text-center whitespace-nowrap">Wajib PKPRI</th>
-                    <th class="p-3 text-center whitespace-nowrap">Dansos</th>
-                    <th class="p-3 text-center whitespace-nowrap">SHU</th>
-                    <th class="p-3 text-center whitespace-nowrap">Dana Pengurus</th>
-                    <th class="p-3 text-center whitespace-nowrap">Dana Kesejahteraan</th>
-                    <th class="p-3 text-center whitespace-nowrap">Pembayaran Listrik Dan Air</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Pajak</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Tabungan Qurban</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Dekopinda</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Wajib PKPRI</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Dansos</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">SHU</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Dana Pengurus</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Dana Kesejahteraan</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-b border-[#6DA854]">Pembayaran Listrik Dan Air</th>
                 </tr>         
             </thead>
             <tbody>
                 @forelse ($jkks as $index => $jkk)     
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
-                        <td class="pl-5 text-[#6DA854]">{{ $jkks->firstItem() + $index }}</td>
-                        <td class="p-3">{{ $jkk->nama_anggota }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ \Carbon\Carbon::parse($jkk->tanggal)->translatedFormat('d-m-y') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_angsuran, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_pokok, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_wajib, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_manasuka, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_swp, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_qurban, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_lain_lain, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_piutang, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_hutang, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_hari_lembur, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_perjalanan_pengawas, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_thr, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_admin, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_iuran_dekopinda, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_honor_pengurus, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_rkrab, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_pembinaan, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_harkop, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_dandik, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_rapat, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_jasa_manasuka, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_pajak, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_tabungan_qurban, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_dekopinda, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_wajib_pkpri, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_dansos, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_shu, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_dana_pengurus, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_dana_kesejahteraan, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_pembayaran_listrik_dan_air, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">- Rp {{ number_format($jkk->total_tnh_kav, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap font-bold">- Rp {{ number_format($jkk->total_jumlah, 0, ',', '.') }}</td>
+                        <td class="p-3 text-center text-[#6DA854] border-r border-[#6DA854]">{{ $jkks->firstItem() + $index }}</td>
+                        <td class="p-3 border-l border-r border-[#6DA854]">{{ $jkk->nama_anggota }}</td>
+                        <td class="p-3 text-center whitespace-nowrap border-l border-r border-[#6DA854]">{{ \Carbon\Carbon::parse($jkk->tanggal)->translatedFormat('d-m-y') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_angsuran, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_pokok, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_wajib, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_manasuka, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_swp, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_qurban, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_lain_lain, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_piutang, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_hutang, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_hari_lembur, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_perjalanan_pengawas, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_thr, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_admin, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_iuran_dekopinda, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_honor_pengurus, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_rkrab, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_pembinaan, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_harkop, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_dandik, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_rapat, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_jasa_manasuka, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_pajak, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_tabungan_qurban, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_dekopinda, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_wajib_pkpri, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_dansos, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_shu, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_dana_pengurus, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_dana_kesejahteraan, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_pembayaran_listrik_dan_air, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">- Rp {{ number_format($jkk->total_tnh_kav, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-[#6DA854] font-bold">- Rp {{ number_format($jkk->total_jumlah, 0, ',', '.') }}</td>
                     </tr>
                 @empty
                     <tr>

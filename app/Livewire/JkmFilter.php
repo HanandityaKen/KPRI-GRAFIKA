@@ -167,7 +167,7 @@ class JkmFilter extends Component
             $jkms = $jkms->groupBy('kas_harian.nama_anggota', 'kas_harian.tanggal')
             ->orderBy('kas_harian.tanggal', 'desc')
             ->orderBy('kas_harian.created_at', 'desc')
-            ->paginate(10);
+            ->paginate(20);
 
         return view('livewire.jkm-filter', compact('jkms'));
     }

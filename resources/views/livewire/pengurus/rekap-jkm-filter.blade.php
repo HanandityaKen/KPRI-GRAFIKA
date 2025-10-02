@@ -17,90 +17,57 @@
         <table class="w-full mb-8">
             <thead>
                 <tr>
-                    <th class="p-3 text-left whitespace-nowrap">
-                        <div class="flex items-center">
-                            Bulan
-                            {{-- <i data-lucide="arrow-down-up" class="ml-2 w-4"></i> --}}
-                        </div>
+                    <th class="p-3 text-center whitespace-nowrap border-r border-b border-[#6DA854]">
+                        Bulan
                     </th>
-                    <th class="p-3 text-left whitespace-nowrap">
-                        <div class="flex items-center">
-                            Angsuran
-                            {{-- <i data-lucide="arrow-down-up" class="ml-2 w-4"></i> --}}
-                        </div>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">
+                        Angsuran
                     </th>
-                    <th class="p-3 text-left whitespace-nowrap">
-                        <div class="flex items-center">
-                            Pokok
-                            {{-- <i data-lucide="arrow-down-up" class="ml-2 w-4"></i> --}}
-                        </div>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">
+                        Pokok
                     </th>
-                    <th class="p-3 text-left whitespace-nowrap">
-                        <div class="flex items-center">
-                            Wajib
-                            {{-- <i data-lucide="arrow-down-up" class="ml-2 w-4"></i> --}}
-                        </div>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">
+                        Wajib
                     </th>
-                    <th class="p-3 text-left whitespace-nowrap">
-                        <div class="flex items-center">
-                            M.Suka
-                            {{-- <i data-lucide="arrow-down-up" class="ml-2 w-4"></i> --}}
-                        </div>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">
+                        M.Suka
                     </th>
-                    <th class="p-3 text-left whitespace-nowrap">
-                        <div class="flex items-center">
-                            SWP
-                            {{-- <i data-lucide="arrow-down-up" class="ml-2 w-4"></i> --}}
-                        </div>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">
+                        SWP
                     </th>
-                    <th class="p-3 text-left whitespace-nowrap">
-                        <div class="flex items-center">
-                            Qurban
-                            {{-- <i data-lucide="arrow-down-up" class="ml-2 w-4"></i> --}}
-                        </div>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">
+                        Qurban
                     </th>
-                    <th class="p-3 text-left whitespace-nowrap">
-                        <div class="flex items-center">
-                            Jasa
-                            {{-- <i data-lucide="arrow-down-up" class="ml-2 w-4"></i> --}}
-                        </div>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">
+                        Jasa
                     </th>
-                    <th class="p-3 text-left whitespace-nowrap">
-                        <div class="flex items-center">
-                            J.Admin
-                            {{-- <i data-lucide="arrow-down-up" class="ml-2 w-4"></i> --}}
-                        </div>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">
+                        J.Admin
                     </th>
-                    <th class="p-3 text-left whitespace-nowrap">
-                        <div class="flex items-center">
-                            Lain-Lain
-                            {{-- <i data-lucide="arrow-down-up" class="ml-2 w-4"></i> --}}
-                        </div>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">
+                        Lain-Lain
                     </th>
-                    <th class="p-3 text-left whitespace-nowrap">
-                        <div class="flex items-center">
-                            Barang Konsumsi
-                            {{-- <i data-lucide="arrow-down-up" class="ml-2 w-4"></i> --}}
-                        </div>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">
+                        Barang Konsumsi
                     </th>
-                    <th class="p-3 text-left whitespace-nowrap">Jumlah</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-b border-[#6DA854]">Jumlah</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($jkms as $jkm)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
-                        <td class="p-3">{{ $jkm['bulan'] }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($jkm['total_angsuran'], 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($jkm['total_pokok'], 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($jkm['total_wajib'], 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($jkm['total_m_suka'], 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($jkm['total_swp'], 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($jkm['total_qurban'], 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($jkm['total_jasa'], 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($jkm['total_j_admin'], 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($jkm['total_lain_lain'], 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($jkm['total_barang_kons'], 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap font-bold">Rp {{ number_format($jkm['total_jumlah'], 0, ',', '.') }}</td>
+                        <td class="p-3 border-r border-[#6DA854] text-center">{{ $jkm['bulan'] }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($jkm['total_angsuran'], 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($jkm['total_pokok'], 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($jkm['total_wajib'], 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($jkm['total_m_suka'], 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($jkm['total_swp'], 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($jkm['total_qurban'], 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($jkm['total_jasa'], 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($jkm['total_j_admin'], 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($jkm['total_lain_lain'], 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($jkm['total_barang_kons'], 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-[#6DA854] font-bold">Rp {{ number_format($jkm['total_jumlah'], 0, ',', '.') }}</td>
                     </tr>
                 @empty
                     <tr>

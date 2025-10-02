@@ -300,12 +300,12 @@
                 <tr class="border-b border-gray-200 hover:bg-gray-100">
                     <td class="p-3 border-r border-b border-[#6DA854] text-center"></td>
                     <td class="p-3 border border-[#6DA854] whitespace-nowrap font-bold">Jumlah Total</td>
-                    <td class="p-3 border border-[#6DA854] text-right whitespace-nowrap">{{ number_format($jumlahTotalKiriPrev, 0, ',', '.') }}</td>
-                    <td class="p-3 border border-[#6DA854] text-right whitespace-nowrap">{{ number_format($jumlahTotalKiriCurr, 0, ',', '.') }}</td>
+                    <td class="p-3 border border-[#6DA854] text-right whitespace-nowrap font-bold">{{ number_format($jumlahTotalKiriPrev, 0, ',', '.') }}</td>
+                    <td class="p-3 border border-[#6DA854] text-right whitespace-nowrap font-bold">{{ number_format($jumlahTotalKiriCurr, 0, ',', '.') }}</td>
                     <td class="p-3 border-r border-b border-[#6DA854] text-center"></td>
                     <td class="p-3 border border-[#6DA854] whitespace-nowrap font-bold">Jumlah Total</td>
-                    <td class="p-3 border border-[#6DA854] text-right whitespace-nowrap">{{ number_format($jumlahTotalKananPrev, 0, ',', '.') }}</td>
-                    <td class="p-3 border-l border-t border-b border-[#6DA854] text-right whitespace-nowrap">{{ number_format($jumlahTotalKananCurr, 0, ',', '.') }}</td>
+                    <td class="p-3 border border-[#6DA854] text-right whitespace-nowrap font-bold">{{ number_format($jumlahTotalKananPrev, 0, ',', '.') }}</td>
+                    <td class="p-3 border-l border-t border-b border-[#6DA854] text-right whitespace-nowrap font-bold">{{ number_format($jumlahTotalKananCurr, 0, ',', '.') }}</td>
                 </tr>
             </tbody>
         </table>

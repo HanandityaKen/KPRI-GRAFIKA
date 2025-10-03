@@ -41,28 +41,28 @@
         <table class="w-full mb-8">
             <thead>
                 <tr>
-                    <th class="p-3 text-left text-[#6DA854]">No</th>
-                    <th class="p-3 text-center whitespace-nowrap">No Anggota</th>
-                    <th class="p-3 text-left whitespace-nowrap">Nama</th>
-                    <th class="p-3 text-center whitespace-nowrap">Jenis Pegawai</th>
-                    <th class="p-3 text-left whitespace-nowrap">Telepon</th>
-                    <th class="p-3 text-left whitespace-nowrap">Email</th>
-                    <th class="p-3 text-left whitespace-nowrap">Posisi</th>
+                    <th class="p-3 text-center text-[#6DA854] border-r border-b border-[#6DA854]">No</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">No Anggota</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Nama</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Jenis Pegawai</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Telepon</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Email</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-b border-[#6DA854]">Posisi</th>
                     @if ($admin || $pengurus)
-                        <th class="p-3 text-left whitespace-nowrap">Action</th>
+                        <th class="p-3 text-center whitespace-nowrap border-l border-b border-[#6DA854]">Action</th>
                     @endif
                 </tr>
             </thead>
             <tbody>
                 @forelse ($users as $index => $user)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
-                        <td class="pl-5 text-[#6DA854]">{{ $users->firstItem() + $index }}</td>
-                        <td class="p-3 text-center whitespace-nowrap">{{ $user->no_anggota }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ $user->nama }}</td>
-                        <td class="p-3 text-center whitespace-nowrap">{{ $user->jenis_pegawai }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ $user->telepon }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ $user->email }}</td>
-                        <td class="p-3 whitespace-nowrap">
+                        <td class="p-3 text-center text-[#6DA854] border-r border-[#6DA854]">{{ $users->firstItem() + $index }}</td>
+                        <td class="p-3 text-center whitespace-nowrap border-l border-r border-[#6DA854]">{{ $user->no_anggota }}</td>
+                        <td class="p-3 whitespace-nowrap border-l border-r border-[#6DA854]">{{ $user->nama }}</td>
+                        <td class="p-3 text-center whitespace-nowrap border-l border-r border-[#6DA854]">{{ $user->jenis_pegawai }}</td>
+                        <td class="p-3 whitespace-nowrap border-l border-r border-[#6DA854]">{{ $user->telepon }}</td>
+                        <td class="p-3 whitespace-nowrap border-l border-r border-[#6DA854]">{{ $user->email }}</td>
+                        <td class="p-3 text-center whitespace-nowrap border-l border-[#6DA854]">
                             @if($user->posisi == 'anggota')
                                 Anggota
                             @elseif($user->posisi == 'pengurus')
@@ -70,7 +70,7 @@
                             @endif
                         </td>
                         @if ($admin || $pengurus)           
-                            <td class="p-3 whitespace-nowrap">
+                            <td class="p-3 text-center whitespace-nowrap border-l border-[#6DA854]">
                                 @if ($admin)
                                     <a href="{{ route('admin.anggota.edit', $user->id) }}">
                                         <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900">

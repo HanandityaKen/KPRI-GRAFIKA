@@ -20,19 +20,19 @@
         <table class="w-full mb-8">
             <thead>
                 <tr>
-                    <th class="p-3 text-left text-[#6DA854]">No</th>
-                    <th class="p-3 text-center">Tahun</th>
-                    <th class="p-3 text-center">SHU</th>
-                    <th class="p-3 text-center">Action</th>
+                    <th class="p-3 text-center text-[#6DA854] border-r border-b border-[#6DA854]">No</th>
+                    <th class="p-3 text-center border-l border-r border-b border-[#6DA854]">Tahun</th>
+                    <th class="p-3 text-center border-l border-r border-b border-[#6DA854]">SHU</th>
+                    <th class="p-3 text-center border-l border-b border-[#6DA854]">Action</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($shus as $index => $shu)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
-                        <td class="pl-5 text-[#6DA854]">{{ $shus->firstItem() + $index }}</td>
-                        <td class="p-3 text-center whitespace-nowrap">{{$shu->tahun}}</td>
-                        <td class="p-3 text-center whitespace-nowrap">Rp {{ number_format($shu->jumlah_shu, 0, ',', '.') }}</td>
-                        <td class="p-3 text-center whitespace-nowrap">
+                        <td class="p-3 text-center text-[#6DA854] order-r border-[#6DA854]">{{ $shus->firstItem() + $index }}</td>
+                        <td class="p-3 text-center whitespace-nowrap border-l border-r border-[#6DA854]">{{$shu->tahun}}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($shu->jumlah_shu, 0, ',', '.') }}</td>
+                        <td class="p-3 text-center whitespace-nowrap border-l border-[#6DA854]">
                             <button 
                                 class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
                                 onclick="confirmDelete({{ $shu->id }})">

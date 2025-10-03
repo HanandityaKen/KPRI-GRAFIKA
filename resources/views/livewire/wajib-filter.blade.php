@@ -19,19 +19,19 @@
         <table class="w-full mb-8">
             <thead>
                 <tr>
-                    <th class="p-3 text-left text-[#6DA854]">No</th>
-                    <th class="p-3 text-left whitespace-nowrap">Jenis Pegawai</th>
-                    <th class="p-3 text-left whitespace-nowrap">Nominal</th>
-                    <th class="p-3 text-center whitespace-nowrap">Action</th>
+                    <th class="p-3 text-center text-[#6DA854] border-r border-b border-[#6DA854]">No</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Jenis Pegawai</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Nominal</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-b border-[#6DA854]">Action</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($wajibs as $index => $wajib)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
-                        <td class="pl-5 text-[#6DA854]">{{ $wajibs->firstItem() + $index }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ $wajib->jenis_pegawai }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($wajib->nominal, 0, ',', '.') }}</td>
-                        <td class="text-center whitespace-nowrap">
+                        <td class="p-3 text-center text-[#6DA854] border-r border-[#6DA854]">{{ $wajibs->firstItem() + $index }}</td>
+                        <td class="p-3 whitespace-nowrap border-l border-r border-[#6DA854]">{{ $wajib->jenis_pegawai }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($wajib->nominal, 0, ',', '.') }}</td>
+                        <td class="text-center whitespace-nowrap border-l border-[#6DA854]">
                             <a href="{{ route('admin.wajib.edit', $wajib->id) }}">
                                 <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
                                     Edit

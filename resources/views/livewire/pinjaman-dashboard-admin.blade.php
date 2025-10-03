@@ -3,24 +3,24 @@
         <table class="w-full mb-8">
             <thead>
                 <tr>
-                    <th class="p-3 text-left text-[#6DA854]">No</th>
-                    <th class="p-3 text-left whitespace-nowrap">Nama</th>
-                    <th class="p-3 text-left whitespace-nowrap">Tanggal</th>
-                    <th class="text-left whitespace-nowrap">Nominal</th>
-                    <th class="p-3 text-left whitespace-nowrap">Status</th>
-                    <th class="p-3 text-left whitespace-nowrap">Action</th>
+                    <th class="p-3 text-center text-[#6DA854] border-r border-b border-[#6DA854]">No</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Nama</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Tanggal</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Nominal</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Status</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-b border-[#6DA854]">Action</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($pengajuanPinjamans as $index => $pengajuanPinjaman)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
-                        <td class="pl-5 text-[#6DA854]">{{ $pengajuanPinjamans->firstItem() + $index }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ $pengajuanPinjaman->nama_anggota  }}</td>
-                        <td class="p-3 whitespace-nowrap">
+                        <td class="p-3 text-center text-[#6DA854] border-r border-[#6DA854]">{{ $pengajuanPinjamans->firstItem() + $index }}</td>
+                        <td class="p-3 whitespace-nowrap border-l border-r border-[#6DA854]">{{ $pengajuanPinjaman->nama_anggota  }}</td>
+                        <td class="p-3 text-center whitespace-nowrap border-l border-r border-[#6DA854]">
                             {{ \Carbon\Carbon::parse($pengajuanPinjaman->tanggal)->translatedFormat('d-m-Y') }}
                         </td>
-                        <td class="whitespace-nowrap">Rp {{ number_format($pengajuanPinjaman->jumlah_pinjaman, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($pengajuanPinjaman->jumlah_pinjaman, 0, ',', '.') }}</td>
+                        <td class="p-3 text-center whitespace-nowrap border-l border-r border-[#6DA854]">
                             @if ($pengajuanPinjaman->status == 'menunggu')
                                 <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-1.5 py-0.5 rounded-sm">Menunggu</span>
                             @elseif ($pengajuanPinjaman->status == 'disetujui')
@@ -29,7 +29,7 @@
                             <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Ditolak</span>
                             @endif
                         </td>
-                        <td class="p-3 whitespace-nowrap">
+                        <td class="p-3 text-center whitespace-nowrap border-l border-[#6DA854]">
                             @if ($pengajuanPinjaman->status == 'menunggu')
                                 <button data-modal-target="setujui-modal-{{ $pengajuanPinjaman->id }}" data-modal-toggle="setujui-modal-{{ $pengajuanPinjaman->id }}" class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900" type="button">
                                     Disetujui
@@ -58,8 +58,8 @@
                                                 <!-- Modal body -->
                                                 <div class="p-6 space-y-4">
                                                     <div>
-                                                        <label class="block mb-2 text-sm font-medium text-gray-700">Disetujui Oleh</label>
-                                                        <select id="select_nama_setujui" name="reviewed_by" class="select-nama-setujui bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 transition duration-200" required>
+                                                        <label class="block mb-2 text-sm text-left font-medium text-gray-700">Disetujui Oleh</label>
+                                                        <select id="select_nama_setujui" name="reviewed_by" class="select-nama-setujui text-left bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 transition duration-200" required>
                                                             <option value="" disabled selected>Pilih Nama</option>
                                                             @foreach ($anggotaList as $id => $nama)
                                                                 <option value="{{ $nama }}" {{ old('anggota_id') == $nama ? 'selected' : '' }}>{{ $nama }}</option>
@@ -72,7 +72,7 @@
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                                 d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                                         </svg>
-                                                        <p class="text-sm whitespace-normal leading-relaxed">Pastikan data pinjaman sudah benar sebelum menyetujui</p>
+                                                        <p class="text-sm text-left whitespace-normal leading-relaxed">Pastikan data pinjaman sudah benar sebelum menyetujui</p>
                                                     </div>
                                             
                                                 </div>
@@ -120,8 +120,8 @@
                                                 <!-- Modal body -->
                                                 <div class="p-6 space-y-4">
                                                     <div>
-                                                        <label class="block mb-2 text-sm font-medium text-gray-700">Ditolak Oleh</label>
-                                                        <select id="select_nama_tolak" name="reviewed_by" class="select-nama-tolak bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 transition duration-200" required>
+                                                        <label class="block mb-2 text-sm text-left font-medium text-gray-700">Ditolak Oleh</label>
+                                                        <select id="select_nama_tolak" name="reviewed_by" class="select-nama-tolak text-left bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 transition duration-200" required>
                                                             <option value="" disabled selected>Pilih Nama</option>
                                                             @foreach ($anggotaList as $id => $nama)
                                                                 <option value="{{ $nama }}" {{ old('anggota_id') == $nama ? 'selected' : '' }}>{{ $nama }}</option>
@@ -134,7 +134,7 @@
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                                 d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                                         </svg>
-                                                        <p class="text-sm whitespace-normal leading-relaxed">Pastikan data pinjaman sudah benar</p>
+                                                        <p class="text-sm text-left whitespace-normal leading-relaxed">Pastikan data pinjaman sudah benar</p>
                                                     </div>
                                             
                                                 </div>

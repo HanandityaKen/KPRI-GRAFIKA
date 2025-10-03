@@ -53,16 +53,16 @@
         <table class="w-full mb-8">
             <thead>
                 <tr>
-                    <th class="p-3 text-left text-[#6DA854]">No</th>
-                    <th class="p-3 text-center whitespace-nowrap">Nominal</th>
-                    <th class="p-3 text-center whitespace-nowrap">Action</th>
+                    <th class="p-3 text-center text-[#6DA854] border-r border-b border-[#6DA854]">No</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Nominal</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-b border-[#6DA854]">Action</th>
                 </tr>
             </thead>
             <tbody>
                 <tr class="border-b border-gray-200 hover:bg-gray-100">
-                    <td class="pl-5 text-[#6DA854]">1</td>
-                    <td class="p-3 text-center whitespace-nowrap">Rp {{ number_format($pokok->nominal, 0, ',', '.') }}</td>
-                    <td class=" text-center whitespace-nowrap">
+                    <td class="p-3 text-center text-[#6DA854] border-r border-[#6DA854]">1</td>
+                    <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($pokok->nominal, 0, ',', '.') }}</td>
+                    <td class="p-3 text-center whitespace-nowrap border-l border-[#6DA854]">
                         <a href="{{ route('admin.pokok.edit', $pokok->id) }}">
                             <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
                                 Edit
@@ -73,6 +73,5 @@
             </tbody>
         </table>
     </div>
-
   </div>
 @endsection

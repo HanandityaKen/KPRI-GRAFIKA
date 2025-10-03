@@ -14,25 +14,25 @@
         <table class="w-full mb-8">
             <thead>
                 <tr>
-                    <th class="p-3 text-left text-[#6DA854]">No</th>
-                    <th class="p-3 text-left whitespace-nowrap">Nama</th>
-                    <th class="p-3 text-left whitespace-nowrap">Tanggal</th>
-                    <th class="text-left whitespace-nowrap">Nama Barang</th>
-                    <th class="text-left whitespace-nowrap">Nominal</th>
-                    <th class="p-3 text-left whitespace-nowrap">Status</th>
+                    <th class="p-3 text-center text-[#6DA854] border-r border-b border-[#6DA854]">No</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Nama</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Tanggal</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Nama Barang</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Nominal</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-b border-[#6DA854]">Status</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($unit_konsumsis as $index => $unit_konsumsi)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
-                        <td class="pl-5 text-[#6DA854]">{{ $unit_konsumsis->firstItem() + $index }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ $unit_konsumsi->pengajuan_unit_konsumsi->nama_anggota  }}</td>
-                        <td class="p-3 whitespace-nowrap">
+                        <td class="p-3 text-center text-[#6DA854] border-r border-[#6DA854]">{{ $unit_konsumsis->firstItem() + $index }}</td>
+                        <td class="p-3 whitespace-nowrap border-l border-r border-[#6DA854]">{{ $unit_konsumsi->pengajuan_unit_konsumsi->nama_anggota  }}</td>
+                        <td class="p-3 text-center whitespace-nowrap border-l border-r border-[#6DA854]">
                             {{ \Carbon\Carbon::parse($unit_konsumsi->pengajuan_unit_konsumsi->tanggal)->translatedFormat('d-m-Y') }}
                         </td>
-                        <td class="p-3 whitespace-nowrap">{{ ucwords($unit_konsumsi->pengajuan_unit_konsumsi->nama_barang)  }}</td>
-                        <td class="whitespace-nowrap">Rp {{ number_format($unit_konsumsi->pengajuan_unit_konsumsi->nominal, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">
+                        <td class="p-3 whitespace-nowrap border-l border-r border-[#6DA854]">{{ ucwords($unit_konsumsi->pengajuan_unit_konsumsi->nama_barang)  }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($unit_konsumsi->pengajuan_unit_konsumsi->nominal, 0, ',', '.') }}</td>
+                        <td class="p-3 text-center whitespace-nowrap border-l border-[#6DA854]">
                             @if ($unit_konsumsi->status == 'dalam pembayaran')
                                 <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-md border border-blue-400">Dalam Pembayaran</span>
                             @elseif ($unit_konsumsi->status == 'lunas')

@@ -18,19 +18,19 @@
         <table class="w-full mb-8">
             <thead>
                 <tr>
-                    <th class="p-3 text-left text-[#6DA854]">No</th>
-                    <th class="p-3 text-left whitespace-nowrap">Nama Persentase</th>
-                    <th class="p-3 text-left whitespace-nowrap">Persentase</th>
-                    <th class="p-3 text-left whitespace-nowrap">Action</th>
+                    <th class="p-3 text-center text-[#6DA854] border-r border-b border-[#6DA854]">No</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Nama Persentase</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Persentase</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-b border-[#6DA854]">Action</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($persentases as $index => $persentase)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
-                        <td class="pl-5 text-[#6DA854]">{{ $persentases->firstItem() + $index }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ $persentase->nama }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ rtrim(rtrim(number_format($persentase->persentase * 100, 2), '0'), '.') }}%</td>
-                        <td class="whitespace-nowrap">
+                        <td class="p-3 text-center text-[#6DA854] border-r border-[#6DA854]">{{ $persentases->firstItem() + $index }}</td>
+                        <td class="p-3 whitespace-nowrap border-l border-r border-[#6DA854]">{{ $persentase->nama }}</td>
+                        <td class="p-3 text-center whitespace-nowrap border-l border-r border-[#6DA854]">{{ rtrim(rtrim(number_format($persentase->persentase * 100, 2), '0'), '.') }}%</td>
+                        <td class="p-3 text-center whitespace-nowrap border-l border-[#6DA854]">
                             <a href="{{ route('admin.persentase.edit', $persentase->id) }}">
                                 <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900 ml-2">
                                     Edit

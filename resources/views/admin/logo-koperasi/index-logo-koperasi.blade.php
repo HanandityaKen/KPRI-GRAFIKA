@@ -55,7 +55,9 @@
         @method('PUT')
         <div>
           <div class="mb-4">
-            <label class="block mb-1 text-sm font-medium text-gray-900">Logo Koperasi</label>
+            <label class="block mb-1 text-sm font-medium text-gray-900">
+              Logo Koperasi <span class="text-red-500">*</span>
+            </label>
             <!-- Preview Container -->
             <div id="previewContainer" class="hidden mt-3 mb-4">
               <img id="previewImage" src="#" alt="Preview Logo" class="w-32 h-32 object-contain border rounded" />

@@ -58,7 +58,9 @@
     @csrf
     @method('PUT')
     <div class="mb-4">
-      <label class="block mb-1 text-sm font-medium text-gray-900">Nama</label>
+      <label class="block mb-1 text-sm font-medium text-gray-900">
+        Nama <span class="text-red-500">*</span>
+      </label>
       <select id="select_nama" name="nama" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
           <option value="" disabled selected>Pilih Nama</option>
           @foreach ($anggotaList as $id => $nama)
@@ -76,7 +78,9 @@
       <input type="hidden" name="posisi" value="pengurus">
     </div>
     <div class="mb-4">
-      <label class="block mb-1 text-sm font-medium text-gray-900">Jabatan</label>
+      <label class="block mb-1 text-sm font-medium text-gray-900">
+        Jabatan <span class="text-red-500">*</span>
+      </label>
       <input type="hidden" name="jabatan" value="{{ $user->jabatan }}">
       <select name="jabatan" class="form-select bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
         <option value="" selected>Pilih Jabatan</option>

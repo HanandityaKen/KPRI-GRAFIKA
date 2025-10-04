@@ -3,7 +3,9 @@
       @csrf
       @method('PUT')
       <div class="mb-3">
-          <label class="block mb-1 text-sm font-medium text-gray-900">Tanggal</label>
+          <label class="block mb-1 text-sm font-medium text-gray-900">
+            Tanggal <span class="text-red-500">*</span>
+          </label>
           <div class="relative w-full">
               <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                   <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -27,7 +29,9 @@
           <input type="text" name="tunggakan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" value="{{ 'Rp ' . number_format($angsuran->tunggakan, 0, ',', '.') }}" readonly/>
       </div>
       <div class="mb-4">
-          <label class="block mb-1 text-sm font-medium text-gray-900">Angsuran</label>
+          <label class="block mb-1 text-sm font-medium text-gray-900">
+            Angsuran <span class="text-red-500">*</span>
+          </label>
           <div wire:ignore>
             <select name="angsuran" id="angsuran_select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" onchange="toggleManualInput(this)">
               @if ($angsuran->kurang_angsuran < $angsuran->pinjaman->pengajuan_pinjaman->nominal_pokok)
@@ -57,7 +61,9 @@
           <input wire:model="jasa" type="text" name="jasa" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" readonly/>
       </div> --}}
       <div class="mb-4">
-          <label class="block mb-1 text-sm font-medium text-gray-900">Jasa</label>
+          <label class="block mb-1 text-sm font-medium text-gray-900">
+            Jasa <span class="text-red-500">*</span>
+          </label>
           <select name="jasa" id="jasa_select" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" onchange="toggleManualJasaInput(this)">
               <option value="{{ $jasa }}">{{ $jasa }}</option>
               <option value="">Masukan Manual</option>            

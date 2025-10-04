@@ -55,7 +55,9 @@
         @method('PUT')
         <div>
           <div class="mb-6">
-            <label class="block mb-1 text-sm font-medium text-gray-900">Nama Koperasi</label>
+            <label class="block mb-1 text-sm font-medium text-gray-900">
+              Nama Koperasi <span class="text-red-500">*</span>
+            </label>
             <input type="text" id="nama_koperasi" name="nama_koperasi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" value="{{ old('nama_koperasi', $namaKoperasi->nama) }}" required/>
           </div>
           <div class="flex justify-start">

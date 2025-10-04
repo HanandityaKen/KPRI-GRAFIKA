@@ -12,7 +12,9 @@
     <form action="{{ $storeRoute }}" method="POST">
         @csrf
         <div class="mb-3">
-            <label class="block mb-1 text-sm font-medium text-gray-900">No Anggota</label>
+            <label class="block mb-1 text-sm font-medium text-gray-900">
+                No Anggota <span class="text-red-500">*</span>
+            </label>
             <input wire:model.live="no_anggota" type="text" id="no_anggota" name="no_anggota" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" value="{{ old('no_anggota') }}" placeholder="Masukan No Anggota" inputmode="numeric" pattern="\d*" required/>
             @error('no_anggota')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
@@ -20,12 +22,16 @@
             <p class="text-red-500 text-xs mt-1">{{ $error_no_anggota }}</p>
         </div>
         <div class="mb-4">
-            <label class="block mb-1 text-sm font-medium text-gray-900">Nama</label>
+            <label class="block mb-1 text-sm font-medium text-gray-900">
+                Nama <span class="text-red-500">*</span>
+            </label>
             <input wire:model.live="nama" type="text" name="nama" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" value="{{ old('nama') }}" placeholder="Masukan Nama" required/>
             <p class="text-red-500 text-xs mt-1">{{ $error_nama }}</p>
         </div>
         <div class="mb-4">
-            <label class="block mb-1 text-sm font-medium text-gray-900">Jenis Pegawai</label>
+            <label class="block mb-1 text-sm font-medium text-gray-900">
+                Jenis Pegawai <span class="text-red-500">*</span>
+            </label>
             <select id="jenis_pegawai" name="jenis_pegawai" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
                 <option value="">Pilih Jenis Pegawai</option>
 
@@ -58,7 +64,9 @@
             <p class="text-red-500 text-xs mt-1">{{ $error_email }}</p>
         </div>
         <div class="mb-6">
-            <label class="block mb-1 text-sm font-medium text-gray-900">Password</label>
+            <label class="block mb-1 text-sm font-medium text-gray-900">
+                Password <span class="text-red-500">*</span>
+            </label>
             <input wire:model.live="password" type="password" name="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Password" required/>
             @error('password')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>

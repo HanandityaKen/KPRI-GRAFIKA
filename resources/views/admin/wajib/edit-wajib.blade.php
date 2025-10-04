@@ -46,11 +46,15 @@
         @csrf
         @method('PUT')
         <div class="mb-3">
-          <label class="block mb-1 text-sm font-medium text-gray-900">Jenis Pegawai</label>
+          <label class="block mb-1 text-sm font-medium text-gray-900">
+            Jenis Pegawai <span class="text-red-500">*</span>
+          </label>
           <input type="text" name="jenis_pegawai" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" value="{{ old('jenis_pegawai', $wajib->jenis_pegawai) }}" placeholder="Masukan Jenis Pegawai" required/>
         </div>
         <div class="mb-6">
-          <label class="block mb-1 text-sm font-medium text-gray-900">Nominal</label>
+          <label class="block mb-1 text-sm font-medium text-gray-900">
+            Nominal <span class="text-red-500">*</span>
+          </label>
           <input type="text" id="nominal" name="nominal" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" value="{{ old('nominal', $wajib->nominal) }}" inputmode="numeric" placeholder="Masukan Nominal" required/>
         </div>
         <div class="flex justify-start">

@@ -65,7 +65,9 @@
         @method('PUT')
         <div>
           <div class="mb-6">
-            <label class="block mb-1 text-sm font-medium text-gray-900">Saldo Koperasi</label>
+            <label class="block mb-1 text-sm font-medium text-gray-900">
+              Saldo Koperasi <span class="text-red-500">*</span>
+            </label>
             <input type="text" id="saldo" name="saldo" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" value="{{ old('saldo', $saldos->saldo) }}" inputmode="numeric" placeholder="Masukan Nominal Saldo Koperasi" required/>
           </div>
           <div class="flex justify-start">

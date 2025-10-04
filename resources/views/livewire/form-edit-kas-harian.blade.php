@@ -12,7 +12,9 @@
             <input type="hidden" name="jenis_transaksi" value="{{ old('jenis_transaksi', $kasHarian->jenis_transaksi) }}">
         </div>
         <div class="mb-4">
-            <label class="block mb-1 text-sm font-medium text-gray-900">Tanggal</label>
+            <label class="block mb-1 text-sm font-medium text-gray-900">
+                Tanggal <span class="text-red-500">*</span>
+            </label>
             <div class="relative w-full">
                 <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                 <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -23,7 +25,9 @@
             </div>
         </div>
         <div class="mb-4">
-            <label class="block mb-1 text-sm font-medium text-gray-900">Nama</label>
+            <label class="block mb-1 text-sm font-medium text-gray-900">
+                Nama <span class="text-red-500">*</span>
+            </label>
             <div wire:ignore>
                 <select disabled wire:model.lazy="anggota_id" id="select_nama_kas_masuk" name="anggota_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2">
                     <option value="" disabled>Pilih Nama Anggota</option>
@@ -91,7 +95,9 @@
             <input wire:model.live="lain_lain" type="text" id="lain_lain" name="lain_lain" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Lain-Lain" inputmode="numeric" value="{{ old('lain_lain', $kasHarian->lain_lain) }}" />
         </div>
         <div class="mb-4">
-            <label class="block mb-1 text-sm font-medium text-gray-900">Keterangan</label>
+            <label class="block mb-1 text-sm font-medium text-gray-900">
+                Keterangan <span class="text-red-500">*</span>
+            </label>
             <input type="text" name="keterangan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Keterangan" value="{{ old('keterangan', $kasHarian->keterangan) }}" required/>
         </div>
         <div class="flex justify-start">

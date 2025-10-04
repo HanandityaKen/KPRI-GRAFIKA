@@ -37,7 +37,7 @@
                     <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Jasa</th>
                     <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Total</th>
                     <th class="p-3 text-center whitespace-nowrap border-l border-b border-[#6DA854]">Status</th>
-                    @if ($bendahara || $pembantu_umum || $pengawas)
+                    @if ($bendahara || $pembantu_umum || $pengawas || $ketua)
                         <th class="p-3 text-center whitespace-nowrap border-l border-b border-[#6DA854]">Action</th>
                     @endif
                 </tr>

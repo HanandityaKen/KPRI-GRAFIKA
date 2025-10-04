@@ -4,7 +4,9 @@
         <div class="grid grid-cols-2 gap-4">
             <input type="text" name="requested_by" value="{{ auth()->guard('pengurus')->user()->nama }}" hidden>
             <div class="mb-3">
-                <label class="block mb-1 text-sm font-medium text-gray-900">Tanggal</label>
+                <label class="block mb-1 text-sm font-medium text-gray-900">
+                    Tanggal <span class="text-red-500">*</span>
+                </label>
                 <div class="relative w-full">
                     <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                         <svg class="w-4 h-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -15,7 +17,9 @@
                 </div>
             </div>
             <div class="mb-3">
-                <label class="block mb-1 text-sm font-medium text-gray-900">Nama</label>
+                <label class="block mb-1 text-sm font-medium text-gray-900">
+                    Nama <span class="text-red-500">*</span>
+                </label>
                 <div wire:ignore>
                     <select wire:model.lazy="anggota_id" id="select_nama_kas_masuk" name="anggota_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" required>
                         <option value="" disabled {{ old('anggota_id') ? '' : 'selected' }}>Pilih Nama Anggota</option>
@@ -36,12 +40,18 @@
                 </div>
             @endif
             <div class="mb-3">
-                <label class="block mb-1 text-sm font-medium text-gray-900">Jumlah Pinjaman</label>
+                <label class="block mb-1 text-sm font-medium text-gray-900">
+                    Jumlah Pinjaman <span class="text-red-500">*</span>
+                </label>
                 <input type="text" wire:model.live="jumlah_pinjaman" id="jumlah_pinjaman" name="jumlah_pinjaman" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Pinjaman" inputmode="numeric" value="{{ old('jumlah_pinjaman') }}" oninput="formatRupiah(this)" required/>
             </div>
             <div class="mb-3">
-                <label class="block mb-1 text-sm font-medium text-gray-900 sm:hidden">Lama Angsuran</label>
-                <label class="hidden sm:block mb-1 text-sm font-medium text-gray-900">Lama Angsuran (Kali/Bulan)</label>
+                <label class="block mb-1 text-sm font-medium text-gray-900 sm:hidden">
+                    Lama Angsuran <span class="text-red-500">*</span>
+                </label>
+                <label class="hidden sm:block mb-1 text-sm font-medium text-gray-900">
+                    Lama Angsuran (Kali/Bulan) <span class="text-red-500">*</span>
+                </label>
                 <input type="text" wire:model.live="lama_angsuran" id="lama_angsuran" name="lama_angsuran" class="format-bulan bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Lama Angsuran" inputmode="numeric" value="{{ old('lama_angsuran') }}" required/>
                 <p class="text-red-500 text-xs mt-1">{{ $error_lama_angsuran }}</p>
             </div>

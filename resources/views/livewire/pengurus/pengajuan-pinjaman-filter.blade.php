@@ -31,7 +31,7 @@
                     <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Tanggal</th>
                     <th class="text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Nominal</th>
                     <th class="p-3 text-center whitespace-nowrap border-l border-b border-[#6DA854]">Status</th>
-                    @if ($bendahara || $pengawas)
+                    @if ($bendahara || $pengawas || $ketua)
                         <th class="p-3 text-center whitespace-nowrap border-l border-b border-[#6DA854]">Action</th>
                     @endif
                 </tr>

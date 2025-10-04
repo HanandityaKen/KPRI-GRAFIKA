@@ -19,62 +19,46 @@
         <table class="w-full">
             <thead>
                 <tr>
-                    <th class="p-3 text-left text-[#6DA854]">No</th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
-                            No. Anggota
-                        </div>
+                    <th class="p-3 text-center text-[#6DA854] border-r border-b border-[#6DA854]">No</th>
+                    <th class="p-3 text-center border-l border-r border-b border-[#6DA854]">
+                        No. Anggota
                     </th>
 
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
-                            Nama
-                        </div>
+                    <th class="p-3 text-center border-l border-r border-b border-[#6DA854]">
+                        Nama
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
-                            Pokok
-                        </div>
+                    <th class="p-3 text-center border-l border-r border-b border-[#6DA854]">
+                        Pokok
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
-                            Wajib
-                        </div>
+                    <th class="p-3 text-center border-l border-r border-b border-[#6DA854]">
+                        Wajib
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
-                            M.Suka
-                        </div>
+                    <th class="p-3 text-center border-l border-r border-b border-[#6DA854]">
+                        M.Suka
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
-                            WP
-                        </div>
+                    <th class="p-3 text-center border-l border-r border-b border-[#6DA854]">
+                        WP
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
-                            Qurban
-                        </div>
+                    <th class="p-3 text-center border-l border-r border-b border-[#6DA854]">
+                        Qurban
                     </th>
-                    <th class="p-3 text-left">
-                        <div class="flex items-center">
-                            Jumlah
-                        </div>
+                    <th class="p-3 text-center border-l border-b border-[#6DA854]">
+                        Jumlah
                     </th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($simpanans as $index => $simpanan)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
-                        <td class="pl-5 text-[#6DA854]">{{ $simpanans->firstItem() + $index }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ $simpanan->no_anggota }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ $simpanan->nama_anggota }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($simpanan->total_pokok, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($simpanan->total_wajib, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($simpanan->total_manasuka, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($simpanan->total_wajib_pinjam, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($simpanan->total_qurban, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap font-bold">Rp {{ number_format($simpanan->total_pokok + $simpanan->total_wajib + $simpanan->total_manasuka + $simpanan->total_wajib_pinjam + $simpanan->total_qurban, 0, ',', '.') }}</td>
+                        <td class="p-3 text-center text-[#6DA854] border-r border-[#6DA854]">{{ $simpanans->firstItem() + $index }}</td>
+                        <td class="p-3 text-center whitespace-nowrap border-l border-r border-[#6DA854]">{{ $simpanan->no_anggota }}</td>
+                        <td class="p-3 whitespace-nowrap border-l border-r border-[#6DA854]">{{ $simpanan->nama_anggota }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($simpanan->total_pokok, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($simpanan->total_wajib, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($simpanan->total_manasuka, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($simpanan->total_wajib_pinjam, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($simpanan->total_qurban, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-[#6DA854] font-bold">Rp {{ number_format($simpanan->total_pokok + $simpanan->total_wajib + $simpanan->total_manasuka + $simpanan->total_wajib_pinjam + $simpanan->total_qurban, 0, ',', '.') }}</td>
                     </tr>
                 @empty
                     <tr>

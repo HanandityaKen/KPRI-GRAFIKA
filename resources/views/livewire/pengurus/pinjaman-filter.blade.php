@@ -14,23 +14,23 @@
         <table class="w-full mb-8">
             <thead>
                 <tr>
-                    <th class="p-3 text-left text-[#6DA854]">No</th>
-                    <th class="p-3 text-left whitespace-nowrap">Nama</th>
-                    <th class="p-3 text-left whitespace-nowrap">Tanggal</th>
-                    <th class="text-left whitespace-nowrap">Jumlah Pinjaman</th>
-                    <th class="p-3 text-left whitespace-nowrap">Status</th>
+                    <th class="p-3 text-center text-[#6DA854] border-r border-b border-[#6DA854]">No</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Nama</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Tanggal</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Jumlah Pinjaman</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-b border-[#6DA854]">Status</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($pinjamans as $index => $pinjaman)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
-                        <td class="pl-5 text-[#6DA854]">{{ $pinjamans->firstItem() + $index }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ $pinjaman->pengajuan_pinjaman->nama_anggota  }}</td>
-                        <td class="p-3 whitespace-nowrap">
+                        <td class="p-3 text-center text-[#6DA854] border-r border-[#6DA854]">{{ $pinjamans->firstItem() + $index }}</td>
+                        <td class="p-3 whitespace-nowrap border-l border-r border-[#6DA854]">{{ $pinjaman->pengajuan_pinjaman->nama_anggota  }}</td>
+                        <td class="p-3 text-center whitespace-nowrap border-l border-r border-[#6DA854]">
                             {{ \Carbon\Carbon::parse($pinjaman->pengajuan_pinjaman->tanggal)->translatedFormat('d-m-Y') }}
                         </td>
-                        <td class="whitespace-nowrap">Rp {{ number_format($pinjaman->jumlah_pinjaman, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($pinjaman->jumlah_pinjaman, 0, ',', '.') }}</td>
+                        <td class="p-3 text-center whitespace-nowrap border-l border-[#6DA854]">
                             @if ($pinjaman->status == 'dalam pembayaran')
                                 <span class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-md border border-blue-400">Dalam Pembayaran</span>
                             @elseif ($pinjaman->status == 'lunas')

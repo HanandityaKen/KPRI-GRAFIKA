@@ -27,36 +27,36 @@
         <table class="w-full mb-8">
             <thead>
                 <tr>
-                    <th class="p-3 text-left text-[#6DA854]">No</th>
-                    <th class="p-3 text-left whitespace-nowrap">Nama</th>
-                    <th class="p-3 text-left whitespace-nowrap">Tanggal</th>
-                    <th class="p-3 text-left whitespace-nowrap">Barang</th>
-                    <th class="p-3 text-left whitespace-nowrap">Nominal Barang</th>
-                    <th class="p-3 text-left whitespace-nowrap">Lama Angsuran</th>
-                    <th class="p-3 text-left whitespace-nowrap">Angsuran</th>
-                    <th class="p-3 text-left whitespace-nowrap">Jasa</th>
-                    <th class="p-3 text-left whitespace-nowrap">Total</th>
-                    <th class="p-3 text-left whitespace-nowrap">Status</th>
+                    <th class="p-3 text-center text-[#6DA854] border-r border-b border-[#6DA854]">No</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Nama</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Tanggal</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Barang</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Nominal Barang</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Lama Angsuran</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Angsuran</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Jasa</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Total</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-b border-[#6DA854]">Status</th>
                     @if ($bendahara || $pembantu_umum || $pengawas)
-                        <th class="p-3 text-left whitespace-nowrap">Action</th>
+                        <th class="p-3 text-center whitespace-nowrap border-l border-b border-[#6DA854]">Action</th>
                     @endif
                 </tr>
             </thead>
             <tbody>
                 @forelse ($pengajuanUnitKonsumsis as $index => $pengajuanUnitKonsumsi)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
-                        <td class="pl-5 text-[#6DA854]">{{ $pengajuanUnitKonsumsis->firstItem() + $index }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ $pengajuanUnitKonsumsi->nama_anggota }}</td>
-                        <td class="p-3 whitespace-nowrap">
+                        <td class="p-3 text-center text-[#6DA854] border-r border-[#6DA854]">{{ $pengajuanUnitKonsumsis->firstItem() + $index }}</td>
+                        <td class="p-3 whitespace-nowrap border-l border-r border-[#6DA854]">{{ $pengajuanUnitKonsumsi->nama_anggota }}</td>
+                        <td class="p-3 text-center whitespace-nowrap border-l border-r border-[#6DA854]">
                             {{ \Carbon\Carbon::parse($pengajuanUnitKonsumsi->tanggal)->translatedFormat('d-m-Y') }}
                         </td>
-                        <td class="p-3 whitespace-nowrap">{{ $pengajuanUnitKonsumsi->nama_barang }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($pengajuanUnitKonsumsi->nominal, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ ucwords($pengajuanUnitKonsumsi->lama_angsuran) }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($pengajuanUnitKonsumsi->nominal_pokok, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($pengajuanUnitKonsumsi->nominal_bunga, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($pengajuanUnitKonsumsi->jumlah_nominal, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">
+                        <td class="p-3 whitespace-nowrap border-l border-r border-[#6DA854]">{{ $pengajuanUnitKonsumsi->nama_barang }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($pengajuanUnitKonsumsi->nominal, 0, ',', '.') }}</td>
+                        <td class="p-3 text-center whitespace-nowrap border-l border-r border-[#6DA854]">{{ ucwords($pengajuanUnitKonsumsi->lama_angsuran) }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($pengajuanUnitKonsumsi->nominal_pokok, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($pengajuanUnitKonsumsi->nominal_bunga, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($pengajuanUnitKonsumsi->jumlah_nominal, 0, ',', '.') }}</td>
+                        <td class="p-3 text-center whitespace-nowrap border-l border-[#6DA854]">
                             @if ($pengajuanUnitKonsumsi->status == 'menunggu')
                                 <span class="bg-gray-100 text-gray-800 text-xs font-medium me-2 px-1.5 py-0.5 rounded-sm">Menunggu</span>
                             @elseif ($pengajuanUnitKonsumsi->status == 'disetujui')
@@ -65,48 +65,50 @@
                             <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-sm">Ditolak</span>
                             @endif
                         </td>
-                        <td class="p-3 whitespace-nowrap">
-                            @if ($bendahara || $pembantu_umum)
-                                @if ($pengajuanUnitKonsumsi->status == 'menunggu')
-                                    <a href="{{ route('pengurus.pengajuan-unit-konsumsi.edit', $pengajuanUnitKonsumsi->id) }}">
-                                        <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900">
-                                            Edit
+                        @if ($bendahara || $pembantu_umum || $pengawas || $ketua)
+                            <td class="p-3 text-center whitespace-nowrap border-l border-[#6DA854]">
+                                @if ($bendahara || $pembantu_umum)
+                                    @if ($pengajuanUnitKonsumsi->status == 'menunggu')
+                                        <a href="{{ route('pengurus.pengajuan-unit-konsumsi.edit', $pengajuanUnitKonsumsi->id) }}">
+                                            <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900">
+                                                Edit
+                                            </button>
+                                        </a>
+                                        <button 
+                                            class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+                                            onclick="confirmDelete({{ $pengajuanUnitKonsumsi->id }})">
+                                                Hapus
+                                        </button>
+                                        <form id="delete-form-{{ $pengajuanUnitKonsumsi->id }}" action="{{ route('pengurus.pengajuan-unit-konsumsi.destroy', $pengajuanUnitKonsumsi->id) }}" method="POST" style="display: none;">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
+                                    @endif
+                                @elseif ($pengawas || $ketua)
+                                    @if ($pengajuanUnitKonsumsi->status == 'menunggu')
+                                        <form action="{{ route('pengurus.setujui-pengajuan-unit-konsumsi', $pengajuanUnitKonsumsi->id) }}" method="POST" class="inline">
+                                            @csrf
+                                            <button type="submit" class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900">
+                                                Disetujui
+                                            </button>
+                                        </form>
+                                    
+                                        <form action="{{ route('pengurus.tolak-pengajuan-unit-konsumsi', $pengajuanUnitKonsumsi->id) }}" method="POST" class="inline">
+                                            @csrf
+                                            <button type="submit" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-500">
+                                                Ditolak
+                                            </button>
+                                        </form>
+                                    @endif
+
+                                    <a href="{{ route('pengurus.detail-pengajuan-unit-konsumsi', $pengajuanUnitKonsumsi->id) }}">
+                                        <button class="px-3 py-1 bg-blue-700 text-white rounded hover:bg-blue-600">
+                                            Detail
                                         </button>
                                     </a>
-                                    <button 
-                                        class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                                        onclick="confirmDelete({{ $pengajuanUnitKonsumsi->id }})">
-                                            Hapus
-                                    </button>
-                                    <form id="delete-form-{{ $pengajuanUnitKonsumsi->id }}" action="{{ route('pengurus.pengajuan-unit-konsumsi.destroy', $pengajuanUnitKonsumsi->id) }}" method="POST" style="display: none;">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
                                 @endif
-                            @elseif ($pengawas || $ketua)
-                                @if ($pengajuanUnitKonsumsi->status == 'menunggu')
-                                    <form action="{{ route('pengurus.setujui-pengajuan-unit-konsumsi', $pengajuanUnitKonsumsi->id) }}" method="POST" class="inline">
-                                        @csrf
-                                        <button type="submit" class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900">
-                                            Disetujui
-                                        </button>
-                                    </form>
-                                
-                                    <form action="{{ route('pengurus.tolak-pengajuan-unit-konsumsi', $pengajuanUnitKonsumsi->id) }}" method="POST" class="inline">
-                                        @csrf
-                                        <button type="submit" class="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-500">
-                                            Ditolak
-                                        </button>
-                                    </form>
-                                @endif
-
-                                <a href="{{ route('pengurus.detail-pengajuan-unit-konsumsi', $pengajuanUnitKonsumsi->id) }}">
-                                    <button class="px-3 py-1 bg-blue-700 text-white rounded hover:bg-blue-600">
-                                        Detail
-                                    </button>
-                                </a>
-                            @endif
-                        </td>
+                            </td>
+                        @endif
                     </tr>
                 @empty
                     <tr>

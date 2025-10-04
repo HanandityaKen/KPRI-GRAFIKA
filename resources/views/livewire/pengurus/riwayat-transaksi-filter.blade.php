@@ -34,33 +34,33 @@
         <table class="w-full mb-8">
             <thead>
                 <tr>
-                    <th class="p-3 text-left text-[#6DA854]">No</th>
-                    <th class="p-3 text-left">Nama Anggota</th>
-                    <th class="p-3 text-left">Tanggal</th>
-                    <th class="p-3 text-left whitespace-nowrap">Jenis Transaksi</th>
-                    <th class="p-3 text-left">Jumlah</th>
-                    <th class="p-3 text-left">Keterangan</th>
-                    <th class="p-3 text-left">Action</th>
+                    <th class="p-3 text-center text-[#6DA854] border-r border-b border-[#6DA854]">No</th>
+                    <th class="p-3 text-center border-l border-r border-b border-[#6DA854]">Nama Anggota</th>
+                    <th class="p-3 text-center border-l border-r border-b border-[#6DA854]">Tanggal</th>
+                    <th class="p-3 text-center border-l border-r border-b border-[#6DA854] whitespace-nowrap">Jenis Transaksi</th>
+                    <th class="p-3 text-center border-l border-r border-b border-[#6DA854]">Jumlah</th>
+                    <th class="p-3 text-center border-l border-r border-b border-[#6DA854]">Keterangan</th>
+                    <th class="p-3 text-center border-l border-b border-[#6DA854]">Action</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse ($riwayatTransaksis as $index => $riwayatTransaksi)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
-                        <td class="pl-5 text-[#6DA854]">{{ $riwayatTransaksis->firstItem() + $index }}</td>
-                        <td class="p-3">{{$riwayatTransaksi->nama_anggota}}</td>
-                        <td class="p-3 whitespace-nowrap">
+                        <td class="p-3 text-center text-[#6DA854] border-r border-[#6DA854]">{{ $riwayatTransaksis->firstItem() + $index }}</td>
+                        <td class="p-3 border-l border-r border-[#6DA854]">{{$riwayatTransaksi->nama_anggota}}</td>
+                        <td class="p-3 text-center whitespace-nowrap border-l border-r border-[#6DA854]">
                             {{ \Carbon\Carbon::parse($riwayatTransaksi->tanggal)->translatedFormat('d-m-Y') }}
                         </td>
-                        <td class="p-3">
+                        <td class="p-3 text-center">
                             @if ($riwayatTransaksi->jenis_transaksi == 'kas masuk')
                                 Kas Masuk
                             @elseif ($riwayatTransaksi->jenis_transaksi == 'kas keluar')
                                 Kas Keluar
                             @endif
                         </td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($riwayatTransaksi->total, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">{{$riwayatTransaksi->keterangan}}</td>
-                        <td class="p-3 whitespace-nowrap">
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($riwayatTransaksi->total, 0, ',', '.') }}</td>
+                        <td class="p-3 whitespace-nowrap border-l border-r border-[#6DA854]">{{$riwayatTransaksi->keterangan}}</td>
+                        <td class="p-3 text-center whitespace-nowrap border-l border-[#6DA854]">
                             <a href="{{ route('pengurus.detail-riwayat-transaksi', $riwayatTransaksi->id) }}">
                                 <button class="px-3 py-1 bg-blue-700 text-white rounded hover:bg-blue-600">
                                     Detail

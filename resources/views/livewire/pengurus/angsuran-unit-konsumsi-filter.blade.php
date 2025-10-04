@@ -21,40 +21,40 @@
         <table class="w-full mb-8">
             <thead>
                 <tr>
-                    <th class="p-3 text-left text-[#6DA854]">No</th>
-                    <th class="p-3 text-left whitespace-nowrap">Nama</th>
-                    <th class="p-3 text-left whitespace-nowrap">Nama Barang</th>
-                    <th class="p-3 text-left whitespace-nowrap">Nominal</th>
-                    <th class="p-3 text-left whitespace-nowrap">Angsuran Masuk</th>
-                    <th class="p-3 text-left whitespace-nowrap">Kurang Angsuran</th>
-                    {{-- <th class="p-3 text-left whitespace-nowrap">Lama Angsuran</th>
-                    <th class="p-3 text-left whitespace-nowrap">Nominal Pokok</th>
-                    <th class="p-3 text-left whitespace-nowrap">Nominal Jasa</th>
-                    <th class="p-3 text-left whitespace-nowrap">Kurang Angsuran</th>
-                    <th class="p-3 text-left whitespace-nowrap">Kurang Jasa</th> --}}
-                    <th class="p-3 text-left whitespace-nowrap">Tunggakan</th>
+                    <th class="p-3 text-center text-[#6DA854] border-r border-b border-[#6DA854]">No</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Nama</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Nama Barang</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Nominal</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Angsuran Masuk</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Kurang Angsuran</th>
+                    {{-- <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Lama Angsuran</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Nominal Pokok</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Nominal Jasa</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Kurang Angsuran</th>
+                    <th class="p-3 text-center whitespace-nowrap border-l border-r border-b border-[#6DA854]">Kurang Jasa</th> --}}
+                    <th class="p-3 text-center whitespace-nowrap border-l border-b border-[#6DA854]">Tunggakan</th>
                     @if ($bendahara || $pembantu_umum)
-                        <th class="p-3 text-left whitespace-nowrap">Action</th>
+                        <th class="p-3 text-center whitespace-nowrap border-l border-b border-[#6DA854]">Action</th>
                     @endif
                 </tr>
             </thead>
             <tbody>
                 @forelse ($angsurans as $index => $angsuran)
                     <tr class="border-b border-gray-200 hover:bg-gray-100">
-                        <td class="pl-5 text-[#6DA854]">{{ $angsurans->firstItem() + $index }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ $angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nama_anggota }}</td>
-                        <td class="p-3 whitespace-nowrap">{{ $angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nama_barang }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal - $angsuran->kurang_angsuran, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->kurang_angsuran, 0, ',', '.') }}</td>
+                        <td class="p-3 text-center text-[#6DA854] border-r border-[#6DA854]">{{ $angsurans->firstItem() + $index }}</td>
+                        <td class="p-3 whitespace-nowrap border-l border-r border-[#6DA854]">{{ $angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nama_anggota }}</td>
+                        <td class="p-3 whitespace-nowrap border-l border-r border-[#6DA854]">{{ $angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nama_barang }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal - $angsuran->kurang_angsuran, 0, ',', '.') }}</td>
+                        <td class="p-3 text-right whitespace-nowrap border-l border-r border-[#6DA854]">Rp {{ number_format($angsuran->kurang_angsuran, 0, ',', '.') }}</td>
                         {{-- <td class="p-3 whitespace-nowrap">{{ ucwords($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->lama_angsuran) }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal_pokok, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->unit_konsumsi->pengajuan_unit_konsumsi->nominal_bunga, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->kurang_angsuran, 0, ',', '.') }}</td>
                         <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->kurang_jasa, 0, ',', '.') }}</td> --}}
-                        <td class="p-3 whitespace-nowrap">Rp {{ number_format($angsuran->tunggakan, 0, ',', '.') }}</td>
-                        <td class="p-3 whitespace-nowrap">
-                            @if ($bendahara || $pembantu_umum)
+                        <td class="p-3 text-right whitespace-nowrap border-l border-[#6DA854]">Rp {{ number_format($angsuran->tunggakan, 0, ',', '.') }}</td>
+                        @if ($bendahara || $pembantu_umum)
+                            <td class="p-3 text-center whitespace-nowrap border-l border-[#6DA854]">
                                 @if ($angsuran->unit_konsumsi->status == 'lunas')
                                     <button class="px-3 py-1 bg-green-500 text-white rounded">
                                         Lunas
@@ -66,8 +66,8 @@
                                         </button>
                                     </a>
                                 @endif
-                            @endif
-                        </td>
+                            </td>
+                        @endif
                     </tr>
                 @empty
                     <tr>

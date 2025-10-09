@@ -1,7 +1,7 @@
 <div>
-    <form action="{{ route('pengurus.pengajuan-pinjaman.store') }}" method="POST">   
+    <form action="{{ route('pengurus.pengajuan-pinjaman.store') }}" method="POST">
         @csrf
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <input type="text" name="requested_by" value="{{ auth()->guard('pengurus')->user()->nama }}" hidden>
             <div class="mb-3">
                 <label class="block mb-1 text-sm font-medium text-gray-900">
@@ -55,7 +55,7 @@
                 <input type="text" wire:model.live="lama_angsuran" id="lama_angsuran" name="lama_angsuran" class="format-bulan bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Lama Angsuran" inputmode="numeric" value="{{ old('lama_angsuran') }}" required/>
                 <p class="text-red-500 text-xs mt-1">{{ $error_lama_angsuran }}</p>
             </div>
-            @if ($pinjamanAktif)     
+            @if ($pinjamanAktif)
                 <div class="mb-3">
                     <label class="block mb-1 text-sm font-medium text-gray-900">Kompen</label>
                     <input type="text" wire:model="kompen" id="kompen" name="kompen" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Kompen" inputmode="numeric" value="{{ old('kompen') }}" readonly/>

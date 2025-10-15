@@ -19,7 +19,7 @@
                 </select>
             </div>
         </div>
-    
+
         <!-- Search -->
         <div class="relative w-full sm:w-64">
             <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -62,10 +62,17 @@
                         <td class="p-3 border-l border-r border-[#6DA854]">{{$riwayatTransaksi->keterangan}}</td>
                         <td class="p-3 text-center whitespace-nowrap border-l border-[#6DA854]">
                             <a href="{{ route('admin.detail-riwayat-transaksi', $riwayatTransaksi->id) }}">
-                                <button class="px-3 py-1 bg-blue-700 text-white rounded hover:bg-blue-600">
+                                <button class="px-3 py-1 bg-green-800 text-white rounded hover:bg-green-900">
                                     Detail
                                 </button>
                             </a>
+                            @if ($riwayatTransaksi->pokok > 0 || $riwayatTransaksi->wajib > 0 || $riwayatTransaksi->manasuka > 0 || $riwayatTransaksi->wajib_pinjam > 0 || $riwayatTransaksi->qurban > 0 || $riwayatTransaksi->lain_lain > 0 || $riwayatTransaksi->hutang > 0 || $riwayatTransaksi->jasa > 0 || $riwayatTransaksi->angsuran > 0 || $riwayatTransaksi->barang_kons > 0)
+                                <a href="{{ route('admin.struk', $riwayatTransaksi->id) }}" target="_blank">
+                                    <button class="px-3 py-1 bg-blue-700 text-white rounded hover:bg-blue-600 ml-2">
+                                        Struk
+                                    </button>
+                                </a>
+                            @endif
                         </td>
                     </tr>
                 @empty

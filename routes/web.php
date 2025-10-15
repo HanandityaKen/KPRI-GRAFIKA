@@ -122,6 +122,7 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::delete('/neraca/destroy/{id}', [NeracaController::class, 'destroyPerhitunganNeraca'])->name('neraca.destroy-perhitungan-neraca');
     Route::get('/neraca/tabel-neraca', [NeracaController::class, 'indexTabelNeraca'])->name('neraca.index-tabel-neraca');
     Route::get('/neraca/perbandingan-neraca', [NeracaController::class, 'indexPerbandinganNeraca'])->name('neraca.index-perbandingan-neraca');
+    Route::get('/struk/{id}', [RiwayatTransaksiController::class, 'downloadStruk'])->name('struk');
 });
 
 Route::get('/pengurus', [AuthController::class, 'showPengurusLoginForm'])->name('pengurus.login');
@@ -152,4 +153,5 @@ Route::prefix('pengurus')->as('pengurus.')->middleware('pengurus', 'no-cache')->
     Route::resource('anggota', SubAnggotaController::class)->only(['index', 'create', 'store', 'edit', 'update', 'destroy']);
     Route::post('/logout-pengurus', [AuthController::class, 'logoutPengurus'])->name('logout');
     Route::get('/switch-to-anggota', [AuthController::class, 'switchToAnggota'])->name('switch-to-anggota');
+    Route::get('/struk/{id}', [SubRiwayatTransaksiController::class, 'downloadStruk'])->name('struk');
 });

@@ -5,12 +5,13 @@ namespace App\Http\Controllers\Pengurus;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\KasHarian;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class RiwayatTransaksiController extends Controller
 {
     /**
      * Menampilkan halaman index riwayat transaksi di pengurus
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function index()
@@ -20,9 +21,9 @@ class RiwayatTransaksiController extends Controller
 
     /**
      * Menampilkan halaman detail riwayat transaksi berdasarkan id
-     * 
-     * Mengubah nama field dari database ke nama yang sudah ditentukan untuk ditampilkan di halaman detail riwayat transaksi 
-     * 
+     *
+     * Mengubah nama field dari database ke nama yang sudah ditentukan untuk ditampilkan di halaman detail riwayat transaksi
+     *
      * @param string $id
      * @return \Illuminate\View\View
      */
@@ -68,5 +69,47 @@ class RiwayatTransaksiController extends Controller
         ];
 
         return view('pengurus.riwayat-transaksi.detail', compact('riwayatTransaksi', 'fields'));
+    }
+
+    public function downloadStruk($id)
+    {
+        $kasHarian = KasHarian::findOrFail($id);
+
+        if ($kasHarian->jenis_transaksi === 'kas masuk') {
+            $uangSejumlah = ($kasHarian->pokok ?? 0)
+                + ($kasHarian->wajib ?? 0)
+                + ($kasHarian->manasuka ?? 0)
+                + ($kasHarian->wajib_pinjam ?? 0)
+                + ($kasHarian->qurban ?? 0)
+                + ($kasHarian->lain_lain ?? 0)
+                + ($kasHarian->jasa ?? 0);
+
+                if ($kasHarian->angsuran > 0) {
+                    $uangSejumlah += $kasHarian->angsuran;
+                } elseif ($kasHarian->barang_kons > 0) {
+                    $uangSejumlah += $kasHarian->barang_kons;
+                }
+        } elseif ($kasHarian->jenis_transaksi === 'kas keluar') {
+            $uangSejumlah = ($kasHarian->pokok ?? 0)
+                + ($kasHarian->wajib ?? 0)
+                + ($kasHarian->manasuka ?? 0)
+                + ($kasHarian->wajib_pinjam ?? 0)
+                + ($kasHarian->qurban ?? 0);
+
+                if ($kasHarian->hutang > 0) {
+                    $uangSejumlah += $kasHarian->hutang;
+                } elseif ($kasHarian->barang_kons > 0) {
+                    $uangSejumlah += $kasHarian->barang_kons;
+                }
+        }
+
+        $pdf = Pdf::loadView('admin.kas-harian.struk-pdf', compact('kasHarian', 'uangSejumlah'))
+                ->setPaper('A5', 'portrait');
+
+        // ->setPaper([0, 0, 420, 430], 'portrait');
+
+        // return $pdf->download('Struk_KasHarian_'.$kasHarian->id.'.pdf');
+
+        return $pdf->stream('Struk_KasHarian_'.$kasHarian->id.'.pdf');
     }
 }

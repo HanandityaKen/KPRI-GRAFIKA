@@ -63,6 +63,7 @@ Route::middleware('anggota', 'no-cache')->group(function () {
     Route::put('/update-profile', [AnggotaAnggotaController::class, 'updateProfile'])->name('update-profile');
     Route::post('/logout-anggota', [AuthController::class, 'logoutAnggota'])->name('logout');
     Route::get('/switch-to-pengurus', [AuthController::class, 'switchToPengurus'])->name('switch-to-pengurus');
+    Route::get('/struk/{id}', [AnggotaAnggotaController::class, 'downloadStruk'])->name('struk');
 });
 
 //Admin

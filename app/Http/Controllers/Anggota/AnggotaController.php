@@ -18,6 +18,7 @@ use App\Models\RiwayatTabunganQurban;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AnggotaController extends Controller
 {
@@ -75,9 +76,9 @@ class AnggotaController extends Controller
                         $q->where('anggota_id', $anggotaId);
                     });
             })
-            ->orderByDesc('created_at') 
+            ->orderByDesc('created_at')
             ->first();
-        
+
         if ($sisaPinjaman) {
             $sisaPinjaman = $sisaPinjaman->kurang_angsuran + $sisaPinjaman->kurang_jasa;
         } else {
@@ -91,9 +92,9 @@ class AnggotaController extends Controller
                         $q->where('anggota_id', $anggotaId);
                     });
             })
-            ->orderByDesc('created_at') 
+            ->orderByDesc('created_at')
             ->first();
-        
+
         if ($sisaUnitKonsumsi) {
             $sisaUnitKonsumsi = $sisaUnitKonsumsi->kurang_angsuran + $sisaUnitKonsumsi->kurang_jasa;
         } else {
@@ -105,11 +106,11 @@ class AnggotaController extends Controller
 
     /**
      * Menampilkan halaman simpanan untuk anggota.
-     * 
+     *
      * Fungsi ini mengambil data simpanan anggota yang sedang login,
      * termasuk simpanan pokok, wajib, manasuka, wajib pinjam, qurban,
      * dan total simpanan.
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function simpanan()
@@ -135,9 +136,9 @@ class AnggotaController extends Controller
 
     /**
      * Menampilkan halaman pinjaman untuk anggota.
-     * 
+     *
      * Fungsi ini mengambil data pinjaman anggota yang sedang login terakhir dan dalam status dalam pembayaran.
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function pinjaman()
@@ -150,7 +151,7 @@ class AnggotaController extends Controller
                         $q->where('anggota_id', $anggotaId);
                     });
             })
-            ->orderByDesc('created_at') 
+            ->orderByDesc('created_at')
             ->first();
 
         return view('anggota.pinjaman', compact('angsuranPinjaman'));
@@ -159,9 +160,9 @@ class AnggotaController extends Controller
 
     /**
      * Menampilkan halaman unit konsumsi untuk anggota.
-     * 
+     *
      * Fungsi ini mengambil data unit konsumsi anggota yang sedang login terakhir dan dalam status dalam pembayaran.
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function unitKonsumsi()
@@ -174,7 +175,7 @@ class AnggotaController extends Controller
                         $q->where('anggota_id', $anggotaId);
                     });
             })
-            ->orderByDesc('created_at') 
+            ->orderByDesc('created_at')
             ->first();
 
             return view('anggota.unit-konsumsi', compact('angsuranUnitKonsumsi'));
@@ -182,7 +183,7 @@ class AnggotaController extends Controller
 
     /**
      * Menampilkan halaman riwayat untuk anggota.
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function riwayat()
@@ -234,10 +235,10 @@ class AnggotaController extends Controller
 
     /**
      * Menampilkan halaman profil untuk anggota.
-     * 
+     *
      * Fungsi ini mengambil data anggota yang sedang login
      * dan menampilkannya pada halaman profil.
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function profile()
@@ -249,13 +250,13 @@ class AnggotaController extends Controller
 
     /**
      * Memperbarui profil anggota.
-     * 
+     *
      * Fungsi ini menangani permintaan untuk memperbarui informasi profil anggota,
      * termasuk nama, telepon, email, foto profil, dan password.
-     * 
+     *
      * Mengubah juga nama anggota pada tabel lain yang terkait dengan anggota,
      * seperti kas_harian, pengajuan_pinjaman, pengajuan_unit_konsumsi, dan simpanan.
-     * 
+     *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -285,10 +286,10 @@ class AnggotaController extends Controller
             if ($anggota->foto_profile) {
                 Storage::disk('public')->delete($anggota->foto_profile);
             }
-            
+
             $fotoPath = $request->file('foto_profile')->store('anggota', 'public');
             $anggota->foto_profile = $fotoPath;
-        } elseif ($request->has('delete_foto') && $request->delete_foto == "1") { 
+        } elseif ($request->has('delete_foto') && $request->delete_foto == "1") {
             // Jika pengguna menghapus foto
             if ($anggota->foto_profile) {
                 Storage::disk('public')->delete($anggota->foto_profile);
@@ -331,5 +332,47 @@ class AnggotaController extends Controller
     public function jasaManasuka()
     {
         return view('anggota.jasa-manasuka');
+    }
+
+    public function downloadStruk($id)
+    {
+        $kasHarian = KasHarian::findOrFail($id);
+
+        if ($kasHarian->jenis_transaksi === 'kas masuk') {
+            $uangSejumlah = ($kasHarian->pokok ?? 0)
+                + ($kasHarian->wajib ?? 0)
+                + ($kasHarian->manasuka ?? 0)
+                + ($kasHarian->wajib_pinjam ?? 0)
+                + ($kasHarian->qurban ?? 0)
+                + ($kasHarian->lain_lain ?? 0)
+                + ($kasHarian->jasa ?? 0);
+
+                if ($kasHarian->angsuran > 0) {
+                    $uangSejumlah += $kasHarian->angsuran;
+                } elseif ($kasHarian->barang_kons > 0) {
+                    $uangSejumlah += $kasHarian->barang_kons;
+                }
+        } elseif ($kasHarian->jenis_transaksi === 'kas keluar') {
+            $uangSejumlah = ($kasHarian->pokok ?? 0)
+                + ($kasHarian->wajib ?? 0)
+                + ($kasHarian->manasuka ?? 0)
+                + ($kasHarian->wajib_pinjam ?? 0)
+                + ($kasHarian->qurban ?? 0);
+
+                if ($kasHarian->hutang > 0) {
+                    $uangSejumlah += $kasHarian->hutang;
+                } elseif ($kasHarian->barang_kons > 0) {
+                    $uangSejumlah += $kasHarian->barang_kons;
+                }
+        }
+
+        $pdf = Pdf::loadView('admin.kas-harian.struk-pdf', compact('kasHarian', 'uangSejumlah'))
+                ->setPaper('A5', 'portrait');
+
+        // ->setPaper([0, 0, 420, 430], 'portrait');
+
+        // return $pdf->download('Struk_KasHarian_'.$kasHarian->id.'.pdf');
+
+        return $pdf->stream('Struk_KasHarian_'.$kasHarian->id.'.pdf');
     }
 }

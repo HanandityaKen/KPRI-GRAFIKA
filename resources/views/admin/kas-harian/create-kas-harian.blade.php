@@ -1,7 +1,7 @@
 @extends('admin.layout.main')
 
 @section('title', 'Tambah Kas Harian')
-    
+
 @section('content')
 <div>
   <hr class="my-5 border-t-[2px] border-green-800 opacity-20 mb-5" />
@@ -81,7 +81,7 @@
 </div>
 @endsection
 
-@push('scripts') 
+@push('scripts')
   <script>
     document.body.addEventListener("input", function (e) {
         if (e.target.classList.contains("format-rupiah")) {

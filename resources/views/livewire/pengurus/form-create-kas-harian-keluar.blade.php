@@ -1,6 +1,7 @@
 <div>
     <form action="{{ route('pengurus.kas-harian.store') }}" id="formCreateJkk" method="POST">
         @csrf
+        <input type="text" name="created_by" value="{{ auth()->guard('pengurus')->user()->nama }}" hidden>
         <input type="text" name="jenis_transaksi" class="hidden"  value="kas keluar"/>
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">
@@ -34,14 +35,14 @@
                 @foreach($wajibPinjamOptions as $option)
                     <option value="{{ $option }}">Rp {{ number_format($option, 0, ',', '.') }}</option>
                 @endforeach
-                <option value="manual">Masukan Manual</option>            
+                <option value="manual">Masukan Manual</option>
             </select>
             @if($selectedWajibPinjam === 'manual')
                 <div class="mt-4">
                     <input wire:model.live="wajibPinjamManual" type="text" name="wajib_pinjam_manual" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Wajib" inputmode="numeric"/>
                 </div>
                 <p class="text-red-500 text-xs mt-1">{{ $error_wajib_pinjam_manual }}</p>
-            @endif 
+            @endif
         </div>
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Manasuka</label>
@@ -88,10 +89,10 @@
                     <!-- Accordion Item 1 -->
                     <div class="rounded-lg">
                         <h2 id="accordion-collapse-heading-2">
-                            <button type="button" 
-                                class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 rounded-t-lg border border-gray-200 hover:bg-gray-100 transition-all duration-200" 
-                                data-accordion-target="#accordion-collapse-body-2" 
-                                aria-expanded="false" 
+                            <button type="button"
+                                class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 rounded-t-lg border border-gray-200 hover:bg-gray-100 transition-all duration-200"
+                                data-accordion-target="#accordion-collapse-body-2"
+                                aria-expanded="false"
                                 aria-controls="accordion-collapse-body-2">
                                 <span class="flex items-center text-sm text-gray-900">
                                     Beban Umum
@@ -136,10 +137,10 @@
                     </div>
                     <div class="rounded-lg">
                         <h2 id="accordion-collapse-heading-3">
-                            <button type="button" 
-                                class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200" 
-                                data-accordion-target="#accordion-collapse-body-3" 
-                                aria-expanded="false" 
+                            <button type="button"
+                                class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200"
+                                data-accordion-target="#accordion-collapse-body-3"
+                                aria-expanded="false"
                                 aria-controls="accordion-collapse-body-3">
                                 <span class="flex items-center text-sm text-gray-900">
                                     Beban Organisasi
@@ -176,10 +177,10 @@
                     </div>
                     <div class="rounded-lg">
                         <h2 id="accordion-collapse-heading-4">
-                            <button type="button" 
-                                class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200" 
-                                data-accordion-target="#accordion-collapse-body-4" 
-                                aria-expanded="false" 
+                            <button type="button"
+                                class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200"
+                                data-accordion-target="#accordion-collapse-body-4"
+                                aria-expanded="false"
                                 aria-controls="accordion-collapse-body-4">
                                 <span class="flex items-center text-sm text-gray-900">
                                     Beban Operasional
@@ -208,10 +209,10 @@
                     </div>
                     <div class="rounded-lg">
                         <h2 id="accordion-collapse-heading-1">
-                            <button type="button" 
-                                class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200" 
-                                data-accordion-target="#accordion-collapse-body-1" 
-                                aria-expanded="false" 
+                            <button type="button"
+                                class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200"
+                                data-accordion-target="#accordion-collapse-body-1"
+                                aria-expanded="false"
                                 aria-controls="accordion-collapse-body-1">
                                 <span class="flex items-center text-sm text-gray-900">
                                     Lain-Lain

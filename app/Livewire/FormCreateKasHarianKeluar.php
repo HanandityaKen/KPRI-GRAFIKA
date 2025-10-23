@@ -10,7 +10,7 @@ use App\Models\Saldo;
 
 /**
  * Komponen Livewire untuk form pembuatan kas harian keluar.
- * 
+ *
  * Fitur:
  * - Menampilkan dropdown anggota dengan nama dan ID
  * - Mengambil data wajib berdasarkan jenis pegawai anggota yang dipilih
@@ -21,7 +21,7 @@ class FormCreateKasHarianKeluar extends Component
 {
     /**
      * Komponen untuk form kas harian keluar.
-     * 
+     *
      * Properti:
      * - $namaList: Daftar nama anggota untuk dropdown
      * - $anggota_id: ID anggota yang dipilih
@@ -37,10 +37,10 @@ class FormCreateKasHarianKeluar extends Component
      * - $b_oprs: Nominal biaya operasional
      * - $b_lain: Nominal biaya lain-lain
      * - $tnh_kav: Nominal tanah kavling
-     * 
+     *
      * - $error_qurban: Pesan error untuk qurban
      * - $error_manasuka: Pesan error untuk manasuka
-     * 
+     *
      * - $disabled: Status disabled untuk tombol submit
      * - $disabled_*: Status disabled untuk setiap inputan
      */
@@ -92,6 +92,11 @@ class FormCreateKasHarianKeluar extends Component
     public $disabled_qurban = false;
     public $disabled_manasuka = false;
 
+    public $keterangan = '';
+
+    // List Pengurus
+    public $anggotaList = [];
+
     /**
      * Lifecycle hook untuk inisialisasi data awal.
      * Mengambil daftar anggota dari database.
@@ -100,6 +105,7 @@ class FormCreateKasHarianKeluar extends Component
     {
         $this->namaList = Anggota::pluck('nama', 'id');
         $this->tabungan_qurban_options = Simpanan::sum('qurban');
+        $this->anggotaList = Anggota::where('posisi', 'pengurus')->pluck('nama', 'id')->toArray();
     }
 
     /**
@@ -183,10 +189,10 @@ class FormCreateKasHarianKeluar extends Component
 
             $this->wajibPinjamOptions = array_merge([0], $totalWajibPinjam);
         } else {
-            $this->wajibPinjamOptions = [0]; 
+            $this->wajibPinjamOptions = [0];
         }
 
-        $this->selectedWajibPinjam = 0; 
+        $this->selectedWajibPinjam = 0;
         $this->checkDisabled();
     }
 
@@ -257,14 +263,14 @@ class FormCreateKasHarianKeluar extends Component
     /**
      * Validasi real-time saat lain-lain diubah.
      */
-    public function updatedLainLain() 
-    { 
-        $this->checkDisabled(); 
+    public function updatedLainLain()
+    {
+        $this->checkDisabled();
     }
 
-    public function updatedHariLembur() 
+    public function updatedHariLembur()
     {
-        $this->checkDisabled(); 
+        $this->checkDisabled();
     }
 
     public function updatedPerjalananPengawas()
@@ -371,15 +377,20 @@ class FormCreateKasHarianKeluar extends Component
      * Validasi real-time saat tanah kavling diubah.
      * Khusus untuk bendahara.
      */
-    public function updatedTnhKav() 
-    { 
-        $this->checkDisabled(); 
+    public function updatedTnhKav()
+    {
+        $this->checkDisabled();
+    }
+
+    public function updatedKeterangan()
+    {
+        $this->checkDisabled();
     }
 
     /**
      * Cek apakah semua inputan sudah diisi dan tidak ada yang kosong.
      * Jika ada yang kosong, set disabled ke true.
-     * 
+     *
      * @return void
      */
     public function checkDisabled()
@@ -414,6 +425,8 @@ class FormCreateKasHarianKeluar extends Component
         $dana_kesejahteraan  = (int) str_replace(['Rp', '.', ','], '', $this->dana_kesejahteraan);
         $pembayaran_listrik_dan_air  = (int) str_replace(['Rp', '.', ','], '', $this->pembayaran_listrik_dan_air);
         $tnh_kav             = (int) str_replace(['Rp', '.', ','], '', $this->tnh_kav);
+
+        $keterangan = trim($this->keterangan);
 
         $hasValidationError = $this->disabled_qurban || $this->disabled_manasuka || $this->disabled_wajib_pinjam_manual;
 
@@ -465,12 +478,12 @@ class FormCreateKasHarianKeluar extends Component
                         $dana_pengurus === 0
                     ));
 
-        $this->disabled = $hasValidationError || $isAllZero;
+        $this->disabled = $hasValidationError || $isAllZero || empty($keterangan);
     }
 
     /**
      * Merender tampilan form.
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function render()

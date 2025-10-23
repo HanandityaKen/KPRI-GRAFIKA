@@ -5,6 +5,7 @@ namespace App\Livewire;
 use Livewire\Component;
 use App\Models\KasHarian;
 use App\Models\AngsuranUnitKonsumsi;
+use App\Models\Anggota;
 use Carbon\Carbon;
 
 class FormBayarAngsuranUnitKonsumsi extends Component
@@ -16,10 +17,16 @@ class FormBayarAngsuranUnitKonsumsi extends Component
     public $jasa = 0;
     public $tanggal;
 
+    // List Pengurus
+    public $anggotaList = [];
+
     public function mount($id)
     {
         $this->tanggal = now()->format('d-m-Y');
         $this->angsuran = AngsuranUnitKonsumsi::findOrFail($id);
+
+        $this->anggotaList = Anggota::where('posisi', 'pengurus')->pluck('nama', 'id')->toArray();
+
         $this->cekJasa();
     }
 

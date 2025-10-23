@@ -18,7 +18,7 @@ class PengajuanPinjamanController extends Controller
 {
     /**
      * Menampilkan halaman pengajuan pinjaman di pengurus
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function index()
@@ -28,7 +28,7 @@ class PengajuanPinjamanController extends Controller
 
     /**
      * Menampilkan halaman create pengajuan pinjaman di pengurus
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function create()
@@ -40,19 +40,19 @@ class PengajuanPinjamanController extends Controller
 
     /**
      * Proses menyimpan data pengajuan pinjaman
-     * 
+     *
      * Fungsi ini menangani proses membuat pengajuan pinjaman baru dengan:
      * - Validasi input
      * - Mengambil nama anggota berdasarkan ID
      * - Menghapus desimal dan menghapus format rupiah dari input jumlah pinjaman, nominal pokok, bunga, angsuran, biaya admin, dan total pinjaman
      * - Mengambil lama angsuran dari input dan menghapus karakter non-digit
      * - Membuat pengajuan pinjaman baru dengan data yang telah diproses
-     * 
+     *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
-    {        
+    {
         $request->validate([
             'requested_by' => 'required',
             'tanggal' => 'required|date_format:d-m-Y',
@@ -77,7 +77,7 @@ class PengajuanPinjamanController extends Controller
         $biaya_admin = intval(str_replace(['Rp', '.', ' '], '', $request->biaya_admin));
         $total_pinjaman = intval(str_replace(['Rp', '.', ' '], '', $request->total_pinjaman));
 
-        $lama_angsuran = (int) preg_replace('/[^0-9]/', '', $request->lama_angsuran); 
+        $lama_angsuran = (int) preg_replace('/[^0-9]/', '', $request->lama_angsuran);
 
         PengajuanPinjaman::create([
             'anggota_id' => $request->anggota_id,
@@ -99,9 +99,9 @@ class PengajuanPinjamanController extends Controller
 
     /**
      * Menampilkan halaman edit pengajuan pinjaman di pengurus
-     * 
+     *
      * Jika pengajuan pinjaman sudah disetujui atau ditolak, tampilkan pesan error
-     * 
+     *
      * @param string $id
      * @return \Illuminate\View\View
      */
@@ -122,7 +122,7 @@ class PengajuanPinjamanController extends Controller
 
     /**
      * Proses mengupdate data pengajuan pinjaman
-     * 
+     *
      * Fungsi ini menangani proses memperbarui pengajuan pinjaman dengan:
      * - Validasi input
      * - Mengambil nama anggota berdasarkan ID
@@ -130,7 +130,7 @@ class PengajuanPinjamanController extends Controller
      * - Mengambil lama angsuran dari input dan menghapus karakter non-digit
      * - Mengambil pengajuan pinjaman berdasarkan ID
      * - Memperbarui pengajuan pinjaman dengan data yang telah diproses
-     * 
+     *
      * @param \Illuminate\Http\Request $request
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
@@ -186,9 +186,9 @@ class PengajuanPinjamanController extends Controller
 
     /**
      * Proses menghapus pengajuan pinjaman
-     * 
+     *
      * Jika pengajuan pinjaman sudah disetujui atau ditolak, tampilkan pesan error
-     * 
+     *
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -203,7 +203,7 @@ class PengajuanPinjamanController extends Controller
         if ($pengajuanPinjaman->status !== 'menunggu') {
             return back()->with(['error' => 'Pinjaman sudah diproses']);
         }
-        
+
         $pengajuanPinjaman->delete();
 
         return redirect()->route('pengurus.pengajuan-pinjaman.index')->with('success', 'Berhasil Menghapus Pengajuan Pinjaman');
@@ -212,7 +212,7 @@ class PengajuanPinjamanController extends Controller
     public function setujuiPinjaman($id)
     {
         $pengajuanPinjaman = PengajuanPinjaman::find($id);
-        
+
         $reviewedBy = auth()->guard('pengurus')->user()->nama;
 
         if (!$pengajuanPinjaman) {
@@ -231,7 +231,7 @@ class PengajuanPinjamanController extends Controller
         ->first();
 
         $saldoTerakhir = Saldo::first();
-        
+
         $jumlahPinjaman = $pengajuanPinjaman->jumlah_pinjaman;
 
         if ($saldoTerakhir->saldo < $jumlahPinjaman) {
@@ -243,7 +243,7 @@ class PengajuanPinjamanController extends Controller
             $query->where('anggota_id', $pengajuanPinjaman->anggota_id);
         })->orderBy('id', 'desc')->first();
 
-        $jumlahPinjamanBaru = intval($pengajuanPinjaman->jumlah_pinjaman); 
+        $jumlahPinjamanBaru = intval($pengajuanPinjaman->jumlah_pinjaman);
 
         $kasHarianMasuk = KasHarian::create([
             'anggota_id' => $pengajuanPinjaman->anggota_id,
@@ -269,8 +269,10 @@ class PengajuanPinjamanController extends Controller
             'b_lain'            => 0,
             'tnh_kav'           => 0,
             'keterangan'        => 'Biaya Admin',
+            'created_by'        => $pengajuanPinjaman->requested_by ?? null,
+            'approved_by'       => $reviewedBy,
         ]);
-        
+
         $saldoTerakhir->update([
             'saldo' => $saldoTerakhir->saldo + $pengajuanPinjaman->biaya_admin
         ]);
@@ -345,7 +347,7 @@ class PengajuanPinjamanController extends Controller
         if ($pinjaman) {
             $pinjaman->update([
                 'jumlah_pinjaman' => $pengajuanPinjaman->jumlah_pinjaman + $pinjaman->jumlah_pinjaman,
-            ]);     
+            ]);
         } else {
             $pinjaman = Pinjaman::create([
                 'pengajuan_pinjaman_id' => $pengajuanPinjaman->id,
@@ -354,7 +356,7 @@ class PengajuanPinjamanController extends Controller
                 'status' => 'dalam pembayaran'
             ]);
 
-            
+
             Angsuran::create([
                 'pinjaman_id' => $pinjaman->id,
                 'kurang_jasa' => $kurangJasa,
@@ -362,7 +364,7 @@ class PengajuanPinjamanController extends Controller
                 'sisa_angsuran' => $lama_angsuran
             ]);
         }
-        
+
         $kasHarianKeluar->update([
             'pinjaman_id' => $pinjaman->id
         ]);
@@ -377,13 +379,13 @@ class PengajuanPinjamanController extends Controller
 
     /**
      * Proses tolak pengajuan pinjaman
-     * 
+     *
      * Fungsi ini menangani proses penolakan pengajuan pinjaman anggota dengan:
      * - Mengambil pengajuan pinjaman berdasarkan ID
      * - Memeriksa apakah pengajuan pinjaman ditemukan
      * - Memeriksa status pengajuan pinjaman
      * - Memperbarui status pengajuan pinjaman menjadi ditolak
-     * 
+     *
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
      */

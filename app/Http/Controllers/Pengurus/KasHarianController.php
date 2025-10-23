@@ -22,7 +22,7 @@ class KasHarianController extends Controller
 {
     /**
      * Menampilkan halaman kas harian di pengurus
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function index()
@@ -32,7 +32,7 @@ class KasHarianController extends Controller
 
     /**
      * Menampilkan halaman rekap kas harian di pengurus
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function create()
@@ -44,7 +44,7 @@ class KasHarianController extends Controller
 
     /**
      * Proses menambah kas harian
-     * 
+     *
      * Fungsi ini menangani proses penambahan kas harian dengan:
      * - Validasi input kas harian
      * - Memisahkan angka dari format mata uang
@@ -52,7 +52,7 @@ class KasHarianController extends Controller
      * - Create jkm atau jkk
      * - Create atau update simpanan anggota
      * - Update saldo koperasi, menambahkan saldo jika kas masuk, dan mengurangi saldo jika kas keluar
-     * 
+     *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -99,6 +99,7 @@ class KasHarianController extends Controller
             'pembayaran_listrik_dan_air' => 'nullable|string',
             'tnh_kav'           => 'nullable|string',
             'keterangan'        => 'required|string',
+            'created_by'        => 'nullable|string',
         ]);
 
         $no_anggota = Anggota::findOrFail($request->anggota_id)->no_anggota;
@@ -132,7 +133,7 @@ class KasHarianController extends Controller
         } else {
             $wajibPinjamInput = $request->wajib_pinjam ?? 0;
         }
-        
+
         if (is_string($wajibPinjamInput) && strpos($wajibPinjamInput, 'Rp') !== false) {
             $clean = str_replace(['Rp', ' ', '.'], '', $wajibPinjamInput);
             $clean = str_replace(',', '.', $clean);
@@ -141,7 +142,7 @@ class KasHarianController extends Controller
             $clean = str_replace([',', ' ', '.'], '', $wajibPinjamInput);
             $wajib_pinjam = intval(floatval($clean));
         }
-        
+
         $qurban = intval(str_replace(['Rp', '.', ' '], '', $request->qurban));
         $angsuran = intval(str_replace(['Rp', '.', ' '], '', $request->angsuran));
         $jasa = intval(str_replace(['Rp', '.', ' '], '', $request->jasa));
@@ -214,10 +215,11 @@ class KasHarianController extends Controller
                 'pembayaran_listrik_dan_air' => $pembayaran_listrik_dan_air ?? 0,
                 'tnh_kav'           => $tnh_kav ?? 0,
                 'keterangan'        => $request->keterangan ?? null,
+                'created_by'        => $request->created_by ?? null,
             ]);
-    
+
             $bulan = strtolower(Carbon::createFromFormat('Y-m-d', $tanggal)->translatedFormat('F'));
-            $tahun = Carbon::createFromFormat('Y-m-d', $tanggal)->format('Y');    
+            $tahun = Carbon::createFromFormat('Y-m-d', $tanggal)->format('Y');
 
             Jkm::create([
                 'kas_harian_id' => $kasHarian->id,
@@ -280,7 +282,7 @@ class KasHarianController extends Controller
                 $saldo->update(['saldo' => DB::raw("saldo + $saldoMasuk")]);
             }
         }
-        
+
         if ($request->jenis_transaksi === 'kas keluar') {
 
             $simpanan = Simpanan::where('anggota_id', $request->anggota_id)->first();
@@ -301,16 +303,16 @@ class KasHarianController extends Controller
                 if ($simpanan->qurban < $qurban) {
                     return back()->withErrors(['error' => 'Saldo qurban tidak cukup untuk melakukan transaksi ini!']);
                 }
-            } 
+            }
 
             $saldoKeluar = $pokok + $wajib + $manasuka + $wajib_pinjam + $qurban + $angsuran + $jasa + $js_admin + $lain_lain + $barang_kons + $piutang + $hutang + $hari_lembur + $perjalanan_pengawas + $thr + $admin + $iuran_dekopinda + $honor_pengurus + $rkrab + $pembinaan + $harkop + $dandik + $rapat + $jasa_manasuka + $pajak + $tabungan_qurban + $dekopinda + $wajib_pkpri + $dansos + $shu + $dana_pengurus + $dana_kesejahteraan + $pembayaran_listrik_dan_air + $tnh_kav;
-    
+
             $saldo = Saldo::first();
-    
+
             if (!$saldo || $saldo->saldo < 0 || ($saldo->saldo - $saldoKeluar < 0)) {
                 return back()->withErrors(['error' => 'Saldo koperasi tidak cukup!']);
             }
-            
+
             $saldo->update(['saldo' => DB::raw("saldo - $saldoKeluar")]);
 
             $kasHarian = KasHarian::create([
@@ -353,6 +355,7 @@ class KasHarianController extends Controller
                 'pembayaran_listrik_dan_air' => $pembayaran_listrik_dan_air ?? 0,
                 'tnh_kav'           => $tnh_kav ?? 0,
                 'keterangan'        => $request->keterangan ?? null,
+                'created_by'        => $request->created_by ?? null,
             ]);
 
             if ($tabungan_qurban > 0) {
@@ -368,10 +371,10 @@ class KasHarianController extends Controller
                 }
 
                 Simpanan::query()->update(['qurban' => 0]);
-            }        
-    
+            }
+
             $bulan = strtolower(Carbon::createFromFormat('Y-m-d', $tanggal)->translatedFormat('F'));
-            $tahun = Carbon::createFromFormat('Y-m-d', $tanggal)->format('Y');    
+            $tahun = Carbon::createFromFormat('Y-m-d', $tanggal)->format('Y');
 
             Jkk::create([
                 'kas_harian_id' => $kasHarian->id,
@@ -399,7 +402,7 @@ class KasHarianController extends Controller
 
     /**
      * Menampilkan halaman edit kas harian di pengurus
-     * 
+     *
      * @param string $id
      * @return \Illuminate\View\View
      */
@@ -414,7 +417,7 @@ class KasHarianController extends Controller
 
     /**
      * Proses update kas harian
-     * 
+     *
      * Fungsi ini menangani proses update kas harian dengan:
      * - Validasi input kas harian
      * - Memisahkan angka dari format mata uang
@@ -425,7 +428,7 @@ class KasHarianController extends Controller
      * - Menjumlahkan total kas harian setelah update
      * - Hitung selisih saldo dengan saldo sesudah update - saldo setelah update
      * - Update saldo koperasi, menambahkan saldo jika kas masuk, dan mengurangi saldo jika kas keluar
-     * 
+     *
      * @param \Illuminate\Http\Request $request
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
@@ -473,6 +476,7 @@ class KasHarianController extends Controller
             'pembayaran_listrik_dan_air' => 'nullable|string',
             'tnh_kav'           => 'nullable|string',
             'keterangan'        => 'required|string',
+            'updated_by'        => 'nullable|string',
         ]);
 
         $tanggal = Carbon::createFromFormat('d-m-Y', $request->tanggal)->format('Y-m-d');
@@ -503,7 +507,7 @@ class KasHarianController extends Controller
         } else {
             $wajibPinjamInput = $request->wajib_pinjam ?? 0;
         }
-        
+
         if (is_string($wajibPinjamInput) && strpos($wajibPinjamInput, 'Rp') !== false) {
             $clean = str_replace(['Rp', ' ', '.'], '', $wajibPinjamInput);
             $clean = str_replace(',', '.', $clean);
@@ -546,15 +550,15 @@ class KasHarianController extends Controller
 
         $kasHarian = KasHarian::findOrFail($id);
 
-        $totalSebelumUpdate = $kasHarian->pokok + $kasHarian->wajib + $kasHarian->manasuka + 
-                        $kasHarian->wajib_pinjam + $kasHarian->qurban + 
-                        $kasHarian->angsuran + $kasHarian->jasa + $kasHarian->js_admin + 
+        $totalSebelumUpdate = $kasHarian->pokok + $kasHarian->wajib + $kasHarian->manasuka +
+                        $kasHarian->wajib_pinjam + $kasHarian->qurban +
+                        $kasHarian->angsuran + $kasHarian->jasa + $kasHarian->js_admin +
                         $kasHarian->lain_lain + $kasHarian->barang_kons +
                         $kasHarian->hari_lembur + $kasHarian->perjalanan_pengawas + $kasHarian->thr +
                         $kasHarian->admin + $kasHarian->iuran_dekopinda + $kasHarian->honor_pengurus + $kasHarian->rkrab + $kasHarian->pembinaan +
                         $kasHarian->harkop + $kasHarian->dandik + $kasHarian->rapat + $kasHarian->jasa_manasuka +
                         $kasHarian->pajak + $kasHarian->tabungan_qurban + $kasHarian->dekopinda +
-                        $kasHarian->wajib_pkpri + $kasHarian->dansos + $kasHarian->shu + $kasHarian->dana_pengurus + 
+                        $kasHarian->wajib_pkpri + $kasHarian->dansos + $kasHarian->shu + $kasHarian->dana_pengurus +
                         $kasHarian->dana_kesejahteraan + $kasHarian->pembayaran_listrik_dan_air +
                         $kasHarian->tnh_kav;
 
@@ -602,6 +606,7 @@ class KasHarianController extends Controller
                 'pembayaran_listrik_dan_air' => $pembayaran_listrik_dan_air ?? 0,
                 'tnh_kav'           => $tnh_kav ?? 0,
                 'keterangan'        => $request->keterangan ?? null,
+                'updated_by'        => $request->updated_by ?? null,
             ]);
 
             $jkm = Jkm::where('kas_harian_id', $kasHarian->id)->first();
@@ -640,7 +645,7 @@ class KasHarianController extends Controller
                 ]
             );
 
-            $totalSesudahUpdate = $pokok + $wajib + $manasuka + $wajib_pinjam + $qurban + 
+            $totalSesudahUpdate = $pokok + $wajib + $manasuka + $wajib_pinjam + $qurban +
                                 $angsuran + $jasa + $js_admin + $lain_lain + $barang_kons;
 
             $selisihSaldo = $totalSesudahUpdate - $totalSebelumUpdate;
@@ -652,10 +657,10 @@ class KasHarianController extends Controller
 
         if ($request->jenis_transaksi === 'kas keluar') {
 
-            $totalSesudahUpdate = $pokok + $wajib + $manasuka + $wajib_pinjam + $qurban + 
+            $totalSesudahUpdate = $pokok + $wajib + $manasuka + $wajib_pinjam + $qurban +
                         $angsuran + $jasa + $js_admin + $lain_lain + $barang_kons +
                         $hari_lembur + $perjalanan_pengawas + $thr + $admin + $iuran_dekopinda + $honor_pengurus +
-                        $rkrab + $pembinaan + $harkop + $dandik + $rapat + 
+                        $rkrab + $pembinaan + $harkop + $dandik + $rapat +
                         $jasa_manasuka + $pajak + $tabungan_qurban + $dekopinda + $wajib_pkpri +
                         $dansos + $shu + $dana_pengurus + $dana_kesejahteraan + $pembayaran_listrik_dan_air + $tnh_kav;
 
@@ -732,6 +737,7 @@ class KasHarianController extends Controller
                 'pembayaran_listrik_dan_air' => $pembayaran_listrik_dan_air ?? 0,
                 'tnh_kav'           => $tnh_kav ?? 0,
                 'keterangan'        => $request->keterangan ?? null,
+                'updated_by'        => $request->updated_by ?? null,
             ]);
 
             $jkk = Jkk::where('kas_harian_id', $kasHarian->id)->first();
@@ -757,7 +763,7 @@ class KasHarianController extends Controller
             $totalManasukaMasuk = $kasHarianAnggotaMasuk->sum('manasuka');
             $totalWajibPinjamMasuk = $kasHarianAnggotaMasuk->sum('wajib_pinjam');
             $totalQurbanMasuk = $kasHarianAnggotaMasuk->sum('qurban');
-        
+
             $totalPokokKeluar = $kasHarianAnggotaKeluar->sum('pokok');
             $totalWajibKeluar = $kasHarianAnggotaKeluar->sum('wajib');
             $totalManasukaKeluar = $kasHarianAnggotaKeluar->sum('manasuka');
@@ -791,7 +797,7 @@ class KasHarianController extends Controller
 
     /**
      * Menghapus kas harian
-     * 
+     *
      * Fungsi ini menangani proses penghapusan kas harian dengan:
      * - Mengambil kas harian berdasarkan ID
      * - Mengambil kas harian berdasarkan anggota_id dan jenis transaksi
@@ -799,7 +805,7 @@ class KasHarianController extends Controller
      * - Menambahkan kas harian dengan jumlah kas harian yang dihapus di kas keluar
      * - Menghitung ulang total simpanan
      * - Mengupdate simpanan anggota
-     * 
+     *
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -831,15 +837,15 @@ class KasHarianController extends Controller
             $totalManasuka    = ($simpanan->manasuka ?? 0) + $kasHarian->manasuka;
             $totalWajibPinjam = ($simpanan->wajib_pinjam ?? 0) + $kasHarian->wajib_pinjam;
             $totalQurban      = ($simpanan->qurban ?? 0) + $kasHarian->qurban;
-        
+
             if ($kasHarian->tabungan_qurban > 0) {
                 // Ambil hanya data dari transaksi kas_harian yang sedang diproses
                 $riwayat = RiwayatTabunganQurban::where('kas_harian_id', $kasHarian->id)->get();
-    
+
                 foreach ($riwayat as $entry) {
                     Simpanan::where('anggota_id', $entry->anggota_id)->increment('qurban', $entry->jumlah);
                 }
-    
+
                 RiwayatTabunganQurban::where('kas_harian_id', $kasHarian->id)->delete();
             }
         }

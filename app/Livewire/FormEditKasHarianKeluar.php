@@ -11,7 +11,7 @@ use App\Models\WajibPinjam;
 
 /**
  * Komponen Livewire untuk form edit kas harian keluar.
- * 
+ *
  * Fitur:
  * - Menampilkan dropdown anggota dengan nama dan ID
  * - Mengambil data kas harian berdasarkan id_kas_harian
@@ -22,7 +22,7 @@ class FormEditKasHarianKeluar extends Component
 {
     /**
      * Komponen untuk form kas harian keluar.
-     * 
+     *
      * Properti:
      * - $kasHarian: Model kas harian yang sedang diedit
      * - $namaList: Daftar nama anggota untuk dropdown
@@ -39,10 +39,10 @@ class FormEditKasHarianKeluar extends Component
      * - $b_oprs: Nominal biaya operasional
      * - $b_lain: Nominal biaya lain-lain
      * - $tnh_kav: Nominal tanah kavling
-     * 
+     *
      * - $error_qurban: Pesan error untuk qurban
      * - $error_manasuka: Pesan error untuk manasuka
-     * 
+     *
      * - $disabled: Status disabled untuk tombol submit
      * - $disabled_*: Status disabled untuk setiap inputan
      */
@@ -93,9 +93,12 @@ class FormEditKasHarianKeluar extends Component
 
     public $wajibPinjamOption = [];
 
+    // List Pengurus
+    public $anggotaList = [];
+
     /**
      * Lifecycle hook untuk inisialisasi data awal.
-     * 
+     *
      * @param int $id ID kas harian yang akan diedit.
      */
     public function mount($id)
@@ -137,6 +140,9 @@ class FormEditKasHarianKeluar extends Component
         $this->bendahara = $anggota && $anggota->jabatan === 'bendahara';
 
         $this->wajibPinjamOption = [0, $this->kasHarian->wajib_pinjam];
+
+        // List Pengurus
+        $this->anggotaList = Anggota::where('posisi', 'pengurus')->pluck('nama', 'id')->toArray();
 
         $this->getBendahara();
         $this->getSekretaris();
@@ -280,14 +286,14 @@ class FormEditKasHarianKeluar extends Component
     /**
      * Validasi real-time saat lain-lain diubah.
      */
-    public function updatedLainLain() 
-    { 
-        $this->checkDisabled(); 
+    public function updatedLainLain()
+    {
+        $this->checkDisabled();
     }
 
-    public function updatedHariLembur() 
+    public function updatedHariLembur()
     {
-        $this->checkDisabled(); 
+        $this->checkDisabled();
     }
 
     public function updatedPerjalananPengawas()
@@ -389,13 +395,13 @@ class FormEditKasHarianKeluar extends Component
     {
         $this->checkDisabled();
     }
-    
+
     /**
      * Validasi real-time saat tanah kavling diubah.
      */
-    public function updatedTnhKav() 
-    { 
-        $this->checkDisabled(); 
+    public function updatedTnhKav()
+    {
+        $this->checkDisabled();
     }
 
     public function shouldTabunganQurbanBeReadonly()
@@ -428,21 +434,21 @@ class FormEditKasHarianKeluar extends Component
             'pembayaran_listrik_dan_air',
             'tnh_kav',
         ];
-        
+
         foreach ($fields as $field) {
             $value = (int) str_replace(['Rp', '.', ','], '', $this->$field);
             if ($value > 0) {
                 return true;
             }
         }
-        
+
         return false;
     }
 
     /**
      * Cek apakah semua inputan sudah diisi dan tidak ada yang kosong.
      * Jika ada yang kosong, set disabled ke true.
-     * 
+     *
      * @return void
      */
     public function checkDisabled()
@@ -532,7 +538,7 @@ class FormEditKasHarianKeluar extends Component
 
     /**
      * Merender tampilan form.
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function render()

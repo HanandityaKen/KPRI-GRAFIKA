@@ -1,7 +1,7 @@
 @extends('admin.layout.main')
 
 @section('title', 'Detail Riwayat Transaksi')
-    
+
 @section('content')
     <div>
       <hr class="my-5 border-t-[2px] border-green-800 opacity-20 mb-5" />
@@ -45,7 +45,7 @@
         <label for="nama" class="block mb-1 text-sm font-medium text-gray-900">Nama Anggota</label>
         <input type="text" id="nama" value="{{ $riwayatTransaksi->anggota->nama ?? $riwayatTransaksi->nama_anggota }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" readonly/>
       </div>
-      
+
       <div class="mb-4">
         <label for="tanggal" class="block mb-1 text-sm font-medium text-gray-900">Tanggal</label>
         <input type="text" id="tanggal" value="{{ \Carbon\Carbon::parse($riwayatTransaksi->tanggal)->translatedFormat('d-m-Y') }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" readonly/>
@@ -60,28 +60,28 @@
         @if ($riwayatTransaksi->$key > 0)
           <div class="mb-4">
             <label for="{{ $key }}" class="block mb-1 text-sm font-medium text-gray-900">{{ $label }}</label>
-            <input 
-              type="text" 
-              id="{{ $key }}" 
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" 
-              value="Rp {{ number_format($riwayatTransaksi->$key, 0, ',', '.') }}" 
+            <input
+              type="text"
+              id="{{ $key }}"
+              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2"
+              value="Rp {{ number_format($riwayatTransaksi->$key, 0, ',', '.') }}"
               readonly
             />
           </div>
         @endif
       @endforeach
 
-      @if ($riwayatTransaksi->jenis_transaksi === 'kas keluar' && $riwayatTransaksi->keterangan == 'Pinjaman')    
+      @if ($riwayatTransaksi->jenis_transaksi === 'kas keluar' && $riwayatTransaksi->keterangan == 'Pinjaman')
         <hr class="my-2 border-t-[1px] border-green-800 opacity-20 mb-3"/>
 
         <div class="grid grid-cols-2 gap-4">
           <div class="mb-3">
             <label class="block mb-1 text-sm font-medium text-gray-900">Diajukan Oleh</label>
-            <input type="text" id="requested_by" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Pengurus yang mengajukan" value="{{ $riwayatTransaksi->pinjaman->pengajuan_pinjaman->requested_by }}" readonly/>
+            <input type="text" id="requested_by" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Pengurus yang mengajukan" value="{{ $riwayatTransaksi->created_by ?? $riwayatTransaksi->pinjaman->pengajuan_pinjaman->requested_by }}" readonly/>
           </div>
           <div class="mb-3">
               <label class="block mb-1 text-sm font-medium text-gray-900">Disetujui Oleh</label>
-              <input type="text" id="reviewed_by" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Pengurus yang menyesetujui" value="{{ $riwayatTransaksi->pinjaman->pengajuan_pinjaman->reviewed_by }}" readonly/>
+              <input type="text" id="reviewed_by" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Pengurus yang menyesetujui" value="{{ $riwayatTransaksi->approved_by ?? $riwayatTransaksi->pinjaman->pengajuan_pinjaman->reviewed_by }}" readonly/>
           </div>
         </div>
       @elseif ($riwayatTransaksi->jenis_transaksi === 'kas keluar' && $riwayatTransaksi->keterangan == 'Unit atau Barang Konsumsi')
@@ -90,11 +90,11 @@
         <div class="grid grid-cols-2 gap-4">
           <div class="mb-3">
             <label class="block mb-1 text-sm font-medium text-gray-900">Diajukan Oleh</label>
-            <input type="text" id="requested_by" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Pengurus yang mengajukan" value="{{ $riwayatTransaksi->unit_konsumsi->pengajuan_unit_konsumsi->requested_by }}" readonly/>
+            <input type="text" id="requested_by" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Pengurus yang mengajukan" value="{{ $riwayatTransaksi->created_by ?? $riwayatTransaksi->unit_konsumsi->pengajuan_unit_konsumsi->requested_by }}" readonly/>
           </div>
           <div class="mb-3">
               <label class="block mb-1 text-sm font-medium text-gray-900">Disetujui Oleh</label>
-              <input type="text" id="reviewed_by" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Pengurus yang menyesetujui" value="{{ $riwayatTransaksi->unit_konsumsi->pengajuan_unit_konsumsi->reviewed_by }}" readonly/>
+              <input type="text" id="reviewed_by" class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Pengurus yang menyesetujui" value="{{ $riwayatTransaksi->approved_by ?? $riwayatTransaksi->unit_konsumsi->pengajuan_unit_konsumsi->reviewed_by }}" readonly/>
           </div>
         </div>
       @endif

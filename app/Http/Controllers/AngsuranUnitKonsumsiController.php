@@ -13,7 +13,7 @@ class AngsuranUnitKonsumsiController extends Controller
 {
     /**
      * Menampilkan halaman index angsuran unit konsumsi di admin
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function index()
@@ -23,7 +23,7 @@ class AngsuranUnitKonsumsiController extends Controller
 
     /**
      * Menampilkan halaman pembayaran angsuran unit konsumsi di admin
-     * 
+     *
      * @param string $id
      * @return \Illuminate\View\View
      */
@@ -36,7 +36,7 @@ class AngsuranUnitKonsumsiController extends Controller
 
     /**
      * Proses pembayaran angsuran unit konsumsi
-     * 
+     *
      * Fungsi ini menangani proses pembayaran angsuran unit konsumsi anggota dengan:
      * - Validasi input angsuran dan jasa
      * - Perhitungan tunggakan, kurang angsuran, kurang jasa, angsuran ke, dan sisa angsuran
@@ -44,7 +44,7 @@ class AngsuranUnitKonsumsiController extends Controller
      * - Pencatatan pembayaran ke dalam tabel kas_harian
      * - Pencatatan ke dalam tabel jkm
      * - Pembaruan saldo koperasi
-     * 
+     *
      * @param \Illuminate\Http\Request $request
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
@@ -57,6 +57,7 @@ class AngsuranUnitKonsumsiController extends Controller
             'angsuran_manual' => 'nullable|string',
             'jasa' => 'nullable|string',
             'jasa_manual' => 'nullable|string',
+            'created_by' => 'required|string',
         ]);
 
         $tanggal = Carbon::createFromFormat('d-m-Y', $request->tanggal)->format('Y-m-d');
@@ -103,7 +104,7 @@ class AngsuranUnitKonsumsiController extends Controller
 
         if ($angsuranUnitKonsumsi->sisa_angsuran == 1 && $angsuranInput == 0) {
             return back()->withErrors(['angsuran' => '* Angsuran harus diisi karena ini adalah pembayaran terakhir!'])->withInput();
-        }    
+        }
 
         if ($bayarAngsuran == 0) {
             $angsuranUnitKonsumsi->tunggakan = $angsuranUnitKonsumsi->tunggakan + intval($angsuranUnitKonsumsi->unit_konsumsi->pengajuan_unit_konsumsi->nominal_pokok);
@@ -153,7 +154,7 @@ class AngsuranUnitKonsumsiController extends Controller
             'tanggal' => $tanggal,
             'barang_kons' => $bayarAngsuran,
             'jasa' => $bayarJasa,
-            
+
             'pokok'             => 0,
             'wajib'             => 0,
             'manasuka'          => 0,
@@ -169,7 +170,8 @@ class AngsuranUnitKonsumsiController extends Controller
             'b_oprs'            => 0,
             'b_lain'            => 0,
             'tnh_kav'           => 0,
-            'keterangan'        => 'Bayar Angsuran Unit atau Barang Konsumsi'
+            'keterangan'        => 'Bayar Angsuran Unit atau Barang Konsumsi',
+            'created_by'        => $request->created_by,
         ]);
 
         $bulan = strtolower(Carbon::createFromFormat('Y-m-d', $tanggal)->translatedFormat('F'));
@@ -181,7 +183,7 @@ class AngsuranUnitKonsumsiController extends Controller
             'bulan' => $bulan,
             'tahun' => $tahun,
         ]);
-        
+
         $saldoMasuk = $bayarAngsuran + $bayarJasa;
 
         $saldo = Saldo::first();

@@ -11,7 +11,7 @@ use App\Models\WajibPinjam;
 
 /**
  * Komponen Livewire untuk form pembuatan kas harian masuk.
- * 
+ *
  * Fitur:
  * - Menampilkan dropdown anggota dengan nama dan ID
  * - Mengambil data wajib berdasarkan jenis pegawai anggota yang dipilih
@@ -23,7 +23,7 @@ class FormCreateKasHarian extends Component
 {
     /**
      * Komponen untuk form kas harian masuk.
-     * 
+     *
      * Properti:
      * - $namaList: Daftar nama anggota untuk dropdown
      * - $anggota_id: ID anggota yang dipilih
@@ -61,6 +61,11 @@ class FormCreateKasHarian extends Component
     public $disabled_qurban = false;
     public $disabled_lain_lain = false;
 
+    public $keterangan = '';
+
+    // List Pengurus
+    public $anggotaList = [];
+
     /**
      * Lifecycle hook untuk inisialisasi data awal.
      * Mengambil daftar anggota dan wajib pinjam dari database.
@@ -71,6 +76,7 @@ class FormCreateKasHarian extends Component
     {
         $this->namaList = Anggota::pluck('nama', 'id');
         $this->wajibPinjamList = WajibPinjam::orderBy('nominal', 'asc')->pluck('nominal', 'id');
+        $this->anggotaList = Anggota::where('posisi', 'pengurus')->pluck('nama', 'id')->toArray();
     }
 
     /**
@@ -80,7 +86,7 @@ class FormCreateKasHarian extends Component
      * @return void
      */
     public function updated($propertyName)
-    {   
+    {
         if ($propertyName === 'anggota_id') {
             $this->getWajib();
             $this->getPokok();
@@ -110,7 +116,7 @@ class FormCreateKasHarian extends Component
 
     /**
      * Mengambil data pokok dari tabel simpanan.
-     * 
+     *
      * Jika disimpanan sudah ada pokok, maka set pokok ke 'Rp 0'.
      * Jika tidak ada, ambil nominal dari tabel pokok.
      *
@@ -119,23 +125,23 @@ class FormCreateKasHarian extends Component
     public function getPokok()
     {
         if ($this->anggota_id) {
-            $anggota = Anggota::find($this->anggota_id); 
+            $anggota = Anggota::find($this->anggota_id);
             $kasHarian = Simpanan::where('anggota_id', $this->anggota_id)->latest()->first();
             $pokok = Pokok::first();
             $wajib = Wajib::where('jenis_pegawai', $anggota->jenis_pegawai)->first();
-    
+
             if (($kasHarian && $kasHarian->pokok > 0) || ($wajib && $wajib->nominal == 0)  ) {
                 $this->pokok = 'Rp 0';
             } else {
                 $this->pokok = 'Rp ' . number_format($pokok->nominal, 0, ',', '.');
             }
-    
+
             return;
         }
 
         $this->pokok = '';
     }
-    
+
 
     /**
      * Validasi inputan saat pokok diubah.
@@ -277,6 +283,11 @@ class FormCreateKasHarian extends Component
         $this->disabled();
     }
 
+    public function updatedKeterangan()
+    {
+        $this->disabled();
+    }
+
     /**
      * Menghitung apakah semua inputan bernilai 0.
      * Jika semua inputan bernilai 0, set disabled ke true.
@@ -294,9 +305,11 @@ class FormCreateKasHarian extends Component
         $qurban = (int) str_replace(['Rp', '.', ','], '', $this->qurban);
         $lain_lain = (int) str_replace(['Rp', '.', ','], '', $this->lain_lain);
 
+        $keterangan = trim($this->keterangan);
+
         // dd($pokok, $manasuka, $wajib, $wajibPinjam, $qurban, $lain_lain);
 
-        if ($pokok === 0 && $manasuka === 0 && $wajib === 0 && $wajibManual === 0 && $wajibPinjam === 0 && $wajibPinjamManual === 0 && $qurban === 0 && $lain_lain === 0) {
+        if (empty($keterangan) || ($pokok === 0 && $manasuka === 0 && $wajib === 0 && $wajibManual === 0 && $wajibPinjam === 0 && $wajibPinjamManual === 0 && $qurban === 0 && $lain_lain === 0)) {
             $this->disabled = true;
         } else {
             $this->disabled = false;
@@ -305,7 +318,7 @@ class FormCreateKasHarian extends Component
 
     /**
      * Merender tampilan form
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function render()

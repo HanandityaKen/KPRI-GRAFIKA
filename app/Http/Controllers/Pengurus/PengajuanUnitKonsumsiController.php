@@ -17,7 +17,7 @@ class PengajuanUnitKonsumsiController extends Controller
 {
     /**
      * Menampilkan halaman pengajuan unit konsumsi di pengurus
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function index()
@@ -27,7 +27,7 @@ class PengajuanUnitKonsumsiController extends Controller
 
     /**
      * Menampilkan halaman detail pengajuan unit konsumsi di pengurus
-     * 
+     *
      * @param string $id
      * @return \Illuminate\View\View
      */
@@ -40,14 +40,14 @@ class PengajuanUnitKonsumsiController extends Controller
 
     /**
      * Proses menyimpan data pengajuan unit konsumsi
-     * 
+     *
      * Fungsi ini menangani proses membuat pengajuan unit konsumsi baru dengan:
      * - Validasi input
      * - Mengambil nama anggota berdasarkan ID
      * - Menghapus desimal dan menghapus format rupiah dari input jumlah nominal, nominal pokok, nominal bunga, angsuran, dan jumlah nominal
      * - Mengambil lama angsuran dari input dan menghapus karakter non-digit
      * - Membuat pengajuan unit konsumsi baru dengan data yang telah diproses
-     * 
+     *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -74,7 +74,7 @@ class PengajuanUnitKonsumsiController extends Controller
         $nominal_bunga = intval(str_replace(['Rp', '.', ' '], '', $request->nominal_bunga));
         $jumlah_nominal = intval(str_replace(['Rp', '.', ' '], '', $request->jumlah_nominal));
 
-        $lama_angsuran = (int) preg_replace('/[^0-9]/', '', $request->lama_angsuran); 
+        $lama_angsuran = (int) preg_replace('/[^0-9]/', '', $request->lama_angsuran);
 
         PengajuanUnitKonsumsi::create([
             'anggota_id' => $request->anggota_id,
@@ -95,7 +95,7 @@ class PengajuanUnitKonsumsiController extends Controller
 
     /**
      * Menampilkan halaman edit pengajuan unit konsumsi di pengurus
-     * 
+     *
      * @param string $id
      * @return \Illuminate\View\View
      */
@@ -116,7 +116,7 @@ class PengajuanUnitKonsumsiController extends Controller
 
     /**
      * Proses mengupdate data pengajuan unit konsumsi
-     * 
+     *
      * Fungsi ini menangani proses memperbarui pengajuan unit konsumsi dengan:
      * - Validasi input
      * - Mengambil nama anggota berdasarkan ID
@@ -124,7 +124,7 @@ class PengajuanUnitKonsumsiController extends Controller
      * - Mengambil lama angsuran dari input dan menghapus karakter non-digit
      * - Mengambil pengajuan unit konsumsi berdasarkan ID
      * - Memperbarui pengajuan unit konsumsi dengan data yang telah diproses
-     * 
+     *
      * @param \Illuminate\Http\Request $request
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
@@ -174,9 +174,9 @@ class PengajuanUnitKonsumsiController extends Controller
 
     /**
      * Proses menghapus pengajuan pinjaman
-     * 
+     *
      * Jika pengajuan pinjaman sudah disetujui atau ditolak, tampilkan pesan error
-     * 
+     *
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -252,12 +252,14 @@ class PengajuanUnitKonsumsiController extends Controller
             'b_oprs'            => 0,
             'b_lain'            => 0,
             'tnh_kav'           => 0,
-            'keterangan'        => 'Unit atau Barang Konsumsi'
+            'keterangan'        => 'Unit atau Barang Konsumsi',
+            'created_by'        => $pengajuanUnitKonsumsi->requested_by ?? null,
+            'approved_by'       => $reviewedBy,
         ]);
 
         $saldoTerakhir->update([
             'saldo' => $saldoTerakhir->saldo - $nominalUnitKonsumsi
-        ]); 
+        ]);
 
         $bulan = strtolower(Carbon::parse($pengajuanUnitKonsumsi->tanggal)->translatedFormat('F'));
         $tahun = Carbon::parse($pengajuanUnitKonsumsi->tanggal)->format('Y');
@@ -299,13 +301,13 @@ class PengajuanUnitKonsumsiController extends Controller
 
     /**
      * Proses tolak pengajuan unit konsumsi
-     * 
+     *
      * Fungsi ini menangani proses penolakan pengajuan unit konsumsi anggota dengan:
      * - Mengambil pengajuan unit konsumsi berdasarkan ID
      * - Memeriksa apakah pengajuan unit konsumsi ditemukan
      * - Memeriksa status pengajuan unit konsumsi
      * - Memperbarui status pengajuan unit konsumsi menjadi ditolak
-     * 
+     *
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
      */

@@ -16,7 +16,7 @@ class PengajuanUnitKonsumsiController extends Controller
 {
     /**
      * Menampilkan halaman index pengajuan unit konsumsi di admin
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function index()
@@ -26,7 +26,7 @@ class PengajuanUnitKonsumsiController extends Controller
 
     /**
      * Proses setujui pengajuan pinjaman
-     * 
+     *
      * Fungsi ini menangani proses persetujuan pengajuan unit konsumsi anggota dengan:
      * - Mengambil pengajuan unit konsumsi berdasarkan ID
      * - Memeriksa apakah pengajuan unit konsumsi ditemukan
@@ -40,7 +40,7 @@ class PengajuanUnitKonsumsiController extends Controller
      * - Create unit konsumsi baru
      * - Create angsuran baru untuk unit konsumsi
      * - Memperbarui status pengajuan unit konsumsi menjadi disetujui
-     * 
+     *
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -103,7 +103,9 @@ class PengajuanUnitKonsumsiController extends Controller
             'b_oprs'            => 0,
             'b_lain'            => 0,
             'tnh_kav'           => 0,
-            'keterangan'        => 'Unit atau Barang Konsumsi'
+            'keterangan'        => 'Unit atau Barang Konsumsi',
+            'created_by'        => $pengajuanUnitKonsumsi->requested_by ?? null,
+            'approved_by'       => $reviewedBy,
         ]);
 
         $saldoTerakhir->update([
@@ -150,13 +152,13 @@ class PengajuanUnitKonsumsiController extends Controller
 
     /**
      * Proses tolak pengajuan unit konsumsi
-     * 
+     *
      * Fungsi ini menangani proses penolakan pengajuan unit konsumsi anggota dengan:
      * - Mengambil pengajuan unit konsumsi berdasarkan ID
      * - Memeriksa apakah pengajuan unit konsumsi ditemukan
      * - Memeriksa status pengajuan unit konsumsi
      * - Memperbarui status pengajuan unit konsumsi menjadi ditolak
-     * 
+     *
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
      */

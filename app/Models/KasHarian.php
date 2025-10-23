@@ -50,6 +50,9 @@ class KasHarian extends Model
         'pembayaran_listrik_dan_air',
         'tnh_kav',
         'keterangan',
+        'created_by',
+        'updated_by',
+        'approved_by',
     ];
 
     protected static function boot()
@@ -59,41 +62,41 @@ class KasHarian extends Model
         static::deleting(function ($kasHarian) {
             $kasHarian->jkm()->delete();
             $kasHarian->jkk()->delete();
-            
+
             $saldo = Saldo::first();
 
             if ($saldo) {
-                $jumlah = 
-                    ($kasHarian->pokok ?? 0) + 
-                    ($kasHarian->wajib ?? 0) + 
-                    ($kasHarian->manasuka ?? 0) + 
-                    ($kasHarian->wajib_pinjam ?? 0) + 
-                    ($kasHarian->qurban ?? 0) + 
-                    ($kasHarian->angsuran ?? 0) + 
-                    ($kasHarian->jasa ?? 0) + 
-                    ($kasHarian->js_admin ?? 0) + 
-                    ($kasHarian->lain_lain ?? 0) + 
-                    ($kasHarian->barang_kons ?? 0) + 
-                    ($kasHarian->piutang ?? 0) + 
-                    ($kasHarian->hutang ?? 0) + 
-                    ($kasHarian->hari_lembur ?? 0) + 
-                    ($kasHarian->perjalanan_pengawas ?? 0) + 
-                    ($kasHarian->thr ?? 0) + 
-                    ($kasHarian->admin ?? 0) + 
-                    ($kasHarian->iuran_dekopinda ?? 0) + 
-                    ($kasHarian->honor_pengurus ?? 0) + 
-                    ($kasHarian->rkrab ?? 0) + 
-                    ($kasHarian->pembinaan ?? 0) + 
-                    ($kasHarian->harkop ?? 0) + 
-                    ($kasHarian->dandik ?? 0) + 
-                    ($kasHarian->rapat ?? 0) + 
-                    ($kasHarian->jasa_manasuka ?? 0) + 
-                    ($kasHarian->pajak ?? 0) + 
-                    ($kasHarian->tabungan_qurban ?? 0) + 
-                    ($kasHarian->dekopinda ?? 0) + 
-                    ($kasHarian->wajib_pkpri ?? 0) + 
-                    ($kasHarian->dansos ?? 0) + 
-                    ($kasHarian->shu ?? 0) + 
+                $jumlah =
+                    ($kasHarian->pokok ?? 0) +
+                    ($kasHarian->wajib ?? 0) +
+                    ($kasHarian->manasuka ?? 0) +
+                    ($kasHarian->wajib_pinjam ?? 0) +
+                    ($kasHarian->qurban ?? 0) +
+                    ($kasHarian->angsuran ?? 0) +
+                    ($kasHarian->jasa ?? 0) +
+                    ($kasHarian->js_admin ?? 0) +
+                    ($kasHarian->lain_lain ?? 0) +
+                    ($kasHarian->barang_kons ?? 0) +
+                    ($kasHarian->piutang ?? 0) +
+                    ($kasHarian->hutang ?? 0) +
+                    ($kasHarian->hari_lembur ?? 0) +
+                    ($kasHarian->perjalanan_pengawas ?? 0) +
+                    ($kasHarian->thr ?? 0) +
+                    ($kasHarian->admin ?? 0) +
+                    ($kasHarian->iuran_dekopinda ?? 0) +
+                    ($kasHarian->honor_pengurus ?? 0) +
+                    ($kasHarian->rkrab ?? 0) +
+                    ($kasHarian->pembinaan ?? 0) +
+                    ($kasHarian->harkop ?? 0) +
+                    ($kasHarian->dandik ?? 0) +
+                    ($kasHarian->rapat ?? 0) +
+                    ($kasHarian->jasa_manasuka ?? 0) +
+                    ($kasHarian->pajak ?? 0) +
+                    ($kasHarian->tabungan_qurban ?? 0) +
+                    ($kasHarian->dekopinda ?? 0) +
+                    ($kasHarian->wajib_pkpri ?? 0) +
+                    ($kasHarian->dansos ?? 0) +
+                    ($kasHarian->shu ?? 0) +
                     ($kasHarian->dana_pengurus ?? 0) +
                     ($kasHarian->dana_kesejahteraan ?? 0) +
                     ($kasHarian->pembayaran_listrik_dan_air ?? 0) +
@@ -107,7 +110,7 @@ class KasHarian extends Model
                 }
             }
 
-            
+
         });
 
         static::updating(function ($kasHarian) {
@@ -144,12 +147,12 @@ class KasHarian extends Model
     {
         return $this->belongsTo(Pinjaman::class, 'pinjaman_id');
     }
-    
+
     public function angsuran()
     {
         return $this->hasMany(Angsuran::class);
     }
-    
+
     public function unit_konsumsi()
     {
         return $this->belongsTo(UnitKonsumsi::class, 'unit_konsumsi_id');

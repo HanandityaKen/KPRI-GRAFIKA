@@ -2,6 +2,7 @@
     <form action="{{ route('pengurus.kas-harian.update', $kasHarian->id) }}" id="formCreateJkm" method="POST">
         @csrf
         @method('PUT')
+        <input type="text" name="updated_by" value="{{ auth()->guard('pengurus')->user()->nama }}" hidden>
         <div class="mb-3">
             <label class="block mb-1 text-sm font-medium text-gray-900">Jenis Transaksi</label>
             <select name="jenis_transaksi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" disabled>
@@ -59,7 +60,7 @@
                         Rp {{ number_format($wajibOption, 0, ',', '.') }}
                     </option>
                 @endforeach
-                <option value="manual">Masukan Manual</option>            
+                <option value="manual">Masukan Manual</option>
             </select>
             <div wire:ignore id="manual_input_wajib" class="hidden mt-4">
                 <input wire:model.live="wajibManual" type="text" name="wajib_manual" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Wajib" value="{{ old('wajib')}}" inputmode="numeric"/>
@@ -80,11 +81,11 @@
                         Rp {{ number_format($nominal, 0, ',', '.') }}
                     </option>
                 @endforeach
-                <option value="manual">Masukan Manual</option>            
+                <option value="manual">Masukan Manual</option>
             </select>
             <div wire:ignore id="manual_input_wajib_pinjam" class="hidden mt-4">
                 <input wire:model.live="wajibPinjamManual" type="text" name="wajib_pinjam_manual" class="format-rupiah bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Nominal Wajib" value="{{ old('wajib_pinjam')}}" inputmode="numeric"/>
-            </div>   
+            </div>
         </div>
         <div class="mb-4">
             <label class="block mb-1 text-sm font-medium text-gray-900">Qurban</label>

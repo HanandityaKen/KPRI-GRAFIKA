@@ -2,6 +2,7 @@
     <form action="{{ route('pengurus.kas-harian.update', $kasHarian->id) }}" id="formCreateJkk" method="POST">
         @csrf
         @method('PUT')
+        <input type="text" name="updated_by" value="{{ auth()->guard('pengurus')->user()->nama }}" hidden>
         <div class="mb-3">
             <label class="block mb-1 text-sm font-medium text-gray-900">Jenis Transaksi</label>
             <select name="jenis_transaksi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" disabled>
@@ -106,9 +107,9 @@
                     <!-- Accordion Item 1 -->
                     <div class="rounded-lg">
                         <h2 id="accordion-collapse-heading-2">
-                        <button type="button" 
+                        <button type="button"
                             class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 rounded-t-lg border transition-all duration-200 {{ ($hari_lembur > 0 || $perjalanan_pengawas > 0 || $thr > 0 || $admin > 0 || $iuran_dekopinda > 0 || $honor_pengurus > 0) ? 'bg-gray-100 border-gray-300' : 'border-gray-200 hover:bg-gray-100' }}"
-                            data-accordion-target="#accordion-collapse-body-2" 
+                            data-accordion-target="#accordion-collapse-body-2"
                             aria-expanded="{{ ($hari_lembur > 0 || $perjalanan_pengawas > 0 || $thr > 0 || $admin > 0 || $iuran_dekopinda > 0 || $honor_pengurus > 0) ? 'true' : 'false' }}"
                             aria-controls="accordion-collapse-body-2">
                             <span class="flex items-center text-sm text-gray-900">
@@ -117,7 +118,7 @@
                             <div class="pr-0.5">
                                 <svg data-accordion-icon class="w-4 h-4 shrink-0 transition-transform duration-200 {{ !($hari_lembur > 0 || $perjalanan_pengawas > 0 || $thr > 0 || $admin > 0 || $iuran_dekopinda > 0 || $honor_pengurus > 0) ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                </svg>      
+                                </svg>
                             </div>
                         </button>
                         </h2>
@@ -154,10 +155,10 @@
                     </div>
                     <div class="rounded-lg">
                         <h2 id="accordion-collapse-heading-3">
-                        <button type="button" 
-                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200 {{ ($rkrab > 0 || $pembinaan > 0 || $harkop > 0 || $dandik > 0) ? 'bg-gray-100 border-gray-300' : 'border-gray-200 hover:bg-gray-100' }}" 
-                            data-accordion-target="#accordion-collapse-body-3" 
-                            aria-expanded="{{ ($rkrab > 0 || $pembinaan > 0 || $harkop > 0 || $dandik > 0) ? 'true' : 'false' }}" 
+                        <button type="button"
+                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200 {{ ($rkrab > 0 || $pembinaan > 0 || $harkop > 0 || $dandik > 0) ? 'bg-gray-100 border-gray-300' : 'border-gray-200 hover:bg-gray-100' }}"
+                            data-accordion-target="#accordion-collapse-body-3"
+                            aria-expanded="{{ ($rkrab > 0 || $pembinaan > 0 || $harkop > 0 || $dandik > 0) ? 'true' : 'false' }}"
                             aria-controls="accordion-collapse-body-3">
                             <span class="flex items-center text-sm text-gray-900">
                                 Beban Organisasi
@@ -165,7 +166,7 @@
                             <div class="pr-0.5">
                                 <svg data-accordion-icon class="w-4 h-4 shrink-0 transition-transform duration-200 {{ !($rkrab > 0 || $pembinaan > 0 || $harkop > 0 || $dandik > 0) ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                </svg> 
+                                </svg>
                             </div>
                         </button>
                         </h2>
@@ -194,10 +195,10 @@
                     </div>
                     <div class="rounded-lg">
                         <h2 id="accordion-collapse-heading-4">
-                        <button type="button" 
-                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200 {{ ($rapat > 0 || $jasa_manasuka > 0) ? 'bg-gray-100 border-gray-300' : 'border-gray-200 hover:bg-gray-100' }}" 
-                            data-accordion-target="#accordion-collapse-body-4" 
-                            aria-expanded="{{ ($rapat > 0 || $jasa_manasuka > 0) ? 'true' : 'false' }}" 
+                        <button type="button"
+                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200 {{ ($rapat > 0 || $jasa_manasuka > 0) ? 'bg-gray-100 border-gray-300' : 'border-gray-200 hover:bg-gray-100' }}"
+                            data-accordion-target="#accordion-collapse-body-4"
+                            aria-expanded="{{ ($rapat > 0 || $jasa_manasuka > 0) ? 'true' : 'false' }}"
                             aria-controls="accordion-collapse-body-4">
                             <span class="flex items-center text-sm text-gray-900">
                                 Beban Operasional
@@ -226,10 +227,10 @@
                     </div>
                     <div class="rounded-lg">
                         <h2 id="accordion-collapse-heading-1">
-                        <button type="button" 
-                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200 {{ ($pajak > 0 || $tabungan_qurban > 0 || $dekopinda > 0 || $wajib_pkpri > 0 || $dansos > 0 || $shu > 0 || $dana_pengurus > 0 || $dana_kesejahteraan > 0 || $pembayaran_listrik_dan_air > 0) ? 'bg-gray-100 border-gray-300' : 'border-gray-200 hover:bg-gray-100' }}" 
-                            data-accordion-target="#accordion-collapse-body-1" 
-                            aria-expanded="{{ ($pajak > 0 || $tabungan_qurban > 0 || $dekopinda > 0 || $wajib_pkpri > 0 || $dansos > 0 || $shu > 0 || $dana_pengurus > 0 || $dana_kesejahteraan > 0 || $pembayaran_listrik_dan_air > 0) ? 'true' : 'false' }}" 
+                        <button type="button"
+                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200 {{ ($pajak > 0 || $tabungan_qurban > 0 || $dekopinda > 0 || $wajib_pkpri > 0 || $dansos > 0 || $shu > 0 || $dana_pengurus > 0 || $dana_kesejahteraan > 0 || $pembayaran_listrik_dan_air > 0) ? 'bg-gray-100 border-gray-300' : 'border-gray-200 hover:bg-gray-100' }}"
+                            data-accordion-target="#accordion-collapse-body-1"
+                            aria-expanded="{{ ($pajak > 0 || $tabungan_qurban > 0 || $dekopinda > 0 || $wajib_pkpri > 0 || $dansos > 0 || $shu > 0 || $dana_pengurus > 0 || $dana_kesejahteraan > 0 || $pembayaran_listrik_dan_air > 0) ? 'true' : 'false' }}"
                             aria-controls="accordion-collapse-body-1">
                             <span class="flex items-center text-sm text-gray-900">
                                 Lain-Lain
@@ -284,7 +285,7 @@
                             </div>
                         </div>
                     </div>
-                </div>             
+                </div>
             </div>
             {{-- End Accordion --}}
 

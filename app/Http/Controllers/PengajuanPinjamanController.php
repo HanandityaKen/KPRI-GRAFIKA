@@ -17,7 +17,7 @@ class PengajuanPinjamanController extends Controller
 {
     /**
      * Menampilkan halaman index pengajuan pinjaman di admin
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function index()
@@ -27,7 +27,7 @@ class PengajuanPinjamanController extends Controller
 
     /**
      * Proses setujui pengajuan pinjaman
-     * 
+     *
      * Fungsi ini menangani proses persetujuan pengajuan pinjaman anggota dengan:
      * - Mengambil pengajuan pinjaman berdasarkan ID
      * - Memeriksa apakah pengajuan pinjaman ditemukan
@@ -44,7 +44,7 @@ class PengajuanPinjamanController extends Controller
      * - Create pinjaman baru
      * - Create angsuran baru untuk pinjaman
      * - Memperbarui status pengajuan pinjaman menjadi disetujui
-     * 
+     *
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -74,7 +74,7 @@ class PengajuanPinjamanController extends Controller
         ->first();
 
         $saldoTerakhir = Saldo::first();
-        
+
         $jumlahPinjaman = $pengajuanPinjaman->jumlah_pinjaman;
 
         if ($saldoTerakhir->saldo < $jumlahPinjaman) {
@@ -112,8 +112,10 @@ class PengajuanPinjamanController extends Controller
             'b_lain'            => 0,
             'tnh_kav'           => 0,
             'keterangan'        => 'Biaya Admin',
+            'created_by'        => $pengajuanPinjaman->requested_by ?? null,
+            'approved_by'       => $reviewedBy,
         ]);
-        
+
         $saldoTerakhir->update([
             'saldo' => $saldoTerakhir->saldo + $pengajuanPinjaman->biaya_admin
         ]);
@@ -151,7 +153,9 @@ class PengajuanPinjamanController extends Controller
             'b_oprs'            => 0,
             'b_lain'            => 0,
             'tnh_kav'           => 0,
-            'keterangan'        => 'Pinjaman'
+            'keterangan'        => 'Pinjaman',
+            'created_by'        => $pengajuanPinjaman->requested_by ?? null,
+            'approved_by'       => $reviewedBy,
         ]);
 
         $saldoTerakhir->update([
@@ -167,7 +171,7 @@ class PengajuanPinjamanController extends Controller
 
         $lama_angsuran = (int) preg_replace('/[^0-9]/', '', $pengajuanPinjaman->lama_angsuran);
         $kurangJasa = intval($pengajuanPinjaman->nominal_bunga * $lama_angsuran);
-        
+
         $oldAngsuran = Angsuran::whereHas('pinjaman.pengajuan_pinjaman', function ($query) use ($pengajuanPinjaman) {
             $query->where('anggota_id', $pengajuanPinjaman->anggota_id);
         })
@@ -188,7 +192,7 @@ class PengajuanPinjamanController extends Controller
         if ($pinjaman) {
             $pinjaman->update([
                 'jumlah_pinjaman' => $pengajuanPinjaman->jumlah_pinjaman + $pinjaman->jumlah_pinjaman,
-            ]);        
+            ]);
         } else {
             $pinjaman = Pinjaman::create([
                 'pengajuan_pinjaman_id' => $pengajuanPinjaman->id,
@@ -196,7 +200,7 @@ class PengajuanPinjamanController extends Controller
                 'jumlah_pinjaman' => $kurangAngsuran,
                 'status' => 'dalam pembayaran'
             ]);
-            
+
             Angsuran::create([
                 'pinjaman_id' => $pinjaman->id,
                 'kurang_jasa' => $kurangJasa,
@@ -208,7 +212,7 @@ class PengajuanPinjamanController extends Controller
         $kasHarianKeluar->update([
             'pinjaman_id' => $pinjaman->id
         ]);
-        
+
         $pengajuanPinjaman->update([
             'reviewed_by' => $reviewedBy,
             'status' => 'disetujui',
@@ -219,13 +223,13 @@ class PengajuanPinjamanController extends Controller
 
     /**
      * Proses tolak pengajuan pinjaman
-     * 
+     *
      * Fungsi ini menangani proses penolakan pengajuan pinjaman anggota dengan:
      * - Mengambil pengajuan pinjaman berdasarkan ID
      * - Memeriksa apakah pengajuan pinjaman ditemukan
      * - Memeriksa status pengajuan pinjaman
      * - Memperbarui status pengajuan pinjaman menjadi ditolak
-     * 
+     *
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
      */

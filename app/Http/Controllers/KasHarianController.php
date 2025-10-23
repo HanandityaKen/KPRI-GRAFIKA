@@ -94,6 +94,7 @@ class KasHarianController extends Controller
             'pembayaran_listrik_dan_air' => 'nullable|string',
             'tnh_kav'           => 'nullable|string',
             'keterangan'        => 'required|string',
+            'created_by'        => 'nullable|string',
         ]);
 
         $no_anggota = Anggota::findOrFail($request->anggota_id)->no_anggota;
@@ -209,6 +210,7 @@ class KasHarianController extends Controller
                 'pembayaran_listrik_dan_air' => $pembayaran_listrik_dan_air ?? 0,
                 'tnh_kav'           => $tnh_kav ?? 0,
                 'keterangan'        => $request->keterangan ?? null,
+                'created_by'        => $request->created_by ?? null,
             ]);
 
             $bulan = strtolower(Carbon::createFromFormat('Y-m-d', $tanggal)->translatedFormat('F'));
@@ -319,6 +321,7 @@ class KasHarianController extends Controller
                 'pembayaran_listrik_dan_air' => $pembayaran_listrik_dan_air ?? 0,
                 'tnh_kav'           => $tnh_kav ?? 0,
                 'keterangan'        => $request->keterangan ?? null,
+                'created_by'        => $request->created_by ?? null,
             ]);
 
             if ($tabungan_qurban > 0) {
@@ -398,6 +401,8 @@ class KasHarianController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        // dd($request->all());
+
         $request->validate([
             'jenis_transaksi'   => 'required|in:kas masuk,kas keluar',
             'tanggal'           => 'required|date_format:d-m-Y',
@@ -439,6 +444,7 @@ class KasHarianController extends Controller
             'pembayaran_listrik_dan_air' => 'nullable|string',
             'tnh_kav'           => 'nullable|string',
             'keterangan'        => 'required|string',
+            'updated_by'        => 'nullable|string',
         ]);
 
         $tanggal = Carbon::createFromFormat('d-m-Y', $request->tanggal)->format('Y-m-d');
@@ -569,6 +575,7 @@ class KasHarianController extends Controller
                 'pembayaran_listrik_dan_air' => $pembayaran_listrik_dan_air ?? 0,
                 'tnh_kav'           => $tnh_kav ?? 0,
                 'keterangan'        => $request->keterangan ?? null,
+                'updated_by'        => $request->updated_by ?? null,
             ]);
 
             $jkm = Jkm::where('kas_harian_id', $kasHarian->id)->first();
@@ -699,6 +706,7 @@ class KasHarianController extends Controller
                 'pembayaran_listrik_dan_air' => $pembayaran_listrik_dan_air ?? 0,
                 'tnh_kav'           => $tnh_kav ?? 0,
                 'keterangan'        => $request->keterangan ?? null,
+                'updated_by'        => $request->updated_by ?? null,
             ]);
 
             $jkk = Jkk::where('kas_harian_id', $kasHarian->id)->first();

@@ -12,7 +12,7 @@ use App\Models\WajibPinjam;
 
 /**
  * Komponen Livewire untuk form edit kas harian masuk.
- * 
+ *
  * Fitur:
  * - Menampilkan dropdown anggota dengan nama dan ID
  * - Mengambil data kas harian berdasarkan id_kas_harian
@@ -25,7 +25,7 @@ class FormEditKasHarian extends Component
 {
     /**
      * Komponen untuk form edit kas harian masuk.
-     * 
+     *
      * Properti:
      * - $kasHarian: Model kas harian yang sedang diedit
      * - $namaList: Daftar nama anggota untuk dropdown
@@ -45,7 +45,7 @@ class FormEditKasHarian extends Component
     public $namaList = [];
     public $anggota_id = '';
     public $pokok = '';
-    
+
     public $wajib = '';
     public $wajibOptions = [];
     public $selectedWajib = '';
@@ -62,9 +62,12 @@ class FormEditKasHarian extends Component
 
     public $disabled = false;
 
+    // List Pengurus
+    public $anggotaList = [];
+
     /**
      * Lifecycle hook untuk inisialisasi data awal.
-     * 
+     *
      * @param int $id ID kas harian yang akan diedit.
      */
     public function mount($id)
@@ -74,7 +77,7 @@ class FormEditKasHarian extends Component
         $this->anggota_id = $this->kasHarian->anggota_id;
 
         $this->pokok = $this->kasHarian->pokok;
-        
+
         $this->wajib = $this->kasHarian->wajib;
         $this->selectedWajib = $this->kasHarian->wajib;
         $this->wajibManual = $this->kasHarian->wajib;
@@ -88,6 +91,9 @@ class FormEditKasHarian extends Component
         $this->lain_lain = $this->kasHarian->lain_lain;
 
         $this->wajibPinjamList = WajibPinjam::orderBy('nominal', 'asc')->pluck('nominal', 'id')->toArray();
+
+        // List Pengurus
+        $this->anggotaList = Anggota::where('posisi', 'pengurus')->pluck('nama', 'id')->toArray();
 
         $this->getWajib();
 
@@ -127,7 +133,7 @@ class FormEditKasHarian extends Component
 
     /**
      * Mengambil data pokok dari tabel simpanan.
-     * 
+     *
      * Jika disimpanan sudah ada pokok, maka set pokok ke 'Rp 0'.
      * Jika tidak ada, ambil nominal dari tabel pokok.
      *
@@ -136,20 +142,20 @@ class FormEditKasHarian extends Component
     public function getPokok()
     {
         if ($this->anggota_id) {
-            $anggota = Anggota::find($this->anggota_id); 
+            $anggota = Anggota::find($this->anggota_id);
             $kasHarian = Simpanan::where('anggota_id', $this->anggota_id)->latest()->first();
             $pokok = Pokok::first();
             $wajib = Wajib::where('jenis_pegawai', $anggota->jenis_pegawai)->first();
-    
+
             if (($kasHarian && $kasHarian->pokok > 0) || ($wajib && $wajib->nominal == 0)  ) {
                 $this->pokok = 'Rp 0';
             } else {
                 $this->pokok = 'Rp ' . number_format($pokok->nominal, 0, ',', '.');
             }
-    
+
             return;
         }
-    
+
         $this->pokok = '';
     }
 
@@ -180,7 +186,7 @@ class FormEditKasHarian extends Component
 
     /**
      * Merender tampilan form.
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function render()

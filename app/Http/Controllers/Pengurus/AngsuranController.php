@@ -14,7 +14,7 @@ class AngsuranController extends Controller
 {
     /**
      * Menampilkan halaman index angsuran di pengurus
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function index()
@@ -24,7 +24,7 @@ class AngsuranController extends Controller
 
     /**
      * Menampilkan halaman pembayaran angsuran pinjaman di pengurus
-     * 
+     *
      * @param string $id
      * @return \Illuminate\View\View
      */
@@ -34,10 +34,10 @@ class AngsuranController extends Controller
 
         return view('pengurus.angsuran.bayar-angsuran', compact('angsuran'));
     }
-    
+
     /**
      * Proses pembayaran angsuran pinjaman
-     * 
+     *
      * Fungsi ini menangani proses pembayaran angsuran pinjaman anggota dengan:
      * - Validasi input angsuran dan jasa
      * - Perhitungan tunggakan, kurang angsuran, kurang jasa, angsuran ke, dan sisa angsuran
@@ -45,7 +45,7 @@ class AngsuranController extends Controller
      * - Pencatatan pembayaran ke dalam tabel kas_harian
      * - Pencatatan ke dalam tabel jkm
      * - Pembaruan saldo koperasi
-     * 
+     *
      * @param \Illuminate\Http\Request $request
      * @param string $id
      * @return \Illuminate\Http\RedirectResponse
@@ -58,6 +58,7 @@ class AngsuranController extends Controller
             'angsuran_manual' => 'nullable|string',
             'jasa' => 'nullable|string',
             'jasa_manual' => 'nullable|string',
+            'created_by' => 'required|string',
         ]);
 
         $tanggal = Carbon::createFromFormat('d-m-Y', $request->tanggal)->format('Y-m-d');
@@ -88,7 +89,7 @@ class AngsuranController extends Controller
             $clean = str_replace(['Rp', ' ', ','], '', $jasaInput);
             $bayarJasa = intval(floatval($clean));
         }
-        
+
         if ($bayarAngsuran === 0 && $bayarJasa === 0) {
             return back()->withErrors(['error' => 'Angsuran dan jasa tidak boleh 0!'])->withInput();
         }
@@ -105,7 +106,7 @@ class AngsuranController extends Controller
 
         if ($angsuran->sisa_angsuran == 1 && $angsuranInput == 0) {
             return back()->withErrors(['angsuran' => '* Angsuran harus diisi karena ini adalah pembayaran terakhir!'])->withInput();
-        }        
+        }
 
         if ($bayarAngsuran == 0) {
             $angsuran->tunggakan = $angsuran->tunggakan + intval($angsuran->pinjaman->pengajuan_pinjaman->nominal_pokok);
@@ -147,7 +148,7 @@ class AngsuranController extends Controller
                 'status' => 'lunas'
             ]);
         }
-        
+
         $kasHarian = KasHarian::create([
             'anggota_id' => $anggota_id,
             'nama_anggota' => $nama,
@@ -172,7 +173,8 @@ class AngsuranController extends Controller
             'b_oprs'            => 0,
             'b_lain'            => 0,
             'tnh_kav'           => 0,
-            'keterangan'        => 'Bayar Angsuran Pinjaman' 
+            'keterangan'        => 'Bayar Angsuran Pinjaman',
+            'created_by'        => $request->created_by,
         ]);
 
         $bulan = strtolower(Carbon::createFromFormat('Y-m-d', $tanggal)->translatedFormat('F'));
@@ -190,7 +192,7 @@ class AngsuranController extends Controller
         $saldo = Saldo::first();
 
         $saldo->increment('saldo', $saldoMasuk);
-        
+
         return redirect()->route('pengurus.angsuran.index')->with('success', 'Pembayaran Angsuran Pinjaman Berhasil!');
     }
 }

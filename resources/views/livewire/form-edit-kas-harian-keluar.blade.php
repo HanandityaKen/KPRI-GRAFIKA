@@ -106,9 +106,9 @@
                     <!-- Accordion Item 1 -->
                     <div class="rounded-lg">
                         <h2 id="accordion-collapse-heading-2">
-                        <button type="button" 
+                        <button type="button"
                             class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 rounded-t-lg border transition-all duration-200 {{ ($hari_lembur > 0 || $perjalanan_pengawas > 0 || $thr > 0 || $admin > 0 || $iuran_dekopinda > 0 || $honor_pengurus > 0) ? 'bg-gray-100 border-gray-300' : 'border-gray-200 hover:bg-gray-100' }}"
-                            data-accordion-target="#accordion-collapse-body-2" 
+                            data-accordion-target="#accordion-collapse-body-2"
                             aria-expanded="{{ ($hari_lembur > 0 || $perjalanan_pengawas > 0 || $thr > 0 || $admin > 0 || $iuran_dekopinda > 0 || $honor_pengurus > 0) ? 'true' : 'false' }}"
                             aria-controls="accordion-collapse-body-2">
                             <span class="flex items-center text-sm text-gray-900">
@@ -117,7 +117,7 @@
                             <div class="pr-0.5">
                                 <svg data-accordion-icon class="w-4 h-4 shrink-0 transition-transform duration-200 {{ !($hari_lembur > 0 || $perjalanan_pengawas > 0 || $thr > 0 || $admin > 0 || $iuran_dekopinda > 0 || $honor_pengurus > 0) ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                </svg>      
+                                </svg>
                             </div>
                         </button>
                         </h2>
@@ -154,10 +154,10 @@
                     </div>
                     <div class="rounded-lg">
                         <h2 id="accordion-collapse-heading-3">
-                        <button type="button" 
-                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200 {{ ($rkrab > 0 || $pembinaan > 0 || $harkop > 0 || $dandik > 0) ? 'bg-gray-100 border-gray-300' : 'border-gray-200 hover:bg-gray-100' }}" 
-                            data-accordion-target="#accordion-collapse-body-3" 
-                            aria-expanded="{{ ($rkrab > 0 || $pembinaan > 0 || $harkop > 0 || $dandik > 0) ? 'true' : 'false' }}" 
+                        <button type="button"
+                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200 {{ ($rkrab > 0 || $pembinaan > 0 || $harkop > 0 || $dandik > 0) ? 'bg-gray-100 border-gray-300' : 'border-gray-200 hover:bg-gray-100' }}"
+                            data-accordion-target="#accordion-collapse-body-3"
+                            aria-expanded="{{ ($rkrab > 0 || $pembinaan > 0 || $harkop > 0 || $dandik > 0) ? 'true' : 'false' }}"
                             aria-controls="accordion-collapse-body-3">
                             <span class="flex items-center text-sm text-gray-900">
                                 Beban Organisasi
@@ -165,7 +165,7 @@
                             <div class="pr-0.5">
                                 <svg data-accordion-icon class="w-4 h-4 shrink-0 transition-transform duration-200 {{ !($rkrab > 0 || $pembinaan > 0 || $harkop > 0 || $dandik > 0) ? 'rotate-180' : '' }}" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                                </svg> 
+                                </svg>
                             </div>
                         </button>
                         </h2>
@@ -194,10 +194,10 @@
                     </div>
                     <div class="rounded-lg">
                         <h2 id="accordion-collapse-heading-4">
-                        <button type="button" 
-                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200 {{ ($rapat > 0 || $jasa_manasuka > 0) ? 'bg-gray-100 border-gray-300' : 'border-gray-200 hover:bg-gray-100' }}" 
-                            data-accordion-target="#accordion-collapse-body-4" 
-                            aria-expanded="{{ ($rapat > 0 || $jasa_manasuka > 0) ? 'true' : 'false' }}" 
+                        <button type="button"
+                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200 {{ ($rapat > 0 || $jasa_manasuka > 0) ? 'bg-gray-100 border-gray-300' : 'border-gray-200 hover:bg-gray-100' }}"
+                            data-accordion-target="#accordion-collapse-body-4"
+                            aria-expanded="{{ ($rapat > 0 || $jasa_manasuka > 0) ? 'true' : 'false' }}"
                             aria-controls="accordion-collapse-body-4">
                             <span class="flex items-center text-sm text-gray-900">
                                 Beban Operasional
@@ -226,10 +226,10 @@
                     </div>
                     <div class="rounded-lg">
                         <h2 id="accordion-collapse-heading-1">
-                        <button type="button" 
-                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200 {{ ($pajak > 0 || $tabungan_qurban > 0 || $dekopinda > 0 || $wajib_pkpri > 0 || $dansos > 0 || $shu > 0 || $dana_pengurus > 0 || $dana_kesejahteraan > 0 || $pembayaran_listrik_dan_air > 0) ? 'bg-gray-100 border-gray-300' : 'border-gray-200 hover:bg-gray-100' }}" 
-                            data-accordion-target="#accordion-collapse-body-1" 
-                            aria-expanded="{{ ($pajak > 0 || $tabungan_qurban > 0 || $dekopinda > 0 || $wajib_pkpri > 0 || $dansos > 0 || $shu > 0 || $dana_pengurus > 0 || $dana_kesejahteraan > 0 || $pembayaran_listrik_dan_air > 0) ? 'true' : 'false' }}" 
+                        <button type="button"
+                            class="flex items-center justify-between w-full p-2 font-medium text-left text-gray-900 border border-gray-200 hover:bg-gray-100 transition-all duration-200 {{ ($pajak > 0 || $tabungan_qurban > 0 || $dekopinda > 0 || $wajib_pkpri > 0 || $dansos > 0 || $shu > 0 || $dana_pengurus > 0 || $dana_kesejahteraan > 0 || $pembayaran_listrik_dan_air > 0) ? 'bg-gray-100 border-gray-300' : 'border-gray-200 hover:bg-gray-100' }}"
+                            data-accordion-target="#accordion-collapse-body-1"
+                            aria-expanded="{{ ($pajak > 0 || $tabungan_qurban > 0 || $dekopinda > 0 || $wajib_pkpri > 0 || $dansos > 0 || $shu > 0 || $dana_pengurus > 0 || $dana_kesejahteraan > 0 || $pembayaran_listrik_dan_air > 0) ? 'true' : 'false' }}"
                             aria-controls="accordion-collapse-body-1">
                             <span class="flex items-center text-sm text-gray-900">
                                 Lain-Lain
@@ -284,7 +284,7 @@
                             </div>
                         </div>
                     </div>
-                </div>             
+                </div>
             </div>
             {{-- End Accordion --}}
 
@@ -300,9 +300,66 @@
             <input type="text" name="keterangan" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2" placeholder="Masukan Keterangan" value="{{ old('keterangan', $kasHarian->keterangan) }}" required/>
         </div>
         <div class="flex justify-start">
-            <button type="submit" class="bg-green-800 text-white py-2 px-4 rounded-md" @if($disabled) disabled @endif>
+            <button data-modal-target="modal-pengurus-kas-keluar" data-modal-toggle="modal-pengurus-kas-keluar" onclick="initTomSelectPengurusUpdateKasKeluar()" class="bg-green-800 text-white py-2 px-4 rounded-md" @if($disabled) disabled @endif>
                 Simpan
             </button>
+
+            <div id="modal-pengurus-kas-keluar" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-full min-h-screen bg-gray-900 bg-opacity-40">
+                <div class="relative p-4 w-full max-w-md max-h-full">
+                    <!-- Modal content -->
+                    <div class="relative bg-white rounded-lg shadow-xl">
+                        <!-- Modal header -->
+                        <div class="flex items-center justify-between p-5 border-b border-gray-200">
+                            <h3 class="text-xl font-semibold text-gray-900">
+                                Dibuat Oleh
+                            </h3>
+                            <button type="button" class="text-gray-400 hover:bg-gray-100 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center" data-modal-hide="modal-pengurus-kas-keluar">
+                                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
+                        </div>
+                        <!-- Modal body -->
+                        <div class="p-6 space-y-4">
+                            <div>
+                                <label class="block mb-2 text-sm text-left font-medium text-gray-700">Dibuat Oleh</label>
+                                <select id="select_pengurus_kas_keluar" name="updated_by" class="text-left bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 transition duration-200" required>
+                                    <option value="" disabled selected>Pilih Nama</option>
+                                    @foreach ($anggotaList as $id => $nama)
+                                        <option value="{{ $nama }}" {{ old('anggota_id') == $nama ? 'selected' : '' }}>{{ $nama }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="flex items-center justify-end p-6 pt-0 space-x-3 border-t border-gray-200 rounded-b">
+                            <div class="mt-3">
+                                <button data-modal-hide="modal-pengurus-kas-keluar" type="button" class="px-5 py-2.5 text-sm font-medium text-gray-700 bg-white hover:bg-gray-100 border border-gray-300 rounded-lg focus:outline-none transition duration-200">
+                                    Batal
+                                </button>
+                                <button type="submit" class="px-5 py-2.5 text-sm font-medium text-white bg-green-800 hover:bg-green-900 rounded-lg transition duration-200">
+                                    Simpan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </form>
 </div>
+@push('scripts')
+    <script>
+        function initTomSelectPengurusUpdateKasKeluar() {
+            new TomSelect("#select_pengurus_kas_keluar",{
+                create: false,
+                sortField: {
+                    field: "text",
+                    direction: "asc"
+                }
+            });
+        }
+    </script>
+@endpush

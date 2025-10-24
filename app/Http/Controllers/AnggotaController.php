@@ -27,9 +27,9 @@ class AnggotaController extends Controller
         return view('admin.anggota.index-anggota');
     }
 
-    /** 
+    /**
      * Menampilkan halaman untuk membuat atau menambahkan anggota baru.
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function create()
@@ -129,6 +129,13 @@ class AnggotaController extends Controller
             'nama_anggota' => $user->nama
         ]);
 
+        // Update created_by, updated_by, approved_by jika nama anggota posisi pengurus diubah
+        if ($user->posisi === 'pengurus' && $oldName !== $user->nama) {
+            KasHarian::where('created_by', $oldName)->update(['created_by' => $user->nama]);
+            KasHarian::where('updated_by', $oldName)->update(['updated_by' => $user->nama]);
+            KasHarian::where('approved_by', $oldName)->update(['approved_by' => $user->nama]);
+        }
+
         // Perbarui tabel pengajuan_pinjaman dengan nama anggota yang baru
         PengajuanPinjaman::where('anggota_id', $user->id)->update([
             'nama_anggota' => $user->nama
@@ -142,7 +149,7 @@ class AnggotaController extends Controller
         if ($oldName !== $user->nama) {
             PengajuanPinjaman::where('reviewed_by', $oldName)->update(['reviewed_by' => $user->nama]);
             PengajuanPinjaman::where('requested_by', $oldName)->update(['requested_by' => $user->nama]);
-        
+
             PengajuanUnitKonsumsi::where('reviewed_by', $oldName)->update(['reviewed_by' => $user->nama]);
             PengajuanUnitKonsumsi::where('requested_by', $oldName)->update(['requested_by' => $user->nama]);
         }
@@ -158,10 +165,10 @@ class AnggotaController extends Controller
 
     /**
      * Menghapus anggota berdasarkan ID jika tidak memiliki pinjaman atau unit konsumsi yang belum lunas
-     * 
+     *
      * Hapus simpanan anggota dan catat pengembalian dana simpanan ke dalam kas_harian.
-     * 
-     * @param string $id 
+     *
+     * @param string $id
      * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(string $id)

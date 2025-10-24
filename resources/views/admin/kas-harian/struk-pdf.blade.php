@@ -37,12 +37,12 @@
         <hr style="border: none; border-top: 2px solid #000;">
         <section style="margin-top: 25px;">
             <table style="width: 100%; border-collapse: collapse;">
-                <tr>
+                {{-- <tr>
                     <td style="font-size: 16px; font-weight: bold; font-style: italic; text-align: left; padding: 0;">Sudah Terima dari :</td>
                     <td style="font-size: 16px; font-weight: bold; text-align: right; padding: 0;">{{ $kasHarian->approved_by ?? $kasHarian->updated_by ?? $kasHarian->created_by }}</td>
-                </tr>
+                </tr> --}}
                 <tr>
-                    <td style="font-size: 16px; font-weight: bold; text-align: left; padding: 0; padding-top: 15px;">Nama Anggota</td>
+                    <td style="font-size: 16px; font-weight: bold; font-style: italic ;text-align: left; padding: 0; padding-top: 15px;">Sudah Terima dari :</td>
                     <td style="font-size: 16px; font-weight: bold; text-align: right; padding: 0; padding-top: 15px;">{{ $kasHarian->nama_anggota }}</td>
                 </tr>
                 <tr>

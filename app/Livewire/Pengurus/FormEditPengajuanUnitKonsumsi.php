@@ -7,6 +7,7 @@ use App\Models\Anggota;
 use App\Models\Persentase;
 use App\Models\PengajuanUnitKonsumsi;
 use App\Models\UnitKonsumsi;
+use App\Models\LimitPengajuanUnitKonsumsi;
 
 /**
  * Komponen Livewire untuk mengedit pengajuan unit konsumsi.
@@ -17,7 +18,7 @@ use App\Models\UnitKonsumsi;
  * - Validasi inputan untuk memastikan tidak ada yang kosong
  * - Menangani status disabled untuk tombol submit
  * - Menangani status aktif unit konsumsi untuk anggota
- * 
+ *
  * Properti:
  * - $pengajuanUnitKonsumsi: Model pengajuan unit konsumsi yang sedang diedit
  * - $namaList: Daftar nama anggota untuk dropdown
@@ -30,7 +31,7 @@ use App\Models\UnitKonsumsi;
  * - $error_nominal: Pesan error jika nominal melebihi batas
  * - $disabled: Status disabled untuk tombol submit
  * - $unitKonsumsiAktif: Status apakah anggota memiliki unit konsumsi aktif
- * 
+ *
  *  Metode:
  * - mount: Inisialisasi data awal saat komponen dimuat
  * - updated: Memanggil metode hitungUnitKonsumsi saat ada perubahan pada nominal atau lama angsuran
@@ -59,6 +60,8 @@ class FormEditPengajuanUnitKonsumsi extends Component
     public $error_lama_angsuran = '';
     public $disabled = false;
 
+    public $limit;
+
     public function mount($id)
     {
         $this->pengajuanUnitKonsumsi = PengajuanUnitKonsumsi::findOrFail($id);
@@ -69,6 +72,7 @@ class FormEditPengajuanUnitKonsumsi extends Component
         $this->nominal = "Rp " . number_format($this->pengajuanUnitKonsumsi->nominal, 0, ',', '.');
         preg_match('/\d+/', $this->pengajuanUnitKonsumsi->lama_angsuran, $matches);
         $this->lama_angsuran = $matches[0] ?? null;
+        $this->limit = LimitPengajuanUnitKonsumsi::value('limit');
         $this->updatedNominal();
     }
 
@@ -100,9 +104,9 @@ class FormEditPengajuanUnitKonsumsi extends Component
     {
         $nominal = (int) str_replace(['Rp', '.', ','], '', $this->nominal);
 
-        if ($nominal > 5000000) {
-            $this->error_nominal = '* Nominal maksimal Rp 5.000.000.';
-            $this->reset(['nominal_pokok', 'nominal_bunga', 'jumlah_nominal']); // Reset nilai jika lebih dari 5 juta
+        if ($nominal > $this->limit) {
+            $this->error_nominal = '* Nominal maksimal Rp ' . number_format($this->limit, 0, ',', '.') . '.';
+            $this->reset(['nominal_pokok', 'nominal_bunga', 'jumlah_nominal']);
             $this->disabled = true;
             $this->disabled();
             return;
@@ -125,7 +129,7 @@ class FormEditPengajuanUnitKonsumsi extends Component
         $nominal = (int) str_replace(['Rp', '.', ','], '', $this->nominal);
         $lamaAngsuran = (int) preg_replace('/[^0-9]/', '', $this->lama_angsuran);
 
-        if ($nominal > 5000000) {
+        if ($nominal > $this->limit) {
             return;
         }
 
@@ -133,7 +137,7 @@ class FormEditPengajuanUnitKonsumsi extends Component
             $this->nominal_pokok = ceil(($nominal / $lamaAngsuran) / 100) * 100;
 
             $bunga_unit_konsumsi = Persentase::where('id', 4)->value('persentase');
-            
+
             $this->nominal_bunga = ceil(($nominal * $bunga_unit_konsumsi) / 100) * 100;
             $this->jumlah_nominal = $this->nominal_pokok + $this->nominal_bunga;
 

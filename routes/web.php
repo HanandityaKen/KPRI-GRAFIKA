@@ -28,6 +28,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ShuController;
 use App\Http\Controllers\JasaManasukaController;
 use App\Http\Controllers\NeracaController;
+use App\Http\Controllers\LimitPengajuanUnitKonsumsiController;
 
 use App\Http\Controllers\Pengurus\PengurusController as SubPengurusController;
 use App\Http\Controllers\Pengurus\KasHarianController as SubKasHarianController;
@@ -124,6 +125,8 @@ Route::prefix('admin')->as('admin.')->middleware('admin', 'no-cache')->group(fun
     Route::get('/neraca/tabel-neraca', [NeracaController::class, 'indexTabelNeraca'])->name('neraca.index-tabel-neraca');
     Route::get('/neraca/perbandingan-neraca', [NeracaController::class, 'indexPerbandinganNeraca'])->name('neraca.index-perbandingan-neraca');
     Route::get('/struk/{id}', [RiwayatTransaksiController::class, 'downloadStruk'])->name('struk');
+    Route::get('/limit-pengajuan-unit-konsumsi', [LimitPengajuanUnitKonsumsiController::class, 'index'])->name('limit-pengajuan-unit-konsumsi-index');
+    Route::put('/limit-pengajuan-unit-konsumsi-update', [LimitPengajuanUnitKonsumsiController::class, 'update'])->name('limit-pengajuan-unit-konsumsi-update');
 });
 
 Route::get('/pengurus', [AuthController::class, 'showPengurusLoginForm'])->name('pengurus.login');

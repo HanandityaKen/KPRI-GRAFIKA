@@ -7,10 +7,11 @@ use App\Models\Anggota;
 use App\Models\Persentase;
 use App\Models\PengajuanUnitKonsumsi;
 use App\Models\UnitKonsumsi;
+use App\Models\LimitPengajuanUnitKonsumsi;
 
 /**
  * Komponen Livewire untuk membuat formulir pengajuan pinjaman oleh pengurus.
- * 
+ *
  * Komponen ini memungkinkan pengurus:
  * - Memilih anggota.
  * - Mengisi nominal, nama barang dan lama angsuran.
@@ -38,6 +39,8 @@ class FormCreatePengajuanUnitKonsumsi extends Component
     public $disabled_proses_pengajuan_unit_konsumsi = false;
     public $disabled = false;
 
+    public $limit;
+
     /**
      * Lifecycle hook yang dijalankan saat komponen pertama kali dimuat.
      * Mengambil data semua anggota dan menyimpannya dalam bentuk array key-value (id => nama).
@@ -46,6 +49,8 @@ class FormCreatePengajuanUnitKonsumsi extends Component
     {
         $this->namaList = Anggota::pluck('nama', 'id');
         $this->lama_angsuran = '';
+
+        $this->limit = LimitPengajuanUnitKonsumsi::value('limit');
     }
 
     /**
@@ -74,9 +79,20 @@ class FormCreatePengajuanUnitKonsumsi extends Component
     {
         $nominal = (int) str_replace(['Rp', '.', ','], '', $this->nominal);
 
-        if ($nominal > 6000000) {
-            $this->error_nominal = '* Nominal maksimal Rp 6.000.000.';
-            $this->reset(['nominal_pokok', 'nominal_bunga', 'jumlah_nominal']); // Reset nilai jika lebih dari 5 juta
+        // if ($nominal > 6000000) {
+        //     $this->error_nominal = '* Nominal maksimal Rp 6.000.000.';
+        //     $this->reset(['nominal_pokok', 'nominal_bunga', 'jumlah_nominal']); // Reset nilai jika lebih dari 5 juta
+        //     $this->disabled_nominal = true;
+        //     $this->disabled();
+        //     return;
+        // } else {
+        //     $this->error_nominal = '';
+        //     $this->disabled_nominal = false;
+        // }
+
+        if ($nominal > $this->limit) {
+            $this->error_nominal = '* Nominal maksimal Rp ' . number_format($this->limit, 0, ',', '.') . '.';
+            $this->reset(['nominal_pokok', 'nominal_bunga', 'jumlah_nominal']);
             $this->disabled_nominal = true;
             $this->disabled();
             return;
@@ -105,7 +121,11 @@ class FormCreatePengajuanUnitKonsumsi extends Component
         $nominal = (int) str_replace(['Rp', '.', ','], '', $this->nominal);
         $lamaAngsuran = (int) preg_replace('/[^0-9]/', '', $this->lama_angsuran);
 
-        if ($nominal > 6000000) {
+        // if ($nominal > 6000000) {
+        //     return;
+        // }
+
+        if ($nominal > $this->limit) {
             return;
         }
 
@@ -113,7 +133,7 @@ class FormCreatePengajuanUnitKonsumsi extends Component
             $this->nominal_pokok = ceil(($nominal / $lamaAngsuran) / 100) * 100;
 
             $bunga_unit_konsumsi = Persentase::where('id', 4)->value('persentase');
-            
+
             $this->nominal_bunga = ceil(($nominal * $bunga_unit_konsumsi) / 100) * 100;
             $this->jumlah_nominal = $this->nominal_pokok + $this->nominal_bunga;
 
@@ -191,7 +211,7 @@ class FormCreatePengajuanUnitKonsumsi extends Component
 
     /**
      * Merender tampilan Livewire untuk form pengajuan unit konsumsi.
-     * 
+     *
      * @return \Illuminate\View\View
      */
     public function render()

@@ -134,7 +134,21 @@ class FormCreatePengajuanUnitKonsumsi extends Component
 
             $bunga_unit_konsumsi = Persentase::where('id', 4)->value('persentase');
 
-            $this->nominal_bunga = ceil(($nominal * $bunga_unit_konsumsi) / 100) * 100;
+            // Perhitungan jasa yang lama (kali 2%)
+            // $this->nominal_bunga = ceil(($nominal * $bunga_unit_konsumsi) / 100) * 100;
+
+            // Perhitungan jasa yang baru (kali 20% dibagi lama angsuran)
+            $jasa = ceil(($nominal * $bunga_unit_konsumsi) / 100) * 100;
+
+            $this->nominal_bunga = $jasa / $lamaAngsuran;
+
+            // dd([
+            //     'nominal' => $nominal,
+            //     'jasa' => $jasa,
+            //     'nominal_bunga' => $this->nominal_bunga,
+            //     'bunga_unit_konsumsi' => $bunga_unit_konsumsi,
+            // ]);
+
             $this->jumlah_nominal = $this->nominal_pokok + $this->nominal_bunga;
 
             $this->nominal_pokok = "Rp " . number_format($this->nominal_pokok, 0, ',', '.');
